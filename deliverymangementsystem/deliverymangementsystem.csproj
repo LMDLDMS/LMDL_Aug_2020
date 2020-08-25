@@ -1,0 +1,1075 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F53204A2-CC23-484B-A6B1-1E3909B9880E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>deliverymangementsystem</RootNamespace>
+    <AssemblyName>deliverymangementsystem</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.3.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.3\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.1.3.0\lib\net45\FastMember.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Compression.Base, Version=16.3450.0.21, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Compression.AspNet.Mvc5.16.3.0.21\lib\net45\Syncfusion.Compression.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Licensing, Version=16.3460.0.21, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Licensing.16.3.0.21\lib\net46\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Pdf.Base, Version=16.3450.0.21, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Pdf.AspNet.Mvc5.16.3.0.21\lib\net45\Syncfusion.Pdf.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.0.0\lib\net46\System.IO.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.4\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\DispatchController.cs" />
+    <Compile Include="Controllers\DriverContactInfoController.cs" />
+    <Compile Include="Controllers\MainAdminController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\PerformansController.cs" />
+    <Compile Include="Controllers\RouteTrackingController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="EDM\joinmodel.cs" />
+    <Compile Include="EDM\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tbladmin.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblassign.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblAssign_16052020.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblCompanyDetailsMaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblconcession.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblContactSettingMaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tbldailyroutetrack.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblDateTimeFormatMaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tbldispatch.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tbldriver.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblDriverRemark.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tbldrivertest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tbldrivertest_bk24042020.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tbldrivertraning.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblfinaldrivermaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblLoginSettingMaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblmodule.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblonbordingmaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblPageGroupMaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblParametersMaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblperformence2.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblperfromense1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblreschedule.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblridesetup.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblrole.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblRoleMaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblScreenMaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblSocialMediaSettingMaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblsource.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblsubadmin.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblterminate.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblticket.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblticketconveration.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblTimeZoneMaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tbltraningreschedule.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblVanMaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\tblWeekDaysMaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Assignauth.cs" />
+    <Compile Include="Models\AssignedJoin.cs" />
+    <Compile Include="Models\common.cs" />
+    <Compile Include="Models\ConcessionModel.cs" />
+    <Compile Include="Models\dispatchmodel.cs" />
+    <Compile Include="Models\finalDriverListModel.cs" />
+    <Compile Include="Models\jobofferlistModel.cs" />
+    <Compile Include="Models\modelDAContacts.cs" />
+    <Compile Include="Models\modelDuplucateDrivers.cs" />
+    <Compile Include="Models\modelSettings.cs" />
+    <Compile Include="Models\ModuleCheck.cs" />
+    <Compile Include="Models\RouteTrackModel.cs" />
+    <Compile Include="Models\ScheduleTraningModel.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="alertpop\jquery-confirm.min.css" />
+    <Content Include="alertpop\jquery-confirm.min.js" />
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\deliverymangementsystem.dll" />
+    <Content Include="bin\deliverymangementsystem.pdb" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Microsoft.AspNet.TelemetryCorrelation.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\csi.exe" />
+    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll" />
+    <Content Include="bin\roslyn\System.AppContext.dll" />
+    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\roslyn\System.Console.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.FileVersionInfo.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.StackTrace.dll" />
+    <Content Include="bin\roslyn\System.IO.Compression.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.Primitives.dll" />
+    <Content Include="bin\roslyn\System.IO.Pipes.AccessControl.dll" />
+    <Content Include="bin\roslyn\System.IO.Pipes.dll" />
+    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\roslyn\System.Security.AccessControl.dll" />
+    <Content Include="bin\roslyn\System.Security.Claims.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Algorithms.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Encoding.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Primitives.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.X509Certificates.dll" />
+    <Content Include="bin\roslyn\System.Security.Principal.Windows.dll" />
+    <Content Include="bin\roslyn\System.Text.Encoding.CodePages.dll" />
+    <Content Include="bin\roslyn\System.ValueTuple.dll" />
+    <Content Include="bin\roslyn\System.Xml.ReaderWriter.dll" />
+    <Content Include="bin\roslyn\System.Xml.XmlDocument.dll" />
+    <Content Include="bin\roslyn\System.Xml.XPath.dll" />
+    <Content Include="bin\roslyn\System.Xml.XPath.XDocument.dll" />
+    <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="bin\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="bin\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Http.dll" />
+    <Content Include="bin\System.Web.Http.WebHost.dll" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\WebGrease.dll" />
+    <Content Include="bvalidator\jquery.bvalidator.js" />
+    <Content Include="bvalidator\jquery.bvalidator.min.js" />
+    <Content Include="bvalidator\lang\bvalidator.lang.ee.js" />
+    <Content Include="bvalidator\lang\bvalidator.lang.es.js" />
+    <Content Include="bvalidator\lang\bvalidator.lang.fr.js" />
+    <Content Include="bvalidator\lang\bvalidator.lang.hr.js" />
+    <Content Include="bvalidator\lang\bvalidator.lang.pt-br.js" />
+    <Content Include="bvalidator\lang\bvalidator.lang.pt.js" />
+    <Content Include="bvalidator\lang\bvalidator.lang.tr.js" />
+    <Content Include="bvalidator\themes\bs3\bs3form\bs3form.js" />
+    <Content Include="bvalidator\themes\bs3\bs3popover\bs3popover.css" />
+    <Content Include="bvalidator\themes\bs3\bs3popover\bs3popover.js" />
+    <Content Include="bvalidator\themes\bs3\bs3tooltip\bs3tooltip.css" />
+    <Content Include="bvalidator\themes\bs3\bs3tooltip\bs3tooltip.js" />
+    <Content Include="bvalidator\themes\bslikerc\bslikerc.css" />
+    <Content Include="bvalidator\themes\bslikerc\bslikerc.js" />
+    <Content Include="bvalidator\themes\bslikert\bslikert.css" />
+    <Content Include="bvalidator\themes\bslikert\bslikert.js" />
+    <Content Include="bvalidator\themes\gray2\gray2.css" />
+    <Content Include="bvalidator\themes\gray2\gray2.js" />
+    <Content Include="bvalidator\themes\gray3\gray3.css" />
+    <Content Include="bvalidator\themes\gray3\gray3.js" />
+    <Content Include="bvalidator\themes\gray4\gray4.css" />
+    <Content Include="bvalidator\themes\gray4\gray4.js" />
+    <Content Include="bvalidator\themes\gray\gray.css" />
+    <Content Include="bvalidator\themes\gray\gray.js" />
+    <Content Include="bvalidator\themes\group\group.css" />
+    <Content Include="bvalidator\themes\group\group.js" />
+    <Content Include="bvalidator\themes\insert\insert.css" />
+    <Content Include="bvalidator\themes\insert\insert.js" />
+    <Content Include="bvalidator\themes\orange\orange.css" />
+    <Content Include="bvalidator\themes\orange\orange.js" />
+    <Content Include="bvalidator\themes\postit\postit.css" />
+    <Content Include="bvalidator\themes\postit\postit.js" />
+    <Content Include="bvalidator\themes\presenters\bs3form.js" />
+    <Content Include="bvalidator\themes\presenters\bs3form.min.js" />
+    <Content Include="bvalidator\themes\presenters\bs3popover-tooltip.js" />
+    <Content Include="bvalidator\themes\presenters\bs3popover-tooltip.min.js" />
+    <Content Include="bvalidator\themes\presenters\default.js" />
+    <Content Include="bvalidator\themes\presenters\default.min.js" />
+    <Content Include="bvalidator\themes\presenters\group.js" />
+    <Content Include="bvalidator\themes\presenters\group.min.js" />
+    <Content Include="bvalidator\themes\presenters\insert.js" />
+    <Content Include="bvalidator\themes\presenters\insert.min.js" />
+    <Content Include="bvalidator\themes\red\red.css" />
+    <Content Include="bvalidator\themes\red\red.js" />
+    <Content Include="clock\.gitignore" />
+    <Content Include="clock\assets\css\bootstrap-theme.css" />
+    <Content Include="clock\assets\css\bootstrap-theme.min.css" />
+    <Content Include="clock\assets\css\bootstrap.css" />
+    <Content Include="clock\assets\css\bootstrap.min.css" />
+    <Content Include="clock\assets\css\github.min.css" />
+    <Content Include="clock\assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="clock\assets\images\screenshot-1.png" />
+    <Content Include="clock\assets\js\bootstrap.js" />
+    <Content Include="clock\assets\js\bootstrap.min.js" />
+    <Content Include="clock\assets\js\highlight.min.js" />
+    <Content Include="clock\assets\js\html5shiv.js" />
+    <Content Include="clock\assets\js\jquery.js" />
+    <Content Include="clock\assets\js\jquery.min.js" />
+    <Content Include="clock\assets\js\respond.min.js" />
+    <Content Include="clock\dist\bootstrap-clockpicker.css" />
+    <Content Include="clock\dist\bootstrap-clockpicker.js" />
+    <Content Include="clock\dist\bootstrap-clockpicker.min.css" />
+    <Content Include="clock\dist\bootstrap-clockpicker.min.js" />
+    <Content Include="clock\dist\jquery-clockpicker.css" />
+    <Content Include="clock\dist\jquery-clockpicker.js" />
+    <Content Include="clock\dist\jquery-clockpicker.min.css" />
+    <Content Include="clock\dist\jquery-clockpicker.min.js" />
+    <Content Include="clock\gulpfile.js" />
+    <Content Include="clock\index.html" />
+    <Content Include="clock\jquery.html" />
+    <Content Include="clock\src\clockpicker.css" />
+    <Content Include="clock\src\clockpicker.js" />
+    <Content Include="clock\src\standalone.css" />
+    <Content Include="clock\test\all.html" />
+    <Content Include="clock\test\assets\qunit-1.14.0.css" />
+    <Content Include="clock\test\assets\qunit-1.14.0.js" />
+    <Content Include="clock\test\assets\utils.js" />
+    <Content Include="clock\test\suites\basic.js" />
+    <Content Include="clock\test\suites\data-api.js" />
+    <Content Include="CompanyDetails\facebook.png" />
+    <Content Include="CompanyDetails\instagram-sketched.png" />
+    <Content Include="CompanyDetails\linkedin.png" />
+    <Content Include="CompanyDetails\site_icon.jpg" />
+    <Content Include="CompanyDetails\twitter.png" />
+    <Content Include="CompanyDetails\whatsapp.png" />
+    <Content Include="CompanyDetails\youtube.png" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="datatable\buttons.colVis.min.js" />
+    <Content Include="datatable\buttons.flash.min.js" />
+    <Content Include="datatable\buttons.html5.min.js" />
+    <Content Include="datatable\buttons.print.min.js" />
+    <Content Include="datatable\dataTables.buttons.min.js" />
+    <Content Include="datatable\dataTables.fixedColumns.min.js" />
+    <Content Include="datatable\fixedColumns.dataTables.min.css" />
+    <Content Include="datatable\jquery-3.4.1.min.js" />
+    <Content Include="datatable\jquery.dataTables.css" />
+    <Content Include="datatable\jquery.dataTables.js" />
+    <Content Include="datatable\jszip.min.js" />
+    <Content Include="datatable\pdfmake.min.js" />
+    <Content Include="datatable\vfs_fonts.js" />
+    <Content Include="dist\clipboard.js" />
+    <Content Include="dist\clipboard.min.js" />
+    <Content Include="EDM\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EDM\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="HRemailCommonFiles\1.png" />
+    <Content Include="HRemailCommonFiles\10.png" />
+    <Content Include="HRemailCommonFiles\11.png" />
+    <Content Include="HRemailCommonFiles\12.png" />
+    <Content Include="HRemailCommonFiles\2.png" />
+    <Content Include="HRemailCommonFiles\3.png" />
+    <Content Include="HRemailCommonFiles\4.png" />
+    <Content Include="HRemailCommonFiles\5.png" />
+    <Content Include="HRemailCommonFiles\6.png" />
+    <Content Include="HRemailCommonFiles\7.png" />
+    <Content Include="HRemailCommonFiles\8.png" />
+    <Content Include="HRemailCommonFiles\9.png" />
+    <Content Include="jqueryui\jquery-1.12.4.js" />
+    <Content Include="jqueryui\jquery-ui.css" />
+    <Content Include="jqueryui\jquery-ui.js" />
+    <Content Include="jspdf\jquery-2.1.3.js" />
+    <Content Include="jspdf\jspdf.debug.js" />
+    <Content Include="jspdf\jspdf.js" />
+    <Content Include="jspdf\pdfFromHTML.js" />
+    <Content Include="LincensePhoto\defaultdriverlinces.jpg" />
+    <Content Include="Logimages\companyEmailIcon.png" />
+    <Content Include="Logimages\lmdl.png" />
+    <Content Include="maskjs\jquery.inputmask.bundle.js" />
+    <Content Include="obj\Debug\deliverymangementsystem.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\deliverymangementsystem.dll" />
+    <Content Include="obj\Debug\deliverymangementsystem.pdb" />
+    <Content Include="obj\Debug\TempPE\EDM.Model1.Context.cs.dll" />
+    <Content Include="obj\Debug\TempPE\EDM.Model1.cs.dll" />
+    <Content Include="obj\Debug\TempPE\EDM.Model1.Designer.cs.dll" />
+    <Content Include="profilepic\default.jpg" />
+    <Content Include="Qtip\jquery.qtip.css" />
+    <Content Include="Qtip\jquery.qtip.js" />
+    <Content Include="ReportPdfhtml\assets\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="ReportPdfhtml\assets\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="ReportPdfhtml\assets\bootstrap\css\bootstrap.min.css" />
+    <Content Include="ReportPdfhtml\assets\bootstrap\js\bootstrap.min.js" />
+    <Content Include="ReportPdfhtml\assets\popper\popper.min.js" />
+    <Content Include="ReportPdfhtml\assets\smoothscroll\smooth-scroll.js" />
+    <Content Include="ReportPdfhtml\assets\tether\tether.min.css" />
+    <Content Include="ReportPdfhtml\assets\tether\tether.min.js" />
+    <Content Include="ReportPdfhtml\assets\theme\css\style.css" />
+    <Content Include="ReportPdfhtml\assets\theme\js\script.js" />
+    <Content Include="ReportPdfhtml\assets\webv\css\mbr-additional.css" />
+    <Content Include="ReportPdfhtml\assets\web\assets\jquery\jquery.min.js" />
+    <Content Include="ReportPdfhtml\index.html" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="bin\deliverymangementsystem.dll.config" />
+    <Content Include="bin\roslyn\csc.exe.config" />
+    <Content Include="bin\roslyn\csc.rsp" />
+    <Content Include="bin\roslyn\csi.exe.config" />
+    <Content Include="bin\roslyn\csi.rsp" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.Managed.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <Content Include="bin\roslyn\vbc.exe.config" />
+    <Content Include="bin\roslyn\vbc.rsp" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <!-- <Content Include="obj\Debug\deliverymangementsystem.csproj.CopyComplete" /> -->
+    <!-- <Content Include="obj\Debug\deliverymangementsystem.csproj.CoreCompileInputs.cache" /> -->
+    <!-- <Content Include="obj\Debug\deliverymangementsystem.csprojAssemblyReference.cache" /> -->
+    <!-- <Content Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" /> -->
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\EDM\Model1.csdl" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\EDM\Model1.msl" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\EDM\Model1.ssdl" />
+    <Content Include="bvalidator\jquery.bvalidator.min.js.map" />
+    <Content Include="clock\.travis.yml" />
+    <Content Include="clock\bower.json" />
+    <Content Include="clock\LICENSE" />
+    <Content Include="clock\package.json" />
+    <Content Include="clock\README.md" />
+    <Content Include="clock\assets\css\bootstrap-theme.css.map" />
+    <Content Include="clock\assets\css\bootstrap.css.map" />
+    <Content Include="clock\assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="clock\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="clock\assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\Montserrat-Bold.otf" />
+    <Content Include="fonts\Montserrat-Regular.otf" />
+    <EntityDeploy Include="EDM\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="EDM\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="HRemailCommonFiles\PBE_Dental_Advantage.pdf" />
+    <Content Include="HRemailCommonFiles\PBE_Vision_Select.pdf" />
+    <Content Include="HRemailCommonFiles\Plan_Options_2020_Last_Mile_Deliveries.pdf" />
+    <Content Include="HRemailCommonFiles\LMDL_I9_List_of_Acceptable_Documents.pdf" />
+    <Content Include="HRemailCommonFiles\Amazon_DSP_Driver_Guide.pdf" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\printThis.js" />
+    <Content Include="TempLogin\css\style.css" />
+    <Content Include="TempLogin\images\b1.jpg" />
+    <Content Include="TempLogin\index.html" />
+    <Content Include="Temp\404.html" />
+    <Content Include="Temp\500.html" />
+    <Content Include="Temp\blank.html" />
+    <Content Include="Temp\cards.html" />
+    <Content Include="Temp\carousels.html" />
+    <Content Include="Temp\charts.html" />
+    <Content Include="Temp\css\bar.css" />
+    <Content Include="Temp\css\bootstrap.css" />
+    <Content Include="Temp\css\fontawesome-all.css" />
+    <Content Include="Temp\css\pignose.calender.css" />
+    <Content Include="Temp\css\simplyCountdown.css" />
+    <Content Include="Temp\css\style.css" />
+    <Content Include="Temp\css\style4.css" />
+    <Content Include="Temp\css\widgets.css" />
+    <Content Include="Temp\forgot.html" />
+    <Content Include="Temp\forms.html" />
+    <Content Include="Temp\grids.html" />
+    <Content Include="Temp\images\1.jpg" />
+    <Content Include="Temp\images\2.jpg" />
+    <Content Include="Temp\images\3.jpg" />
+    <Content Include="Temp\images\4.jpg" />
+    <Content Include="Temp\images\5.jpg" />
+    <Content Include="Temp\images\b1.jpg" />
+    <Content Include="Temp\images\ban1.jpg" />
+    <Content Include="Temp\images\ban2.jpg" />
+    <Content Include="Temp\images\ban3.jpg" />
+    <Content Include="Temp\images\ban4.jpg" />
+    <Content Include="Temp\images\ban5.jpg" />
+    <Content Include="Temp\images\ban6.jpg" />
+    <Content Include="Temp\images\c1.jpg" />
+    <Content Include="Temp\images\c2.jpg" />
+    <Content Include="Temp\images\c3.jpg" />
+    <Content Include="Temp\images\c4.jpg" />
+    <Content Include="Temp\images\clone.jpg" />
+    <Content Include="Temp\images\menu1.jpg" />
+    <Content Include="Temp\images\Preloader_2.gif" />
+    <Content Include="Temp\images\profile.jpg" />
+    <Content Include="Temp\images\timer.jpg" />
+    <Content Include="Temp\index.html" />
+    <Content Include="Temp\js\amcharts.js" />
+    <Content Include="Temp\js\bootstrap.min.js" />
+    <Content Include="Temp\js\chart1.js" />
+    <Content Include="Temp\js\circle_bar.js" />
+    <Content Include="Temp\js\example.js" />
+    <Content Include="Temp\js\index.js" />
+    <Content Include="Temp\js\jquery-2.2.3.min.js" />
+    <Content Include="Temp\js\jquery.charts.js" />
+    <Content Include="Temp\js\kuma-gauge.jquery.js" />
+    <Content Include="Temp\js\modernizr.js" />
+    <Content Include="Temp\js\moment.min.js" />
+    <Content Include="Temp\js\percentage-circles.js" />
+    <Content Include="Temp\js\pignose.calender.js" />
+    <Content Include="Temp\js\prettymaps.js" />
+    <Content Include="Temp\js\raphael-min.js" />
+    <Content Include="Temp\js\rumcaJS.js" />
+    <Content Include="Temp\js\script.js" />
+    <Content Include="Temp\js\SimpleChart.js" />
+    <Content Include="Temp\js\simplyCountdown.js" />
+    <Content Include="Temp\js\skycons.js" />
+    <Content Include="Temp\login.html" />
+    <Content Include="Temp\mailbox.html" />
+    <Content Include="Temp\maps.html" />
+    <Content Include="Temp\modals.html" />
+    <Content Include="Temp\pricing.html" />
+    <Content Include="Temp\register.html" />
+    <Content Include="Temp\tables.html" />
+    <Content Include="Temp\w3layouts-License.txt" />
+    <Content Include="Temp\webfonts\fa-brands-400.svg" />
+    <Content Include="Temp\webfonts\fa-regular-400.svg" />
+    <Content Include="Temp\webfonts\fa-solid-900.svg" />
+    <Content Include="Temp\widgets.html" />
+    <Content Include="timepicker\.gitignore" />
+    <Content Include="timepicker\contact.html" />
+    <Content Include="timepicker\css\bootstrap-theme.min.css" />
+    <Content Include="timepicker\css\bootstrap.css" />
+    <Content Include="timepicker\css\style.css" />
+    <Content Include="timepicker\css\timepicki.css" />
+    <Content Include="timepicker\features.html" />
+    <Content Include="timepicker\howtouse.html" />
+    <Content Include="timepicker\images\arrow.png" />
+    <Content Include="timepicker\images\top_arr.png" />
+    <Content Include="timepicker\index.html" />
+    <Content Include="timepicker\js\bootstrap.min.js" />
+    <Content Include="timepicker\js\jquery.min.js" />
+    <Content Include="timepicker\js\timepicki.js" />
+    <Content Include="timepicker\LICENSE.txt" />
+    <Content Include="timepicker\options.html" />
+    <Content Include="Uploads\-160731522.jpg" />
+    <Content Include="Uploads\1533840.jpg" />
+    <Content Include="Uploads\15831751823967007501653856737942.jpg" />
+    <Content Include="Uploads\20200310_141349.jpg" />
+    <Content Include="Uploads\25da057b-cb5a-4ce2-873d-bbf6e4291e64.jpeg" />
+    <Content Include="Uploads\46038edc-c802-4a71-8bc7-aebcd45a048c.jpg" />
+    <Content Include="Uploads\50c9c1c2955ecbec04e949d718fc32c0.jpg" />
+    <Content Include="Uploads\5e9c3d77-f4a2-457b-a9ac-adbb78631ab0.png" />
+    <Content Include="Uploads\86244893.jpg" />
+    <Content Include="Uploads\86278973.jpg" />
+    <Content Include="Uploads\default.jpg" />
+    <Content Include="Uploads\E25B570F-21FC-499E-8831-4BCE14DAFF7E.jpeg" />
+    <Content Include="Uploads\F8798E97-B3CE-4E30-BAB0-B2984727C6C0.jpeg" />
+    <Content Include="Uploads\FakeDP.jpeg" />
+    <Content Include="Uploads\FinalDriverPopup.PNG" />
+    <Content Include="Uploads\image.jpg" />
+    <Content Include="Uploads\LMDL Logo.PNG" />
+    <Content Include="Uploads\Screenshot %282%29.png" />
+    <Content Include="Uploads\Screenshot %283%29.png" />
+    <Content Include="Uploads\Screenshot %284%29.png" />
+    <Content Include="Uploads\TBA000056888601.png" />
+    <Content Include="Uploads\TBA000158524501.png" />
+    <Content Include="Uploads\TBA000171499601.png" />
+    <Content Include="Uploads\TBA000275212701.png" />
+    <Content Include="Uploads\TBA000297722501.png" />
+    <Content Include="Uploads\TBA000408838301.png" />
+    <Content Include="Uploads\TBA000639940901.png" />
+    <Content Include="Uploads\TBA000868230301.png" />
+    <Content Include="Uploads\TBA000971124201.png" />
+    <Content Include="Uploads\TBA001005581501.png" />
+    <Content Include="Uploads\TBA001217424601.png" />
+    <Content Include="Uploads\TBA001338397501.png" />
+    <Content Include="Uploads\TBA001370460601.png" />
+    <Content Include="Uploads\TBA001409636401.png" />
+    <Content Include="Uploads\TBA001415702901.png" />
+    <Content Include="Uploads\TBA001456233701.png" />
+    <Content Include="Uploads\TBA001507681201.png" />
+    <Content Include="Uploads\TBA001630779201.png" />
+    <Content Include="Uploads\TBA001641649201.png" />
+    <Content Include="Uploads\TBA001734401501.png" />
+    <Content Include="Uploads\TBA002075736001.png" />
+    <Content Include="Uploads\TBA002170358201.png" />
+    <Content Include="Uploads\TBA002229366101.png" />
+    <Content Include="Uploads\TBA002332027301.png" />
+    <Content Include="Uploads\TBA002581111301.png" />
+    <Content Include="Uploads\TBA002622471301.png" />
+    <Content Include="Uploads\TBA002675118701.png" />
+    <Content Include="Uploads\TBA002693456401.png" />
+    <Content Include="Uploads\TBA002832067201.png" />
+    <Content Include="Uploads\TBA002856157001.png" />
+    <Content Include="Uploads\TBA002998260001.png" />
+    <Content Include="Uploads\TBA003124667601.png" />
+    <Content Include="Uploads\TBA003146567801.png" />
+    <Content Include="Uploads\TBA003624551501.png" />
+    <Content Include="Uploads\TBA003628396201.png" />
+    <Content Include="Uploads\TBA003750356701.png" />
+    <Content Include="Uploads\TBA003793307701.png" />
+    <Content Include="Uploads\TBA004246722801.png" />
+    <Content Include="Uploads\TBA004760039801.png" />
+    <Content Include="Uploads\TBA004941266601.png" />
+    <Content Include="Uploads\TBA005070417901.png" />
+    <Content Include="Uploads\TBA005436167301.png" />
+    <Content Include="Uploads\TBA005618572201.png" />
+    <Content Include="Uploads\TBA005690775201.png" />
+    <Content Include="Uploads\TBA005720847601.png" />
+    <Content Include="Uploads\TBA005802794201.png" />
+    <Content Include="Uploads\TBA005972076801.png" />
+    <Content Include="Uploads\TBA007309074701.png" />
+    <Content Include="Uploads\TBA034603736000.png" />
+    <Content Include="Uploads\TBA056512488000.png" />
+    <Content Include="Uploads\TBA059353681000.png" />
+    <Content Include="Uploads\TBA059387261000.png" />
+    <Content Include="Uploads\TBA061617298000.png" />
+    <Content Include="Uploads\TBA062053119000.png" />
+    <Content Include="Uploads\TBA063217982000.png" />
+    <Content Include="Uploads\TBA063699298000.png" />
+    <Content Include="Uploads\TBA068053981000.png" />
+    <Content Include="Uploads\TBA095001880000.png" />
+    <Content Include="Uploads\TBA099167436000.png" />
+    <Content Include="Uploads\TBA114603699000.png" />
+    <Content Include="Uploads\TBA120137014000.PNG" />
+    <Content Include="Uploads\TBA133867255000.png" />
+    <Content Include="Uploads\TBA136364126000.PNG" />
+    <Content Include="Uploads\TBA136783435000.png" />
+    <Content Include="Uploads\TBA138298114000.PNG" />
+    <Content Include="Uploads\TBA139150868000.png" />
+    <Content Include="Uploads\TBA145344337000.png" />
+    <Content Include="Uploads\TBA149373763000.png" />
+    <Content Include="Uploads\TBA152086522000.PNG" />
+    <Content Include="Uploads\TBA153243448000.png" />
+    <Content Include="Uploads\TBA158246781000.png" />
+    <Content Include="Uploads\TBA162805031000.png" />
+    <Content Include="Uploads\TBA164238087000.PNG" />
+    <Content Include="Uploads\TBA164557002000.png" />
+    <Content Include="Uploads\TBA165908319000.jpg" />
+    <Content Include="Uploads\TBA166760664000.png" />
+    <Content Include="Uploads\TBA168876063000.png" />
+    <Content Include="Uploads\TBA172233502000.png" />
+    <Content Include="Uploads\TBA178793195000.png" />
+    <Content Include="Uploads\TBA181586856000.png" />
+    <Content Include="Uploads\TBA182454105000.png" />
+    <Content Include="Uploads\TBA182617243000.png" />
+    <Content Include="Uploads\TBA184166872000.png" />
+    <Content Include="Uploads\TBA189936155000.PNG" />
+    <Content Include="Uploads\TBA192397545000.PNG" />
+    <Content Include="Uploads\TBA194218513000.PNG" />
+    <Content Include="Uploads\TBA194351650000.png" />
+    <Content Include="Uploads\TBA194429804000.png" />
+    <Content Include="Uploads\TBA194505773000.png" />
+    <Content Include="Uploads\TBA194676843000.png" />
+    <Content Include="Uploads\TBA194684852000.png" />
+    <Content Include="Uploads\TBA194845092000.png" />
+    <Content Include="Uploads\TBA196238384000.png" />
+    <Content Include="Uploads\TBA198345121000.png" />
+    <Content Include="Uploads\TBA198705543000.png" />
+    <Content Include="Uploads\TBA199616135000.png" />
+    <Content Include="Uploads\TBA199899789000.png" />
+    <Content Include="Uploads\TBA200371812000.png" />
+    <Content Include="Uploads\TBA200467037000.png" />
+    <Content Include="Uploads\TBA200936133000.png" />
+    <Content Include="Uploads\TBA201265583000.png" />
+    <Content Include="Uploads\TBA201520998000.png" />
+    <Content Include="Uploads\TBA201656278000.png" />
+    <Content Include="Uploads\TBA203971619000.png" />
+    <Content Include="Uploads\TBA204030406000.png" />
+    <Content Include="Uploads\TBA204954742000.png" />
+    <Content Include="Uploads\TBA205012752000.png" />
+    <Content Include="Uploads\TBA205694241000.png" />
+    <Content Include="Uploads\TBA206094082000.png" />
+    <Content Include="Uploads\TBA208141165000.png" />
+    <Content Include="Uploads\TBA209833883000.png" />
+    <Content Include="Uploads\TBA210015245000.png" />
+    <Content Include="Uploads\TBA941251731000.png" />
+    <Content Include="Uploads\TBA956590143000.PNG" />
+    <Content Include="Uploads\TBA985166561000.png" />
+    <Content Include="Uploads\TBA988771289000.png" />
+    <Content Include="Uploads\TBA995044592000.png" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Temp\images\Thumbs.db" />
+    <Content Include="Temp\webfonts\fa-brands-400.eot" />
+    <Content Include="Temp\webfonts\fa-brands-400.ttf" />
+    <Content Include="Temp\webfonts\fa-brands-400.woff" />
+    <Content Include="Temp\webfonts\fa-brands-400.woff2" />
+    <Content Include="Temp\webfonts\fa-regular-400.eot" />
+    <Content Include="Temp\webfonts\fa-regular-400.ttf" />
+    <Content Include="Temp\webfonts\fa-regular-400.woff" />
+    <Content Include="Temp\webfonts\fa-regular-400.woff2" />
+    <Content Include="Temp\webfonts\fa-solid-900.eot" />
+    <Content Include="Temp\webfonts\fa-solid-900.ttf" />
+    <Content Include="Temp\webfonts\fa-solid-900.woff" />
+    <Content Include="Temp\webfonts\fa-solid-900.woff2" />
+    <Content Include="Views\Shared\AdminMaster.cshtml" />
+    <Content Include="Views\Admin\Home.cshtml" />
+    <Content Include="Views\Admin\AddNewEntry.cshtml" />
+    <Content Include="Views\Shared\MainAdmin.cshtml" />
+    <Content Include="Views\Admin\CreateSubAdmin.cshtml" />
+    <Content Include="Views\Admin\ViewRole.cshtml" />
+    <Content Include="Views\Admin\CreateRole.cshtml" />
+    <Content Include="Views\Admin\ViewSubadmin.cshtml" />
+    <Content Include="Views\Main\Login.cshtml" />
+    <Content Include="Views\Admin\viewModule.cshtml" />
+    <Content Include="Views\Admin\createModule.cshtml" />
+    <Content Include="Views\Admin\createAssign.cshtml" />
+    <Content Include="Views\Admin\viewAssigned.cshtml" />
+    <Content Include="Views\Admin\ScheduleIntrviewList.cshtml" />
+    <Content Include="Views\Admin\PendingIntrviewList.cshtml" />
+    <Content Include="Views\Admin\scheduleInterview.cshtml" />
+    <Content Include="Views\Admin\rescheule.cshtml" />
+    <Content Include="Views\Admin\reschedulehistory.cshtml" />
+    <Content Include="Views\Admin\InterviewTake.cshtml" />
+    <Content Include="Views\Admin\editinterview.cshtml" />
+    <Content Include="Views\Admin\JobOfferList.cshtml" />
+    <Content Include="Views\Admin\testcheck.cshtml" />
+    <Content Include="Views\Admin\ScheduleTraning.cshtml" />
+    <Content Include="Views\Admin\ScheduleTraningList.cshtml" />
+    <Content Include="Views\Admin\EditRescheduleTraning.cshtml" />
+    <Content Include="Views\Admin\rescheduleDriverTraning.cshtml" />
+    <Content Include="Views\Admin\driverridesetup.cshtml" />
+    <Content Include="Views\Admin\finalDriverList.cshtml" />
+    <Content Include="timepicker\bower.json" />
+    <Content Include="timepicker\contact.html~" />
+    <Content Include="timepicker\css\bootstrap.css~" />
+    <Content Include="timepicker\css\style.css~" />
+    <Content Include="timepicker\css\timepicki.css~" />
+    <Content Include="timepicker\howtouse.html~" />
+    <Content Include="timepicker\js\timepicki.js~" />
+    <Content Include="timepicker\options.html~" />
+    <Content Include="timepicker\README.md" />
+    <Content Include="timepicker\README.md~" />
+    <Content Include="timepicker\README.rdoc" />
+    <Content Include="timepicker\timepicki.jquery.json" />
+    <Content Include="timepicker\timepicki.jquery.json~" />
+    <Content Include="Views\Admin\RejectedList.cshtml" />
+    <Content Include="Views\Admin\pendingrescheule.cshtml" />
+    <Content Include="Views\Admin\viewprofile.cshtml" />
+    <Content Include="Views\Admin\rejectionpopup.cshtml" />
+    <Content Include="Views\Admin\uploadCsvfile.cshtml" />
+    <Content Include="Views\Admin\ViewMoreEmployee.cshtml" />
+    <Content Include="Views\Admin\addnewsource.cshtml" />
+    <Content Include="Views\Admin\displaysource.cshtml" />
+    <Content Include="Views\Admin\editsource.cshtml" />
+    <Content Include="Views\Ticket\OpenTicket.cshtml" />
+    <Content Include="Views\Ticket\ViewOpenTicket.cshtml" />
+    <Content Include="Views\Ticket\conversation.cshtml" />
+    <Content Include="Views\Ticket\ClosedCoversation.cshtml" />
+    <Content Include="Views\Admin\rejectionfromjobofferlist.cshtml" />
+    <Content Include="Views\Dispatch\CreateDispatchSheet.cshtml" />
+    <Content Include="Views\Dispatch\Printdispatchsheet.cshtml" />
+    <Content Include="Views\RouteTracking\CreateRouteTrack.cshtml" />
+    <Content Include="Views\RouteTracking\PrintDailyRouteTrack.cshtml" />
+    <Content Include="Views\RouteTracking\RescueDetails.cshtml" />
+    <Content Include="Views\Ticket\TicketReAssign.cshtml" />
+    <Content Include="Views\Dispatch\currentday.cshtml" />
+    <Content Include="Views\Dispatch\addmorerow.cshtml" />
+    <Content Include="Views\Dispatch\Assignvan.cshtml" />
+    <Content Include="Views\Dispatch\editvaninfo.cshtml" />
+    <Content Include="Views\Dispatch\generatePicklist.cshtml" />
+    <Content Include="Views\Dispatch\dailyroutetrack.cshtml" />
+    <Content Include="Views\DriverContactInfo\Index.cshtml" />
+    <Content Include="Views\DriverContactInfo\DisplaycontactInfo.cshtml" />
+    <Content Include="Views\Admin\ApplicatinForm.cshtml" />
+    <Content Include="Views\Admin\applicationSubmitedList.cshtml" />
+    <Content Include="Views\Admin\Terminate.cshtml" />
+    <Content Include="Views\Admin\isemailcheck.cshtml" />
+    <Content Include="Views\Admin\isonbordinglink.cshtml" />
+    <Content Include="Views\Admin\isbackgroundcheck.cshtml" />
+    <Content Include="Views\Admin\isdrugtest.cshtml" />
+    <Content Include="Views\Admin\Hrchecklist.cshtml" />
+    <Content Include="Views\Dispatch\editrouteassign.cshtml" />
+    <Content Include="Views\Ticket\duplicateview.cshtml" />
+    <Content Include="Views\Ticket\getvaninfo.cshtml" />
+    <Content Include="Views\Ticket\getcatinfo.cshtml" />
+    <Content Include="Views\Ticket\getgascard.cshtml" />
+    <Content Include="Views\Ticket\getbussnesssuplied.cshtml" />
+    <Content Include="Views\Performans\Index.cshtml" />
+    <Content Include="Views\Admin\applicationdata.cshtml" />
+    <Content Include="Views\Performans\dareport.cshtml" />
+    <Content Include="Views\Performans\DaPdf.cshtml" />
+    <Content Include="Views\Performans\daconcession.cshtml" />
+    <Content Include="Views\Admin\FinalformSubmtion.cshtml" />
+    <Content Include="Views\Performans\UploadImage.cshtml" />
+    <Content Include="Views\Performans\Getfinalprint.cshtml" />
+    <Content Include="Views\Admin\JobofferListdataPopup.cshtml" />
+    <Content Include="Views\Admin\scheduleTraningListPopup.cshtml" />
+    <Content Include="Views\Admin\updateTransportID.cshtml" />
+    <Content Include="Views\Performans\GetfinalprintNew.cshtml" />
+    <Content Include="Uploads\concessions-view.03_01_2020 - concessions-view.03_01_2020.csv" />
+    <Content Include="Uploads\Dispatch Sheet Upload-1001.csv" />
+    <Content Include="Uploads\Dispatch Sheet Upload-1002.csv" />
+    <Content Include="Uploads\Dispatch Sheet Upload-1004.csv" />
+    <Content Include="Uploads\Driver License.pdf" />
+    <Content Include="Uploads\empfinal-2.7.2020.csv" />
+    <Content Include="Uploads\empfinaltest - Sheet1.csv" />
+    <Content Include="Uploads\finaltable2.csv" />
+    <Content Include="Uploads\finaltable3.csv" />
+    <Content Include="Uploads\LMDL - Dispatch Sheet - 03.03.2020.pdf" />
+    <Content Include="Uploads\neerajfinlalsheets.csv" />
+    <Content Include="Uploads\newtest3feb.csv" />
+    <Content Include="Uploads\ss35.csv" />
+    <Content Include="Uploads\tejastest12.csv" />
+    <Content Include="Uploads\test123.csv" />
+    <Content Include="Uploads\testfresh-2.csv" />
+    <Content Include="Uploads\testfresh_4.csv" />
+    <Content Include="Uploads\testfresh_400.csv" />
+    <Content Include="Uploads\testfresh_401.csv" />
+    <Content Include="Uploads\xnewtest3feb.csv" />
+    <Content Include="Views\Admin\ApplicationSubmittedDataPopup.cshtml" />
+    <Content Include="Views\Admin\DriverDataNotFound.cshtml" />
+    <Content Include="Views\Admin\isADPMVR.cshtml" />
+    <Content Include="Views\Performans\UploadDriverReportFile.cshtml" />
+    <Content Include="Views\Dispatch\GetRemainingVans.cshtml" />
+    <Content Include="Views\Admin\Linkmodel.cshtml" />
+    <Content Include="Views\Admin\UpdateDriverStatusFromRejected.cshtml" />
+    <Content Include="Views\Admin\GetDuplicateDA.cshtml" />
+    <Content Include="Views\Admin\AddNotesPopup.cshtml" />
+    <Content Include="Views\Admin\SetSubADPMVR.cshtml" />
+    <Content Include="Views\Admin\SetSubADPMVR2.cshtml" />
+    <Content Include="Views\Admin\isOnBordingVideo.cshtml" />
+    <Content Include="Views\Admin\AddHRcheckList.cshtml" />
+    <Content Include="Views\Admin\AddHRcheckListPopUp.cshtml" />
+    <Content Include="Views\Setting\Settings.cshtml" />
+    <Content Include="Views\Admin\editApplicantData.cshtml" />
+    <Content Include="Views\Admin\AddNewEntryBulk.cshtml" />
+    <Content Include="Views\Admin\setHealthInsuranceDate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="BulkNewEntry\" />
+    <Folder Include="DriverConcessionPDFs\" />
+    <Folder Include="ReportPdfhtml\assets\images\" />
+    <Folder Include="signatures\" />
+    <Folder Include="Views\MainAdmin\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>55939</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:55939/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

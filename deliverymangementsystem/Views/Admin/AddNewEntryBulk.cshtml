@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "UploadBulkEntry";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+@using (Html.BeginForm("AddNewEntryBulk", "Admin", FormMethod.Post, new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form", enctype = "multipart/form-data" }))
+{
+
+
+    <div class="container wv-rad5-shadow" style="margin-top:20px;margin-bottom:20px; padding-top:20px; padding-bottom:20px;">
+
+        <div>@ViewBag.msgbulk</div>
+
+        <div class="row text-center">
+            <h4 class="tittle-w3-agileits" style="width:100%; margin-bottom:20px;">Bulk Uploads</h4>
+        </div>
+
+        <div class="row">
+
+            <div class="form-group col-md-4">
+                <input type="file" name="fileBulk" class="form-control" />
+            </div>
+
+            <div class="form-group col-md-4">
+                <button type="submit" class="btn btn-primary">Bulk Upload</button>
+            </div>
+
+        </div>
+        @{
+            if (Session["DuplicateApplicants"] != null)
+            {
+
+                <div class="row">
+                    <label>Error occured while adding following applicants.</label>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12" style="max-height:500px;overflow-y:scroll;">
+
+                        <br />
+                        <table class="table table-hover" id="tblDuplicateApplicants">
+                            <thead>
+                                <tr>
+                                    <th>Applicant Name</th>
+                                    <th>Applicant Number</th>
+                                    <th>Applicant Status/Remarks</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var app in Session["DuplicateApplicants"] as List<deliverymangementsystem.Models.modelDuplucateDrivers>)
+                                {
+                                    <tr>
+                                        <td>@app.ApplicantName</td>
+                                        <td>@app.ApplicantNumber</td>
+                                        <td>@app.ApplicantStatus</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                Session["DuplicateApplicants"] = null;
+            }
+        }
+
+
+    </div>
+
+}
+

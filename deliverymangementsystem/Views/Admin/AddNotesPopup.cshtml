@@ -1,0 +1,73 @@
+﻿@model  List<deliverymangementsystem.EDM.tblDriverRemark>
+
+@{
+    Layout = null;
+}
+
+<style>
+    .row {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    table td {
+        /*border: solid 1px #fab;
+        width: 100px;*/
+        word-wrap: break-word;
+    }
+</style>
+
+<script>
+    function checkNotes() {
+        if ($('#Entry_Remark').val().trim() == '') {
+            alert('Please enter some notes.');
+            return false;
+        }
+    }
+</script>
+
+
+@using (Html.BeginForm("AddNotesPopup", "Admin", FormMethod.Post, new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+{
+    <label>Name - @ViewBag.ApplicantName</label> 
+    <div class="row">
+        Notes :
+        @*<textarea id="Entry_Remark" name="Entry_Remark" class="form-control" placeholder="Enter remarks">@ViewBag.Entry_Remark</textarea>*@
+        <textarea id="Entry_Remark" name="Entry_Remark" class="form-control" placeholder="Enter remarks" required></textarea>
+    </div>
+    <div class="row" style="text-align:right;">
+        <input type="submit" class="btn-no-styling" value="Add" onclick="return checkNotes();" />
+    </div>
+
+    <div class="row">
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-hover" id="tbl">
+                <thead>
+                    <tr>
+                        <th scope="col">PageName</th>
+                        <th scope="col" style="word-wrap:break-word;">Notes</th>
+                        <th scope="col">Notes By</th>
+                        <th scope="col">Notes Date(Time)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var row in Model)
+                    {
+                        <tr>
+                            <td>@row.RemarkPageName</td>
+                            <td>@row.Remarks</td>
+                            <td>@row.RemarkBy</td>
+                            <td>@row.RemarkDate.ToString().Split(' ')[0] (@row.RemarkTime.ToString())</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+
+        }
+    </div>
+}

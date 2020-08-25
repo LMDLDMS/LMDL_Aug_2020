@@ -1,0 +1,47 @@
+﻿@model deliverymangementsystem.Models.Assignauth
+@{
+    ViewBag.Title = "createAssign";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Assign Module to Admin</h4>
+    @using (Html.BeginForm("createAssign", "Admin", FormMethod.Post,new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+        
+        <div class="form-group">
+            <label for="inputAddress">Role Name</label>
+
+            @Html.DropDownList("sub_admin_id", ViewData["temp"] as List<SelectListItem>, "Please Select SubAdmin", new { @class = "form-control", @placeholder = "Enter Full Name", @databvalidator = "required" })
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        <div class="form-group">
+            <label for="inputAddress">Select Module</label>
+            
+            @for (int i = 0; i < Model.listmodule.Count; i++)
+            {
+            <div>
+
+
+                <label for="inputAddress2">
+
+                    @Html.HiddenFor(c => Model.listmodule[i].name)
+                    @Html.CheckBoxFor(c => Model.listmodule[i].check)
+                    @Html.DisplayFor(c => Model.listmodule[i].name)
+
+
+
+                </label>
+            </div>
+            }
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    }
+
+</div>

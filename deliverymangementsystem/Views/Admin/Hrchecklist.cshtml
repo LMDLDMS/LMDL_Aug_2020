@@ -1,0 +1,206 @@
+﻿@model deliverymangementsystem.EDM.tblridesetup
+
+@{
+    ViewBag.Title = "Hrchecklist";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+<div class="container">
+    
+    <h4 class="tittle-w3-agileits mb-4">HR Check List</h4>
+    @using (Html.BeginForm("Hrchecklist", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <label for="inputAddress">  Driver Name   : </label>
+                <label> @ViewBag.d_name  </label>
+
+            </div>
+
+        </div>
+
+
+        @Html.HiddenFor(c=>c.d_id)
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <label for="inputAddress">Send Email Subject (welcome) </label>
+
+            <div>
+                @Html.RadioButtonFor(c => c.welcome_mail, "Yes")
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButtonFor(c => c.welcome_mail, "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="inputAddress">i9 document upload</label>
+
+            <div>
+                @Html.RadioButtonFor(c => c.i9_document_uploded, "Yes")
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButtonFor(c => c.i9_document_uploded, "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label for="inputAddress">Downloaded i9 documents   </label>
+
+            <div>
+                @Html.RadioButtonFor(c => c.download_i9_document, "Yes")
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButtonFor(c => c.download_i9_document, "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label for="inputAddress">important company contacts </label>
+
+            <div>
+                @Html.RadioButtonFor(c => c.imp_company_contact, "Yes")
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButtonFor(c => c.imp_company_contact, "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+    </div>
+        
+    <div class="row">
+
+
+        <div class="col-md-3 mb-3">
+            <label for="inputAddress">Entered in Mentor  </label>
+
+            <div>
+                @Html.RadioButtonFor(c => c.setup_menter, "Yes")
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButtonFor(c => c.setup_menter, "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="inputAddress">Sent GAS PIN & Mentor activation code   </label>
+
+            <div>
+                @Html.RadioButtonFor(c => c.gas_pin_menter_activation_code, "Yes")
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButtonFor(c => c.gas_pin_menter_activation_code, "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="inputAddress">Placed in Zoho mail group (my admin email and HR)    </label>
+
+            <div>
+                @Html.RadioButtonFor(c => c.place_zoho_email_group, "Yes")
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButtonFor(c => c.place_zoho_email_group, "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+
+
+
+    </div>
+
+    
+    <div class="row">
+
+        <div class="col-md-3 mb-3">
+            <label for="inputAddress">Entered in ADP  </label>
+
+            <div>
+                @Html.RadioButtonFor(c => c.setup_adp, "Yes")
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButtonFor(c => c.setup_adp, "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label for="inputAddress">Send, ADP & Time Off instructions  </label>
+
+            <div>
+                @Html.RadioButtonFor(c => c.send_adp_time_off_ins, "Yes")
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButtonFor(c => c.send_adp_time_off_ins, "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="inputAddress">Health Insurance email   </label>
+
+            <div>
+                @Html.RadioButtonFor(c => c.health_ins_email, "Yes")
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButtonFor(c => c.health_ins_email, "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="inputAddress">Missing Punch Email </label>
+
+            <div>
+                @Html.RadioButtonFor(c => c.missing_puch_email, "Yes")
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButtonFor(c => c.missing_puch_email, "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+    </div>     
+
+    
+        
+        
+        <button type="submit" class="btn btn-primary">Update</button>
+
+
+
+    }
+</div>
+

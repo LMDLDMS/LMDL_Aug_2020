@@ -1,0 +1,82 @@
+﻿<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">ADP-MVR Report Status </h4>
+    @using (Html.BeginForm("SetSubADPMVR2", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+
+        <div class="form-group">
+
+            <div class="row">
+                <b>Please select</b>
+            </div>
+            <br />
+            <input type="hidden" value="@ViewBag.id" name="did" />
+            @{
+                if (ViewBag.status != null)
+                {
+                    if (ViewBag.status == "Pre-Adverse")
+                    {
+
+                        <div>
+                            @Html.RadioButton("isADPMVR", "Proceed")
+                            <label class="custom-control-label" for="credit">Proceed</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isADPMVR", "Pre-Adverse", new { @checked = "checked" })
+                            <label class="custom-control-label" for="credit">Pre-Adverse Sent</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isADPMVR", "Adverse-Sent")
+                            <label class="custom-control-label" for="credit">Adverse-Sent</label>
+                        </div>
+
+                    }
+                    else
+                    {
+
+                        <div>
+                            @Html.RadioButton("isADPMVR", "Proceed")
+                            <label class="custom-control-label" for="credit">Proceed</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isADPMVR", "Pre-Adverse")
+                            <label class="custom-control-label" for="credit">Pre-Adverse Sent</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isADPMVR", "Adverse-Sent")
+                            <label class="custom-control-label" for="credit">Adverse-Sent</label>
+                        </div>
+
+                    }
+                }
+                else
+                {
+
+                    <div>
+                        @Html.RadioButton("isADPMVR", "Proceed")
+                        <label class="custom-control-label" for="credit">Proceed</label>
+                    </div>
+                    <div>
+                        @Html.RadioButton("isADPMVR", "Pre-Adverse")
+                        <label class="custom-control-label" for="credit">Pre-Adverse Sent</label>
+                    </div>
+                    <div>
+                        @Html.RadioButton("isADPMVR", "Adverse-Sent")
+                        <label class="custom-control-label" for="credit">Adverse-Sent</label>
+                    </div>
+
+                }
+            }
+
+            <br />
+            <div class="row">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+        </div>
+
+
+
+    }
+
+</div>

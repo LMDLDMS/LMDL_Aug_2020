@@ -1,0 +1,62 @@
+﻿@model List<deliverymangementsystem.Models.AssignedJoin>
+@{
+    ViewBag.Title = "viewAssigned";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/datatable/jquery.dataTables.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#tbl").DataTable();
+
+    })
+
+
+</script>
+
+@using (Html.BeginForm())
+{
+
+
+    <div class="outer-w3-agile mt-3">
+        <h4 class="tittle-w3-agileits mb-4">Assgined Role</h4>
+        <table class="table table-hover" id="tbl">
+            <thead>
+                <tr>
+
+                    <th scope="col">Assgined Id</th>
+                    <th scope="col">Sub Admin Name</th>
+                    <th scope="col">Assigned Module</th>
+                    <th scope="col">Role action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>@item.assign_id</td>
+                        <td>@item.sub_admin_name</td>
+                        <td>@item.module_name</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" onclick="EditRole(@item.assign_id)"><i class="fas fa-edit"></i></button>||
+                            <button type="button" class="btn btn-primary" onclick="DeleteRole(@item.assign_id)"><i class="fas fa-trash"></i></button>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+}
+

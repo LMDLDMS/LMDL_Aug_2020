@@ -1,0 +1,65 @@
+﻿@model deliverymangementsystem.EDM.tblridesetup
+<script>
+
+    $(function () {
+
+
+        $("#ride_date").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+    });
+    $(document).ready(function () {
+        $("#form1").bValidator();
+    });
+</script>
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Driver Ride Setup </h4>
+    @using (Html.BeginForm("driverridesetup","Admin",FormMethod.Post,new {@id= "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+        
+        <div class="form-group">
+            <label for="inputAddress">SetUp ADP</label>
+
+            <div>
+                @Html.RadioButtonFor(c => c.setup_adp, "Yes",new { @checked= "checked", @databvalidator = "required" })
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButtonFor(c => c.setup_adp, "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        <div class="form-group">
+            <label for="inputAddress">Setup Mentor</label>
+
+            <div>
+                @Html.RadioButtonFor(c => c.setup_menter, "Yes",new {@checked = "checked", @databvalidator = "required" })
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButtonFor(c => c.setup_menter, "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        <div class="form-group">
+            <label for="inputAddress">DownLoad flex on personal Mobile</label>
+
+            <div>
+                @Html.RadioButtonFor(c => c.download_flex_on_phone, "Yes",new {@checked="checked", @databvalidator = "required" })
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButtonFor(c => c.download_flex_on_phone, "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+ 
+        <button type="submit" class="btn btn-primary">Submit</button>
+        
+    }
+
+</div>

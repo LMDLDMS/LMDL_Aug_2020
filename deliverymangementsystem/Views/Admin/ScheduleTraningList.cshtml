@@ -1,0 +1,589 @@
+﻿@model  List<deliverymangementsystem.Models.ScheduleTraningModel>
+@{
+    ViewBag.Title = "ScheduleTraningList";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+@using deliverymangementsystem.EDM;
+@using deliverymangementsystem.Models;
+@{
+
+    var dc = new dsdatabaseEntities();
+    var comm = new common();
+}
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/datatable/jquery.dataTables.js"></script>
+<script src="~/datatable/dataTables.buttons.min.js"></script>
+<script src="~/datatable/buttons.flash.min.js"></script>
+<script src="~/datatable/jszip.min.js"></script>
+<script src="~/datatable/pdfmake.min.js"></script>
+<script src="~/datatable/vfs_fonts.js"></script>
+<script src="~/datatable/buttons.html5.min.js"></script>
+<script src="~/datatable/buttons.print.min.js"></script>
+<script src="~/datatable/buttons.colVis.min.js"></script>
+
+<style>
+    class12 {
+        background: none !important;
+        border: none;
+        padding: 0 !important;
+        /*optional*/
+        font-family: arial, sans-serif;
+        /*input has OS specific font-family*/
+        color: #069;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+
+    function appform(id) {
+
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/Admin/scheduleTraningListPopup/' + id,
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+            },
+            error: function (err) {
+
+
+            }
+
+        });
+
+
+
+    }
+
+    $(document).ready(function () {
+
+        $("select").change(function () {
+            debugger;
+            var strval = $(this).val();
+
+            var finalval = strval.split(".");
+            var id = finalval[1];
+            var ss = finalval[0];
+
+            if (ss == "Proceed") {
+
+                window.location.href = "/Admin/Hrchecklist/" + id;
+
+            }
+
+            if (ss == "Reschedule") {
+
+
+                $.ajax({
+
+                    type: 'Get',
+                    url: '/Admin/EditRescheduleTraning/' + id,
+                    success: function (data) {
+
+
+                        $(".modal-body").empty();
+
+                        $(".modal-body").append(data);
+
+                        $("#model").modal('show');
+
+                    }
+
+                });
+
+
+                //$.ajax({
+
+                //    type: 'Get',
+                //    url: '/Admin/rescheduleDriverTraning/' + id,
+                //    success: function (data) {
+                //        $(".modal-body").empty();
+                //        $(".modal-body").append(data);
+                //        $("#model").modal('show');
+                //    }
+                //});
+
+
+            }
+
+            if (ss == "welcomemsg") {
+
+                $.ajax({
+
+                    type: 'Post',
+                    url: '/Admin/welcomemsgsend/' + id,
+
+                    success: function (data) {
+
+                        alert("Welcome Email/Message send Successfully...");
+                        // window.location.href = "/Admin/PendingIntrviewList/";
+                    },
+                    error: function (err) {
+
+                        alert("Interview status not updated Please Try again Later");
+
+                    }
+
+                });
+
+            }
+
+            // Added By ViBeS on 03/04/2020 for adding No Show Functionality as per discussion and requirement
+            if (ss == "NoShow" || ss == "WithdrawApplication") {
+
+                var notes = prompt("Notes");
+                if (notes == null || notes.trim() == "") {
+                } else {
+                    $.ajax({
+
+                        type: 'Post',
+                        url: '/Admin/ScheduledTrainingStatusUpdate/',
+                        data: { "id": id, "status": ss, "notes": notes, "PageName": "Scheduled Training List" },
+
+                        success: function (data) {
+
+                            alert("Training Status Updated successfully");
+                            window.location.href = "/Admin/ScheduleTraningList/";
+                        },
+                        error: function (err) {
+
+                            alert("Training status not updated Please Try again Later");
+
+                        }
+
+                    });
+                }
+
+                // Working
+                //$.ajax({
+
+                //    type: 'Post',
+                //    url: '/Admin/ScheduledTrainingStatusUpdate/',
+                //    data: { "id": id, "status": ss },
+
+                //    success: function (data) {
+
+                //        alert("Training Status Updated successfully");
+                //        window.location.href = "/Admin/ScheduleTraningList/";
+                //    },
+                //    error: function (err) {
+
+                //        alert("Training status not updated Please Try again Later");
+
+                //    }
+
+                //});
+
+            }
+
+            if (ss == "ScheduleTraning") {
+
+                window.location.href = "/Admin/ScheduleTraning/" + id
+            }
+
+            if (ss == "Rollback") {
+
+                var notes = prompt("Notes");
+                if (notes == null || notes.trim() == "") {
+                } else {
+                    $.ajax({
+
+                        type: 'GET',
+                        url: '/Admin/RollbackDA/',
+                        data: { "id": id, "status": ss, "notes": notes, "PageName": "Scheduled Training List" },
+
+                        success: function (data) {
+
+                            alert("Driver rolled back successfully.");
+                            window.location.href = "/Admin/ScheduleTraningList/";
+                        },
+                        error: function (err) {
+
+                            alert("Training status not updated Please Try again Later");
+
+                        }
+
+                    });
+                }
+            }
+
+        });
+
+        $("#tbl").DataTable({
+            dom: 'lBfrtip',
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "pageLength": 25,
+            buttons: [
+                {
+                    extend: 'print',
+                    title: 'Schedule Traning List',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8]
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    title: 'Schedule Traning List',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8]
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'Schedule Traning List',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8]
+                    }
+                },
+
+            ]
+        });
+
+    });
+
+    function editfunc(id) {
+
+        $.ajax({
+
+            type: 'Get',
+            //url: '/Admin/EditRescheduleTraning/' + id,
+            url: '/Admin/rescheduleDriverTraning/' + id,
+            success: function (data) {
+                $(".modal-body").empty();
+                $(".modal-body").append(data);
+                $("#model").modal('show');
+            }
+
+        });
+
+    }
+
+    function rescheduletraning(id) {
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/Admin/rescheduleDriverTraning/' + id,
+            success: function (data) {
+
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+
+
+            }
+
+
+        });
+
+
+
+    }
+
+    function proceedclick(id) {
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/Admin/driverridesetup/' + id,
+            success: function (data) {
+
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+
+
+            }
+
+
+        });
+
+
+    }
+
+    function AddNotes(emp_id) {
+        $.ajax({
+            type: "GET",
+            url: '/Admin/AddNotesPopup/',
+            data: { "emp_id": emp_id, "formName": "ScheduleTrainingList" },
+            success: function (data) {
+                $(".modal-body").empty();
+                $(".modal-body").append(data);
+                $("#model").modal('show');
+            }
+        });
+    }
+
+    function AddHRcheckList(id) {
+
+        window.location.href = "/Admin/AddHRcheckList/" + id
+        //alert(id);
+        //$.ajax({
+        //    type: "POST",
+        //    url: '/Admin/AddHRcheckList/',
+        //    data: { "d_id": d_id},
+        //    success: function (data) {
+        //        $(".modal-body").empty();
+        //        $(".modal-body").append(data);
+        //        $("#model").modal('show');
+        //    }
+        //});
+    }
+
+</script>
+
+@{
+
+//string show(TimeSpan timeSpan)
+//{
+//    var hours = timeSpan.Hours;
+//    var minutes = timeSpan.Minutes;
+//    var amPmDesignator = "AM";
+//    if (hours == 0)
+//        hours = 12;
+//    else if (hours == 12)
+//        amPmDesignator = "PM";
+//    else if (hours > 12)
+//    {
+//        hours -= 12;
+//        amPmDesignator = "PM";
+//    }
+//    var formattedTime =
+//      String.Format("{0}:{1:00} {2}", hours, minutes, amPmDesignator);
+
+//    return formattedTime;
+//}
+
+}
+<div class="container-fluid wv-rad5-shadow">
+    <h4 class="tittle-w3-agileits mb-4">DA Onboarding </h4>
+    <div class="table-responsive" style="overflow-x:scroll; overflow-y:hidden">
+        <table class="table table-hover" id="tbl">
+            <thead>
+                <tr>
+
+                    <th width="10%">Action</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Number</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Training Type</th>
+                    <th scope="col">Training Date</th>
+                    @*<th scope="col">InClass Date One </th>
+                    <th scope="col">InClass Date Two </th>*@
+                    <th scope="col">Ride Along Date </th>
+                    @*<th scope="col">Ride Along Name </th>*@
+
+                    @*<th scope="col">Training Schedule by</th>
+                    <th scope="col">Shchedule Date</th>*@
+
+                    <th scope="col">HR Check List</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Notes</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    @if (item.training_type == "" || item.training_type == null)
+                    {
+                        <td>
+                            @Html.DropDownList("status", new List<SelectListItem>
+                           {
+                               //new SelectListItem { Text = "HR CheckList ", Value = "Proceed." + item.d_id },
+                               new SelectListItem { Text = "ScheduleTraning", Value = "ScheduleTraning." + item.d_id },
+                               new SelectListItem { Text = "No Show", Value = "NoShow." + item.d_id },
+                               new SelectListItem { Text = "Rollback", Value = "Rollback." + item.d_id },
+                               new SelectListItem { Text = "Withdraw Application", Value = "WithdrawApplication." + item.d_id }
+                               //new SelectListItem { Text = "Welcome Email Send", Value = "welcomemsg." + item.d_id }
+                           }, "Select", new { @class = "form-control", @databvalidator = "required" })
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.DropDownList("status", new List<SelectListItem>
+                           {
+                               //new SelectListItem { Text = "HR CheckList ", Value = "Proceed." + item.d_id },
+                               //new SelectListItem { Text = "ScheduleTraning", Value = "ScheduleTraning." + item.d_id },
+                               new SelectListItem { Text = "Reschedule", Value = "Reschedule." + item.traning_id },
+                               new SelectListItem { Text = "No Show", Value = "NoShow." + item.d_id },
+                               new SelectListItem { Text = "Rollback", Value = "Rollback." + item.d_id },
+                               new SelectListItem { Text = "Withdraw Application", Value = "WithdrawApplication." + item.d_id }
+                               //new SelectListItem { Text = "Welcome Email Send", Value = "welcomemsg." + item.d_id }
+                           }, "Select", new { @class = "form-control", @databvalidator = "required" })
+                        </td>
+                    }
+
+                    <td>
+                        <button style="width:100%; font-size:11.5px" type="button" class="btn-no-styling" onclick="appform(@item.d_id)">@item.d_name</button>
+                    </td>
+
+                    <td>
+                        @item.d_number
+                    </td>
+
+                    <td>
+                        @{
+                            var Email = "Personal : " + dc.tbldrivers.Where(w => w.d_id == item.d_id).ToList().FirstOrDefault().d_email;
+                            @Email;
+                        }
+                        <br />
+                        @{
+                            var p = dc.tbldrivertests.Where(w => w.d_id == item.d_id).ToList();
+                            if (p.Count > 0)
+                            {
+                                var WorkEmail = p.FirstOrDefault().company_email != null ? "Work : " + p.FirstOrDefault().company_email : "";
+                                @WorkEmail
+                            }
+                        }
+                    </td>
+
+                    <td>
+                        @item.training_type
+                    </td>
+
+                    <td>
+                        @{
+                            var one = "";
+                            var two = "";
+                            <br />
+                            if (item.training_type == "InClass")
+                            {
+                                if (item.inclassridedate != null)
+                                {
+                                    var dt = item.inclassdateone.ToString().Split(' ');
+                                    one = "Date One : " + dt[0];
+                                }
+                                if (item.inclassridedate != null)
+                                {
+                                    var dt = item.inclassdatetwo.ToString().Split(' ');
+                                    two = "Date Two : " + dt[0];
+                                }
+                                //date = one + "<br/>" + two;
+                                //date = date.Replace("@", "@"+ System.Environment.NewLine);
+
+                            }
+                            else
+                            {
+                                if (item.VirtualDateOne != null)
+                                {
+                                    var dt = item.VirtualDateOne.ToString().Split(' ');
+                                    one = "Virtual Date One : " + dt[0];
+                                }
+                            }
+                            @one;
+                            <br />
+                            @two;
+                        }
+
+                    </td>
+
+                    <td>
+                        @{
+                            if (item.ridealongdate != null)
+                            {
+                                var dt = item.ridealongdate.ToString().Split(' ')[0];
+
+                                <div class="tooltip">
+                                    @dt
+                                    <span class="tooltiptext">Ride along trainee : @item.RideAlongTrainee</span>
+                                </div>
+
+                            }
+                        }
+                    </td>
+
+                    @*<td>@item.inclassdateone.Value.ToShortDateString()</td>
+        <td>@item.inclassdatetwo.Value.ToShortDateString()</td>*@
+                    @*<td>@item.inclassridedate</td>
+        <td>@item.ridealongname</td>*@
+                    @*<td>
+
+            @{
+                var commonname = "";
+                if (item.user_id.ToString() == "10001")
+                {
+                    commonname = "Admin";
+                }
+                else
+                {
+                    commonname = dc.tblsubadmins.Find(item.user_id).sub_admin_name;
+                }
+            }
+            @commonname
+        </td>
+
+        <td>@item.entry_date.Value.ToShortDateString()</td>*@
+
+                    <td>
+                        @{
+                            int count = 17;
+                            var ridestup = dc.tblridesetups.Where(w => w.d_id == item.d_id).ToList();
+
+                            if (ridestup.Count > 0)
+                            {
+                                count = count - (ridestup.FirstOrDefault().off_letter_evr_sent == "Yes" && ridestup.FirstOrDefault().off_letter_evr_signed == "Yes" ? 1 : 0);
+                                count = count - (ridestup.FirstOrDefault().gas_pin != null ? 1 : 0);
+                                count = count - (ridestup.FirstOrDefault().I9_doc_one != null ? 1 : 0);
+                                count = count - (ridestup.FirstOrDefault().I9_doc_two != null ? 1 : 0);
+                                count = count - (ridestup.FirstOrDefault().I9_doc_three != null ? 1 : 0);
+                                count = count - (ridestup.FirstOrDefault().setup_menter != null && ridestup.FirstOrDefault().setup_menter == "Yes" ? 1 : 0);
+
+                                count = count - (ridestup.FirstOrDefault().imp_company_contact != null && ridestup.FirstOrDefault().imp_company_contact == "Sent" ? 1 : 0);
+                                count = count - (ridestup.FirstOrDefault().i9_document_uploded != null && ridestup.FirstOrDefault().i9_document_uploded == "Sent" ? 1 : 0);
+                                count = count - (ridestup.FirstOrDefault().gas_pin_menter_activation_code != null && ridestup.FirstOrDefault().gas_pin_menter_activation_code == "Sent" ? 1 : 0);
+                                count = count - (ridestup.FirstOrDefault().setup_adp != null && ridestup.FirstOrDefault().setup_adp == "Sent" ? 1 : 0);
+                                count = count - (ridestup.FirstOrDefault().missing_puch_email != null && ridestup.FirstOrDefault().missing_puch_email == "Sent" ? 1 : 0);
+                                count = count - (ridestup.FirstOrDefault().health_ins_email != null && ridestup.FirstOrDefault().health_ins_email == "Sent" ? 1 : 0);
+
+                                count = count - (ridestup.FirstOrDefault().onbording_doc_download != null && ridestup.FirstOrDefault().onbording_doc_download == "Yes" ? 1 : 0);
+                                count = count - (ridestup.FirstOrDefault().download_i9_document != null && ridestup.FirstOrDefault().download_i9_document == "Yes" ? 1 : 0);
+                                count = count - (ridestup.FirstOrDefault().quest_res_download != null && ridestup.FirstOrDefault().quest_res_download == "Yes" ? 1 : 0);
+                                count = count - (ridestup.FirstOrDefault().bg_check_download != null && ridestup.FirstOrDefault().bg_check_download == "Yes" ? 1 : 0);
+                                count = count - (ridestup.FirstOrDefault().offerletter_download != null && ridestup.FirstOrDefault().offerletter_download == "Yes" ? 1 : 0);
+
+                                <button type="button" class="btn btn-primary" style="width:100%" onclick="AddHRcheckList(@item.d_id);">HR-Check <br /> @count/17 pending</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-primary" style="width:100%" onclick="AddHRcheckList(@item.d_id);">HR-Check <br /> @count/17 pending</button>
+                            }
+
+
+                        }
+                    </td>
+
+                    <td>
+                        <button type="button" class="btn btn-primary" onclick="editfunc(@item.d_id)"><i class="fas fa-edit"></i></button>
+                    </td>
+
+                    <td>
+                        <button type="button" class="btn btn-primary" onclick="AddNotes(@item.emp_id)"><i class="fas fa-sticky-note"></i></button>
+                    </td>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

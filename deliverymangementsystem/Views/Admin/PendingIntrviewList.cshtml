@@ -1,0 +1,187 @@
+﻿
+@{
+    ViewBag.Title = "PendingIntrviewList";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/datatable/jquery.dataTables.js"></script>
+<script src="~/datatable/dataTables.buttons.min.js"></script>
+<script src="~/datatable/buttons.flash.min.js"></script>
+<script src="~/datatable/jszip.min.js"></script>
+<script src="~/datatable/pdfmake.min.js"></script>
+<script src="~/datatable/vfs_fonts.js"></script>
+<script src="~/datatable/buttons.html5.min.js"></script>
+<script src="~/datatable/buttons.print.min.js"></script>
+<script src="~/datatable/buttons.colVis.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+
+        $("select").change(function () {
+
+            var strval = $(this).val();
+            var finalval = strval.split(".");
+            var id = finalval[1];
+            var ss = finalval[0];
+
+            if (ss == "Schedule") {
+
+                $.ajax({
+
+                    type: 'Get',
+                    url: '/Admin/scheduleInterview/' + id,
+                    success: function (data) {
+
+                        $(".modal-body").empty();
+
+                        $(".modal-body").append(data);
+
+                        $("#model").modal('show');
+                    }
+
+                });
+
+
+            }
+
+            if (ss == "Rejected") {
+
+                $.ajax({
+
+                    type: 'Get',
+                    url: '/Admin/rejectionpopup/' + id,
+                    success: function (data) {
+
+                        $(".modal-body").empty();
+
+                        $(".modal-body").append(data);
+
+                        $("#model").modal('show');
+
+                    },
+                    error: function (err) {
+
+
+                    }
+
+                });
+
+            }
+
+        });
+        
+        $("#tbl").DataTable({
+            dom: 'lBfrtip',
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            buttons: [
+                {
+                    extend: 'print',
+                    title: 'PendingList',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6]
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    title: 'PendingList',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6]
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'PendingList',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6]
+                    }
+                },
+
+            ]
+        });
+    });
+
+    function scheduleInterview(id) {
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/Admin/scheduleInterview/' + id,
+            success: function (data) {
+
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+
+
+            }
+
+
+        });
+
+
+
+    }
+
+</script>
+
+@using (Html.BeginForm())
+{
+
+
+    <div class="outer-w3-agile mt-3">
+        <h4 class="tittle-w3-agileits mb-4">Pending Interview List</h4>
+        <table class="table table-hover" id="tbl">
+            <thead>
+                <tr>
+
+                    <th scope="col">Action</th>
+                    <th scope="col">Employee Name</th>
+                    <th scope="col">Employee Phone No</th>
+                    <th scope="col">Employee Email</th>
+                    <th scope="col">Employee Degination</th>
+                    <th scope="col">Reason(not schedule)</th>
+                    <th scope="col">Interview Status</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+
+                        <td>@Html.DropDownList("status", new List<SelectListItem> { new SelectListItem { Text = "Schedule", Value = "Schedule." + item.emp_id }, new SelectListItem { Text = "Rejected", Value = "Rejected." + item.emp_id } }, "Please Select Action", new { @class = "form-control", @databvalidator = "required" })</td>
+
+                        <td>@item.emp_name</td>
+                        <td>@item.emp_phone</td>
+                        <td>@item.emp_personal_email</td>
+                        <td>@item.degination_name</td>
+                        <td>@item.Resion</td>
+
+                        <td>@item.emp_inteview_status</td>
+
+                        @*<td>
+                                <button type="button" class="btn btn-primary" onclick="EditRole(@item.assign_id)">Edit</button>||
+                                <button type="button" class="btn btn-primary" onclick="DeleteRole(@item.assign_id)">Delete</button>
+                            </td>*@
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+}
+

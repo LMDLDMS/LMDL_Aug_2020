@@ -1,0 +1,141 @@
+﻿<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Background Check Status</h4>
+    @using (Html.BeginForm("isbackgroundcheck", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+
+        
+        <div class="form-group">
+
+            <input type="hidden" name="did" value="@ViewBag.id" />
+            @{
+                if (ViewBag.status != null)
+                {
+                    if (ViewBag.status == "Submitted")
+                    {
+
+                        <div>
+                            @Html.RadioButton("isbackgrundcheckclear", "Submitted", new { @checked = "checked" })
+                            <label class="custom-control-label">Submitted</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isbackgrundcheckclear", "Meets Req.")
+                            <label class="custom-control-label">Meets Requirement</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isbackgrundcheckclear", "Report Review")
+                            <label class="custom-control-label">Report Review</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isbackgrundcheckclear", "Rejected")
+                            <label class="custom-control-label">Doesn't Meet Requirement</label>
+                        </div>
+
+                    }
+                    else if (ViewBag.status == "Meets Req.")
+                    {
+
+                        <div>
+                            @Html.RadioButton("isbackgrundcheckclear", "Submitted")
+                            <label class="custom-control-label">Submitted</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isbackgrundcheckclear", "Meets Req.", new { @checked = "checked" })
+                            <label class="custom-control-label">Meets Requirement</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isbackgrundcheckclear", "Report Review")
+                            <label class="custom-control-label">Report Review</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isbackgrundcheckclear", "Rejected")
+                            <label class="custom-control-label">Doesn't Meet Requirement</label>
+                        </div>
+
+                    }
+                    else if (ViewBag.status == "Report Review")
+                    {
+
+                        <div>
+                            @Html.RadioButton("isbackgrundcheckclear", "Submitted")
+                            <label class="custom-control-label">Submitted</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isbackgrundcheckclear", "Meets Req.")
+                            <label class="custom-control-label">Meets Requirement</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isbackgrundcheckclear", "Report Review", new { @checked = "checked" })
+                            <label class="custom-control-label">Report Review</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isbackgrundcheckclear", "Rejected")
+                            <label class="custom-control-label">Doesn't Meet Requirement</label>
+                        </div>
+
+                    }
+                    else
+                    {
+
+                        <div>
+                            @Html.RadioButton("isbackgrundcheckclear", "Submitted")
+                            <label class="custom-control-label">Submitted</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isbackgrundcheckclear", "Meets Req.")
+                            <label class="custom-control-label">Meets Requirement</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isbackgrundcheckclear", "Report Review")
+                            <label class="custom-control-label">Report Review</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isbackgrundcheckclear", "Rejected")
+                            <label class="custom-control-label">Doesn't Meet Requirement</label>
+                        </div>
+
+                    }
+                }
+                else
+                {
+
+                    <div>
+                        @Html.RadioButton("isbackgrundcheckclear", "Submitted")
+                        <label class="custom-control-label">Submitted</label>
+                    </div>
+                    <div>
+                        @Html.RadioButton("isbackgrundcheckclear", "Meets Req.")
+                        <label class="custom-control-label">Meets Requirement</label>
+                    </div>
+                    <div>
+                        @Html.RadioButton("isbackgrundcheckclear", "Report Review")
+                        <label class="custom-control-label">Report Review</label>
+                    </div>
+                    <div>
+                        @Html.RadioButton("isbackgrundcheckclear", "Rejected")
+                        <label class="custom-control-label">Doesn't Meet Requirement</label>
+                    </div>
+
+                }
+            }
+
+
+            @*<label for="inputAddress">Is Background Check Cleared</label>
+            <div>
+                <input type="hidden" name="did" value="@ViewBag.id"/>
+                @Html.RadioButton("isbackgrundcheckclear", "Yes", new { @checked = "checked" })
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButton("isbackgrundcheckclear", "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>*@
+
+        </div>
+        
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    }
+
+</div>

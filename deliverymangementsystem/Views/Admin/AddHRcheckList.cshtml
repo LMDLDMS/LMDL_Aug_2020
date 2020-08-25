@@ -1,0 +1,1114 @@
+﻿
+
+@{
+    ViewBag.Title = "AddHRcheckList";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+
+
+<style>
+    label {
+        font-weight: bold;
+    }
+
+    .row {
+        margin-bottom: 10px;
+    }
+
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+        width: 100%;
+    }
+</style>
+
+<script>
+    function changecontentone() {
+        var ddlone = $('#I9one').val();
+        if (ddlone == 'DL' || ddlone == 'USP') {
+            $('#dvexpone').show();
+            $('#dvfbone').hide();
+        }
+        else if (ddlone == 'PRC' || ddlone == 'EAD') {
+            $('#dvfbone').show();
+            $('#dvexpone').show();
+        }
+        else {
+            $('#dvfbone').hide();
+            $('#dvexpone').hide();
+        }
+    }
+
+    function changecontenttwo() {
+        var ddlone = $('#I9two').val();
+        if (ddlone == 'DL' || ddlone == 'USP') {
+            $('#dvexptwo').show();
+            $('#dvfbtwo').hide();
+        }
+        else if (ddlone == 'PRC' || ddlone == 'EAD') {
+            $('#dvfbtwo').show();
+            $('#dvexptwo').show();
+        }
+        else {
+            $('#dvfbtwo').hide();
+            $('#dvexptwo').hide();
+        }
+    }
+
+    function changecontentthree() {
+        var ddlone = $('#I9three').val();
+        if (ddlone == 'DL' || ddlone == 'USP') {
+            $('#dvexpthree').show();
+            $('#dvfbthree').hide();
+        }
+        else if (ddlone == 'PRC' || ddlone == 'EAD') {
+            $('#dvfbthree').show();
+            $('#dvexpthree').show();
+        }
+        else {
+            $('#dvfbthree').hide();
+            $('#dvexpthree').hide();
+        }
+    }
+
+    function updateGasPin() {
+        if ($('#gaspin').val().trim() == "")
+        {
+            alert('Please enter valid gas pin.');
+        }
+        else
+        {
+            var d_id = @ViewBag.d_id;
+            var gaspin = $('#gaspin').val();
+                $.ajax({
+                    type: 'Get',
+                    url: '/Admin/updateHRcheck/' + d_id,
+                    data: { "d_id": d_id, "ActionType": "gaspin", "gaspin": gaspin },
+                    success: function (data) {
+                        //alert(data);
+                        alert('Gas pin updated successfully.');
+                        window.location.href = "/Admin/AddHRcheckList/" + d_id
+                    },
+                    error: function (err) {
+                    }
+                });
+        }
+    }
+
+    $(document).ready(function () {
+        debugger;
+        $("#expone").datepicker({ dateFormat: 'mm-dd-yy', changeMonth: true,changeYear: true });
+        $("#exptwo").datepicker({ dateFormat: 'mm-dd-yy', changeMonth: true, changeYear: true });
+        $("#expthree").datepicker({ dateFormat: 'mm-dd-yy', changeMonth: true, changeYear: true });
+
+        $("#enrollStartDate").datepicker({ dateFormat: 'mm-dd-yy', changeMonth: true, changeYear: true  });
+        $("#enrollEndDate").datepicker({ dateFormat: 'mm-dd-yy', changeMonth: true, changeYear: true });
+        $('#InsuranceDates').hide();
+
+
+        $('#dvexpone').hide();
+        $('#dvexptwo').hide();
+        $('#dvexpthree').hide();
+
+        $('#dvfbone').hide();
+        $('#dvfbtwo').hide();
+        $('#dvfbthree').hide();
+
+        var stateval = $("#hidI9one").val();
+        $("#I9one").val(stateval);
+
+        var stateval = $("#hidI9two").val();
+        $("#I9two").val(stateval);
+
+        var stateval = $("#hidI9three").val();
+        $("#I9three").val(stateval);
+
+        changecontentone();
+        changecontenttwo();
+        changecontentthree();
+
+        // offer ever sign sent
+        $('#chkOffEvrSent').click(function () {
+            if ($('#chkOffEvrSent').is(':checked') == true) {
+
+                if (confirm('Offer Letter-Eversign will be marked as sent. Please confirm')) {
+                    var d_id = @ViewBag.d_id;
+
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/updateHRcheck/' + d_id,
+                        data: { "d_id": d_id, "ActionType": "offerLetterEvrSent" },
+                        success: function (data) {
+                            //alert(data);
+                            alert('Offer Letter - Eversign status updated successfully.');
+                            window.location.href = "/Admin/AddHRcheckList/" + d_id
+                        },
+                        error: function (err) {
+                        }
+                    });
+                }
+                else {
+                    $('#chkOffEvrSent').attr('checked', false);
+                }
+
+            }
+        });
+
+        // offer ever sign signed
+        $('#chkOffEvrSigned').click(function () {
+            if ($('#chkOffEvrSigned').is(':checked') == true) {
+
+                if (confirm('Offer Letter-Eversign will be marked as signed. Please confirm')) {
+
+                    var d_id = @ViewBag.d_id;
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/updateHRcheck/' + d_id,
+                        data: { "d_id": d_id, "ActionType": "offerLetterEvrSigned" },
+                        success: function (data) {
+                            //alert(data);
+                            alert('Offer Letter - Eversign status updated successfully.');
+                            window.location.href = "/Admin/AddHRcheckList/" + d_id
+                        },
+                        error: function (err) {
+                        }
+                    });
+                }else {
+                    $('#chkOffEvrSigned').attr('checked', false);
+                }
+            }
+        });
+
+        // mentor account
+        $('#mentoracc').click(function () {
+            if ($('#mentoracc').is(':checked') == true) {
+                if (confirm('Mentor Account will be marked as created. Please confirm')) {
+                    var d_id = @ViewBag.d_id;
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/updateHRcheck/' + d_id,
+                        data: { "d_id": d_id, "ActionType": "mentoracc" },
+                        success: function (data) {
+                            //alert(data);
+                            alert('Mentor Account Create status updated successfully.');
+                            window.location.href = "/Admin/AddHRcheckList/" + d_id
+                        },
+                        error: function (err) {
+                        }
+                    });
+                }
+                else {
+                    $('#mentoracc').attr('checked', false);
+                }
+            }
+        });
+
+        // mentor onboarding doc downloade
+        $('#onBoardingComplete').click(function () {
+            if ($('#onBoardingComplete').is(':checked') == true) {
+
+                if (confirm('ADP Onboarding Completed / Document status will be marked as signed. Please confirm')) {
+
+                    var d_id = @ViewBag.d_id;
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/updateHRcheck/' + d_id,
+                        data: { "d_id": d_id, "ActionType": "onBoardingComplete" },
+                        success: function (data) {
+                            //alert(data);
+                            alert('Status updated successfully.');
+                            window.location.href = "/Admin/AddHRcheckList/" + d_id
+                        },
+                        error: function (err) {
+                        }
+                    });
+                }
+                else {
+                    $('#onBoardingComplete').attr('checked', false);
+                }
+            }
+        });
+
+        // I9download doc downloade
+        $('#I9download').click(function () {
+            if ($('#I9download').is(':checked') == true) {
+                if (confirm('I9 - Section1/Section2 status will be marked as completed. Please confirm')) {
+                    var d_id = @ViewBag.d_id;
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/updateHRcheck/' + d_id,
+                        data: { "d_id": d_id, "ActionType": "I9download" },
+                        success: function (data) {
+                            //alert(data);
+                            alert('Status updated successfully.');
+                            window.location.href = "/Admin/AddHRcheckList/" + d_id
+                        },
+                        error: function (err) {
+                        }
+                    });
+                }
+                else {
+                    $('#I9download').attr('checked', false);
+                }
+            }
+        });
+
+        // questRes doc downloade
+        $('#questRes').click(function () {
+            if ($('#questRes').is(':checked') == true) {
+                if (confirm('Quest result status will be marked as checked. Please confirm')) {
+                    var d_id = @ViewBag.d_id;
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/updateHRcheck/' + d_id,
+                        data: { "d_id": d_id, "ActionType": "questRes" },
+                        success: function (data) {
+                            //alert(data);
+                            alert('Status updated successfully.');
+                            window.location.href = "/Admin/AddHRcheckList/" + d_id
+                        },
+                        error: function (err) {
+                        }
+                    });
+                }
+                else {
+                    $('#questRes').attr('checked', false);
+                }
+            }
+        });
+
+        // bgCheck doc downloade
+        $('#bgCheck').click(function () {
+            if ($('#bgCheck').is(':checked') == true) {
+                if (confirm('Accurate background check status will be marked as checked. Please confirm')) {
+                    var d_id = @ViewBag.d_id;
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/updateHRcheck/' + d_id,
+                        data: { "d_id": d_id, "ActionType": "bgCheck" },
+                        success: function (data) {
+                            //alert(data);
+                            alert('Status updated successfully.');
+                            window.location.href = "/Admin/AddHRcheckList/" + d_id
+                        },
+                        error: function (err) {
+                        }
+                    });
+                }
+                else {
+                    $('#bgCheck').attr('checked', false);
+                }
+            }
+        });
+
+        // offLetterdown doc downloade
+        $('#offLetterdown').click(function () {
+            if ($('#offLetterdown').is(':checked') == true) {
+                if (confirm('Offer letter status will be marked as checked. Please confirm')) {
+                    var d_id = @ViewBag.d_id;
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/updateHRcheck/' + d_id,
+                        data: { "d_id": d_id, "ActionType": "offLetterdown" },
+                        success: function (data) {
+                            //alert(data);
+                            alert('Status updated successfully.');
+                            window.location.href = "/Admin/AddHRcheckList/" + d_id
+                        },
+                        error: function (err) {
+                        }
+                    });
+                }
+                else {
+                    $('#offLetterdown').attr('checked', false);
+                }
+            }
+        });
+
+        // Company contacts doc downloade
+        $('#imp_company_contact').click(function () {
+            if ($('#imp_company_contact').is(':checked') == true) {
+                if (confirm('Company contacts status will be marked as checked. Please confirm')) {
+                    var d_id = @ViewBag.d_id;
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/updateHRcheck/' + d_id,
+                        data: { "d_id": d_id, "ActionType": "imp_company_contact" },
+                        success: function (data) {
+                            //alert(data);
+                            if (data == "success") {
+                                alert('Status updated successfully.');
+                            }
+                            else {
+                                alert('Error occured while updating Company Contact status.');
+                            }
+                            window.location.href = "/Admin/AddHRcheckList/" + d_id
+                        },
+                        error: function (err) {
+                        }
+                    });
+                }
+                else {
+                    $('#imp_company_contact').attr('checked', false);
+                }
+            }
+        });
+
+        // I9 upload doc downloade
+        $('#i9_document_uploded').click(function () {
+            if ($('#i9_document_uploded').is(':checked') == true) {
+                if (confirm('I9 upload status will be marked as checked. Please confirm')) {
+                    var d_id = @ViewBag.d_id;
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/updateHRcheck/' + d_id,
+                        data: { "d_id": d_id, "ActionType": "i9_document_uploded" },
+                        success: function (data) {
+                            //alert(data);
+                            if (data == "success") {
+                                alert('Status updated successfully.');
+                            }
+                            else {
+                                alert('Error occured while updating I9 upload status.');
+                            }
+                            window.location.href = "/Admin/AddHRcheckList/" + d_id
+                        },
+                        error: function (err) {
+                        }
+                    });
+                }
+                else {
+                    $('#i9_document_uploded').attr('checked', false);
+                }
+            }
+        });
+
+        // Gas pin/Mentor activation doc downloade
+        $('#gas_pin_menter_activation_code').click(function () {
+            if ($('#gaspin').val().trim() == "") {
+                alert('Please make sure that you have updated gas pin before sending Gas pin/Mentor activation email.');
+                $('#gas_pin_menter_activation_code').attr('checked', false);
+            }
+            else {
+                if ($('#gas_pin_menter_activation_code').is(':checked') == true) {
+                    if (confirm('Gas pin/Mentor activation status will be marked as checked. Please confirm')) {
+                        var d_id = @ViewBag.d_id;
+                        $.ajax({
+                            type: 'Get',
+                            url: '/Admin/updateHRcheck/' + d_id,
+                            data: { "d_id": d_id, "ActionType": "gas_pin_menter_activation_code" },
+                            success: function (data) {
+                                //alert(data);
+                                if (data == "success") {
+                                    alert('Status updated successfully.');
+                                }
+                                else {
+                                    alert('Error occured while updating Gas pin/Mentor activation status.');
+                                }
+                                window.location.href = "/Admin/AddHRcheckList/" + d_id
+                            },
+                            error: function (err) {
+                            }
+                        });
+                    }
+                    else {
+                        $('#gas_pin_menter_activation_code').attr('checked', false);
+                    }
+                }
+            }
+        });
+
+        // ADP instructions doc downloade
+        $('#setup_adp').click(function () {
+            if ($('#setup_adp').is(':checked') == true) {
+                if (confirm('ADP instructions status will be marked as checked. Please confirm')) {
+                    var d_id = @ViewBag.d_id;
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/updateHRcheck/' + d_id,
+                        data: { "d_id": d_id, "ActionType": "setup_adp" },
+                        success: function (data) {
+                            //alert(data);
+                            if (data == "success") {
+                                alert('Status updated successfully.');
+                            }
+                            else {
+                                alert('Error occured while updating ADP instructions status.');
+                            }
+                            window.location.href = "/Admin/AddHRcheckList/" + d_id
+                        },
+                        error: function (err) {
+                        }
+                    });
+                }
+                else {
+                    $('#setup_adp').attr('checked', false);
+                }
+            }
+        });
+
+        // Missing punch link doc downloade
+        $('#missing_puch_email').click(function () {
+            if ($('#missing_puch_email').is(':checked') == true) {
+                if (confirm('Missing punch link status will be marked as checked. Please confirm')) {
+                    var d_id = @ViewBag.d_id;
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/updateHRcheck/' + d_id,
+                        data: { "d_id": d_id, "ActionType": "missing_puch_email" },
+                        success: function (data) {
+                            //alert(data);
+                            if (data == "success") {
+                                alert('Status updated successfully.');
+                            }
+                            else {
+                                alert('Error occured while sending missing punch email.');
+                            }
+                            window.location.href = "/Admin/AddHRcheckList/" + d_id
+                        },
+                        error: function (err) {
+                        }
+                    });
+                }
+                else {
+                    $('#missing_puch_email').attr('checked', false);
+                }
+            }
+        });
+
+        // Benefits doc downloade
+        $('#health_ins_email').click(function () {
+            if ($('#health_ins_email').is(':checked') == true) {
+
+                $('#InsuranceDates').show();
+
+                @*if (confirm('Benefits status will be marked as checked. Please confirm')) {
+                    var d_id = @ViewBag.d_id;
+
+                    //$.ajax({
+                    //    type: "GET",
+                    //    url: '/Admin/setHealthInsuranceDate/',
+                    //    data: { "d_id": d_id},
+                    //    success: function (data) {
+                    //        $(".modal-body").empty();
+                    //        $(".modal-body").append(data);
+                    //        $("#msgmodel").modal('show');
+                    //    }
+                    //});
+
+                    //$.ajax({
+                    //    type: 'Get',
+                    //    url: '/Admin/updateHRcheck/' + d_id,
+                    //    data: { "d_id": d_id, "ActionType": "health_ins_email" },
+                    //    success: function (data) {
+                    //        //alert(data);
+                    //        alert('Status updated successfully.');
+                    //        window.location.href = "/Admin/AddHRcheckList/" + d_id
+                    //    },
+                    //    error: function (err) {
+                    //    }
+                    //});
+
+
+                }
+                else {
+                    $('#health_ins_email').attr('checked', false);
+                }*@
+            }
+        });
+
+        $("#gaspin").keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                //$("#errmsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+
+        var hidI9one = $('#hidI9one').val();
+        var hidI9_one_PRC_front = $('#hidI9_one_PRC_front').val();
+        var hidI9_one_PRC_back = $('#hidI9_one_PRC_back').val();
+        var hidexpone = $('#hidexpone').val();
+        if (hidI9one != '')
+        {
+            if (hidI9one == 'DL' || hidI9one == 'USP') {
+                if (hidexpone != '')
+                {
+                    $("#ddlI9One").find("*").prop("disabled", true);
+                }
+            }
+            else if (hidI9one == 'PRC' || hidI9one == 'EAD') {
+                if (hidI9_one_PRC_front != '' && hidI9_one_PRC_back != '' && hidexpone != '') {
+                    $("#ddlI9One").find("*").prop("disabled", true);
+                }
+            }
+            else if (hidI9one == 'SSA' || hidI9one == 'BC') {
+                $("#ddlI9One").find("*").prop("disabled", true);
+            }
+
+        }
+
+        var hidI9two = $('#hidI9two').val();
+        var hidI9_two_PRC_front = $('#hidI9_two_PRC_front').val();
+        var hidI9_two_PRC_back = $('#hidI9_two_PRC_back').val();
+        var hidexptwo = $('#hidexptwo').val();
+        if (hidI9two != '') {
+            if (hidI9two == 'DL' || hidI9two == 'USP') {
+                if (hidexptwo != '') {
+                    $("#ddlI9Two").find("*").prop("disabled", true);
+                }
+            }
+            else if (hidI9two == 'PRC' || hidI9two == 'EAD') {
+                if (hidI9_two_PRC_front != '' && hidI9_two_PRC_back != '' && hidexptwo != '') {
+                    $("#ddlI9Two").find("*").prop("disabled", true);
+                }
+            }
+            else if (hidI9two == 'SSA' || hidI9two == 'BC' || hidI9two.trim() == 'Other') {
+                $("#ddlI9Two").find("*").prop("disabled", true);
+            }
+        }
+
+        var hidI9three = $('#hidI9three').val();
+        var hidI9_three_PRC_front = $('#hidI9_three_PRC_front').val();
+        var hidI9_three_PRC_back = $('#hidI9_three_PRC_back').val();
+        var hidexpthree = $('#hidexpthree').val();
+        if (hidI9three != '') {
+            if (hidI9three == 'DL' || hidI9three == 'USP') {
+                if (hidI9three != '') {
+                    $("#ddlI9Three").find("*").prop("disabled", true);
+                }
+            }
+            else if (hidI9three == 'PRC' || hidI9three == 'EAD') {
+                if (hidI9_three_PRC_front != '' && hidI9_three_PRC_back != '' && hidexpthree != '') {
+                    $("#ddlI9Three").find("*").prop("disabled", true);
+                }
+            }
+            else if (hidI9three == 'SSA' || hidI9three == 'BC' || hidI9three.trim() == 'Other') {
+                $("#ddlI9Three").find("*").prop("disabled", true);
+            }
+        }
+
+    });
+
+</script>
+
+<div class="container wv-rad5-shadow">
+    <br />
+    <h4 class="tittle-w3-agileits mb-4"> HR Onboarding Check List </h4>
+    @using (Html.BeginForm("AddHRcheckList", "Admin", FormMethod.Post, new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form", enctype = "multipart/form-data" }))
+    {
+        <div class="text-center" style="margin-bottom:10px;"><label>Driver - @ViewBag.DAname</label></div>
+
+        <input type="hidden" name="d_id" value="@ViewBag.d_id" id="d_id" />
+
+        <button style="margin-bottom:10px" name="btnBack">BACK</button>
+
+        <div class="card">
+            <div class="card-header">
+                <b> HR Points </b>
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Offer Letter - Eversign</label>
+                            </div>
+                            <div class="col-md-6">
+                                @{
+                                    if (ViewBag.chkOffEvrSent == "Yes")
+                                    {
+                                        <input type="checkbox" checked name="chkOffEvrSent" id="chkOffEvrSent" value="Sent" disabled />
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" name="chkOffEvrSent" id="chkOffEvrSent" value="Sent" />
+                                    }
+                                }
+
+                                <label> Sent </label>
+
+                                @{
+                                    if (ViewBag.off_letter_evr_signed == "Yes")
+                                    {
+                                        <input type="checkbox" checked name="chkOffEvrSigned" id="chkOffEvrSigned" value="Signed" disabled />
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" name="chkOffEvrSigned" id="chkOffEvrSigned" value="Signed" />
+                                    }
+                                }
+
+                                <label> Signed </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>Gas Pin</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" placeholder="gas pin" maxlength="6" class="form-control" name="gaspin" id="gaspin" value="@ViewBag.gaspin" />
+                            </div>
+                            <div class="col-md-4">
+                                <button onclick="updateGasPin();" class="btn btn-primary" name="btnGasPin" id="btnGasPin">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <label>Downloaded I9 documents</label>
+
+                <div class="row" id="ddlI9One">
+
+                    <div class="col-md-4">
+                        <input type="hidden" class="form-control" id="hidI9one" name="hidI9one" value="@ViewBag.hidI9one">
+                        <select class="form-control" name="I9one" id="I9one" onchange="changecontentone();">
+                            <option value="USP">US Passport</option>
+                            <option value="PRC">Permanant Resident Card</option>
+                            <option value="EAD">EAD</option>
+                            <option value="DL" selected>Driver License</option>
+                            <option value="SSA">SSA Card</option>
+                            <option value="BC">Birth Certificate</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4" id="dvfbone">
+                        @{
+                            <input type="hidden" class="form-control" id="hidI9_one_PRC_front" name="hidI9_one_PRC_front" value="@ViewBag.I9_one_PRC_front">
+                            if (ViewBag.I9_one_PRC_front == "Front")
+                            {
+                                <input type="checkbox" checked name="chkonefront" value="Front" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="chkonefront" value="Front" />
+                            }
+                        }
+                        <label> Front </label>
+                        @{
+                            <input type="hidden" class="form-control" id="hidI9_one_PRC_back" name="hidI9_one_PRC_back" value="@ViewBag.I9_one_PRC_back">
+                            if (ViewBag.I9_one_PRC_back == "Back")
+                            {
+                                <input type="checkbox" checked name="chkoneBack" value="Back" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="chkoneBack" value="Back" />
+                            }
+                        }
+                        <label> Back </label>
+                    </div>
+
+                    <div class="col-md-4" id="dvexpone">
+                        @{
+                            var dt = ViewBag.one_Expiry_date;
+                            if (dt != null) { dt = dt.ToString().Split(' ')[0]; }
+                            <input type="hidden" class="form-control" id="hidexpone" name="hidexpone" value="@dt">
+                            <input type="text" name="expone" id="expone" placeholder="expiry date" class="form-control" value=@dt required />
+                        }
+                    </div>
+
+                </div>
+
+                <div class="row" id="ddlI9Two">
+                    <div class="col-md-4">
+                        <input type="hidden" class="form-control" id="hidI9two" name="hidI9two" value="@ViewBag.hidI9two">
+                        <select class="form-control" name="I9two" id="I9two" onchange="changecontenttwo();">
+                            <option value="USP">US Passport</option>
+                            <option value="PRC">Permanant Resident Card</option>
+                            <option value="EAD">EAD</option>
+                            <option value="DL">Driver License</option>
+                            <option value="SSA" selected>SSA Card</option>
+                            <option value="BC">Birth Certificate</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4" id="dvfbtwo">
+                        @{
+                            <input type="hidden" class="form-control" id="hidI9_two_PRC_front" name="hidI9_two_PRC_front" value="@ViewBag.I9_two_PRC_front">
+                            if (ViewBag.I9_two_PRC_front == "Front")
+                            {
+                                <input type="checkbox" checked name="chktwofront" value="Front" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="chktwofront" value="Front" />
+                            }
+                        }
+                        <label> Front </label>
+                        @{
+                            <input type="hidden" class="form-control" id="hidI9_two_PRC_back" name="hidI9_two_PRC_back" value="@ViewBag.I9_two_PRC_back">
+                            if (ViewBag.I9_two_PRC_back == "Back")
+                            {
+                                <input type="checkbox" checked name="chktwoback" value="Back" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="chktwoback" value="Back" />
+                            }
+                        }
+
+                        <label> Back </label>
+                    </div>
+
+                    <div class="col-md-4" id="dvexptwo">
+                        @{
+                            var dt2 = ViewBag.two_Expiry_date;
+                            if (dt2 != null) { dt2 = dt2.ToString().Split(' ')[0]; }
+                            <input type="hidden" class="form-control" id="hidexptwo" name="hidexptwo" value="@dt">
+                            <input type="text" name="exptwo" id="exptwo" placeholder="expiry date" class="form-control" value="@dt2" required />
+                        }
+                    </div>
+
+                </div>
+
+                <div class="row" id="ddlI9Three">
+
+                    <div class="col-md-4">
+                        <input type="hidden" class="form-control" id="hidI9three" name="hidI9three" value="@ViewBag.hidI9three">
+                        <select class="form-control" name="I9three" id="I9three" onchange="changecontentthree();">
+                            <option value="USP" selected>US Passport</option>
+                            <option value="PRC">Permanant Resident Card</option>
+                            <option value="EAD">EAD</option>
+                            <option value="DL">Driver License</option>
+                            <option value="SSA">SSA Card</option>
+                            <option value="BC">Birth Certificate</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4" id="dvfbthree">
+                        @{
+                            <input type="hidden" class="form-control" id="hidI9_three_PRC_front" name="hidI9_three_PRC_front" value="@ViewBag.I9_three_PRC_front">
+                            if (ViewBag.I9_three_PRC_front == "Front")
+                            {
+                                <input type="checkbox" checked name="chkthreefront" value="Front" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="chkthreefront" value="Front" />
+                            }
+                        }
+                        <label> Front </label>
+                        @{
+                            <input type="hidden" class="form-control" id="hidI9_three_PRC_back" name="hidI9_three_PRC_back" value="@ViewBag.I9_three_PRC_back">
+                            if (ViewBag.I9_three_PRC_back == "Back")
+                            {
+                                <input type="checkbox" checked name="chkthreeback" value="Back" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="chkthreeback" value="Back" />
+                            }
+                        }
+                        <label> Back </label>
+                    </div>
+
+                    <div class="col-md-4" id="dvexpthree">
+                        @{
+                            var dt3 = ViewBag.three_Expiry_date;
+                            if (dt3 != null) { dt3 = dt3.ToString().Split(' ')[0]; }
+                            <input type="hidden" class="form-control" id="hidexpthree" name="hidexpthree" value="@dt">
+                            <input type="text" name="expthree" id="expthree" placeholder="expiry date" class="form-control" value="@dt3" required />
+                        }
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <input type="submit" class="btn btn-primary" name="submitddl" value="Submit" />
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        @{
+                            if (ViewBag.mentoracc == "Yes")
+                            {
+                                <input type="checkbox" checked name="mentoracc" id="mentoracc" disabled /> <label>&nbsp;Mentor Account Created </label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="mentoracc" id="mentoracc" /><label>&nbsp;Mentor Account Created </label>
+                            }
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <b> List of Emails </b>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Company contacts</label>
+                            </div>
+                            <div class="col-md-6">
+                                @{
+                                    if (ViewBag.imp_company_contact == "Sent")
+                                    {
+                                        <input type="checkbox" checked name="imp_company_contact" id="imp_company_contact" value="Sent" disabled />
+                                        <label>Sent</label>
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" name="imp_company_contact" id="imp_company_contact" value="Send" />
+                                        <label>Send</label>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>I9 upload</label>
+                            </div>
+                            <div class="col-md-6">
+                                @{
+                                    if (ViewBag.i9_document_uploded == "Sent")
+                                    {
+                                        <input type="checkbox" checked name="i9_document_uploded" id="i9_document_uploded" value="Sent" disabled />
+                                        <label>Sent</label>
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" name="i9_document_uploded" id="i9_document_uploded" value="Send" />
+                                        <label>Send</label>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Gas pin/Mentor activation</label>
+                            </div>
+                            <div class="col-md-6">
+                                @{
+                                    if (ViewBag.gas_pin_menter_activation_code == "Sent")
+                                    {
+                                        <input type="checkbox" checked name="gas_pin_menter_activation_code" id="gas_pin_menter_activation_code" value="Sent" disabled />
+                                        <label>Sent</label>
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" name="gas_pin_menter_activation_code" id="gas_pin_menter_activation_code" value="Send" />
+                                        <label>Send</label>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>ADP instructions</label>
+                            </div>
+                            <div class="col-md-6">
+                                @{
+                                    if (ViewBag.setup_adp == "Sent")
+                                    {
+                                        <input type="checkbox" checked name="setup_adp" id="setup_adp" value="Sent" disabled />
+                                        <label>Sent</label>
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" name="setup_adp" id="setup_adp" value="Send" />
+                                        <label>Send</label>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Missing punch link</label>
+                            </div>
+                            <div class="col-md-6">
+                                @{
+                                    if (ViewBag.missing_puch_email == "Sent")
+                                    {
+                                        <input type="checkbox" checked name="missing_puch_email" id="missing_puch_email" value="Sent" disabled />
+                                        <label>Sent</label>
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" name="missing_puch_email" id="missing_puch_email" value="Send" />
+                                        <label>Send</label>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Benefits</label>
+                            </div>
+                            <div class="col-md-6">
+                                @{
+                                    if (ViewBag.health_ins_email == "Sent")
+                                    {
+                                        <input type="checkbox" checked name="health_ins_email" id="health_ins_email" value="Sent" disabled />
+                                        <label>Sent</label>
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" name="health_ins_email" id="health_ins_email" value="Send" />
+                                        <label>Send</label>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row" id="InsuranceDates" style="background-color:rgba(209, 209, 195,0.4); border-radius:10px; padding:10px;">
+
+                    <div class="col-md-5">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label>Benefit Enrollment Period Start Date</label>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" name="enrollStartDate" id="enrollStartDate" class="form-control" placeholder="select start date" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label>Benefit Enrollment Period End Date</label>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" name="enrollEndDate" id="enrollEndDate" class="form-control" placeholder="select end date" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        
+                        <div class="row" style="padding:10px;">
+                            <button style="float:right !important;" name="btnInsuranceEmail" id="btnInsuranceEmail" value="btnInsuranceEmail" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <b> Compliance Document Checklist </b>
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+                    @{
+                        if (ViewBag.bgCheck == "Yes")
+                        {
+                            <input type="checkbox" checked name="bgCheck" id="bgCheck" value="Yes" disabled /> <label> &nbsp;Accurate background check</label>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="bgCheck" id="bgCheck" value="Yes" /> <label>&nbsp;Accurate background check</label>
+                        }
+                    }
+
+                </div>
+
+                <div class="row">
+                    @{
+                        if (ViewBag.questRes == "Yes")
+                        {
+                            <input type="checkbox" checked name="questRes" id="questRes" value="Yes" disabled /> <label> &nbsp;Quest result</label>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="questRes" id="questRes" value="Yes" /> <label> &nbsp;Quest result</label>
+                        }
+                    }
+
+                </div>
+
+                <div class="row">
+                    @{
+                        if (ViewBag.offLetterdown == "Yes")
+                        {
+                            <input type="checkbox" checked name="offLetterdown" id="offLetterdown" value="Yes" disabled /> <label> &nbsp;Offer letter</label>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="offLetterdown" id="offLetterdown" value="Yes" /><label>&nbsp;Offer letter</label>
+                        }
+                    }
+
+                </div>
+
+                <div class="row">
+                    @{
+                        if (ViewBag.onBoardingComplete == "Yes")
+                        {
+                            <input type="checkbox" checked name="onBoardingComplete" id="onBoardingComplete" value="Yes" disabled /><label>&nbsp;ADP Onboarding Completed / Document Signed</label>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="onBoardingComplete" id="onBoardingComplete" value="Yes" /><label>&nbsp;ADP Onboarding Completed / Document Signed</label>
+                        }
+                    }
+                </div>
+
+                <div class="row">
+                    @{
+                        if (ViewBag.I9download == "Yes")
+                        {
+                            <input type="checkbox" checked name="I9download" id="I9download" value="Yes" disabled /> <label>&nbsp;I9 - Section1/Section2 Completed</label>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="I9download" id="I9download" value="Yes" /><label>&nbsp;I9 - Section1/Section2 Completed</label>
+                        }
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    }
+</div>

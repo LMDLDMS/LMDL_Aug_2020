@@ -1,0 +1,56 @@
+﻿
+<script>
+
+    $(function () {
+
+
+        $("#schdate1").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'dd-mm-yy' });
+    });
+    $(document).ready(function () {
+        $("#form1").bValidator();
+
+        if (!$("#yesid").is(':checked'))
+        {
+            $("#company_email").hide();
+        }
+
+        $("#yesid").click(function () {
+
+            $("#company_email").show();
+        });
+        $("#noid").click(function () {
+
+            $("#company_email").hide();
+
+        });
+    });
+</script>
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Create Email</h4>
+    @using (Html.BeginForm("isemailcheck", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+
+        <div class="form-group">
+            <label for="inputAddress">Email ID  Created</label>
+            <div>
+                @Html.RadioButton("isemailcreated", "Yes", new { @id = "yesid" })
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButton("isemailcreated", "No", new { @checked = "checked", @id = "noid" })
+                <label class="custom-control-label" for="credit">No</label>
+            </div>
+
+            <input type="hidden" value="@ViewBag.id" name="did"/>
+
+            @Html.TextBox("company_email",null, new { @class = "form-control", @placeholder = "Enter company Email", @databvalidator = "required,email" })
+            
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Update</button>
+
+    }
+
+</div>

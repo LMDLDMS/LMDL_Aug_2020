@@ -1,0 +1,178 @@
+﻿@model List<deliverymangementsystem.EDM.tblonbordingmaster>
+@{
+    ViewBag.Title = "RejectedList";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/datatable/jquery.dataTables.js"></script>
+<script src="~/datatable/dataTables.buttons.min.js"></script>
+<script src="~/datatable/buttons.flash.min.js"></script>
+<script src="~/datatable/jszip.min.js"></script>
+<script src="~/datatable/pdfmake.min.js"></script>
+<script src="~/datatable/vfs_fonts.js"></script>
+<script src="~/datatable/buttons.html5.min.js"></script>
+<script src="~/datatable/buttons.print.min.js"></script>
+<script src="~/datatable/buttons.colVis.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+
+        $("select").change(function () {
+
+            var strval = $(this).val();
+
+            var finalval = strval.split(".");
+            var id = finalval[1];
+            var ss = finalval[0];
+
+            if (ss == "Schedule") {
+
+                $.ajax({
+
+                    type: 'Get',
+                    url: '/Admin/pendingrescheule/' + id,
+                    success: function (data) {
+
+                        $(".modal-body").empty();
+
+                        $(".modal-body").append(data);
+
+                        $("#model").modal('show');
+
+                    },
+                    error: function (err) {
+
+
+                    }
+
+                });
+
+
+            }
+
+
+        });
+
+
+        $("#tbl").DataTable({
+            dom: 'lBfrtip',
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            buttons: [
+                {
+                    extend: 'print',
+                    title: 'Rejected List',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7]
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    title: 'Rejected List',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7]
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'Rejected List',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7]
+                    }
+                },
+
+            ]
+        });
+
+    })
+
+
+
+    function deleteaction(id) {
+
+        if (confirm("Are You Sure You want to Delete")) {
+
+            $.ajax({
+
+                type: 'Get',
+                url: '/Admin/deleteInterview/' + id,
+                success: function (data) {
+
+                    location.href = "/Admin/RejectedList/"
+
+                },
+
+                error: function (err) {
+
+
+
+                }
+
+            });
+
+        }
+        else {
+
+
+        }
+
+
+    }
+</script>
+
+@using deliverymangementsystem.EDM;
+@using deliverymangementsystem.Models;
+@using (Html.BeginForm())
+{
+
+    var comm = new common();
+
+    <div class="outer-w3-agile mt-3">
+        <h4 class="tittle-w3-agileits mb-4">Rejected List</h4>
+
+        <table class="table table-hover" id="tbl">
+            <thead>
+                <tr>
+
+                    <th scope="col">Action</th>
+                    <th scope="col">Employee Name</th>
+                    <th scope="col">Employee Phone No</th>
+                    <th scope="col">Employee Email</th>
+                    <th scope="col">Employee Degination</th>
+                    <th scope="col">Rejection reason</th>
+                    <th scope="col">Interview Status</th>
+                    <th scope="col">Interview Date(Time)</th>
+
+                    <th> action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>@Html.DropDownList("status" + item.emp_id, new List<SelectListItem> { new SelectListItem { Text = "Schedule", Value = "Schedule." + item.emp_id } }, "Please Select Action", new { @class = "form-control", @databvalidator = "required" })</td>
+                        @*<td> <button type="button" class="btn btn-primary" onclick="EditRole(@item.emp_id)">Edit</button></td>*@
+
+
+                        <td>@item.emp_name</td>
+                        <td>@item.emp_phone</td>
+                        <td>@item.emp_personal_email</td>
+                        <td>@item.degination_name</td>
+                        <td>@item.rejection_resion</td>
+                        <td>@item.Entry_status</td>
+                        <td>@item.emp_interview_date.Value.ToShortDateString() (@comm.show(TimeSpan.Parse(item.emp_interview_time.ToString())))</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" onclick="deleteaction(@item.emp_id)"><i class="fas fa-trash"></i></button>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+}

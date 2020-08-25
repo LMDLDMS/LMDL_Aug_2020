@@ -1,0 +1,43 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<script>
+
+    function appform(id) {
+        $.ajax({
+            type: 'Get',
+            url: '/Admin/applicationdata/' + id,
+            success: function (data) {
+                $(".modal-body").empty();
+                $(".modal-body").append(data);
+                $("#modelDuplicateDA").modal('show');
+            },
+            error: function (err) {                
+            }
+
+        });
+
+
+
+    }
+</script>
+
+
+
+<div class="text-center">
+    <p>
+        We already have driver with
+    </p>
+    <p>
+        Name - <b>@ViewBag.DAname</b> and
+        Status - <b>@ViewBag.DAstatus</b>
+        Mobile no. - <b>@ViewBag.emp_number</b>
+    </p>
+    <br />
+    <p>
+        <button class="btn-no-styling" onclick="appform(@ViewBag.emp_id)">View</button>
+    </p>
+</div>

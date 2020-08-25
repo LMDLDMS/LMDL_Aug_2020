@@ -1,0 +1,232 @@
+﻿@model deliverymangementsystem.EDM.tbldrivertraning
+@{
+    ViewBag.Title = "ScheduleTraning";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+<style>
+    input[type=text], input[type=password], select[type=text], textarea[type=text] {
+        width: 100%;
+        padding: 10px;
+        margin: 3px 0 10px 0;
+        display: inline-block;
+        border: none;
+        background: #f1f1f1;
+    }
+
+    input[type=text]:focus, input[type=password]:focus, select[type=text]:focus, textarea[type=text]:focus {
+        background-color: #ddd;
+        outline: none;
+    }
+
+    label {
+        font-weight: 600;
+    }
+</style>
+
+<script>
+
+    $(function () {
+
+        $('#timepicker12').timepicki();
+        $("#inclassdateone").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+        $("#inclassdatetwo").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+        $("#ridealongdate").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+        $("#VirtualDateOne").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+
+        if ($('#idVirtual').is(':checked')) {
+            $('#trainingDateOne').hide();
+        }
+        $('#idInClas').change(function () {
+            $('#trainingDateOne').show();
+            $('#trainingDateTwo').hide();
+        });
+
+        $('#idVirtual').change(function () {
+            $('#trainingDateOne').hide();
+            $('#trainingDateTwo').show();
+        });
+
+
+        //binds to onchange event of your input field
+        $('#Image1').bind('change', function () {
+            var fileSize = this.files[0].size;
+            // 1048576 
+            fileSize = fileSize / 1048576;
+            if (fileSize > 2) {
+                alert("Maximum image size is 2 MB. \nPlease upload image below or equal to 2 MB.\nYour image size is - " + parseInt(fileSize) + " MB.");
+                $('#Image1').val('');
+            }
+
+        });
+
+
+        //binds to onchange event of your input field
+        $('#Image2').bind('change', function () {
+            var fileSize = this.files[0].size;
+            // 1048576 
+            fileSize = fileSize / 1048576;
+            if (fileSize > 2) {
+                alert("Maximum image size is 2 MB. \nPlease upload image below or equal to 2 MB.\nYour image size is - " + parseInt(fileSize) + " MB.");
+                $('#Image2').val('');
+            }
+
+        });
+
+
+    });
+
+</script>
+
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Schedule Driver Traning</h4>
+    @using (Html.BeginForm("ScheduleTraning", "Admin", FormMethod.Post, new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form", enctype = "multipart/form-data" }))
+    {
+        <div class="form-group">
+
+            <div class="col-md-4" style="display:inline-block;">
+                <label for="inputAddress">Driver Name</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" value="@ViewBag.driver_name" required="">
+                <input type="hidden" name="d_id" value="@ViewBag.d_id" />
+            </div>
+
+            <div class="col-md-4" style="display:inline-block;">
+                <div>
+                    <label>Training Type</label>
+                </div>
+                <div style="display:inline-block;">
+                    @Html.RadioButtonFor(c => c.training_type, "Virtual", new { @checked = "checked", @id = "idVirtual" })
+                    <label class="custom-control-label">Virtual</label>
+                </div>
+                <div style="display:inline-block;">
+                    @Html.RadioButtonFor(c => c.training_type, "InClass", new { @id = "idInClas" })
+                    <label class="custom-control-label">In Class</label>
+                </div>
+
+            </div>
+
+            @*@Html.DropDownList("d_id", ViewData["dlist"] as List<SelectListItem>, "Select Driver Name", new { @class = "form-control", @placeholder = "select", @databvalidator = "required" })*@
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        
+        <div class="form-group" id="trainingDateOne">
+
+            <div class="col-sm-2" style="display:inline-block;">
+                <label>In Class Traning Date One </label>
+                @Html.TextBoxFor(c => c.inclassdateone, new { @class = "form-control", @placeholder = "select Date", @databvalidator = "required" })
+            </div>
+
+            <div class="col-sm-2" style="display:inline-block;">
+                <label>Time</label>
+                @Html.TextBoxFor(c => c.inclasstime, new { @class = "form-control", @databvalidator = "required", @Value = "8 AM - 1 PM" })
+            </div>
+
+            <div class="col-sm-2" style="display:inline-block;">
+                <label>In Class Traning Date Two </label>
+                @Html.TextBoxFor(c => c.inclassdatetwo, new { @class = "form-control", @placeholder = "select Date", @databvalidator = "required" })
+            </div>
+
+            <div class="col-sm-2" style="display:inline-block;">
+                <label>Time</label>
+                @Html.TextBoxFor(c => c.inClassTimeTwo, new { @class = "form-control", @databvalidator = "required", @Value = "8 AM - 1 PM" })
+            </div>
+
+        </div>
+
+        <div class="form-group" id="trainingDateTwo">
+
+            <div class="col-sm-3" style="display:inline-block;">
+                <label>Virtual Traning Date </label>
+                @Html.TextBoxFor(c => c.VirtualDateOne, new { @class = "form-control", @placeholder = "select Date", @databvalidator = "required" })
+            </div>
+
+            <div class="col-sm-3" style="display:inline-block;">
+                <label>Time</label>
+                @Html.TextBoxFor(c => c.VirtualTime, new { @class = "form-control", @databvalidator = "required", @Value = "8 AM - 6 PM" })
+            </div>
+
+        </div>
+
+        @*<div class="form-group">
+                <label for="inputAddress2">In Class Traning time </label>
+                @Html.TextBoxFor(c => c.inclasstime, new { @class = "form-control", @placeholder = "Enter traning time(like 8Am to 10 Am)", @databvalidator = "required" })
+
+            </div>*@
+        @*<div class="form-group">
+                <label for="inputAddress2"> Traning address </label>
+                @Html.TextAreaFor(c => c.amazonaddress, new { @class = "form-control", @placeholder = "Enter traning Address", @databvalidator = "required" })
+
+            </div>*@
+
+        <div class="form-group">
+
+            <div class="col-md-3" style="display:inline-block;">
+                <label for="inputAddress2">Ride Along Date </label>
+                @Html.TextBoxFor(c => c.ridealongdate, new { @class = "form-control", @placeholder = "select Date", @databvalidator = "required" })
+            </div>
+
+            <div class="col-md-3" style="display:inline-block;">
+                <label for="inputAddress2">Ride Along Trainee </label>
+                @Html.TextBoxFor(c => c.RideAlongTrainee, new { @class = "form-control", @placeholder = "ride along trainee", @databvalidator = "required" })
+            </div>
+
+        </div>
+
+        @*<div class="form-group">
+                <label for="inputAddress2">Ride Along Time </label>
+                @Html.TextBoxFor(c => c.training_time, new { @class = "form-control", @id = "timepicker12", @placeholder = "select Time", @databvalidator = "required" })
+
+            </div>*@
+        @*<div class="form-group">
+                <label for="inputAddress2">Ride Along Name </label>
+                @Html.TextBoxFor(c => c.ridealongpersonname, new { @class = "form-control", @placeholder = "Enter Ride Along persion Name", @databvalidator = "required" })
+
+            </div>*@
+        @*<div class="form-group">
+                <label for="inputAddress2">Ride Along Address </label>
+                @Html.TextAreaFor(c => c.ridealongaddress, new { @class = "form-control", @placeholder = "Enter Ride Along address", @databvalidator = "required" })
+
+            </div>*@
+
+        @*<div class="form-group">
+                <label for="inputAddress2">Dispatcher Name </label>
+
+                @Html.DropDownList("dispecher_name", new List<SelectListItem> { new SelectListItem { Text = "JOAN HERNANDEZ	(732-688-6158)", Value = "JOAN HERNANDEZ(732-688-6158)" }, new SelectListItem { Text = "JERMAINE COOMBS	(732-589-4820)", Value = "JERMAINE COOMBS(732-589-4820)" }, new SelectListItem { Text = "CHRIS VAZQUEZ(732-648-7965)", Value = "CHRIS VAZQUEZ(732-648-7965)" } }, "Please Select Dispatcher", new { @class = "form-control", @databvalidator = "required" })
+            </div>*@
+
+
+        <div class="form-group">
+
+            <div class="col-md-3" style="display:inline-block;">
+                <label>Amazon Onboarding Status - Active</label>
+                <input type="file" name="Image1" id="Image1" class="form-control" />
+            </div>
+
+            <div class="col-md-3" style="display:inline-block;">
+                <label>Training confirmation</label>
+                <input type="file" name="Image2" id="Image2" class="form-control" />
+            </div>
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            <div class="col-md-2" style="display:inline-block;">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+        </div>
+
+        <div>
+            @ViewBag.msg
+        </div>
+
+    }
+
+</div>
+
+
+

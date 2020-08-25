@@ -1,0 +1,726 @@
+﻿@model deliverymangementsystem.Models.modelSettings
+
+
+@{
+    ViewBag.Title = "Settings";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+
+<script src="~/maskjs/jquery.inputmask.bundle.js"></script>
+
+<script>
+    $(function () {
+        $('#hideblock2').on('click', function () {
+            $('#block2').hide();
+        });
+        $('#showblock2').on('click', function () {
+            $('#block2').show();
+        });
+
+
+        $('#hideblock3').on('click', function () {
+            $('#block3').hide();
+        });
+        $('#showblock3').on('click', function () {
+            $('#block3').show();
+        });
+
+    });
+</script>
+
+<style>
+
+
+    #dvTabs {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        padding-top: 10px;
+        /*min-height: 650px;*/
+    }
+
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
+
+
+<script type="text/javascript">
+
+    function HideShowMoreAddress(dvID, Action) {
+        alert(dvID + Action);
+        if (Action == 'Hide') {
+            $(dvID).css('display', 'none');
+        }
+        else {
+            $(dvID).css('display', 'block');
+        }
+    }
+
+    function DeleteImage(ID, hdnID) {
+        if (confirm('Do you want to delete image ?')) {
+            //alert(ID);
+            //document.getElementById('hdnImg2').value = '';
+            //alert(hdnID.value);
+            $(ID).attr('src', '');
+            //$(hdnID).value = '';
+            document.getElementById(hdnID).value = '';
+            //alert(hdnID.value);
+        }
+    }
+
+    function ReadFile(input, ID) {
+        //alert(ID);
+        //alert(input);
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                //alert(e.target.result);
+                $(ID).attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    //function openPage(pageName, elmnt, clr) {
+    //    //alert('#' + pageName);
+    //    var i, tabcontent, tablinks;
+    //    tabcontent = document.getElementsByClassName("tabcontent");
+    //    for (i = 0; i < tabcontent.length; i++) {
+    //        tabcontent[i].style.display = "none";
+    //    }
+    //    tablinks = document.getElementsByClassName("tablink");
+    //    for (i = 0; i < tablinks.length; i++) {
+    //        tablinks[i].style.backgroundColor = "";
+    //        tablinks[i].style.color = clr;
+    //    }
+    //    document.getElementById(pageName).style.display = "block";
+    //    elmnt.style.backgroundColor = clr;
+    //    elmnt.style.color = 'white';
+    //}
+
+    $(document).ready(function () {
+        // Get the element with id="defaultOpen" and click on it
+        //document.getElementById("defaultOpen").click();
+        //document.getElementById("defaultOpen").backgroundColor = "gray";
+
+        //$("#CompLogo").change(function () {
+        //    //alert('COmpLogo');
+        //    var ID = '#CompLogoImg';
+        //    ReadFile(this, ID);
+        //});
+
+        //$("#SiteIcon").change(function () {
+        //    //alert('SiteLogo');
+        //    var ID = '#SiteIconImg';
+        //    ReadFile(this, ID);
+        //});
+
+        $("#LoginLogo").change(function () {
+            //alert('COmpLogo');
+            var ID = '#LoginLogoImg';
+            ReadFile(this, ID);
+        });
+
+        $("#BgImage").change(function () {
+            //alert('SiteLogo');
+            var ID = '#BackgroundImage';
+            ReadFile(this, ID);
+        });
+
+
+
+        var TimeZone = $('#hdnTimeZone').val();
+        
+        if (TimeZone.trim() == '') {
+            $('#TimeZone').val('America/New_Jersey')
+        }
+        else {
+            $('#TimeZone').val(TimeZone)
+        }
+
+        var DateFormat = $('#hdnDateFormat').val();
+        if (DateFormat.trim() == '') {
+            $('#DateFormat').val('"MM/dd/yyyy"');
+        }
+        else {
+            $('#DateFormat').val(DateFormat);
+        }
+
+        var TimeFormat = $('#hdnTimeFormat').val();
+        if (TimeFormat.trim() == '') {
+            $('#TimeFormat').val('"hh:mm tt"');
+        }
+        else {
+            $('#TimeFormat').val(TimeFormat);
+        }
+
+        var WeekStart = $('#hdnWeekStart').val();
+        $('#WeekStart').val(WeekStart);
+
+        var Position = $('#hdnPosition').val();
+        $('#Position').val(Position);
+
+        var ForgotPassLink = $('#hdnForgotPassLink').val();
+        $('#ForgotPassLink').val(ForgotPassLink);
+
+        var BackToHomeLink = $('#hdnBackToHomeLink').val();
+        $('#BackToHomeLink').val(BackToHomeLink);
+
+        //$('#dvAdd2').hide();
+        //$('#dvAdd3').hide();
+
+        //binds to onchange event of your input field
+        $('#CompLogo').bind('change', function () {
+            var fileSize = this.files[0].size;
+            // 1048576
+            fileSize = fileSize / 1048576;
+            if (fileSize > 2) {
+                alert("Maximum Company Logo size is 2 MB. \nPlease upload image below or equal to 2 MB.\nYour Company Logo size is - " + parseInt(fileSize) + " MB.");
+                $('#CompLogo').val('');
+                //$('#CompLogoImg').val('');
+                $('#CompLogoImg').attr("src", "");
+            }
+            else {
+                var ID = '#CompLogoImg';
+                ReadFile(this, ID);
+            }
+
+        });
+
+        $('#SiteIcon').bind('change', function () {
+            var fileSize = this.files[0].size;
+            // 1048576
+            fileSize = fileSize / 1048576;
+            if (fileSize > 0.5) {
+                alert("Maximum Site icon size is 500 KB. \nPlease upload image below or equal to 500 KB.\nYour Site icon size is - " + parseInt(fileSize) + " MB.");
+                $('#SiteIcon').val('');
+                //$('#SiteIconImg').val('');
+                $('#SiteIconImg').attr("src", "");
+            }
+            else {
+                var ID = '#SiteIconImg';
+                ReadFile(this, ID);
+            }
+
+        });
+
+    });
+
+</script>
+
+
+
+
+<div class="container wv-rad5-shadow" style="padding-bottom:10px;">
+
+    <div id="dvTabs">
+        <br>
+        <!-- Nav tabs -->
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#General">General</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#Contact">Contact</a>
+            </li>
+            @*<li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#LogSetting">Login Setting</a>
+                </li>*@
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#Social">Social</a>
+            </li>
+        </ul>
+
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+            <div id="General" class="container tab-pane active">
+
+                @using (Html.BeginForm("GeneralSetup", "Setting", FormMethod.Post, new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form", enctype = "multipart/form-data" }))
+                {
+                    <div class="container wv-rad5-shadow">
+
+
+                        <h4 class="tittle-w3-agileits mb-4" style="font-size:20px; text-align:left;">General Settings</h4>
+                        @ViewBag.msgGeneralSetting
+
+
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label>Site Title</label>
+                                <input type="text" class="form-control" placeholder="Enter Site Title" name="SiteTitle" id="SiteTitle" value="@Model.SiteTitle" required @*placeholder="Site Title..."*@ />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Tag Line</label>
+                                <input type="text" class="form-control" name="TagLine" placeholder="Enter Tag Line" id="TagLine" value="@Model.TagLine" required @*placeholder="Tag Line..."*@ />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Administrative Email-ID</label>
+                                <input type="email" class="form-control" name="AdmEmailID" id="AdmEmailID" placeholder="Enter Email-Id" value="@Model.AdministrativeEmailID" required @*placeholder="Administrative Email-ID..."*@ />
+                            </div>
+                        </div> <!--End of Second row-->
+
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label>Time Zone</label>
+                                <input type="hidden" class="form-control" id="hdnTimeZone" name="hdnTimeZone" value="@Model.TimeZone">
+                                @Html.DropDownList("TimeZone", ViewBag.TimeZone as List<SelectListItem>, "Select TimeZone", new { @class = "form-control", @type = "text", @databvalidator = "required" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Date Format</label>
+                                <input type="hidden" class="form-control" id="hdnDateFormat" name="hdnDateFormat" value="@Model.DateFromat">
+                                @Html.DropDownList("DateFormat", ViewBag.DateFormat as List<SelectListItem>, "Select Date Format", new { @class = "form-control", @type = "text", @databvalidator = "required" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Time Format</label>
+                                <input type="hidden" class="form-control" id="hdnTimeFormat" name="hdnTimeFormat" value="@Model.TimeFormat">
+                                @Html.DropDownList("TimeFormat", ViewBag.TimeFormat as List<SelectListItem>, "Select Time Format", new { @class = "form-control", @type = "text", @databvalidator = "required" })
+                            </div>
+                        </div> <!--End of Third row-->
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <p><b>Note</b></p>
+                                <p style="font-size:14px; color:#54595f;">
+                                    Site Icons are what you see in browser tabs, bookmark bars, and within the mobile apps. Upload one here!
+                                </p>
+                                <p style="font-size:14px; color:#54595f;">
+                                    Site Icons should be square and at least 512 × 512 pixels.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="form-group col-md-3">
+                                <label>Site Icon <br /><span style="font-size:12px; color:#54595f;">.jpg, .png, .jpeg  files only. (max size 500kb)</span></label>
+                                <input type="file" id="SiteIcon" name="SiteIcon" class="form-control" accept=".jpg, .png, .jpeg" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <input type="hidden" name="hdnSiteIcon" id="hdnSiteIcon" value="@Model.SiteIcon" />
+
+                                @if (Model.SiteIcon == null || Model.SiteIcon == "")
+                                {
+
+                                    <img src="~/CompanyDetails/site_icon.jpg" id="SiteIconImg" width="100" height="100" />
+
+                                }
+                                else
+                                {
+
+                                    <img src="/CompanyDetails/@Model.SiteIcon" id="SiteIconImg" width="100" height="100" />
+                                }
+
+
+
+                                <button type="button" onclick="DeleteImage('#SiteIconImg','hdnSiteIcon');" class="btn btn-primary">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Company Logo <br /><span style="font-size:12px; color:#54595f;">.jpg, .png, .jpeg  files only. (max size 2MB)</span></label>
+                                <input type="file" id="CompLogo" name="CompLogo" class="form-control" accept=".jpg, .png, .jpeg" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <input type="hidden" name="hdnCompLogo" id="hdnCompLogo" value="@Model.CompLogo" />
+
+                                @if (Model.CompLogo == null || Model.CompLogo == "")
+                                {
+
+                                    <img src="~/CompanyDetails/site_icon.jpg" id="CompLogoImg" width="100" height="100" />
+
+                                }
+                                else
+                                {
+
+                                    <img src="/CompanyDetails/@Model.CompLogo" id="CompLogoImg" width="100" height="100" />
+                                }
+
+
+
+                                <button type="button" onclick="DeleteImage('#CompLogoImg','hdnCompLogo');" class="btn btn-primary">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+
+
+
+                        </div> <!--End of Fourth row-->
+
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label>Week Starts on</label>
+                                <input type="hidden" name="hdnWeekStart" id="hdnWeekStart" value="@Model.WeekStartOn" />
+                                @Html.DropDownList("WeekStart", ViewBag.WeekDays as List<SelectListItem>, "Select Week Start", new { @class = "form-control", @type = "text", @databvalidator = "required" })
+                            </div>
+                            @*<div class="form-group col-md-9">
+                                    <label>Company Address</label>
+                                    <textarea type="text" placeholder="Enter Company Address" name="CompAddress" class="form-control" rows="1" required>@Model.CompanyAddress</textarea>
+                                </div>*@
+                        </div> <!--End of Fifth row-->
+
+                        <div class="row">
+                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="btnSubmitGenSett" id="btnSubmitGenSett" class="btn btn-primary" value="Submit" />
+                        </div> <!--End of Sixth row-->
+
+                    </div> <!-- End of General Setting -->
+                }
+
+            </div>
+
+            <div id="Contact" class="container tab-pane fade">
+
+                @using (Html.BeginForm("ContactSetup", "Setting", FormMethod.Post, new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+                {
+                    <div class="container wv-rad5-shadow">
+
+
+                        <h4 class="tittle-w3-agileits mb-4" style="font-size:20px; text-align:left;">Contact Settings</h4>
+
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Street 1</label>
+                                <input type="text" class="form-control" placeholder="Enter Street" name="StreetAddress1" id="StreetAddress1" value="@Model.StreetAddress1" />
+                            </div>
+                            <div class="col-md-3">
+                                <label>Street 2</label>
+                                <input type="text" class="form-control" placeholder="Enter Street" name="StreetAddress2" id="StreetAddress2" value="@Model.StreetAddress2" />
+                            </div>
+                            <div class="col-md-3">
+                                <label>City</label>
+                                <input type="text" class="form-control" placeholder="Enter City" name="City" id="City" value="@Model.City" />
+                            </div>
+                            <div class="col-md-3">
+                                <label>State</label>
+                                <input type="text" class="form-control" placeholder="Enter State" name="State" id="State" value="@Model.State" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Zip</label>
+                                <input type="number" maxlength="6" placeholder="Enter Zip" class="form-control" name="Zip" id="Zip" value="@Model.Zip" />
+                            </div>
+                            <div class="col-md-3">
+                                <label>Work Phone</label>
+                                <input type="number" maxlength="10" placeholder="Enter Work Phpne" class="form-control" name="WorkPhone" id="WorkPhone" value="@Model.WorkPhone" />
+                            </div>
+                            <div class="col-md-3">
+                                <label>Mobile No.</label>
+                                <input type="number" maxlength="10" class="form-control" placeholder="Enter Mobile No." name="MobileNo" id="MobileNo" value="@Model.MobileNo" />
+                            </div>
+                            <div class="col-md-3">
+                                <label>Location</label>
+                                <input type="text" class="form-control" placeholder="Enter Location" name="Location" id="Location" value="@Model.Location" />
+                            </div>
+
+                        </div>
+
+                        <br />
+                        <div id="dvAdd2" style="background:rgba(211,211,211,0.17); padding:13px;">
+
+                            @*<div style="text-align:right;">
+                                    <input type="button" class="btn btn-primary" value="X" onclick="HideShowMoreAddress('#dvAdd2', 'Hide');" />
+                                </div>*@
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Street 1</label>
+                                    <input type="text" class="form-control" placeholder="Enter Street" name="StreetAddress1_1" id="StreetAddress1_1" value="@Model.StreetAddress1_1" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Street 2</label>
+                                    <input type="text" class="form-control" placeholder="Enter Street" name="StreetAddress2_1" id="StreetAddress2_1" value="@Model.StreetAddress2_1" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>City</label>
+                                    <input type="text" class="form-control" placeholder="Enter City" name="City_1" id="City_1" value="@Model.City_1" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>State</label>
+                                    <input type="text" class="form-control" placeholder="Enter State" name="State_1" id="State_1" value="@Model.State_1" />
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Zip</label>
+                                    <input type="number" maxlength="6" class="form-control" placeholder="Enter Zip" name="Zip_1" id="Zip_1" value="@Model.Zip_1" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Work Phone</label>
+                                    <input type="number" maxlength="10" class="form-control" placeholder="Enter Work Phone" name="WorkPhone_1" id="WorkPhone_1" value="@Model.WorkPhone_1" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Mobile No.</label>
+                                    <input type="number" maxlength="10" class="form-control" placeholder="Enter Mobile No." name="MobileNo_1" id="MobileNo_1" value="@Model.MobileNo_1" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Location</label>
+                                    <input type="text" class="form-control" placeholder="Enter Location" name="Location_1" id="Location_1" value="@Model.Location_1" />
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <br />
+                        <div id="dvAdd3">
+
+
+                            @*<div style="text-align:right;">
+                                    <input type="button" class="btn btn-primary" value="X" onclick="HideShowMoreAddress('#dvAdd3', 'Hide');" />
+
+                                </div>*@
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Street 1</label>
+                                    <input type="text" class="form-control" placeholder="Enter Street" name="StreetAddress1_2" id="StreetAddress1_2" value="@Model.StreetAddress1_2" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Street 2</label>
+                                    <input type="text" class="form-control" placeholder="Enter Street" name="StreetAddress2_2" id="StreetAddress2_2" value="@Model.StreetAddress2_2" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>City</label>
+                                    <input type="text" class="form-control" placeholder="Enter City" name="City_2" id="City_2" value="@Model.City_2" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>State</label>
+                                    <input type="text" class="form-control" name="State_2" placeholder="Enter State" id="State_2" value="@Model.State_2" />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Zip</label>
+                                    <input type="number" maxlength="6" class="form-control" placeholder="Enter Zip" name="Zip_2" id="Zip_2" value="@Model.Zip_2" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Work Phone</label>
+                                    <input type="number" maxlength="10" class="form-control" placeholder="Enter Work Phone" name="WorkPhone_2" id="WorkPhone_2" value="@Model.WorkPhone_2" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Mobile No.</label>
+                                    <input type="number" maxlength="10" class="form-control" placeholder="Enter Mobile No." name="MobileNo_2" id="MobileNo_2" value="@Model.MobileNo_2" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Location</label>
+                                    <input type="text" class="form-control" name="Location_2" placeholder="Enter Location" id="Location_2" value="@Model.Location_2" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="row">
+                            <input type="submit" name="btnSubmitContactSetup" id="btnSubmitContactSetup" class="btn btn-primary" value="Submit" />
+                            @*&nbsp;&nbsp;
+                                <input type="button" name="btnAddOffice" id="btnAddOffice" class="btn btn-primary" value="More Office Address" onclick="HideShowMoreAddress('#dvID2', 'Show');" />*@
+                        </div> <!--End of Sixth row-->
+
+                    </div>
+                }
+
+            </div>
+
+            @*<div id="LogSetting" class="container tab-pane fade">
+
+                    @using (Html.BeginForm("LoginSetup", "Setting", FormMethod.Post, new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form", enctype = "multipart/form-data" }))
+                    {
+                        <div class="container wv-rad5-shadow">
+
+
+                            <h4 class="tittle-w3-agileits mb-4">Login Settings</h4>
+                            @ViewBag.msgLoginSetting
+
+
+                            <div class="row">
+
+                                <div class="form-group col-md-3">
+                                    <label>Login Logo</label>
+                                    <input type="file" id="LoginLogo" name="LoginLogo" class="form-control" accept=".jpg, .png, .jpeg" />
+                                </div>
+                                <div class="form-group col-md-3 text-center">
+                                    <input type="hidden" name="hdnLoginLogo" id="hdnLoginLogo" value="@Model.LoginPageLogo" />
+
+                                    <img src="/CompanyDetails/@Model.LoginPageLogo" id="LoginLogoImg" width="100" height="100" />
+                                    &nbsp;&nbsp;&nbsp;
+                                    <button type="button" onclick="DeleteImage('#LoginLogoImg','hdnLoginLogo');" class="btn btn-primary">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label>Background Image</label>
+                                    <input type="file" id="BgImage" name="BgImage" class="form-control" accept=".jpg, .png, .jpeg" />
+                                </div>
+
+                                <div class="form-group col-md-3 text-center">
+                                    <input type="hidden" name="hdnBgImage" id="hdnBgImage" value="@Model.BackgroundImage" />
+
+                                    <img src="/CompanyDetails/@Model.BackgroundImage" id="BackgroundImage" width="100" height="100" />
+                                    &nbsp;&nbsp;&nbsp;
+                                    <button type="button" onclick="DeleteImage('#BackgroundImage','hdnBgImage');" class="btn btn-primary">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="form-group col-md-4">
+                                    <label>Logo Bottom Margin</label>
+                                    <input type="text" class="form-control" name="LogobtmMargin" id="LogobtmMargin" value="@Model.LogoBottomMargin" required />
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label>Logo Width</label>
+                                    <input type="text" class="form-control" name="LogoWidth" id="LogoWidth" value="@Model.LogoWidth" required />
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label>Logo Height</label>
+                                    <input type="text" class="form-control" name="LogoHeight" id="LogoHeight" value="@Model.LogoHeight" required/>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="form-group col-md-4">
+                                    <label>Position</label>
+                                    <input type="hidden" class="form-control" id="hdnPosition" name="hdnPosition" value="@Model.Position">
+                                    <select type="text" name="Position" id="Position" class="form-control">
+                                        <option value="Select">Select</option>
+                                        <option value="static">Static</option>
+                                        <option value="relative">Relative</option>
+                                        <option value="fixed">Fixed</option>
+                                        <option value="absolute">Absolute</option>
+                                        <option value="sticky">Sticky</option>
+                                    </select>
+                                      </div>
+                                <div class="form-group col-md-4">
+                                    <label>Lost Password Link</label>
+                                    <input type="hidden" class="form-control" id="hdnForgotPassLink" name="hdnForgotPassLink" value="@Model.ForgotPassLink">
+                                    <select type="text" name="ForgotPassLink" id="ForgotPassLink" class="form-control">
+                                        <option value="Hide">Hide</option>
+                                        <option value="Show">Show</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Back To Home Zone</label>
+                                    <input type="hidden" class="form-control" id="hdnBackToHomeLink" name="hdnBackToHomeLink" value="@Model.BackToHomeLink">
+                                    <select type="text" name="BackToHomeLink" id="BackToHomeLink" class="form-control">
+                                        <option value="Hide">Hide</option>
+                                        <option value="Show">Show</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="btnSubmitLogSett" id="btnSubmitLogSett" class="btn btn-primary" value="Submit" />
+                            </div>
+
+                        </div>
+                    }
+
+                </div>*@
+
+            <div id="Social" class="container tab-pane fade">
+
+                @using (Html.BeginForm("SocialSetup", "Setting", FormMethod.Post, new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+                {
+                    <div class="container wv-rad5-shadow">
+
+
+                        <h4 class="tittle-w3-agileits mb-4" style="font-size:20px; text-align:left;">Social Settings</h4>
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div style="display:inline-block;">
+                                    <img src="~/CompanyDetails/Whatsapp.png" height="40" width="40" />
+                                </div>
+                                <div style="display:inline-block;">
+                                    <input type="text" placeholder="Enter Whatsapp Number" class="form-control" name="whatsapp" id="whatsapp" value="@Model.WhatsApp" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div style="display:inline-block;">
+                                    <img src="~/CompanyDetails/facebook.png" height="40" width="40" />
+                                </div>
+                                <div style="display:inline-block;">
+                                    <input type="text" placeholder="Enter Facebook Link" class="form-control" name="facebook" id="facebook" value="@Model.FaceBook" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div style="display:inline-block;">
+                                    <img src="~/CompanyDetails/instagram-sketched.png" height="40" width="40" />
+                                </div>
+                                <div style="display:inline-block;">
+                                    <input type="text" placeholder="Enter Instagram Link" class="form-control" name="instagram" id="instagram" value="@Model.InstaGram" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div style="display:inline-block;">
+                                    <img src="~/CompanyDetails/linkedin.png" height="40" width="40" />
+                                </div>
+                                <div style="display:inline-block;">
+                                    <input type="text" placeholder="Enter Linkedin Link" class="form-control" name="linkedin" id="linkedin" value="@Model.LinkedIn" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div style="display:inline-block;">
+                                    <img src="~/CompanyDetails/twitter.png" height="40" width="40" />
+                                </div>
+                                <div style="display:inline-block;">
+                                    <input type="text" placeholder="Enter Twitter Link" class="form-control" name="twitter" id="twitter" value="@Model.Twitter" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div style="display:inline-block;">
+                                    <img src="~/CompanyDetails/youtube.png" height="40" width="40" />
+                                </div>
+                                <div style="display:inline-block;">
+                                    <input type="text" placeholder="Enter Youtube Link" class="form-control" name="youtube" id="youtube" value="@Model.Youtube" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+                        <div class="row">
+
+                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="btnSocialSetup" id="btnSocialSetup" class="btn btn-primary" value="Submit" />
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>

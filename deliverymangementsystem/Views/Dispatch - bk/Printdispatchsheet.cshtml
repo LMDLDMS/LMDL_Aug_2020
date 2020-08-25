@@ -1,0 +1,196 @@
+﻿
+@{
+    ViewBag.Title = "Printdispatchsheet";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/datatable/jquery.dataTables.js"></script>
+<script src="~/datatable/dataTables.buttons.min.js"></script>
+<script src="~/datatable/buttons.flash.min.js"></script>
+<script src="~/datatable/jszip.min.js"></script>
+<script src="~/datatable/pdfmake.min.js"></script>
+<script src="~/datatable/vfs_fonts.js"></script>
+<script src="~/datatable/buttons.html5.min.js"></script>
+<script src="~/datatable/buttons.print.min.js"></script>
+<script src="~/datatable/buttons.colVis.min.js"></script>
+
+<script>
+
+    $(function () {
+
+        $("#dpicker").datepicker({ minDate: "-5M -10D", maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+
+    });
+    $(document).ready(function () {
+
+        var ssdt = $("#currentdt").val();
+        debugger;
+        $("#tbl").DataTable({
+            dom: 'lBfrtip',
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "pageLength": -1,
+            buttons: [
+                {
+                    extend: 'print',
+                    title: 'Dispatchsheet:' + ssdt,
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+                    },
+                    customize: function (doc, config) {
+                        doc.pageOrientation = 'landscape';
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    title: 'Dispatchsheet' + ssdt,
+                    sheetName: 'Dispatchsheet' + ssdt
+                    //exportOptions: {
+                    //    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13]
+                    //},
+                    //customize: function (doc, config) {
+                    //    doc.pageOrientation = 'landscape';
+                    //}
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'Dispatchsheet' + ssdt,
+
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                    },
+                    customize: function (doc, config) {
+                        doc.pageOrientation = 'landscape';
+                    }
+                },
+
+            ]
+        });
+
+
+
+    });
+
+</script>
+<div class="container-fluid wv-rad5-shadow">
+
+    @using (Html.BeginForm("Printdispatchsheet", "Dispatch", FormMethod.Post, new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+        if (ViewBag.selecteddate != null)
+        {
+            <h4 class="tittle-w3-agileits mb-4">LMDL DispatchSheet(@ViewBag.selecteddate) </h4>
+            <input type="hidden" value="@ViewBag.selecteddate" id="currentdt" />
+        }
+        else
+        {
+            <h4 class="tittle-w3-agileits mb-4">LMDL DispatchSheet </h4>
+
+        }
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="inputAddress">Select Date</label>
+                <input type="text" class="form-control" id="dpicker" name="selectdate" placeholder="select date" databvalidator="required">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+
+
+        <div>@ViewBag.msg</div>
+
+        if (ViewData["objlist"] != null)
+        {
+            <table class="table table-bordered" style="width: 100%" id="tbl">
+
+                <thead>
+
+                    <tr>
+                        <th scope="col">Backup/Rescue</th>
+                        @*<th scope="col">Routes</th>*@
+                        <th scope="col">Bag</th>
+                        <th scope="col">Van type</th>
+                        <th scope="col">Routes#</th>
+
+                        <th scope="col">Driver Name</th>
+                        <th scope="col">Van Number</th>
+                        <th scope="col">Phone1#</th>
+                        <th scope="col">Phone2#</th>
+                        <th scope="col">Packages</th>
+                        <th scope="col">Stops</th>
+                        <th scope="col">Level</th>
+                        <th scope="col">Ride Along</th>
+                        <th scope="col">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in ViewData["objlist"] as List<deliverymangementsystem.Models.dispatchmodel>)
+                    {
+                        <tr>
+                            <td>@item.back_res</td>
+                            @*<td>@item.routes</td>*@
+                            <td>@item.bages</td>
+                            <td width="10%">
+                                @item.vantype
+                            </td>
+
+                            <td>
+                                @item.route
+                            </td>
+                            <td width="15%">
+                                @item.driverName
+                            </td>
+                            <td width="15%">
+                                @item.van_number
+                            </td>
+
+                            <td>
+                                @item.cat
+                            </td>
+                            <td>
+                                @item.phone2
+                            </td>
+                            <td>
+                                @item.package
+                            </td>
+                            <td>
+                                @item.Stop
+                            </td>
+                            <td>
+                                @item.level
+                            </td>
+                            <td>
+                                @item.rideralong
+                            </td>
+
+                            <td width="10%">
+                                @item.notes
+                            </td>
+
+
+                            @*<td>
+                                    <button type="button" class="btn btn-primary" onclick="EditRole(@item.assign_id)">Edit</button>||
+                                    <button type="button" class="btn btn-primary" onclick="DeleteRole(@item.assign_id)">Delete</button>
+                                </td>*@
+
+                        </tr>
+
+
+                    }
+
+                </tbody>
+            </table>
+        }
+    }
+
+</div>
+
+

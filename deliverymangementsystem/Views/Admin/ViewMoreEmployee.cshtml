@@ -1,0 +1,299 @@
+﻿@using deliverymangementsystem.EDM;
+@model deliverymangementsystem.EDM.tblfinaldrivermaster
+
+@{ 
+    var dc = new dsdatabaseEntities();
+}
+
+<script>
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#profile').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURL1(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#linc_photo').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#btnlinc").click(function () {
+
+        var data = new FormData();
+        var files = $("#file1").get(0).files;
+        if (files.length > 0) {
+
+            data.append("MyImages", files[0]);
+            data.append("finaldriverid", $("#final_driver_id").val())
+
+
+        }
+
+        $.ajax({
+            url: "/Admin/UploadLinc",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (response) {
+
+                alert(" Update Successfully ..");
+
+            },
+            error: function (er) {
+                alert(er);
+            }
+
+        });
+
+
+    });
+
+    $("#btnprofilepic").click(function () {
+
+
+        var data = new FormData();
+        var files = $("#file").get(0).files;
+        if (files.length > 0) {
+
+            data.append("MyImages", files[0]);
+            data.append("finaldriverid", $("#final_driver_id").val())
+
+        }
+
+        $.ajax({
+            url: "/Admin/UploadFile",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (response) {
+
+                alert("Profile pic Update Successfully ..");
+
+            },
+            error: function (er) {
+                alert(er);
+            }
+
+        });
+
+
+
+    });
+
+    $("#file").change(function () {
+        readURL(this);
+    });
+    $("#file1").change(function () {
+        readURL1(this);
+    });
+
+
+</script>
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Driver Info</h4>
+    @using (Html.BeginForm())
+    {
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">Driver Name</label>
+                @Html.TextBoxFor(c => c.final_driver_name, new { @class = "form-control", @placeholder = "Enter Name" })
+
+                @Html.HiddenFor(c => c.final_driver_id)
+
+            </div>
+
+            <div class="form-group col-md-6">
+
+                <img id="profile" src="~/Uploads/@Model.driver_profile_pic" width="100" height="100" />
+
+                <input type="file" id="file" />
+                <button type="button" id="btnprofilepic" class="btn btn-primary">Upload Profile Pic</button>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">Driver Personal Email</label>
+                @Html.TextBoxFor(c => c.final_driver_personal_email, new { @class = "form-control", @placeholder = "Enter Personal Email" })
+
+            </div>
+
+            <div class="form-group col-md-6">
+
+                <label for="inputEmail4">Driver Company Email</label>
+                @Html.TextBoxFor(c => c.final_driver_company_email, new { @class = "form-control", @placeholder = "Enter company Email" })
+
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">Driver personal Mobile</label>
+                @Html.TextBoxFor(c => c.personal_mobile_no, new { @class = "form-control", @placeholder = "Enter personal Mobile Number" })
+
+            </div>
+
+            <div class="form-group col-md-6">
+
+                <label for="inputEmail4">Driver Company Email</label>
+                @Html.TextBoxFor(c => c.company_mobile_no, new { @class = "form-control", @placeholder = "Enter comapny Mobile number" })
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">Driver Date of birth</label>
+                @{
+                    if (Model.dob != null)
+                    {
+                        @Html.TextBox("dob", String.Format("{0:d}", Model.dob.Value.ToString("MM/dd/yyyy")), new { @class = "form-control", @id = "schdate1", @placeholder = "Select Date of birth", @readonly = true })
+                    }
+                    else
+                    {
+                        @Html.TextBox("dob", "", new { @class = "form-control", @id = "schdate1", @placeholder = "Select Date of birth", @readonly = true })
+                    }
+                }
+
+
+
+            </div>
+
+            <div class="form-group col-md-6">
+
+                <label for="inputEmail4">Driver Full address</label>
+                @Html.TextBoxFor(c => c.driver_full_address, new { @class = "form-control", @placeholder = "Enter full addresss" })
+
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">Driver License No</label>
+                @Html.TextBoxFor(c => c.driver_license_no, new { @class = "form-control", @placeholder = "Driver License No" })
+
+            </div>
+
+            <div class="form-group col-md-6">
+
+                <label for="inputEmail4">Driver License State</label>
+
+                @Html.TextBoxFor(c => c.driver_license_state, new { @class = "form-control", @placeholder = "Enter Driver License State" })
+
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">Job offer Date</label>
+
+                @Html.TextBoxFor(c => c.job_offer_date, new { @class = "form-control", @placeholder = "Select job offer Date" })
+
+            </div>
+
+            <div class="form-group col-md-6">
+
+                <label for="inputEmail4">Joining Date</label>
+                @Html.TextBoxFor(c => c.join_date, new { @class = "form-control", @placeholder = "select join date" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputAddress">Driver ADP ID</label>
+            @Html.TextBoxFor(c => c.driver_adp_id, new { @class = "form-control", @placeholder = "Enter ADP ID" })
+
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">Driver Probation period</label>
+                @Html.TextBoxFor(c => c.driver_prohibition_period, new { @class = "form-control", @placeholder = "Driver Probation period" })
+
+            </div>
+
+            <div class="form-group col-md-6">
+
+                <label for="inputEmail4">Verified by previous if yes</label>
+                @Html.TextBoxFor(c => c.verified_by_previous_if_yes, new { @class = "form-control", @placeholder = "Verified by previous if yes" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*<label for="inputAddress">driver License_photo</label>*@
+            <img id="linc_photo" alt="please Update Driver License" src="~/Uploads/@Model.driver_license_photo" width="300" height="300" />
+            <input type="file" id="file1" />
+            <button type="button" id="btnlinc" class="btn btn-primary">Update License</button>
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Total Experience</label>
+            @Html.TextBoxFor(c => c.total_exp, new { @class = "form-control", @placeholder = "Total Experience " })
+
+        </div>
+        <div class="form-row">
+            @{
+                if (Model.traning_date_one != null)
+                {
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">Traning Date One</label>
+                        @Html.TextBox("traning_date_one", String.Format("{0:d}", Model.traning_date_one.Value.ToString("MM/dd/yyyy")), new { @class = "form-control", @id = "schdate1", @placeholder = "Traning date one", @readonly = true })
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">Traning Date Two</label>
+                        @Html.TextBox("traning_date_two", String.Format("{0:d}", Model.traning_date_two.Value.ToString("MM/dd/yyyy")), new { @class = "form-control", @id = "schdate1", @placeholder = "Traning date two", @readonly = true })
+                    </div>
+                }
+                else
+                {
+                    if (ViewBag.trainingType != null)
+                    {
+                        if (ViewBag.trainingType == "Virtual")
+                        {
+                            var date = ViewBag.virtualDate.ToString().Split(' ')[0];
+
+                            <div class="form-group col-md-6">
+                                <label for="inputCity">Virtual Training Date</label>
+                                <input type="text" class="form-control" name="virtualdateone" id="virtualdateone" value="@date" readonly/>
+                            </div>
+                        }
+                    }
+                }
+            }
+
+
+
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCity">Riding Along Date</label>
+                @Html.TextBox("ride_along_date", String.Format("{0:d}", Model.ride_along_date.Value.ToString("MM/dd/yyyy")), new { @class = "form-control", @id = "schdate1", @placeholder = "Ride Along  one", @readonly = true })
+
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputCity">Ride Along Name</label>
+                @Html.TextBoxFor(c => c.ride_along_driver_name, new { @class = "form-control", @placeholder = "Enter Ride Along Name", @readonly = true })
+
+            </div>
+
+
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Update" />
+
+    }
+</div>

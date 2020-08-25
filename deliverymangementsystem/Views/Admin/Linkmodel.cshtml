@@ -1,0 +1,143 @@
+﻿
+@{
+    Layout = null;
+}
+<html>
+<head>
+    @*<script src="dist/clipboard.min.js"></script>*@
+    <script>
+        //function CopyLink() {
+        //    var copyText = document.getElementById('myInput');
+        //    copyText.select();
+        //    copyText.setSelectionRange(0, 99999)
+        //    document.execCommand("copy");
+        //    alert("Copied the text: " + copyText.value);
+        //    //alert('copied..');
+        //}
+        //$(document).ready(function () {
+        //    $('#copy').click(function () {
+        //        //CopyLink();
+        //        //alert('copied..');
+        //        var copyText = document.getElementById('myInput');
+        //        //copyToClipboard(copyText);
+        //        copyTextToClipboard(copyText);
+        //    });
+        //});
+
+        //document.getElementById("copyButton").addEventListener("click", function () {
+        //    copyToClipboard(document.getElementById("copyTarget"));
+        //});
+
+        //function copyToClipboard() {
+            
+        //    // create hidden text element, if it doesn't already exist
+        //    var elem = document.getElementById('myInput');
+        //    var targetId = "_hiddenCopyText_";
+        //    var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+        //    var origSelectionStart, origSelectionEnd;
+        //    if (isInput) {
+        //        // can just use the original source element for the selection and copy
+        //        target = elem;
+        //        origSelectionStart = elem.selectionStart;
+        //        origSelectionEnd = elem.selectionEnd;
+        //    } else {
+        //        // must use a temporary form element for the selection and copy
+        //        target = document.getElementById(targetId);
+        //        if (!target) {
+        //            var target = document.createElement("textarea");
+        //            target.style.position = "absolute";
+        //            target.style.left = "-9999px";
+        //            target.style.top = "0";
+        //            target.id = targetId;
+        //            document.body.appendChild(target);
+        //        }
+        //        target.textContent = elem.textContent;
+        //    }
+        //    // select the content
+        //    var currentFocus = document.activeElement;
+        //    target.focus();
+        //    target.setSelectionRange(0, target.value.length);
+
+        //    // copy the selection
+        //    var succeed;
+        //    try {
+        //        succeed = document.execCommand("copy");
+        //    } catch (e) {
+        //        succeed = false;
+        //    }
+        //    // restore original focus
+        //    if (currentFocus && typeof currentFocus.focus === "function") {
+        //        currentFocus.focus();
+        //    }
+
+        //    if (isInput) {
+        //        // restore prior selection
+        //        elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+        //    } else {
+        //        // clear temporary content
+        //        target.textContent = "";
+        //    }
+        //    alert('copied..');
+        //    return succeed;
+            
+        //}
+
+        function fallbackCopyTextToClipboard(text) {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+
+            // Avoid scrolling to bottom
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'successful' : 'unsuccessful';
+                console.log('Fallback: Copying text command was ' + msg);
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+        function copyTextToClipboard() {
+            var text = document.getElementById('myInput').value;
+            //if (!navigator.clipboard) {
+            //    fallbackCopyTextToClipboard(text);
+            //    return;
+            //}
+            navigator.clipboard.writeText(text).then(function () {
+                console.log('Async: Copying to clipboard was successful!');
+            }, function (err) {
+                console.error('Async: Could not copy text: ', err);
+                });
+            //alert(text);
+            alert('copied..');
+        }
+        
+
+    </script>
+</head>
+<body>
+    <div class="outer-w3-agile mt-3">
+        <h4 class="tittle-w3-agileits mb-4"> @ViewBag.msg </h4>
+        @using (Html.BeginForm("Linkmodel", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+        {
+            @*<center>@ViewBag.msg;</center>*@
+            @*<p id="idLink">@ViewBag.Link</p>*@
+
+            <input type="text" value="@ViewBag.Link" class="form-control" id="myInput" >
+            <br />
+
+            <center><label id="copy" onclick="copyTextToClipboard()">Copy Link</label></center>
+
+        }
+
+    </div>
+</body>
+</html>

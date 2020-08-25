@@ -1,0 +1,63 @@
+﻿
+<script>
+
+    $(document).ready(function () {
+        
+    });
+
+</script>
+
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Edit Info</h4>
+    @using (Html.BeginForm("editApplicantData", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+        
+        <input type="hidden" name="hidEmpID" id="hidEmpID" value="@ViewBag.emp_id" />
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="inputAddress">Full Name</label>
+                <input type="text" name="empName" id="empName" value="@ViewBag.empName" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputAddress2">Phone No</label>
+                <input type="text" name="empContact" id="empContact" value="@ViewBag.empContact" />
+            </div>
+
+
+            @*<div class="form-group col-md-6">
+                <label for="inputAddress2">Personal Email ID</label>
+                <input type="email" name="empPersonalEmail" id="empPersonalEmail" value="@ViewBag.empPersonalEmail" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputAddress2">Work Email ID</label>
+                <input type="email" name="empWorkEmail" id="empWorkEmail" value="@ViewBag.empWorkEmail" />
+            </div>*@
+
+            <div class="form-group col-md-6">
+                <label for="inputAddress2">Personal Email ID</label>
+                <input type="email" name="empPersonalEmail" id="empPersonalEmail" value="@ViewBag.empPersonalEmail" required />
+            </div>
+            @if (ViewBag.empWorkEmail == "" || ViewBag.empWorkEmail == null)
+            {
+                <div class="form-group col-md-6">
+                </div>
+            }
+            else
+            {
+                <div class="form-group col-md-6">
+                    <label for="inputAddress2">Work Email ID</label>
+                    <input type="email" name="empWorkEmail" id="empWorkEmail" value="@ViewBag.empWorkEmail" required />
+                </div>
+            }
+
+
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+            <div>@ViewBag.msg</div>
+
+        </div>
+
+            }
+
+        </div>

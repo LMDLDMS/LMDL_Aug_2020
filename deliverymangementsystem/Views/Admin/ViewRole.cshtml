@@ -1,0 +1,139 @@
+﻿@model  List<deliverymangementsystem.EDM.tblrole>
+@{
+    ViewBag.Title = "ViewRole";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/datatable/jquery.dataTables.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#tbl").DataTable();
+        
+    })
+
+    function CreateRole() {
+        
+        $.ajax({
+
+            type: "Get",
+            url: "/Admin/CreateRole/0",
+            success: function (data) {
+
+                $(".modal-body").empty();
+               
+
+                $(".modal-body").append(data);
+                $("#model").modal('show');
+                
+            }
+
+        })
+
+    }
+
+    function EditRole(id) {
+        
+        $.ajax({
+
+            type: "Get",
+            url: "/Admin/CreateRole/"+id,
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+
+                $(".modal-body").append(data);
+                $("#model").modal('show');
+
+            }
+
+        })
+
+    }
+    function DeleteRole(id) {
+
+
+        if (confirm("Are you Sure you want to delete")) {
+
+            $.ajax({
+
+                type: 'Get',
+                url: "/Admin/DeleteRole/" + id,
+                success: function (data) {
+
+
+                    window.location.href = "/Admin/ViewRole/";
+
+
+
+                }
+
+            })
+
+        }
+        else {
+
+
+
+        }
+
+
+
+    }
+
+</script>
+
+
+<div class="form-group">
+
+    <button type="submit" class="btn btn-primary" onclick="CreateRole()" >Create Role</button>
+
+</div>
+@using (Html.BeginForm())
+{
+
+
+    <div class="outer-w3-agile mt-3">
+        <h4 class="tittle-w3-agileits mb-4">Role Management</h4>
+        <table class="table table-hover" id="tbl">
+            <thead>
+                <tr>
+
+                    <th scope="col">Role ID</th>
+                    <th scope="col">Role Name</th>
+                    <th scope="col">Role Status</th>
+                    <th scope="col">Role action</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+
+                    <td>@item.role_id</td>
+                    <td>@item.role_name</td>
+                    <td>@item.status</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" onclick="EditRole(@item.role_id)"><i class="fas fa-edit"></i></button>||
+                        <button type="button" class="btn btn-primary" onclick="DeleteRole(@item.role_id)"><i class="fas fa-trash"></i></button>
+                    </td>
+                    
+                </tr>
+                }
+                
+            </tbody>
+        </table>
+    </div>
+
+
+
+}
+
+
+

@@ -1,0 +1,208 @@
+﻿<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Drug Test</h4>
+    @using (Html.BeginForm("isdrugtest", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+
+        <div class="form-group">
+            <input type="hidden" value="@ViewBag.id" name="did" />
+
+            @{
+                if (ViewBag.status != null)
+                {
+                    if (ViewBag.status == "Created")
+                    {
+
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Created", new { @checked = "checked"})
+                            <label class="custom-control-label">Created</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "NoShow")
+                            <label class="custom-control-label">No Show</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Collected")
+                            <label class="custom-control-label">Collected</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "At Lab")
+                            <label class="custom-control-label">At Lab</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Negative")
+                            <label class="custom-control-label">Negative</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Rejected")
+                            <label class="custom-control-label">Positive</label>
+                        </div>
+
+                    }
+                    else if (ViewBag.status == "Collected")
+                    {
+
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Created")
+                            <label class="custom-control-label">Created</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "NoShow")
+                            <label class="custom-control-label">No Show</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Collected", new { @checked = "checked" })
+                            <label class="custom-control-label">Collected</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "At Lab")
+                            <label class="custom-control-label">At Lab</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Negative")
+                            <label class="custom-control-label">Negative</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Rejected")
+                            <label class="custom-control-label">Positive</label>
+                        </div>
+
+                    }
+                    else if (ViewBag.status == "At Lab")
+                    {
+
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Created")
+                            <label class="custom-control-label">Created</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "NoShow")
+                            <label class="custom-control-label">No Show</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Collected")
+                            <label class="custom-control-label">Collected</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "At Lab", new { @checked = "checked" })
+                            <label class="custom-control-label">At Lab</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Negative")
+                            <label class="custom-control-label">Negative</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Rejected")
+                            <label class="custom-control-label">Positive</label>
+                        </div>
+
+                    }
+                    else if (ViewBag.status == "Negative")
+                    {
+
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Created")
+                            <label class="custom-control-label">Created</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "NoShow")
+                            <label class="custom-control-label">No Show</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Collected")
+                            <label class="custom-control-label">Collected</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "At Lab")
+                            <label class="custom-control-label">At Lab</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Negative", new { @checked = "checked" })
+                            <label class="custom-control-label">Negative</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Rejected")
+                            <label class="custom-control-label">Positive</label>
+                        </div>
+
+                    }
+                    else
+                    {
+
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Created")
+                            <label class="custom-control-label">Created</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "NoShow")
+                            <label class="custom-control-label">No Show</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Collected")
+                            <label class="custom-control-label">Collected</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "At Lab")
+                            <label class="custom-control-label">At Lab</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Negative")
+                            <label class="custom-control-label">Negative</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isdragtestclear", "Rejected")
+                            <label class="custom-control-label">Positive</label>
+                        </div>
+
+                    }
+
+                }
+                else
+                {
+
+                    <div>
+                        @Html.RadioButton("isdragtestclear", "Created")
+                        <label class="custom-control-label">Created</label>
+                    </div>
+                    <div>
+                        @Html.RadioButton("isdragtestclear", "NoShow")
+                        <label class="custom-control-label">No Show</label>
+                    </div>
+                    <div>
+                        @Html.RadioButton("isdragtestclear", "Collected")
+                        <label class="custom-control-label">Collected</label>
+                    </div>
+                    <div>
+                        @Html.RadioButton("isdragtestclear", "At Lab")
+                        <label class="custom-control-label">At Lab</label>
+                    </div>
+                    <div>
+                        @Html.RadioButton("isdragtestclear", "Negative")
+                        <label class="custom-control-label">Negative</label>
+                    </div>
+                    <div>
+                        @Html.RadioButton("isdragtestclear", "Rejected")
+                        <label class="custom-control-label">Positive</label>
+                    </div>
+
+                }
+            }
+
+            @*<label for="inputAddress">Drug Test Clear</label>
+            <div>
+                <input type="hidden" value="@ViewBag.id" name="did" />
+                @Html.RadioButton("isdragtestclear", "Yes", new { @checked = "checked" })
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButton("isdragtestclear", "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>*@
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    }
+
+</div>

@@ -1,0 +1,196 @@
+﻿
+@{
+    ViewBag.Title = "DisplaycontactInfo";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+<script>
+
+    function getdriverinfo() {
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/DriverContactInfo/getdriverinfo/',
+            success: function (data) {
+
+                var availableTags = [];
+                $.each(data, function (key, dept) {
+
+                    var ss = dept.final_driver_name.toString();
+                    availableTags.push(ss);
+
+                });
+
+                $("#tags").autocomplete({
+                    source: availableTags,
+                    select: function () {
+
+                        var ss = $("#tags").val();
+
+                        var id = $("#driver_id").val();
+
+                        $.ajax({
+
+                            type: 'Get',
+                            url: '/DriverContactInfo/contactinfo/',
+                            data: { "d_name": ss },
+                            success: function (data) {
+                                $("#tbl").empty();
+
+                                var ss = "<thead>< tr >" +
+                                    "<th scope='col'>Driver Name</th>" +
+                                    "<th scope='col'>Compnay Contact</th>" +
+                                    "<th scope='col'>Personal Contact</th>" +
+
+                                    "</tr >" +
+                                    "</thead ><tbody>";
+                                $("#tbl").append(ss);
+
+                                $.each(data, function (key, dept) {
+
+                                    $("#tbl").append("<tr><td>" + dept.final_driver_name + "</td><td>" + dept.company_mobile_no + "</td><td><a href='tel:" + dept.personal_mobile_no + "'> " + dept.personal_mobile_no + "</a></td></tr>")
+
+                                });
+                                $("#tbl").append("</tbody>");
+
+
+                            }
+
+
+
+
+                        });
+
+                    },
+                    change: function () {
+
+
+                        var ss = $("#tags").val();
+
+                        var id = $("#driver_id").val();
+
+                        $.ajax({
+
+                            type: 'Get',
+                            url: '/DriverContactInfo/contactinfo/',
+                            data: { "d_name": ss },
+                            success: function (data) {
+                                $("#tbl").empty();
+
+                                var ss = "<thead>< tr >" +
+                                    "<th scope='col'>Driver Name</th>" +
+                                    "<th scope='col'>Compnay Contact</th>" +
+                                    "<th scope='col'>Personal Contact</th>" +
+
+                                    "</tr >" +
+                                    "</thead ><tbody>";
+                                $("#tbl").append(ss);
+
+                                $.each(data, function (key, dept) {
+
+                                    $("#tbl").append("<tr><td>" + dept.final_driver_name + "</td><td>" + dept.company_mobile_no + "</td><td><a href='tel:" + dept.personal_mobile_no + "'> " + dept.personal_mobile_no + "</a></td></tr>")
+
+                                });
+                                $("#tbl").append("</tbody>");
+
+
+                            }
+
+
+
+
+                        });
+
+
+                    },
+                    search: function () {
+
+                        var ss = $("#tags").val();
+
+                        var id = $("#driver_id").val();
+
+                        $.ajax({
+
+                            type: 'Get',
+                            url: '/DriverContactInfo/contactinfo/',
+                            data: { "d_name": ss },
+                            success: function (data) {
+                                $("#tbl").empty();
+
+                                var ss = "<thead>< tr >" +
+                                    "<th scope='col'>Driver Name</th>" +
+                                    "<th scope='col'>Compnay Contact</th>" +
+                                    "<th scope='col'>Personal Contact</th>" +
+
+                                    "</tr >" +
+                                    "</thead ><tbody>";
+                                $("#tbl").append(ss);
+
+                                $.each(data, function (key, dept) {
+
+                                    $("#tbl").append("<tr><td>" + dept.final_driver_name + "</td><td>" + dept.company_mobile_no + "</td><td><a href='tel:" + dept.personal_mobile_no + "'> " + dept.personal_mobile_no + "</a></td></tr>")
+
+                                });
+                                $("#tbl").append("</tbody>");
+
+
+                            }
+
+
+
+
+                        });
+
+
+
+                    },
+
+                });
+
+            }
+
+
+
+        });
+
+    }
+    $(document).ready(function () {
+
+        getdriverinfo();
+
+
+
+
+
+
+    });
+
+
+</script>
+
+<div class="container-fluid wv-rad5-shadow">
+    <h4 class="tittle-w3-agileits mb-4">Driver Contact Info</h4>
+    <div class="form-group">
+        <label for="inputAddress">Full Name</label>
+
+        <div class="col-md-4">
+            <input id="tags" class="form-control" placeholder="Enter Driver Name" />
+        </div>
+        
+        @*@Html.DropDownList("driver_id", ViewBag.data as List<SelectListItem>, "Select Driver Name", new { @class = "form-control", @placeholder = "Select Driver Name", @databvalidator = "required" })*@
+
+        @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+    </div>
+    <table class="table table-hover" id="tbl"></table>
+
+
+    <div class="ui-widget">
+
+
+    </div>
+
+
+
+
+</div>

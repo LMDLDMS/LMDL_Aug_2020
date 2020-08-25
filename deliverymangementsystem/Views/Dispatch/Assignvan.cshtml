@@ -1,0 +1,420 @@
+﻿
+@{
+    ViewBag.Title = "Assignvan";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+<script>
+    
+    function SetVanNumber(value) {
+        $("#van_number").val(value);
+    }
+
+    function editclick() {
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/Dispatch/editvaninfo/',
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+
+            }
+
+
+
+        })
+
+
+    }
+
+    $(document).ready(function () {
+
+        $('#VanAssign').show();
+        $('#CallOut').hide();
+        $('#RoutSwitch').hide();
+
+        $('#opa1').click(function () {
+            $('#VanAssign').show();
+            $('#CallOut').hide();
+            $('#RoutSwitch').hide();
+        });
+
+        $('#opa2').click(function () {
+            $('#VanAssign').hide();
+            $('#CallOut').show();
+            $('#RoutSwitch').hide();
+        });
+        $('#opa3').click(function () {
+            $('#RoutSwitch').show();
+            $('#VanAssign').hide();
+            $('#CallOut').hide();
+        });
+
+        $("#driver_name").change(function () {
+
+            var driver_name = $("#driver_name").val();
+
+            $.ajax({
+
+                type: 'Get',
+                url: '/Dispatch/getinfo/',
+                data: { "d_name": driver_name },
+                success: function (data) {
+                    $.each(data, function (key, dept) {
+                        $("#routenumber").val(dept.route);
+                        $("#pouchnumber").val(dept.bag);
+                        $("#van_type").val(dept.vantype);
+                        $("#van_number").val(dept.van_number);
+                        //$("#VanNumber").val(dept.van_number);
+
+                        $.ajax({
+
+                            type: 'Get',
+                            url: '/Dispatch/GetVans/',
+                            data: { "vanType": dept.vantype },
+                            success: function (data1) {
+                                console.log(data1);
+                                var s = '<option value="0">Select van</option>';
+                                for (var i = 0; i < data1.length; i++) {
+                                    s += '<option value="' + data1[i].Text + '">' + data1[i].Text + '</option>';
+                                }
+                                $('#VanNumber').html(s);
+                            },
+                            error: function () {
+                            }
+
+                        });
+
+                    });
+
+                },
+                error: function () {
+                }
+
+            });
+
+
+
+        });
+
+        $("#van_type").change(function () {
+
+            var vantype = $('#van_type').val();
+            $("#van_number").val('');
+            $.ajax({
+
+                type: 'Get',
+                url: '/Dispatch/GetVans/',
+                data: { "vanType": vantype },
+                success: function (data1) {
+                    console.log(data1);
+                    var s = '<option value="0">Select van</option>';
+                    for (var i = 0; i < data1.length; i++) {
+                        s += '<option value="' + data1[i].Text + '">' + data1[i].Text + '</option>';
+                    }
+                    $('#VanNumber').html(s);
+                },
+                error: function () {
+                }
+
+            });
+        });
+
+        $("#btnSubmit").click(function () {
+            var isChecked = $("#checkIn").is(":checked");
+            if (!isChecked) {
+                alert("Please check in the Driver.");
+                return false;
+            }
+        });
+
+
+        $("#btnswitch").click(function () {
+
+            var driver1 = $("#driver_name1").val();
+            var driver2 = $("#driver_name2").val();
+            var notes = $("#notes1").val();
+            $.ajax({
+                type: 'Post',
+                url: '/Dispatch/switchroute/',
+                data: { "driver1": driver1, "driver2": driver2, "notes": notes },
+                success: function (data) {
+
+                    window.location.href = "/Dispatch/assignvan/";
+
+                },
+                error: function (err) {
+
+                    alert(err);
+
+                }
+
+
+
+            });
+
+
+        });
+
+        $("#callout").click(function () {
+
+            var driver1 = $("#callout1").val();
+            var driver2 = $("#callout2").val();
+            var notes = $("#notes2").val();
+
+            if (driver1 == driver2)
+            {
+                alert('Called out driver and Available backup driver should not be same.');
+                return;
+            }
+
+            $.ajax({
+                type: 'Post',
+                url: '/Dispatch/callout/',
+                data: { "callout1": driver1, "callout2": driver2, "notes": notes },
+                success: function (data) {
+
+                    window.location.href = "/Dispatch/assignvan/";
+
+
+                },
+                error: function (err) {
+
+                    alert(err);
+
+                }
+
+
+
+            });
+
+
+        });
+
+    });
+
+</script>
+
+<div class="outer-w3-agile mt-3">
+    <div class="form-group">
+        <label for="inputAddress2">Select from below</label>
+        <div class="d-block my-3">
+
+            <div style="display:inline-block;">
+                @Html.RadioButton("choose", "Van_Assign", new { @id = "opa1", @checked = "true" })
+                @*<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">*@
+                <label class="custom-control-label" for="credit"> Van Assign </label>
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <div style="display:inline-block;">
+                @Html.RadioButton("choose", "Callout", new { @id = "opa2" })
+
+                <label class="custom-control-label" for="debit">Callout</label>
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <div style="display:inline-block;">
+                @Html.RadioButton("choose", "Route_switching", new { @id = "opa3" })
+
+                <label class="custom-control-label" for="debit">Route switching</label>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="outer-w3-agile mt-3" id="VanAssign">
+
+    <div class="col-md-12" style="text-align:left; font-size:18px; display:inline-block;">
+        <div style="display:inline-block">
+            <b>Total Routes :</b> @ViewBag.TotalRoutes
+        </div> &nbsp;&nbsp;&nbsp;&nbsp;
+
+        <div style="display:inline-block">
+            <b>Checked In :</b> @ViewBag.CheckedIn
+        </div> &nbsp;&nbsp;&nbsp;&nbsp;
+
+        <div style="display:inline-block">
+            <b>Not Checked In : </b> @ViewBag.CheckedOut
+        </div>
+    </div>
+   
+
+    <div class="col-md-12" style="text-align:center; display:inline-block;">
+        <h4 class="tittle-w3-agileits mb-4">Van Assign</h4>
+    </div>
+
+    <div class="col-md-4" style="text-align:center; display:inline-block;">
+    </div>
+    @*<h4 class="tittle-w3-agileits mb-4">Van Assign</h4>*@
+    @using (Html.BeginForm("assignvan", "Dispatch", FormMethod.Post, new { @id = "form1", @type="text", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+<div class="row">
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="inputAddress">Today Date</label>
+            <input type="text" class="form-control" readonly="readonly" placeholder="Select Date" value="@DateTime.Now.ToShortDateString()" databvalidator="required">
+        </div>
+    </div>
+
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="inputAddress">Driver Name</label>
+            @Html.DropDownList("driver_name", ViewBag.data as List<SelectListItem>, "Select Driver Name", new { @class = "form-control", @type = "text", @placeholder = "Enter Designation", @databvalidator = "required" })
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="inputAddress2">Route Number</label>
+            <input type="text" class="form-control" id="routenumber" name="routenumber" placeholder="Route Number" databvalidator="required">
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="inputAddress2">Pouch Number</label>
+            <input type="text" class="form-control" id="pouchnumber" name="pouchnumber" placeholder="Pouch Number" databvalidator="required">
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="inputAddress2">Van type</label>
+            @Html.DropDownList("van_type", new List<SelectListItem> { new SelectListItem { Text = "Prime", Value = "Prime" }, new SelectListItem { Text = "Extended Prime", Value = "Extended Prime" }, new SelectListItem { Text = "Rental", Value = "Rental" } }, "Please Select Van Type", new { @class = "form-control", @type = "text", @databvalidator = "required" })
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="inputAddress2">Van Number</label>
+            <input type="text" name="van_number" class="form-control" id="van_number" placeholder="Van Number" databvalidator="required" readonly>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="">Select Van</label>
+            @Html.DropDownList("VanNumber", ViewBag.Vandata as List<SelectListItem>, "Select Van", new { @class = "form-control", @type = "text", @databvalidator = "required", @onchange = "SetVanNumber(this.value)" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <br />
+        <br />
+        &nbsp;&nbsp;&nbsp;<input type="checkbox" id="checkIn" name="checkIn" /> CheckIN
+
+    </div>
+    <div class="col-md-1"></div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-primary" onclick="editclick()"><i class="fas fa-edit"></i></button>
+                <div>@ViewBag.msg</div>
+            </div>
+        </div>
+    </div>
+
+
+    @*<div class="form-group">
+            <div class="col-md-12" style="text-align:right; font-size:18px;">
+
+                <div style="display:inline-block">
+                    <b>Total Routes :</b> @ViewBag.TotalRoutes
+                </div> &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <div style="display:inline-block">
+                    <b>Checked In :</b> @ViewBag.CheckedIn
+                </div> &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <div style="display:inline-block">
+                    <b>Not Checked In : </b> @ViewBag.CheckedOut
+                </div>&nbsp;&nbsp;&nbsp;&nbsp;
+
+            </div>
+        </div>*@
+
+    }
+
+</div>
+
+
+<div class="outer-w3-agile mt-3" id="CallOut">
+    <h4 class="tittle-w3-agileits mb-4">Callout</h4>
+    @using (Html.BeginForm("Assignvan", "Dispatch", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+    <div class="container" id="opt2">
+
+        <div class="row">
+
+            <div class="col-md-3 ">
+                <label for="inputAddress"> CALLED OUT DRIVER </label>
+                @Html.DropDownList("callout1", ViewBag.data1 as List<SelectListItem>, "Select Driver Name", new { @class = "form-control", @type="text", @databvalidator = "required" })
+            </div>
+            <div class="col-md-3">
+                <label for="inputAddress"> AVAILABLE BACKUP </label>
+                @Html.DropDownList("callout2", ViewBag.data3 as List<SelectListItem>, "Select Driver Name", new { @class = "form-control", @type="text", @databvalidator = "required" })
+            </div>
+            <div class="col-md-3 ">
+                <label for="inputAddress">NoteBox </label>
+                @Html.TextBox("notes2", "", new { @class = "form-control" })
+            </div>
+
+        </div>
+        <br />
+        <div>
+            <button type="button" id="callout" class="btn btn-primary">Call Out</button>
+
+        </div>
+
+
+    </div>
+    <div>@ViewBag.msg</div>
+    }
+</div>
+
+<div class="outer-w3-agile mt-3" id="RoutSwitch">
+    <h4 class="tittle-w3-agileits mb-4">Route switching</h4>
+    @using (Html.BeginForm("Assignvan", "Dispatch", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+    <div class="container" id="opt1">
+
+        <div class="row">
+
+            <div class="col-md-3 ">
+                <label for="inputAddress"> Driver 1 </label>
+                @Html.DropDownList("driver_name1", ViewBag.data1 as List<SelectListItem>, "Select Driver Name", new { @class = "form-control", @type="text", @databvalidator = "required" })
+            </div>
+            <div class="col-md-3">
+                <label for="inputAddress"> Driver 2 </label>
+                @Html.DropDownList("driver_name2", ViewBag.data1 as List<SelectListItem>, "Select Driver Name", new { @class = "form-control", @type="text", @databvalidator = "required" })
+            </div>
+
+            <div class="col-md-3 ">
+                <label for="inputAddress">NoteBox </label>
+                @Html.TextBox("notes1", "", new { @class = "form-control" })
+            </div>
+
+
+        </div>
+        <br />
+        <div>
+            <button type="button" id="btnswitch" class="btn btn-primary">SWitch</button>
+
+        </div>
+
+    </div>
+    <div>@ViewBag.msg</div>
+    }
+
+</div>

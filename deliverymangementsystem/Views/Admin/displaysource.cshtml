@@ -1,0 +1,87 @@
+﻿@model IEnumerable<deliverymangementsystem.EDM.tblsource>
+
+<script>
+
+    function editaction(id) {
+        $.ajax({
+
+            type: 'Get',
+            url: '/Admin/editsource/' + id,
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+            },
+
+            error: function (err) {
+
+
+
+            }
+
+        });
+
+    }
+
+    function deleteaction(id) {
+
+        if (confirm("Are You Sure You want to Delete")) {
+
+            $.ajax({
+
+                type: 'Get',
+                url: '/Admin/deletesource/' + id,
+                success: function (data) {
+
+                    location.href = "/Admin/AddNewEntry/"
+                },
+                error: function (err) {
+
+
+
+                }
+
+            });
+
+        }
+        else {
+
+
+        }
+
+
+    }
+</script>
+<h3>Edit Source Info</h3>
+<table class="table">
+    <tr>
+        <th>
+           Source ID
+        </th>
+        <th>
+            Source Name
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.source_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.source_name)
+        </td>
+        <td>
+
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i><button type="button" class="btn btn-primary" onclick="editaction(@item.source_id)"><i class="fas fa-edit"></i></button>
+            <button type="button" class="btn btn-primary" onclick="deleteaction(@item.source_id)"><i class="fas fa-trash"></i></button>
+        </td>
+    </tr>
+}
+
+</table>

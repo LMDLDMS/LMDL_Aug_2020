@@ -1,0 +1,79 @@
+﻿<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">ADP-MVR Eversign Status </h4>
+    @using (Html.BeginForm("SetSubADPMVR", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+
+        <div class="form-group">
+            
+            <div class="row">
+                <b>Please select</b>
+            </div>
+            <br />
+            @{
+                if (ViewBag.status != null)
+                {
+                    if (ViewBag.status == "Sent")
+                    {
+                    <div>
+                        <input type="hidden" value="@ViewBag.id" name="did" />
+                        @Html.RadioButton("isADPMVR", "Sent", new { @checked = "checked" })
+                        <label class="custom-control-label" for="credit">E-Sign Sent</label>
+                    </div>
+                    <div>
+                        @Html.RadioButton("isADPMVR", "Completed")
+                        <label class="custom-control-label" for="credit">E-Sign Completed</label>
+                    </div>
+                    <div>
+                        @Html.RadioButton("isADPMVR", "Waived")
+                        <label class="custom-control-label" for="credit">Waived</label>
+                    </div>
+                    }
+                    else if (ViewBag.status == "Completed")
+                    {
+                        <div>
+                            <input type="hidden" value="@ViewBag.id" name="did" />
+                            @Html.RadioButton("isADPMVR", "Sent")
+                            <label class="custom-control-label" for="credit">E-Sign Sent</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isADPMVR", "Completed", new { @checked = "checked" })
+                            <label class="custom-control-label" for="credit">E-Sign Completed</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isADPMVR", "Waived")
+                            <label class="custom-control-label" for="credit">Waived</label>
+                        </div>
+                    }
+                }
+                else
+                {
+
+                    <div>
+                        <input type="hidden" value="@ViewBag.id" name="did" />
+                        @Html.RadioButton("isADPMVR", "Sent")
+                        <label class="custom-control-label" for="credit">E-Sign Sent</label>
+                    </div>
+                    <div>
+                        @Html.RadioButton("isADPMVR", "Completed")
+                        <label class="custom-control-label" for="credit">E-Sign Completed</label>
+                    </div>
+                    <div>
+                        @Html.RadioButton("isADPMVR", "Waived")
+                        <label class="custom-control-label" for="credit">Waived</label>
+                    </div>
+
+                }
+            }
+            <br />
+            <div class="row">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+        </div>
+
+        
+
+    }
+
+</div>

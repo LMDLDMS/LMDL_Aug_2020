@@ -1,0 +1,172 @@
+﻿@model deliverymangementsystem.EDM.tblonbordingmaster
+  @{ 
+     
+      Layout = "~/Views/Shared/AdminMaster.cshtml";
+
+  }
+
+<script src="~/maskjs/jquery.inputmask.bundle.js"></script>
+<script>
+
+    $(window).load(function () {
+        var phones = [{ "mask": "(###) ###-####" }, { "mask": "(###) ###-##############" }];
+        $('#emp_phone').inputmask({
+            mask: phones,
+            greedy: false,
+            definitions: { '#': { validator: "[0-9]", cardinality: 1 } }
+        });
+    });
+
+    $(function () {
+        
+        $("#d_dob").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'mm/dd/yy',
+            yearRange: '1950:2013'
+        });
+    });
+
+    $(document).ready(function () {
+
+        var obj = $("#sempstatename").val();
+
+        $("#d_license_state").val(obj);
+        
+    });
+
+</script>
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">OnBording Process</h4>
+    @using (Html.BeginForm("InterviewTake", "Admin", FormMethod.Post, new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+
+        <div class="form-group">
+            <label for="inputAddress">Full Name</label>
+            @Html.HiddenFor(c => c.emp_id)
+            @Html.TextBoxFor(c => c.emp_name, new { @class = "form-control", @placeholder = "Enter Full Name", @databvalidator = "required,alpha" })
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Phone No</label>
+            @Html.TextBoxFor(c => c.emp_phone, new { @class = "form-control", @placeholder = "Enter Phone No", @databvalidator = "required", @databvalidatormsg = "Enter Valid Mobile Number" })
+            <button type="button" class="btn btn-primary">Send OTP</button>
+
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Email ID</label>
+            @Html.TextBoxFor(c => c.emp_personal_email, new { @class = "form-control", @placeholder = "Enter Enter Email", @databvalidator = "required,email" })
+
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Enter Date of Birth</label>
+            @Html.TextBox("d_dob", String.Format("{0:d}", Model.emp_dob.Value.ToString("MM-dd-yyyy")), new { @class = "form-control", @placeholder = "Enter date of birth ", @databvalidator = "required" })
+
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Driver License Number</label>
+            @Html.TextBox("d_license_number", Model.driver_linc, new { @class = "form-control", @placeholder = "Enter Driver License Number ", @databvalidator = "required" })
+
+            <input type="hidden" id="sempstatename"  value="@Model.state"/>
+        </div>
+
+        <div class="form-group">
+            <label for="inputAddress2">Driver License State </label>
+            <select databvalidator="required" name="d_license_state" id="d_license_state" class="form-control">
+                <option value="">  </option>
+                <option value="Alabama"> Alabama </option>
+                <option value="Alaska"> Alaska </option>
+                <option value="Arizona"> Arizona </option>
+                <option value="Arkansas"> Arkansas </option>
+                <option value="California"> California </option>
+                <option value="Colorado"> Colorado </option>
+                <option value="Connecticut"> Connecticut </option>
+                <option value="Delaware"> Delaware </option>
+                <option value="District Of Columbia"> District Of Columbia </option>
+                <option value="Florida"> Florida </option>
+                <option value="Georgia"> Georgia </option>
+                <option value="Hawaii"> Hawaii </option>
+                <option value="Idaho"> Idaho </option>
+                <option value="Illinois"> Illinois </option>
+                <option value="Indiana"> Indiana </option>
+                <option value="Iowa"> Iowa </option>
+                <option value="Kansas"> Kansas </option>
+                <option value="Kentucky"> Kentucky </option>
+                <option value="Louisiana"> Louisiana </option>
+                <option value="Maine"> Maine </option>
+                <option value="Maryland"> Maryland </option>
+                <option value="Massachusetts"> Massachusetts </option>
+                <option value="Michigan"> Michigan </option>
+                <option value="Minnesota"> Minnesota </option>
+                <option value="Mississippi"> Mississippi </option>
+                <option value="Missouri"> Missouri </option>
+                <option value="Montana"> Montana </option>
+                <option value="Nebraska"> Nebraska </option>
+                <option value="Nevada"> Nevada </option>
+                <option value="New Hampshire"> New Hampshire </option>
+                <option value="New Jersey"> New Jersey </option>
+                <option value="New Mexico"> New Mexico </option>
+                <option value="New York"> New York </option>
+                <option value="North Carolina"> North Carolina </option>
+                <option value="North Dakota"> North Dakota </option>
+                <option value="Ohio"> Ohio </option>
+                <option value="Oklahoma"> Oklahoma </option>
+                <option value="Oregon"> Oregon </option>
+                <option value="Pennsylvania"> Pennsylvania </option>
+                <option value="Rhode Island"> Rhode Island </option>
+                <option value="South Carolina"> South Carolina </option>
+                <option value="South Dakota"> South Dakota </option>
+                <option value="Tennessee"> Tennessee </option>
+                <option value="Texas"> Texas </option>
+                <option value="Utah"> Utah </option>
+                <option value="Vermont"> Vermont </option>
+                <option value="Virginia"> Virginia </option>
+                <option value="Washington"> Washington </option>
+                <option value="West Virginia"> West Virginia </option>
+                <option value="Wisconsin"> Wisconsin </option>
+                <option value="Wyoming"> Wyoming </option>
+            </select>
+
+        </div>
+
+        @*<div class="form-group">
+            <label for="inputAddress2">Driver SSN Card </label>
+            @Html.TextBox("d_ssn", null, new { @class = "form-control", @placeholder = "Enter Driver SSN Card ", @databvalidator = "required" })
+
+        </div>*@
+        <div class="form-group">
+            <label for="inputAddress2">Full address </label>
+            @Html.TextArea("d_address", Model.emp_add, new { @class = "form-control", @placeholder = "Enter Full Address", @databvalidator = "required" })
+
+        </div>
+
+        <div class="form-group">
+            <label for="inputAddress2">Job Offer</label>
+            <div class="d-block my-3">
+
+                <div>
+                    @Html.RadioButton("joboffer", "Yes", new { @id = "credit", @name = "paymentMethod", @checked = "checked" })
+                    @*<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">*@
+                    <label class="custom-control-label" for="credit">Yes</label>
+                </div>
+                <div>
+                    @Html.RadioButton("joboffer", "No", new { @id = "debit", @name = "paymentMethod" })
+
+                    <label class="custom-control-label" for="debit">No</label>
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Description/remark</label>
+            @Html.TextArea("Remakes", null, new { @class = "form-control", @placeholder = "Enter Description/remark ", @databvalidator = "required" })
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <div>@ViewBag.msg</div>
+
+    }
+
+</div>

@@ -1,0 +1,446 @@
+﻿@model List<deliverymangementsystem.EDM.tblticket>
+
+@{
+    ViewBag.Title = "ViewOpenTicket";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+
+}
+@using deliverymangementsystem.EDM;
+@using deliverymangementsystem.Models;
+
+@{
+    var comm = new common();
+    var dc = new dsdatabaseEntities();
+}
+
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/datatable/jquery.dataTables.js"></script>
+<script src="~/datatable/dataTables.buttons.min.js"></script>
+<script src="~/datatable/buttons.flash.min.js"></script>
+<script src="~/datatable/jszip.min.js"></script>
+<script src="~/datatable/pdfmake.min.js"></script>
+<script src="~/datatable/vfs_fonts.js"></script>
+<script src="~/datatable/buttons.html5.min.js"></script>
+<script src="~/datatable/buttons.print.min.js"></script>
+<script src="~/datatable/buttons.colVis.min.js"></script>
+<script src="~/datatable/dataTables.fixedColumns.min.js"></script>
+<style>
+    .table-row {
+        cursor: pointer;
+    }
+</style>
+<script>
+
+    function ticktypefunc(tickettype,ticketid) {
+
+
+       
+
+        if (tickettype == "Van") {
+            
+                $.ajax({
+
+                    type: 'Get',
+                    url: '/Ticket/getvaninfo/' + ticketid,
+                    success: function (data) {
+
+
+                        $(".modal-body").empty();
+
+                        $(".modal-body").append(data);
+
+                        $("#model").modal('show');
+
+                    }
+
+                });
+
+
+
+           
+           
+
+        }
+        else if (tickettype == "CAT Phone") {
+
+            $.ajax({
+
+                type: 'Get',
+                url: '/Ticket/getcatinfo/' + ticketid,
+                success: function (data) {
+
+                    $(".modal-body").empty();
+
+                    $(".modal-body").append(data);
+
+                    $("#model").modal('show');
+
+                }
+
+            });
+
+
+        }
+        else if (tickettype == "Gas Card") {
+
+            $.ajax({
+
+                type: 'Get',
+                url: '/Ticket/getgascard/' + ticketid,
+                success: function (data) {
+
+                    $(".modal-body").empty();
+
+                    $(".modal-body").append(data);
+
+                    $("#model").modal('show');
+
+                }
+
+            });
+
+        }
+        else {
+
+            $.ajax({
+
+                type: 'Get',
+                url: '/Ticket/getbussnesssuplied/' + ticketid,
+                success: function (data) {
+
+                    $(".modal-body").empty();
+
+                    $(".modal-body").append(data);
+
+                    $("#model").modal('show');
+
+                }
+
+            });
+
+
+        }
+
+
+    }
+
+    function funrevet(id) {
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/Ticket/conversation/' + id,
+            success: function (data) {
+
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+            }
+
+        });
+
+
+    }
+    function viewConversation(id) {
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/Ticket/ClosedCoversation/' + id,
+            success: function (data) {
+
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+            }
+
+        });
+
+    }
+    function updatestatus(id) {
+        
+        $.ajax({
+            type: 'Post',
+            url: '/Ticket/UpdateStatus/' + id,
+            datatype: 'Json',
+            success: function (data) {
+
+                window.location.href = "/Ticket/ViewOpenTicket/";
+            }
+        });
+    }
+    $(document).ready(function () {
+        
+
+        $("select").change(function () {
+
+            var strval = $(this).val();
+            var finalval = strval.split(".");
+            var id = finalval[1];
+            var ss = finalval[0];
+
+            if (id == "search") {
+
+                window.location.href = "/Ticket/ViewOpenTicket/" + ss;
+
+            }
+
+            if (ss == "Closed Ticket") {
+
+                $.ajax({
+
+                    type: 'Post',
+                    url: '/Ticket/ClosedStatus/' + id,
+                    datatype: 'Json',
+                    success: function (data) {
+
+                        alert(data);
+                        window.location.href = "/Ticket/ViewOpenTicket/";
+                    }
+
+                })
+
+            }
+            if (ss == "ReOpen") {
+
+                $.ajax({
+
+                    type: 'Post',
+                    url: '/Ticket/ReOpen/' + id,
+                    datatype: 'Json',
+                    success: function (data) {
+
+                        alert(data);
+                        window.location.href = "/Ticket/ViewOpenTicket/";
+                    }
+
+                })
+
+
+            }
+
+            if (ss == "ReAssign") {
+
+
+                $.ajax({
+
+                    type: 'Get',
+                    url: '/Ticket/TicketReAssign/' + id,
+                    success: function (data) {
+
+
+                        $(".modal-body").empty();
+
+                        $(".modal-body").append(data);
+
+                        $("#model").modal('show');
+
+                    }
+
+                });
+
+            }
+
+
+
+
+
+            //do something with the select $(this) will give you the select element
+        });
+
+        $("#tbl").DataTable({
+            
+        });
+
+
+     
+
+
+       
+
+       
+
+    })
+</script>
+<div class="outer-w3-agile mt-3">
+
+    <h4 class="tittle-w3-agileits mb-4">View Tickets </h4>
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            @Html.DropDownList("searchdrp", new List<SelectListItem> { new SelectListItem { Text = "All", Value = "All.search" }, new SelectListItem { Text = "Open", Value = "Open.search" },  new SelectListItem { Text = "Picked", Value = "Picked.search" }, new SelectListItem { Text = "Revert", Value = "Revert.search" }, new SelectListItem { Text = "Replied", Value = "Replied.search" }, new SelectListItem { Text = "Done", Value = "Done.search" },new SelectListItem { Text = "ReOpen", Value = "ReOpen.search" }, new SelectListItem { Text = "Closed", Value = "Closed.search" } }, "Select Ticket Status", new { @class = "form-control", @databvalidator = "required" })
+        </div>
+    </div>
+    <table class="table table-hover" id="tbl">
+        <thead>
+            <tr>
+                <th>
+                   Action
+                </th>
+                <th> Admin Action</th>
+                <th>Ticket Type</th>
+                @*<th>Van Number</th>
+                <th>Van Type </th>
+                <th>CAT Phone#</th>
+                <th>GAS Card#</th>
+                <th>Issue </th>
+                <th>Vendor Name </th>
+                <th>Supply Needed </th>
+                <th>Quantity</th>
+                <th>Vendor name</th>
+                <th>Open Ticket Date(Time)</th>
+                <th>Picked Ticket Date(Time)</th>*@
+                <th>Ticket Status</th>
+                @*<th>Ticket Assigned Name</th>
+                <th>Closed Ticket Date(Time)</th>*@
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr >
+                    <td>
+                        <button type="button" onclick="ticktypefunc('@item.ticket_type',@item.ticket_id)" class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </td>
+                    
+                    <td>
+                        @{
+
+                            var adminid = int.Parse(Session["admin"].ToString());
+
+                            if (adminid == 10001)
+                            {
+                                @Html.DropDownList("status" + item.ticket_id, new List<SelectListItem> { new SelectListItem { Text = "Closed Ticket", Value = "Closed Ticket." + item.ticket_id }, new SelectListItem { Text = "ReOpen", Value = "ReOpen." + item.ticket_id }, new SelectListItem { Text = "ReAssign", Value = "ReAssign." + item.ticket_id } }, "Please Select Action", new { @class = "form-control", @databvalidator = "required" })
+
+                            }
+
+                        }
+
+                    </td>
+                    <td>@item.ticket_type</td>
+                    @*<td>@item.van_number</td>
+                    <td>@item.van_type</td>
+                    <td>@item.cat_phone_number</td>
+                    <td>@item.gas_card_number</td>
+                    <td>@item.issue</td>
+                    <td>@item.vendor_name</td>
+                    <td>@item.supply_needed</td>
+                    <td>@item.mac_address</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.ticket_open_date.Value.ToShortDateString() (@comm.show(TimeSpan.Parse(item.ticket_open_time.ToString())))</td>*@
+                    @*<td>
+
+                        @{
+                            var pickeddate = "";
+
+                            var ss1 = item.ticket_picked_date;
+                            if (ss1 != null)
+                            {
+                                pickeddate = item.ticket_picked_date.Value.ToShortDateString() + "(";
+                                pickeddate += (comm.show(TimeSpan.Parse(item.ticket_picked_time.ToString()))) + ")";
+
+                            }
+                            else
+                            {
+                                pickeddate = "";
+                            }
+
+                        }
+                        @pickeddate
+
+                    </td>*@
+                    <td>@item.ticket_status</td>
+                    @*<td>
+
+                        @{
+
+                            var commonname = "";
+
+
+                            if (item.ticket_assigned_user_id.ToString() == "10001")
+                            {
+
+                                commonname = "Admin";
+
+                            }
+                            else if (item.ticket_assigned_user_id.ToString() == "0")
+                            {
+                                commonname = "dispatcher";
+                            }
+                            else
+                            {
+
+                                commonname = dc.tblsubadmins.Find(item.ticket_assigned_user_id).sub_admin_name;
+
+                            }
+
+
+                        }
+
+                        @commonname
+                    </td>*@
+
+                    @*<td>
+                        @{
+                            var commdate = "";
+
+                            var ss = item.ticket_closed_date;
+                            if (ss != null)
+                            {
+                                commdate = item.ticket_closed_date.Value.ToShortDateString() + "(";
+                                commdate += (comm.show(TimeSpan.Parse(item.ticket_closed_time.ToString()))) + ")";
+
+
+                            }
+                            else
+                            {
+                                commdate = "";
+                            }
+                        }
+                        @commdate
+
+                    </td>*@
+                    <td>
+
+
+                        @if (item.ticket_status == "Open")
+                        {
+                            var id = int.Parse(Session["admin"].ToString());
+
+                            if (id != item.ticket_open_by_id)
+                            {
+                                <button type="button" class="btn btn-primary" onclick="updatestatus(@item.ticket_id)">Pick It</button>
+                            }
+                        }
+                        else if (item.ticket_status == "Picked" || item.ticket_status == "RevertReplay" || item.ticket_status == "Revert" || item.ticket_status == "ReOpen" || item.ticket_status == "Done")
+                        {
+                            <button type="button" class="btn btn-primary" onclick="funrevet(@item.ticket_id)">Reply</button>
+                        }
+                        else if (item.ticket_status == "Closed")
+                        {
+                            <button type="button" class="btn btn-primary" onclick="viewConversation(@item.ticket_id)">ViewNotes</button>
+                        }
+
+                    </td>
+
+
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+

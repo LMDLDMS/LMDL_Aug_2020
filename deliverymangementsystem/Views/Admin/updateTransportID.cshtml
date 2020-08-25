@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "updateTransportID";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/datatable/jquery.dataTables.js"></script>
+<script src="~/datatable/dataTables.buttons.min.js"></script>
+<script src="~/datatable/buttons.flash.min.js"></script>
+<script src="~/datatable/jszip.min.js"></script>
+<script src="~/datatable/pdfmake.min.js"></script>
+<script src="~/datatable/vfs_fonts.js"></script>
+<script src="~/datatable/buttons.html5.min.js"></script>
+<script src="~/datatable/buttons.print.min.js"></script>
+<script src="~/datatable/buttons.colVis.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#tbl").DataTable({
+            dom: 'lBfrtip',
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            buttons: [
+                {
+                    extend: 'print',
+                    title: 'Schedule Traning List',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8]
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    title: 'Schedule Traning List',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8]
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'Schedule Traning List',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8]
+                    }
+                },
+
+            ]
+        });
+
+    });
+</script>
+
+<div class="">
+    @*<h4 class="tittle-w3-agileits mb-4">Update Transport ID</h4>*@
+    @using (Html.BeginForm("updateTransportID", "Admin", FormMethod.Post, new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+        <div class="container wv-rad5-shadow">
+            <div class="row text-center">
+                <h4 class="tittle-w3-agileits" style="width:100%; margin-bottom:20px;">Update Transport ID</h4>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4" style="display:inline-block">
+                    <label for="inputAddress" style="margin-bottom:10px;">Select Driver Name</label>
+                    @Html.DropDownList("d_id", ViewData["dlist"] as List<SelectListItem>, "Select Driver Name", new { @class = "form-control", @placeholder = "select sources ", @databvalidator = "required" })
+                </div>
+                <div class="col-md-4" style="display:inline-block">
+                    <label for="inputAddress2" style="margin-bottom:10px;"> Transport ID</label>
+                    @Html.TextBox("tranportID", "", new { @class = "form-control", @placeholder = "Update Transport ID" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <div>@ViewBag.msg</div>
+                </div>
+            </div>
+
+
+
+            @if (ViewData["dipdata"] != null)
+            {
+
+            <div class="row text-center">
+                <h4 class="tittle-w3-agileits" style="width:100%; margin-bottom:20px;">Driver with Transport ID</h4>
+            </div>
+
+            @*<h4 class="tittle-w3-agileits mb-4">Driver with Transport ID </h4>*@
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover" id="tbl">
+                        <thead>
+                            <tr>
+
+                                <th scope="col">Driver Name</th>
+                                <th scope="col">Tranport ID</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewData["dipdata"] as List<deliverymangementsystem.EDM.tblfinaldrivermaster>)
+                            {
+                                <tr>
+
+                                    <td>@item.final_driver_name</td>
+                                    <td>@item.transport_id</td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            }
+        </div>
+
+    }
+
+
+
+
+</div>

@@ -1,0 +1,204 @@
+﻿
+@{
+    ViewBag.Title = "PrintDailyRouteTrack";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+    var cnt = 1;
+}
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+<link href="~/datatable/fixedColumns.dataTables.min.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/Scripts/moment.js"></script>
+<script src="~/datatable/jquery.dataTables.js"></script>
+<script src="~/datatable/dataTables.fixedColumns.min.js"></script>
+<style>
+
+    th, td {
+        white-space: nowrap;
+    }
+
+    div.dataTables_wrapper {
+        margin: 0 auto;
+    }
+
+    div.container {
+        width: 80%;
+    }
+</style>
+<script>
+
+    $(function () {
+
+        $("#dpicker").datepicker({ minDate: "-5M -10D", maxDate: "+0M +1D", dateFormat: 'mm-dd-yy' });
+
+    });
+    $(document).ready(function () {
+        
+        $("#tbl").DataTable({
+            dom: 'lBfrtip',
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "order": [],
+            buttons: [
+                {
+                    extend: 'print',
+                    title: 'Dispatchsheet:' + ssdt,
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+                    },
+                    customize: function (doc, config) {
+                        doc.pageOrientation = 'landscape';
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    title: 'Dispatchsheet' + ssdt,
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    },
+                    customize: function (doc, config) {
+                        doc.pageOrientation = 'landscape';
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'Dispatchsheet' + ssdt,
+
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                    },
+                    customize: function (doc, config) {
+                        doc.pageOrientation = 'landscape';
+                    }
+                },
+
+            ]
+        });
+        
+    });
+
+</script>
+@using (Html.BeginForm("CreateRouteTrack", "RouteTracking", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+
+    <div class="outer-w3-agile mt-3">
+
+        <div class="col-md-3 mb-3" id="cat_gas">
+            <label for="inputAddress2"> Select Date</label>
+            <input type="text" placeholder="Select Date" id="dpicker" name="selectdt" class="form-control" required="" />
+
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label> <button type="submit" class="btn btn-primary">Submit</button></label>
+        </div>
+
+        @if (ViewData["objlist"] != null)
+        {
+            <input type="hidden" value="@ViewBag.countdt" id="drvlist" />
+            <h4 class="tittle-w3-agileits mb-4">Daily Route Tracking</h4>
+            <table class="table table-bordered" style="width: 100%" id="tbl">
+
+                <thead>
+
+                    <tr>
+
+                        <th scope="col">Route   #</th>
+                        <th scope="col" width="40%">Driver Full  Name  </th>
+                        <th scope="col">Level</th>
+                        <th scope="col">Package</th>
+
+                        <th scope="col">Stops</th>
+
+                        <th scope="col">1st Package</th>
+                        <th scope="col">Last Package</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col"> Calculate SPH</th>
+                        <th scope="col">Unknow Stops</th>
+                        <th scope="col">Total Unknow Stops</th>
+                        <th scope="col">ADP Puch In</th>
+                        <th scope="col">ADP Puch Out</th>
+                        <th scope="col">30 minute Unpaid Break</th>
+
+                        <th scope="col">Calculated Time</th>
+                        <th scope="col">Flex login</th>
+                        <th scope="col">Flex logout</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in ViewData["objlist"] as List<deliverymangementsystem.Models.RouteTrackModel>)
+                    {
+                        <tr>
+                            <td>@item.route</td>
+                            <td> @item.driver_name</td>
+                            <td>@item.level</td>
+
+                            <td> @item.package</td>
+
+                            <td>
+                                @item.stops
+                            </td>
+
+                            <td>
+
+                                @item.packege1st
+                            </td>
+                            <td>
+                                @item.lastpackage
+                            </td>
+                            <td>
+                                @item.duration
+                            </td>
+                            <td>
+                                @item.SPH
+                            </td>
+                            <td>
+                                @item.unknowstops
+                            </td>
+
+                            <td>
+                                @item.totalunknowstop
+                            </td>
+                            <td>
+                                @item.adp_in
+                            </td>
+                            <td>
+                                @item.adp_out
+                            </td>
+                            <td>
+                                @item.unpaidbrak
+                            </td>
+
+                            <td>
+                                @item.calculatetime
+                            </td>
+                            <td>
+                                @item.flexlogin
+                            </td>
+                            <td>
+                                @item.flexout
+                            </td>
+
+                            @*<td>
+                                    <button type="button" class="btn btn-primary" onclick="EditRole(@item.assign_id)">Edit</button>||
+                                    <button type="button" class="btn btn-primary" onclick="DeleteRole(@item.assign_id)">Delete</button>
+                                </td>*@
+
+                        </tr>
+                        cnt++;
+
+                    }
+
+                </tbody>
+            </table>
+            
+        }
+
+
+
+    </div>
+
+
+
+}
+

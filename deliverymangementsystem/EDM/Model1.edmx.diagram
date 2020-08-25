@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2522b625918f4b25863b1801266df445" Name="Diagram1">
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tbladmin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblassign" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblCompanyDetailsMaster" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblconcession" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblContactSettingMaster" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tbldailyroutetrack" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblDateTimeFormatMaster" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tbldispatch" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tbldriver" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblDriverRemark" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tbldrivertest" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tbldrivertraning" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblfinaldrivermaster" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblLoginSettingMaster" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblmodule" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblonbordingmaster" Width="1.5" PointX="8.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblPageGroupMaster" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblParametersMaster" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblperformence2" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblperfromense1" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblreschedule" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblridesetup" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblrole" Width="1.5" PointX="14.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblRoleMaster" Width="1.5" PointX="14.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblScreenMaster" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblSocialMediaSettingMaster" Width="1.5" PointX="14.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblsource" Width="1.5" PointX="2.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblsubadmin" Width="1.5" PointX="4.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblterminate" Width="1.5" PointX="10.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblticket" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblticketconveration" Width="1.5" PointX="16.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblTimeZoneMaster" Width="1.5" PointX="16.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tbltraningreschedule" Width="1.5" PointX="16.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblVanMaster" Width="1.5" PointX="12.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblWeekDaysMaster" Width="1.5" PointX="14.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tblAssign_16052020" Width="1.5" PointX="16.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lastmild_dsdb_local03042020Model.tbldrivertest_bk24042020" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

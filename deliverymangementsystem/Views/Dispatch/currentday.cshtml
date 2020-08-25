@@ -1,0 +1,251 @@
+﻿
+@{
+    ViewBag.Title = "CreateDispatchSheet";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+
+    int cnt = 1;
+
+}
+
+
+@using deliverymangementsystem.Models;
+@{
+    var comm = new common();
+
+}
+
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/datatable/jquery.dataTables.js"></script>
+<script src="~/datatable/dataTables.buttons.min.js"></script>
+<script src="~/datatable/buttons.flash.min.js"></script>
+<script src="~/datatable/jszip.min.js"></script>
+<script src="~/datatable/pdfmake.min.js"></script>
+<script src="~/datatable/vfs_fonts.js"></script>
+<script src="~/datatable/buttons.html5.min.js"></script>
+<script src="~/datatable/buttons.print.min.js"></script>
+<script src="~/datatable/buttons.colVis.min.js"></script>
+
+<style>
+</style>
+<script>
+    function deleterow(id) {
+
+        if (confirm("are you sure you want to remove")) {
+
+            $.ajax({
+
+                type: 'Get',
+                url: '/Dispatch/removerow/' + id,
+                success: function (data) {
+
+                    window.location.href = "/Dispatch/currentday/1";
+                },
+                error: function (err) {
+
+
+                }
+
+            });
+
+
+        }
+        else {
+
+
+        }
+
+
+
+
+    }
+
+    function addmorerow() {
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/Dispatch/addmorerow/2',
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+            },
+            error: function (err) {
+
+
+            }
+
+        });
+
+    }
+
+    
+    $(document).ready(function () {
+
+        $("#tbl").DataTable();
+
+        var ss = parseInt($("#drvlist").val());
+
+        for (var i = 1; i < ss; i++) {
+
+            var val1 = $("#hid" + i).val();
+
+            var vantype1 = $("#hidvan" + i).val();
+
+            $("#vantype" + i).val(vantype1);
+
+            $("#driverid" + i).val(val1);
+
+        }
+        
+
+    });
+
+</script>
+
+@using (Html.BeginForm("currentday", "Dispatch", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+
+<div class="outer-w3-agile mt-3">
+    @{
+
+        var validdate = "";
+
+        if (Session["currentdt"] != null)
+        {
+
+
+            validdate = Session["currentdt"].ToString();
+
+        }
+
+    }
+    <div class="col-md-3 mb-3" id="cat_gas">
+        <label for="inputAddress2"> Select Date</label>
+        <input type="text" placeholder="Select Date" id="dpicker" name="selectdt" class="form-control" required="" readonly="readonly" value="@DateTime.Now.ToShortDateString()" />
+
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <label> <button type="submit" class="btn btn-primary">Submit</button></label>
+    </div>
+
+    @if (ViewData["objlist"] != null)
+    {
+        <input type="hidden" value="@ViewBag.countdt" id="drvlist" />
+        <h4 class="tittle-w3-agileits mb-4"> Current day Dispatch Sheets</h4>
+        <table class="table table-bordered" style="width: 100%" id="tbl">
+
+            <thead>
+
+                <tr>
+
+
+                    <th scope="col">Van type</th>
+                    <th scope="col">Routes#</th>
+                    <th scope="col">Driver Name</th>
+                    <th scope="col">Van Number</th>
+                    <th scope="col">pouch#</th>
+                    <th scope="col">phone#</th>
+                    <th scope="col">Packages</th>
+                    <th scope="col">Stops</th>
+                    <th scope="col">Level</th>
+                    <th scope="col">Ride Along</th>
+                    <th scope="col">Notes</th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in ViewData["objlist"] as List<deliverymangementsystem.Models.dispatchmodel>)
+                {
+                <tr>
+
+                    <td width="10%">
+                        <input type="hidden" id="@("hidvan"+cnt)" value="@item.vantype" />
+                        @Html.DropDownList("vantype" + cnt, new List<SelectListItem> { new SelectListItem { Text = "Rental", Value = "Rental" }, new SelectListItem { Text = "Prime", Value = "Prime" }, new SelectListItem { Text = "Extended Prime", Value = "Extended Prime" } }, "Van Type", new { @class = "form-control", })
+                    </td>
+
+                    <td>
+                        <input type="text" class="form-control" name="@("route"+cnt)" id="@("route"+cnt)" placeholder="Routes#" value="@item.route">
+                    </td>
+                    <td width="15%">
+                        @{
+                            // @ViewData["driverlist"] = comm.getselected(item.driverName);
+                        }
+                        <input type="hidden" id="@("hid"+cnt)" value="@item.driverName" />
+                        @Html.DropDownList("driverid" + cnt, ViewData["driverlist"] as List<SelectListItem>, "Select Driver", new { @class = "form-control" })
+                    </td>
+                    <td>
+
+                        <input type="text" class="form-control" name="@("vannumber"+cnt)" id="@("vannumber"+cnt)" value="@item.van_number" placeholder="Van Nuumber" />
+
+                    </td>
+                    <td>
+
+                        <input type="text" class="form-control" name="@("bag"+cnt)" id="@("bag"+cnt)" value="@item.bages" placeholder="pouch#" />
+
+                    </td>
+
+                    <td>
+                        <input type="text" class="form-control" name="@("cat"+cnt)" id="@("cat"+cnt)" value="@item.cat" placeholder="Phone#">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="@("package"+cnt)" id="@("package"+cnt)" value="@item.package" placeholder="Packages">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="@("stops"+cnt)" id="@("stops"+cnt)" value="@item.Stop" placeholder="Stops">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="@("level"+cnt)" id="@("level"+cnt)" value="@item.level" placeholder="level">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="@("ridealong"+cnt)" id="@("ridealong"+cnt)" value=" @item.rideralong" placeholder="Ride-Along">
+                    </td>
+
+                    <td width="10%">
+                        <input type="text" class="form-control" name="@("notes"+cnt)" id="@("notes"+cnt)" value="@item.notes" placeholder="Notes">
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" onclick="deleterow(@item.sr_no)"><i class="fas fa-trash"></i></button>
+
+                    </td>
+
+
+                    @*<td>
+            <button type="button" class="btn btn-primary" onclick="EditRole(@item.assign_id)">Edit</button>||
+            <button type="button" class="btn btn-primary" onclick="DeleteRole(@item.assign_id)">Delete</button>
+        </td>*@
+
+                </tr>
+                    cnt++;
+
+                }
+
+            </tbody>
+        </table>
+        <div class="col-md-3 mb-3">
+            <label>Click to Plus Add More row </label>
+            <label> <button type="button" onclick="addmorerow()" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></button></label>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label> <button type="submit" formaction="CurrentDayInsert" class="btn btn-primary">Update Sheet</button></label>
+        </div>
+    }
+
+
+
+</div>
+
+
+
+}
+
+

@@ -1,0 +1,70 @@
+﻿
+<script>
+
+    $(document).ready(function () {
+
+        $("#rejection_resion").hide();
+        $("#other").change(function () {
+
+            if ($(this).is(":checked")) {
+
+                $("#rejection_resion").show();
+            }
+            else {
+
+                $("#rejection_resion").hide();
+
+            }
+
+
+        });
+
+    });
+</script>
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Rejection Reason</h4>
+    @using (Html.BeginForm("rejectionpopup", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+    <div class="form-group">
+        <label for="inputAddress2">Rejection Reason</label>
+        <div class="d-block my-3">
+
+            <div>
+                @Html.CheckBox("backgroundcheckfail", new { @id = "credit" })
+                @*<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">*@
+                <label class="custom-control-label" for="credit">Background Check Fail </label>
+            </div>
+            <div>
+                @Html.CheckBox("drugtestfailed", new { @id = "credit1" })
+                @*<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">*@
+                <label class="custom-control-label" for="credit">Drug Test Failed </label>
+            </div>
+            <div>
+                @Html.CheckBox("noshowonfordrugtesting", new { @id = "credit2" })
+                @*<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">*@
+                <label class="custom-control-label" for="credit">No Show On For drug Testing </label>
+            </div>
+            <div>
+                @Html.CheckBox("withdrewapplication", new { @id = "credit3" })
+                @*<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">*@
+                <label class="custom-control-label" for="credit">Withdrew Application </label>
+            </div>
+            <div>
+                @Html.CheckBox("other", new { @id = "other" })
+                @*<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">*@
+                <label class="custom-control-label" for="credit">other </label>
+            </div>
+
+        </div>
+    </div>
+
+        <div class="form-group">
+          
+            @Html.TextArea("rejection_resion", null, new { @class = "form-control", @databvalidator = "required" })
+
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    }
+
+</div>

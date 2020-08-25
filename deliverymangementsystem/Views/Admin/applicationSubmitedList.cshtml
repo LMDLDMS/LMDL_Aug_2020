@@ -1,0 +1,839 @@
+﻿@model  List<deliverymangementsystem.EDM.tblonbordingmaster>
+@{
+    /**/
+
+    ViewBag.Title = "ScheduleIntrviewList";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+@using System.Globalization;
+
+<style>
+    th {
+        vertical-align: middle !important;
+        text-align: center !important;
+    }
+</style>
+
+<script>
+
+
+    //$(function () {
+
+
+    //    $("#schdate1").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'dd-mm-yy' });
+
+    //});
+
+
+
+</script>
+
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/datatable/jquery.dataTables.js"></script>
+<script src="~/datatable/dataTables.buttons.min.js"></script>
+<script src="~/datatable/buttons.flash.min.js"></script>
+<script src="~/datatable/jszip.min.js"></script>
+<script src="~/datatable/pdfmake.min.js"></script>
+<script src="~/datatable/vfs_fonts.js"></script>
+<script src="~/datatable/buttons.html5.min.js"></script>
+<script src="~/datatable/buttons.print.min.js"></script>
+<script src="~/datatable/buttons.colVis.min.js"></script>
+
+
+<script>
+
+    function appform(id) {
+
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/Admin/applicationdata/' + id,
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+            },
+            error: function (err) {
+
+
+            }
+
+        });
+
+
+
+    }
+
+
+    $(document).ready(function () {
+        //debugger;
+        $("select").change(function () {
+
+            var strval = $(this).val();
+            var finalval = strval.split(".");
+            var id = finalval[1];
+            var ss = finalval[0];
+
+            if (id == "search") {
+                window.location.href = "/Admin/ScheduleIntrviewList/" + ss;
+            }
+            else {
+
+                if (ss == "StartOnBording") {
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/InterviewTakeFinal/' + id,
+                        success: function (data) {
+                            // alert("Interview Status Updated successfully");
+                            window.location.href = "/Admin/applicationSubmitedList/";
+                        },
+                        error: function (err) {
+                            alert("Something went Wrong!!");
+                        }
+                    });
+                }
+
+                if (ss == "SendApplication") {
+                    var ss1 = $("#email" + id).attr('at');
+                    var person = prompt("Please Confirm Email Address", ss1);
+                    var text = "";
+                    if (person == null || person == "") {
+                        txt = "User cancelled the prompt.";
+                    } else {
+                        txt = person;
+                        $.ajax({
+                            type: 'Post',
+                            url: '/Admin/Interviewstatusupdate/',
+                            data: { "id": id, "status": ss, "email": txt, "PageName": "Application Submitted List" },
+                            success: function (data) {
+                                alert(data);
+                                window.location.href = "/Admin/applicationSubmitedList/";
+                            },
+                            error: function (err) {
+                                alert("Somthing went Wrong ");
+                            }
+                        });
+                    }
+                }
+
+                if (ss == "Reschedule") {
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/rescheule/' + id,
+                        success: function (data) {
+                            $(".modal-body").empty();
+                            $(".modal-body").append(data);
+                            $("#model").modal('show');
+                        },
+                        error: function (err) {
+                        }
+                    });
+                }
+
+                if (ss == "Rejected") {
+                    // Added on 11 June 2020 for remark popup requirement
+                    var notes = prompt("Notes");
+                    if (notes == null || notes.trim() == "") {
+                    } else {
+                        $.ajax({
+                            type: 'Post',
+                            url: '/Admin/Interviewstatusupdate/',
+                            data: { "id": id, "status": ss, "email": notes, "PageName": "Application Submitted List" },
+                            success: function (data) {
+                                alert("DA status updated successfully.");
+                                window.location.href = "/Admin/applicationSubmitedList/";
+                            },
+                            error: function (err) {
+                                alert("Interview status not updated Please Try again Later");
+                            }
+                        });
+                    }
+
+                    //Commented on 11 June 2020 for new requirements
+                    //$.ajax({
+                    //    type: 'Get',
+                    //    url: '/Admin/rejectionpopup/',
+                    //    data: { "id": id, "rejflg": "app" },
+                    //    success: function (data) {
+                    //        $(".modal-body").empty();
+                    //        $(".modal-body").append(data);
+                    //        $("#model").modal('show');
+                    //    },
+                    //    error: function (err) {
+                    //    }
+                    //});
+                }
+
+                if (ss == "Waitlist") {
+
+                    // Added on 11 June 2020 for remark popup requirement
+                    var notes = prompt("Notes");
+                    if (notes == null || notes.trim() == "") {
+                    } else {
+                        $.ajax({
+                            type: 'Post',
+                            url: '/Admin/Interviewstatusupdate/',
+                            data: { "id": id, "status": ss, "email": notes, "PageName": "Application Submitted List" },
+                            success: function (data) {
+                                alert("DA status updated successfully.");
+                                window.location.href = "/Admin/applicationSubmitedList/";
+                            },
+                            error: function (err) {
+                                alert("DA status not updated, please try again later");
+                            }
+                        });
+                    }
+                    //Commented on 11 June 2020 for new requirements
+                    //$.ajax({
+                    //    type: 'Post',
+                    //    url: '/Admin/Interviewstatusupdate/',
+                    //    data: { "id": id, "status": ss },
+                    //    success: function (data) {
+                    //        alert("Interview Status Updated successfully");
+                    //        window.location.href = "/Admin/applicationSubmitedList/";
+                    //    },
+                    //    error: function (err) {
+                    //        alert("Interview status not updated Please Try again Later");
+                    //    }
+                    //});
+
+                }
+
+                // Added By ViBeS on 14/04/2020 for adding No Show Functionality as per discussion and requirement
+                if (ss == "NoShow") {
+                    // Added on 11 June 2020 for remark popup requirement
+                    var notes = prompt("Notes");
+                    if (notes == null || notes.trim() == "") {
+                    } else {
+                        $.ajax({
+                            type: 'Post',
+                            url: '/Admin/Interviewstatusupdate/',
+                            data: { "id": id, "status": ss, "email": notes, "PageName": "Application Submitted List" },
+                            success: function (data) {
+                                alert("DA status updated successfully.");
+                                window.location.href = "/Admin/applicationSubmitedList/";
+                            },
+                            error: function (err) {
+                                alert("Interview status not updated Please Try again Later");
+                            }
+                        });
+                    }
+                    //Commented on 11 June 2020 for new requirements
+                    //$.ajax({
+                    //    type: 'Post',
+                    //    url: '/Admin/UpdateDriverStatus/',
+                    //    data: { "id": id, "status": ss },
+                    //    success: function (data) {
+                    //        alert(ss + " Status Updated successfully");
+                    //        window.location.href = "/Admin/applicationSubmitedList/";
+                    //        //  break;
+                    //    },
+                    //    error: function (err) {
+                    //        alert("Error occured while updating status, Please Try again Later");
+                    //    }
+                    //})
+                }
+
+                if (ss == "WithdrawApplication") {
+
+                    // Added on 11 June 2020 for remark popup requirement
+                    var notes = prompt("Notes");
+                    if (notes == null || notes.trim() == "") {
+                    } else {
+                        $.ajax({
+                            type: 'Post',
+                            url: '/Admin/Interviewstatusupdate/',
+                            data: { "id": id, "status": ss, "email": notes, "PageName": "Application Submitted List" },
+                            success: function (data) {
+                                alert("DA status updated successfully.");
+                                window.location.href = "/Admin/applicationSubmitedList/";
+                            },
+                            error: function (err) {
+                                alert("Interview status not updated Please Try again Later");
+                            }
+                        });
+                    }
+                    //Commented on 11 June 2020 for new requirements
+                    //$.ajax({
+                    //    type: 'Post',
+                    //    url: '/Admin/UpdateDriverStatus/',
+                    //    data: { "id": id, "status": ss },
+                    //    success: function (data) {
+                    //        alert(ss + " Status Updated successfully");
+                    //        window.location.href = "/Admin/applicationSubmitedList/";
+                    //        //  break;
+                    //    },
+                    //    error: function (err) {
+                    //        alert("Error occured while updating status, Please Try again Later");
+                    //    }
+                    //})
+                }
+
+                if (ss == "IsADPMVR") {
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/isADPMVR/' + id,
+                        success: function (data) {
+                            window.location.href = "/Admin/applicationSubmitedList/";
+                        }
+                    });
+                }
+
+            }
+            //do something with the select $(this) will give you the select element
+        });
+
+        $("#tbl").DataTable({
+            dom: 'lBfrtip',
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "pageLength": 25,
+            buttons: [
+
+                {
+                    extend: 'print',
+                    title: 'ApplicationSubmitedList',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6]
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    title: 'ApplicationSubmitedList',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6]
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'ApplicationSubmitedList',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6]
+                    }
+                },
+
+            ]
+        });
+
+        $('button[title]').qtip();
+        $('a[title]').qtip();
+    })
+
+    //function rescheuleInterview(id) {
+
+    //    $.ajax({
+
+    //        type: 'Get',
+    //        url: '/Admin/rescheule/' + id,
+    //        success: function (data) {
+
+    //            $(".modal-body").empty();
+
+    //            $(".modal-body").append(data);
+
+    //            $("#model").modal('show');
+
+    //        },
+    //        error: function (err) {
+
+
+    //        }
+
+    //    });
+
+    //}
+
+    function recheduleStatus(id) {
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/Admin/reschedulehistory/' + id,
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+            },
+
+            error: function (err) {
+
+
+
+            }
+
+        });
+
+    }
+
+    function editaction(id) {
+        //debugger;
+        $.ajax({
+
+            type: 'Get',
+            url: '/Admin/editinterview/',
+            data: { "id": id, "flg": "app" },
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+            },
+
+            error: function (err) {
+
+
+
+            }
+
+        });
+
+    }
+
+    function deleteaction(id) {
+
+        if (confirm("Are You Sure You want to Delete")) {
+
+            $.ajax({
+
+                type: 'Get',
+                url: '/Admin/deleteInterview/' + id,
+                success: function (data) {
+
+                    location.href = "/Admin/applicationSubmitedList/"
+
+                },
+
+                error: function (err) {
+
+
+
+                }
+
+            });
+
+        }
+        else {
+
+
+        }
+
+
+    }
+
+    function AddNotes(emp_id) {
+        $.ajax({
+            type: "GET",
+            url: '/Admin/AddNotesPopup/',
+            data: { "emp_id": emp_id, "formName": "Application Submitted List" },
+            success: function (data) {
+                $(".modal-body").empty();
+                $(".modal-body").append(data);
+                $("#model").modal('show');
+            }
+        });
+    }
+
+    function SetSubADPMVR(d_id) {
+        //alert(d_id);
+
+        $.ajax({
+            type: 'Get',
+            url: '/Admin/SetSubADPMVR/',
+            data: { "d_id": d_id },
+            success: function (data) {
+                //alert(data);
+                $(".modal-body").empty();
+                $(".modal-body").append(data);
+                $("#msgmodel").modal('show');
+            }
+        });
+    }
+
+    function SetSubADPMVR2(d_id) {
+        //alert(d_id);
+
+        $.ajax({
+            type: 'Get',
+            url: '/Admin/SetSubADPMVR2/',
+            data: { "d_id": d_id },
+            success: function (data) {
+                //alert(data);
+                $(".modal-body").empty();
+                $(".modal-body").append(data);
+                $("#msgmodel").modal('show');
+            }
+        });
+    }
+
+</script>
+@{
+
+
+}
+
+@using deliverymangementsystem.EDM;
+@using deliverymangementsystem.Models;
+
+<style>
+    class12 {
+        background: none !important;
+        border: none;
+        padding: 0 !important;
+        /*optional*/
+        font-family: arial, sans-serif;
+        /*input has OS specific font-family*/
+        color: #069;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+
+    var comm = new common();
+
+
+
+    <div class="container-fluid wv-rad5-shadow">
+        <h4 class="tittle-w3-agileits mb-4">Application Submited List</h4>
+        @*<div class="row">
+                <div class="col-md-3 mb-3">
+                    @Html.DropDownList("searchdrp", new List<SelectListItem> { new SelectListItem { Text = "All", Value = "All.search" }, new SelectListItem { Text = "Reschedule", Value = "Reschedule.search" }, new SelectListItem { Text = "Noshow", Value = "Noshow.search" }, new SelectListItem { Text = "Schedule", Value = "Schedule.search" } }, "Select Status", new { @class = "form-control", @databvalidator = "required" })
+                </div>
+            </div>*@
+        <div class="table-responsive" style="overflow-x:scroll; overflow-y:hidden">
+            <table class="table table-hover" id="tbl" style="overflow:auto;">
+
+                <thead>
+                    <tr>
+                        <th rowspan="2" width="10%">Action</th>
+                        <th rowspan="2">Employee Name</th>
+                        <th rowspan="2">Employee Phone No</th>
+                        <th rowspan="2">Employee<br /> Email</th>
+                        <th rowspan="2">Interview Status</th>
+                        <th rowspan="2" width="7%">Interview Date(Time)</th>
+                        <th colspan="2">ADP-MVR</th>
+                        <th rowspan="2">Notes</th>
+                        <th rowspan="2"><center>Edit</center></th>
+                        <th rowspan="2"><center>Delete</center></th>
+                    </tr>
+                    <tr>
+
+                        <th>Eversign</th>
+                        <th>Report</th>
+
+                    </tr>
+
+                    @*<th scope="col">Action</th>
+                        <th scope="col">Employee Name</th>
+                        <th scope="col">Employee Phone No</th>
+                        <th scope="col">Employee Email</th>*@
+                    @*<th scope="col">Employee Degination</th>*@
+                    @*<th scope="col">Interview Status</th>
+                        <th scope="col">Interview Date(Time)</th>*@
+                    @*<th scope="col">ReSchedule Count</th>*@
+                    @*<th>Application<br />Submitted Date</th>*@
+                    @*<th>Eversign</th>
+                        <th>Report</th>
+                        <th>Notes</th>
+                        <th>Edit action</th>*@
+
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @{
+                                    var dc = new dsdatabaseEntities();
+
+
+                                    if (item.Entry_status == "ApplicationPending")
+                                    {
+                                        @Html.DropDownList("status" + item.emp_id, new List<SelectListItem> {
+                                        new SelectListItem { Text = "Rejected", Value = "Rejected." + item.emp_id },
+                                        new SelectListItem { Text = "Waitlist", Value = "Waitlist." + item.emp_id },
+                                        new SelectListItem { Text = "ReSend Application", Value = "SendApplication." + item.emp_id },
+                                        new SelectListItem { Text = "No Show", Value = "NoShow." + item.emp_id },
+                                        new SelectListItem { Text = "Withdraw Application", Value = "WithdrawApplication." + item.emp_id }
+                                    }, "Select", new { @class = "form-control", @databvalidator = "required" })
+                                    }
+                                    else
+                                    {
+
+                                        var p5 = dc.tbldrivers.Where(w => w.emp_id == item.emp_id).ToList();
+                                        if (p5.Count() > 0)
+                                        {
+                                            var d_id = Convert.ToInt32(p5.FirstOrDefault().d_id.ToString());
+                                            var DAtst = dc.tbldrivertests.Where(w => w.d_id == d_id).ToList();
+
+                                            if (DAtst != null)
+                                            {
+                                                if (DAtst.FirstOrDefault().isADPMVR == "Yes")
+                                                {
+                                                    @Html.DropDownList("status" + item.emp_id, new List<SelectListItem> {
+                                                        //new SelectListItem { Text = "StartOnBording", Value = "StartOnBording." + item.emp_id },
+                                                        //new SelectListItem { Text = "Initiate ADP-MVR", Value = "IsADPMVR." + item.emp_id },
+                                                        new SelectListItem { Text = "Rejected", Value = "Rejected." + item.emp_id },
+                                                        new SelectListItem { Text = "Waitlist", Value = "Waitlist." + item.emp_id },
+                                                        //new SelectListItem { Text = "ReSend Application", Value = "SendApplication." + item.emp_id },
+                                                        new SelectListItem { Text = "No Show", Value = "NoShow." + item.emp_id },
+                                                        new SelectListItem { Text = "Withdraw Application", Value = "WithdrawApplication." + item.emp_id }
+                                                    }, "Select", new { @class = "form-control", @databvalidator = "required" })
+                                                }
+                                            }
+                                            else
+                                            {
+                                                @Html.DropDownList("status" + item.emp_id, new List<SelectListItem> {
+                                                     //new SelectListItem { Text = "StartOnBording", Value = "StartOnBording." + item.emp_id },
+                                                     new SelectListItem { Text = "Initiate ADP-MVR", Value = "IsADPMVR." + item.emp_id },
+                                                     new SelectListItem { Text = "Rejected", Value = "Rejected." + item.emp_id },
+                                                     new SelectListItem { Text = "Waitlist", Value = "Waitlist." + item.emp_id },
+                                                     //new SelectListItem { Text = "ReSend Application", Value = "SendApplication." + item.emp_id },
+                                                     new SelectListItem { Text = "No Show", Value = "NoShow." + item.emp_id },
+                                                     new SelectListItem { Text = "Withdraw Application", Value = "WithdrawApplication." + item.emp_id }
+                                                 }, "Select", new { @class = "form-control", @databvalidator = "required" })
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @Html.DropDownList("status" + item.emp_id, new List<SelectListItem> {
+                                                 //new SelectListItem { Text = "StartOnBording", Value = "StartOnBording." + item.emp_id },
+                                                 new SelectListItem { Text = "Initiate ADP-MVR", Value = "IsADPMVR." + item.emp_id },
+                                                 new SelectListItem { Text = "Rejected", Value = "Rejected." + item.emp_id },
+                                                 new SelectListItem { Text = "Waitlist", Value = "Waitlist." + item.emp_id },
+                                                 //new SelectListItem { Text = "ReSend Application", Value = "SendApplication." + item.emp_id },
+                                                 new SelectListItem { Text = "No Show", Value = "NoShow." + item.emp_id },
+                                                 new SelectListItem { Text = "Withdraw Application", Value = "WithdrawApplication." + item.emp_id }
+                                             }, "Select", new { @class = "form-control", @databvalidator = "required" })
+                                        }
+
+
+                                    }
+                                }
+
+                            </td>
+                            @*<td> <button type="button" class="btn btn-primary" onclick="EditRole(@item.emp_id)">Edit</button></td>*@
+
+                            <td><button type="button" style="width:100%;" class="btn-no-styling" onclick="appform(@item.emp_id)">@item.emp_name</button>
+
+                            <td><a href="tel:@item.emp_phone">@item.emp_phone</a></td>
+                            <td align="center"> <a href="mailto:@item.emp_personal_email" at="@item.emp_personal_email" id="@("email" + item.emp_id)">@item.emp_personal_email</a></td>
+                            @*<td>@item.degination_name</td>*@
+                            <td>
+                                @{
+                                    var s = item.Entry_status.ToString();
+                                    if (s == "ApplicationSent")
+                                    {
+                                        s = "ApplicationSubmitted";
+                                    }
+
+                                    if (s == "ApplicationSubmitted")
+                                    {
+                                        var Asdt = item.ApplicationSubmittedDate.ToString().Split(' ');
+                                        if (Asdt[0].Trim() == "")
+                                        {
+                                            <div class="tooltip">
+                                                @s
+                                                <span class="tooltiptext">Application submitted date not available.</span>
+                                            </div>
+                                            @*<a href="" title="Application submitted date not available.">@s</a>*@
+                                        }
+                                        else
+                                        {
+                                            <div class="tooltip">
+                                                @s
+                                                <span class="tooltiptext">Application submitted on @Asdt[0]</span>
+                                            </div>
+                                            @*<a href="" title="Application submitted on @Asdt[0]">@s</a>*@
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="tooltip">
+                                            @s
+                                            <span class="tooltiptext">Application is not yet submitted.</span>
+                                        </div>
+                                        @*<a href="" title="Application is not yet submitted.">@s</a>*@
+                                    }
+                                }
+
+                            </td>
+                            <td>@item.emp_interview_date.Value.ToShortDateString() (@comm.show(TimeSpan.Parse(item.emp_interview_time.ToString())))</td>
+
+                            @*<td>
+                                    @if (item.ApplicationSubmittedDate != null)
+                                    {
+                                        @item.ApplicationSubmittedDate.Value.ToShortDateString();
+                                    }
+                                </td>*@
+
+                            @*<td>
+                                    @{
+                                        var dc = new dsdatabaseEntities();
+                                        var c1 = dc.tblreschedules.Where(c => c.emp_id == item.emp_id).ToList();
+                                        if (c1.Count >= 1)
+                                        {
+                                            <button type="button" class="btn btn-primary" onclick="recheduleStatus(@item.emp_id)"><i class="fas fa-history"></i>(@c1.Count)</button>
+                                        }
+                                        else
+                                        {
+
+                                        }
+                                    }
+                                </td>*@
+
+                            <td>
+                                @{
+
+
+                                    var p2 = dc.tbldrivers.Where(w => w.emp_id == item.emp_id).ToList();
+                                    if (p2.Count() > 0)
+                                    {
+                                        var d_id = Convert.ToInt32(p2.FirstOrDefault().d_id.ToString());
+                                        var DAtst = dc.tbldrivertests.Where(w => w.d_id == d_id).ToList();
+
+                                        if (DAtst != null)
+                                        {
+                                            if (DAtst.FirstOrDefault().isADPMVR == "Yes")
+                                            {
+                                                var status = DAtst.FirstOrDefault().ADPMVRstatus1;
+                                                if (status != null)
+                                                {
+                                                    if (status.ToString() == "Completed")
+                                                    {
+                                                        <button type="button" class="btn btn-primary" style="background-color:green; width:100%; border:none;" onclick="SetSubADPMVR(@d_id)">@status</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" style="width:100%;" class="btn btn-primary" onclick="SetSubADPMVR(@d_id)">@status</button>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <button type="button" style="width:100%;" class="btn btn-primary" onclick="SetSubADPMVR(@d_id)">SELECT</button>
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <button type="button" style="width:100%;" class="btn btn-primary" disabled>
+                                                Not-Initiated
+                                            </button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button type="button" style="width:100%;" class="btn btn-primary" disabled>
+                                            Not-Initiated
+                                        </button>
+                                    }
+                                }
+
+                            </td>
+                            <td>
+                                @{
+                                    var p = dc.tbldrivers.Where(w => w.emp_id == item.emp_id).ToList();
+                                    if (p.Count() > 0)
+                                    {
+                                        var d_id = Convert.ToInt32(p.FirstOrDefault().d_id.ToString());
+                                        var DAtst = dc.tbldrivertests.Where(w => w.d_id == d_id).ToList();
+
+                                        if (DAtst != null)
+                                        {
+                                            if (DAtst.FirstOrDefault().isADPMVR == "Yes")
+                                            {
+                                                var status = DAtst.FirstOrDefault().ADPMVRstatus1;
+                                                var status2 = DAtst.FirstOrDefault().ADPMVRstatus2;
+                                                if (status == "Completed")
+                                                {
+                                                    if (status2 != null)
+                                                    {
+                                                        if (status2 == "Pre-Adverse")
+                                                        {
+                                                            <button type="button" style="width:100%; background-color:red;" onclick="SetSubADPMVR2(@d_id)">@status2</button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <button type="button" style="width:100%;" class="btn btn-primary" onclick="SetSubADPMVR2(@d_id)">@status2</button>
+                                                        }
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" style="width:100%;" class="btn btn-primary" onclick="SetSubADPMVR2(@d_id)">SELECT</button>
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    <button type="button" style="width:100%;" class="btn btn-primary" disabled>
+                                                        Not-Initiated
+                                                    </button>
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <button type="button" style="width:100%;" class="btn btn-primary" disabled>
+                                                Not-Initiated
+                                            </button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button type="button" style="width:100%;" class="btn btn-primary" disabled>
+                                            Not-Initiated
+                                        </button>
+                                    }
+                                }
+
+                            </td>
+
+                            <td>
+                                @*<button type="button" class="btn btn-primary" title="@item.Entry_Remark" onclick="AddNotes(@item.emp_id)"><i class="fas fa-sticky-note"></i></button>*@
+                                <button type="button" class="btn btn-primary" onclick="AddNotes(@item.emp_id)"><i class="fas fa-sticky-note"></i></button>
+                            </td>
+
+                            <td align="center">
+                                @*<i class="fa fa-pencil-square-o" aria-hidden="true"></i>*@
+                                <button type="button" class="btn btn-primary" onclick="editaction(@item.emp_id)"><i class="fas fa-edit"></i></button>
+                            </td>
+                            <td align="center">
+                                <button type="button" class="btn btn-primary" onclick="deleteaction(@item.emp_id)"><i class="fas fa-trash"></i></button>
+                            </td>
+
+                            @*<td>
+                                    <button type="button" class="btn btn-primary" onclick="EditRole(@item.assign_id)">Edit</button>||
+                                    <button type="button" class="btn btn-primary" onclick="DeleteRole(@item.assign_id)">Delete</button>
+                                </td>*@
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+}

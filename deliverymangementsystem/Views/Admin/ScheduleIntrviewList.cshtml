@@ -1,0 +1,577 @@
+﻿@model  List<deliverymangementsystem.EDM.tblonbordingmaster>
+@{
+    /**/
+
+    ViewBag.Title = "ScheduleIntrviewList";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+@using System.Globalization;
+
+<script>
+
+
+    //$(function () {
+
+
+    //    $("#schdate1").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'dd-mm-yy' });
+
+    //});
+
+
+
+
+
+</script>
+
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/datatable/jquery.dataTables.js"></script>
+<script src="~/datatable/dataTables.buttons.min.js"></script>
+<script src="~/datatable/buttons.flash.min.js"></script>
+<script src="~/datatable/jszip.min.js"></script>
+<script src="~/datatable/pdfmake.min.js"></script>
+<script src="~/datatable/vfs_fonts.js"></script>
+<script src="~/datatable/buttons.html5.min.js"></script>
+<script src="~/datatable/buttons.print.min.js"></script>
+<script src="~/datatable/buttons.colVis.min.js"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<script>
+
+    function appform(id) {
+        $.ajax({
+            type: 'Get',
+            url: '/Admin/ApplicationSubmittedDataPopup/',
+            data: { "id": id, "form": "ApplicantList" },
+            success: function (data) {
+                var result = data;
+                if (result.includes("Application submitted data not found")) {
+                    $(".modal-body").empty();
+                    $(".modal-body").append(data);
+                    $("#msgmodel").modal('show');
+                }
+                else {
+                    $(".modal-body").empty();
+                    $(".modal-body").append(data);
+                    $("#model").modal('show');
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+
+    $(document).ready(function () {
+
+        $("select").change(function () {
+
+            var strval = $(this).val();
+            var finalval = strval.split(".");
+            var id = finalval[1];
+            var ss = finalval[0];
+
+            if (id == "search") {
+                window.location.href = "/Admin/ScheduleIntrviewList/" + ss;
+            }
+            else {
+
+                if (ss == "StartOnBording") {
+                    window.location.href = "/Admin/InterviewTake/" + id;
+                }
+
+                if (ss == "Reschedule") {
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/rescheule/' + id,
+                        success: function (data) {
+
+                            $(".modal-body").empty();
+
+                            $(".modal-body").append(data);
+
+                            $("#model").modal('show');
+
+                        },
+                        error: function (err) {
+
+
+                        }
+                    });
+                }
+
+                if (ss == "Noshow") {
+                    var notes = prompt("Notes");
+                    if (notes == null || notes.trim() == "") {
+                    } else {
+                        $.ajax({
+                            type: 'Post',
+                            url: '/Admin/Interviewstatusupdate/',
+                            data: { "id": id, "status": ss, "email": notes, "PageName": "Scheduled Interview List" },
+                            success: function (data) {
+                                alert("Interview Status Updated successfully");
+                                window.location.href = "/Admin/ScheduleIntrviewList/";
+                            },
+                            error: function (err) {
+                                alert("Interview status not updated Please Try again Later");
+                            }
+                        });
+                    }
+                }
+
+                if (ss == "SendApplication") {
+                    var ss1 = $("#email" + id).attr('at');
+                    var person = prompt("Please Confirm Email Address", ss1);
+                    var text = "";
+
+                    if (person == null || person == "") {
+                        txt = "User cancelled the prompt.";
+                    } else {
+                        txt = person;
+                        $.ajax({
+                            type: 'Post',
+                            url: '/Admin/Interviewstatusupdate/',
+                            data: { "id": id, "status": ss, "email": txt, "PageName": "Scheduled Interview List" },
+                            success: function (data) {
+
+                                $.ajax({
+
+                                    type: 'Get',
+                                    url: '/Admin/Linkmodel/',
+                                    success: function (data) {
+
+                                        $(".modal-body").empty();
+
+                                        $(".modal-body").append(data);
+
+                                        $("#Linkmodel").modal('show');
+
+                                    },
+                                    error: function (err) {
+
+
+                                    }
+
+                                });
+
+                                //prompt("Copy to clipboard: Ctrl+C, Enter", data);
+                                //alert(data);
+                                //window.location.href = "/Admin/ScheduleIntrviewList/";
+                            },
+                            error: function (err) {
+
+                                alert("Somthing went Wrong ");
+
+                            }
+                        });
+                    }
+                }
+
+                if (ss == "Rejected") {
+                    var notes = prompt("Notes");
+                    if (notes == null || notes.trim() == "") {
+                    } else {
+                        $.ajax({
+
+                            type: 'Post',
+                            url: '/Admin/Interviewstatusupdate/',
+                            data: { "id": id, "status": ss, "email": notes, "PageName": "Scheduled Interview List" },
+
+                            success: function (data) {
+
+                                alert("Interview Status Updated successfully");
+                                window.location.href = "/Admin/ScheduleIntrviewList/";
+                            },
+                            error: function (err) {
+
+                                alert("Interview status not updated Please Try again Later");
+
+                            }
+
+                        });
+                    }
+                }
+
+                if (ss == "SendApplicationSubmitted") {
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Admin/SendToApplicationSubmitted/',
+                        data: { "id": id },
+                        success: function (data) {
+                            //var result = data;
+                            //alert(result);
+                            window.location.href = "/Admin/ScheduleIntrviewList/Rejected";
+                        },
+                        error: function (err) {
+                        }
+                    });
+                }
+            }
+            //do something with the select $(this) will give you the select element
+        });
+
+        $("#tbl").DataTable({
+            dom: 'lBfrtip',
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "pageLength": 25,
+            buttons: [
+
+                {
+                    extend: 'print',
+                    title: 'ScheduleInterViewList',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6]
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    title: 'ScheduleInterViewList',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6]
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'ScheduleInterViewList',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6]
+                    }
+                },
+
+            ]
+        });
+
+        //$('button[title]').qtip();
+        //$('a[title]').qtip();
+
+    })
+
+    //function rescheuleInterview(id) {
+
+    //    $.ajax({
+
+    //        type: 'Get',
+    //        url: '/Admin/rescheule/' + id,
+    //        success: function (data) {
+
+    //            $(".modal-body").empty();
+
+    //            $(".modal-body").append(data);
+
+    //            $("#model").modal('show');
+
+    //        },
+    //        error: function (err) {
+
+
+    //        }
+
+    //    });
+
+    //}
+
+    function recheduleStatus(id) {
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/Admin/reschedulehistory/' + id,
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+            },
+
+            error: function (err) {
+
+
+
+            }
+
+        });
+
+    }
+
+    function editaction(id) {
+        $.ajax({
+
+            type: 'Get',
+            url: '/Admin/editinterview/',
+            data: { "id": id, "flg": "interview" },
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+            },
+
+            error: function (err) {
+
+
+
+            }
+
+        });
+
+    }
+
+    function deleteaction(id) {
+
+        if (confirm("Are You Sure You want to Delete")) {
+
+            $.ajax({
+
+                type: 'Get',
+                url: '/Admin/deleteInterview/' + id,
+                success: function (data) {
+
+                    location.href = "/Admin/ScheduleIntrviewList/"
+
+                },
+
+                error: function (err) {
+
+
+
+                }
+
+            });
+
+        }
+        else {
+
+
+        }
+
+
+    }
+
+    function AddNotes(emp_id) {
+        $.ajax({
+            type: "GET",
+            url: '/Admin/AddNotesPopup/',
+            data: { "emp_id": emp_id, "formName": "Scheduled Interview List" },
+            success: function (data) {
+                $(".modal-body").empty();
+                $(".modal-body").append(data);
+                $("#model").modal('show');
+            }
+        });
+    }
+
+</script>
+@{
+
+
+}
+
+@using deliverymangementsystem.EDM;
+@using deliverymangementsystem.Models;
+
+
+
+@using (Html.BeginForm())
+{
+
+    var comm = new common();
+
+
+
+    <div class="container-fluid wv-rad5-shadow">
+        <h4 class="tittle-w3-agileits mb-4">Applicant List</h4>
+
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                @Html.DropDownList("searchdrp", new List<SelectListItem> {
+                    new SelectListItem { Text = "All", Value = "All.search" },
+                    //new SelectListItem { Text = "Reschedule", Value = "Reschedule.search" },
+                    //new SelectListItem { Text = "Noshow", Value = "Noshow.search" },
+                    new SelectListItem { Text = "Rejected", Value = "Rejected.search" },
+                    new SelectListItem { Text = "Schedule", Value = "Schedule.search" },
+                    new SelectListItem { Text = "Pending", Value = "Pending.search" }
+                }, "Select Status", new { @class = "form-control", @databvalidator = "required" })
+            </div>
+        </div>
+
+        <div class="table-responsive" style="overflow-x:scroll; overflow-y:hidden">
+
+            <table class="table table-hover" id="tbl">
+                <thead>
+                    <tr>
+
+                        <th width="10%">Action</th>
+                        <th width="10%">Employee Name</th>
+                        <th scope="col">Employee Phone No</th>
+                        <th scope="col">Employee Email</th>
+                        @*<th scope="col">Employee Degination</th>*@
+                        <th scope="col">Interview Status</th>
+                        <th scope="col">Interview Date(Time)</th>
+                        @*<th scope="col">ReSchedule Count</th>*@
+                        <th>Notes</th>
+                        <th><center>Edit</center></th>
+                        <th><center>Delete</center></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @if (ViewBag.Status == "Rejected")
+                                {
+                                    @Html.DropDownList("status" + item.emp_id, new List<SelectListItem>
+                                    {
+                                        new SelectListItem { Text = "Reschedule", Value = "Reschedule." + item.emp_id },
+                                        //new SelectListItem { Text = "Noshow", Value = "Noshow." + item.emp_id },
+                                        //new SelectListItem { Text = "Rejected", Value = "Rejected." + item.emp_id },
+                                        new SelectListItem { Text = "Resend Application", Value = "SendApplication." + item.emp_id },
+                                        new SelectListItem { Text = "Send to ApplicationSubmitted", Value = "SendApplicationSubmitted." + item.emp_id }
+                                    }, "Select", new { @class = "form-control", @databvalidator = "required" })
+                                }
+                                else if (ViewBag.Status == "Pending" && item.emp_interview_date == null && item.emp_interview_time == null)
+                                {
+                                    @Html.DropDownList("status" + item.emp_id, new List<SelectListItem>
+                                    {
+                                        new SelectListItem { Text = "Schedule", Value = "Reschedule." + item.emp_id },
+                                        new SelectListItem { Text = "Noshow", Value = "Noshow." + item.emp_id },
+                                        new SelectListItem { Text = "Rejected", Value = "Rejected." + item.emp_id },
+                                        new SelectListItem { Text = "Send Application", Value = "SendApplication." + item.emp_id },
+                                        new SelectListItem { Text = "Send to ApplicationSubmitted", Value = "SendApplicationSubmitted." + item.emp_id }
+                                    }, "Select", new { @class = "form-control", @databvalidator = "required" })
+                                }
+                                else if (ViewBag.Status == "Pending" && item.emp_interview_date != null && item.emp_interview_time != null)
+                                {
+                                    @Html.DropDownList("status" + item.emp_id, new List<SelectListItem>
+                                    {
+                                        new SelectListItem { Text = "Reschedule", Value = "Reschedule." + item.emp_id },
+                                        new SelectListItem { Text = "Noshow", Value = "Noshow." + item.emp_id },
+                                        new SelectListItem { Text = "Rejected", Value = "Rejected." + item.emp_id },
+                                        new SelectListItem { Text = "Resend Application", Value = "SendApplication." + item.emp_id },
+                                        new SelectListItem { Text = "Send to ApplicationSubmitted", Value = "SendApplicationSubmitted." + item.emp_id }
+                                    }, "Select", new { @class = "form-control", @databvalidator = "required" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownList("status" + item.emp_id, new List<SelectListItem>
+                                    {
+                                        new SelectListItem { Text = "Reschedule", Value = "Reschedule." + item.emp_id },
+                                        new SelectListItem { Text = "Noshow", Value = "Noshow." + item.emp_id },
+                                        new SelectListItem { Text = "Rejected", Value = "Rejected." + item.emp_id },
+                                        new SelectListItem { Text = "Resend Application", Value = "SendApplication." + item.emp_id }
+                                    }, "Select", new { @class = "form-control", @databvalidator = "required" })
+                                }
+
+                            </td>
+
+                            @*<td> <button type="button" class="btn btn-primary" onclick="EditRole(@item.emp_id)">Edit</button></td>*@
+
+                            <td class="text-center">
+                                @{
+                                    <button style="width:100%;" type="button" class="btn-no-styling" onclick="appform(@item.emp_id)">@item.emp_name</button>
+                                    @*if (item.Entry_status == "Rejected" || item.Entry_status == "Noshow")
+                                        {
+                                            <button style="width:100%;" type="button" class="btn-no-styling" onclick="appform(@item.emp_id)">@item.emp_name</button>
+                                        }
+                                        else
+                                        {
+                                            @item.emp_name
+                                        }*@
+                                }
+                            </td>
+
+                            <td><a href="tel:@item.emp_phone">@item.emp_phone</a></td>
+
+                            <td> <a at="@item.emp_personal_email" id="@("email"+item.emp_id)" href="mailto:@item.emp_personal_email">@item.emp_personal_email</a></td>
+
+                            @*<td>@item.degination_name</td>*@
+
+                            <td>@item.Entry_status</td>
+
+                            @*<td>@item.emp_interview_date.Value.ToShortDateString() (@comm.show(TimeSpan.Parse(item.emp_interview_time.ToString())))</td>*@
+
+                            <td>
+                                @{
+
+                                    var empInterviewDate = "";
+                                    var empInterviewTime = "";
+                                    var empIDateTime = "";
+
+                                    if (item.emp_interview_date.ToString() != "")
+                                    {
+                                        empInterviewDate = item.emp_interview_date.Value.ToShortDateString();
+                                    }
+                                    if (item.emp_interview_time.ToString() != "")
+                                    {
+                                        empInterviewTime = comm.show(TimeSpan.Parse(item.emp_interview_time.ToString()));
+                                        //empInterviewTime = item.emp_interview_time.ToString();
+                                    }
+                                    if (empInterviewDate != "" && empInterviewTime != "")
+                                    {
+                                        empIDateTime = empInterviewDate + " ( " + empInterviewTime + " )";
+                                    }
+                                }
+
+                                @{
+                                    var dt = item.entry_date.ToString().Split(' ');
+                                    //<a href="" title="Email sent on @dt[0]">@empIDateTime</a>
+
+                                    <div class="tooltip">
+                                        @empIDateTime
+                                        <span class="tooltiptext">Email sent on @dt[0]</span>
+                                    </div>
+
+                                }
+
+                            </td>
+
+                            @*<td>
+                                    @{
+                                        var dc = new dsdatabaseEntities();
+                                        var c1 = dc.tblreschedules.Where(c => c.emp_id == item.emp_id).ToList();
+                                        if (c1.Count >= 1)
+                                        {
+                                            <button type="button" class="btn btn-primary" onclick="recheduleStatus(@item.emp_id)"><i class="fas fa-history"></i>(@c1.Count)</button>
+                                        }
+                                        else
+                                        {
+
+                                        }
+                                    }
+                                </td>*@
+
+                            <td>
+                                @*<button type="button" class="btn btn-primary" title="@item.Entry_Remark" onclick="AddNotes(@item.emp_id)"><i class="fas fa-sticky-note"></i></button>*@
+                                <button type="button" class="btn btn-primary" onclick="AddNotes(@item.emp_id)"><i class="fas fa-sticky-note"></i></button>
+                            </td>
+
+                            <td align="center">
+                                @*<i class="fa fa-pencil-square-o" aria-hidden="true"></i>*@
+                                <button type="button" class="btn btn-primary" onclick="editaction(@item.emp_id)"><i class="fas fa-edit"></i></button></td>
+                               <td align="center"><button type="button" class="btn btn-primary" onclick="deleteaction(@item.emp_id)"><i class="fas fa-trash"></i></button>
+                            </td>
+
+                            @*<td>
+                                    <button type="button" class="btn btn-primary" onclick="EditRole(@item.assign_id)">Edit</button>||
+                                    <button type="button" class="btn btn-primary" onclick="DeleteRole(@item.assign_id)">Delete</button>
+                                </td>*@
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+}

@@ -1,0 +1,440 @@
+﻿
+@{
+    ViewBag.Title = "daconcession";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/datatable/jquery.dataTables.js"></script>
+<script src="~/datatable/dataTables.buttons.min.js"></script>
+<script src="~/datatable/buttons.flash.min.js"></script>
+<script src="~/datatable/jszip.min.js"></script>
+<script src="~/datatable/pdfmake.min.js"></script>
+<script src="~/datatable/vfs_fonts.js"></script>
+<script src="~/datatable/buttons.html5.min.js"></script>
+<script src="~/datatable/buttons.print.min.js"></script>
+<script src="~/datatable/buttons.colVis.min.js"></script>
+
+
+<script>
+
+    // function added by ViBeS on 08/04/2020 to add delete perticular record functionality
+    
+    function DeleteRecord(id, TrackingID, DriverName) {
+        
+        if (confirm('Do you want to delete record for \n Tracking ID = ' + TrackingID + '( ' + DriverName + ' ) ?'))
+        {
+            $.ajax
+                ({
+                    url: '/Performans/DeleteRecord/',
+                    //type: 'Post',
+                    data: { "cons_id": id },
+                    success: function (data) {
+
+                        alert("Record deleted successfully.");
+                        window.location.href = "/Performans/daconcession/" + 1;
+                    },
+                    error: function (err) {
+
+                        alert("Error occured while deleting record, Please Try again Later");
+
+                    }
+                });
+        }
+    }
+    
+    function EditImage(id) {
+
+        $.ajax({
+            url: '/Performans/UploadImage/' + id,
+            type: 'Get',
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+            }
+
+
+        });
+
+    }
+
+    function UploadImage(id) {
+
+        $.ajax({
+            url: '/Performans/UploadImage/' + id,
+            type: 'Get',
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+            }
+
+
+        });
+
+
+
+    }
+
+    function current() {
+        var today = new Date();
+        var dayOfWeekStartingSundayZeroIndexBased = today.getDay(); // 0 : Sunday ,1 : Monday,2,3,4,5,6 : Saturday
+        var mondayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 1);
+        var sundayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 7);
+
+        $("#weekStartDate").val($.date(mondayOfWeek));
+        $("#weekEndDate").val($.date(sundayOfWeek));
+    }
+
+    function prev() {
+        // alert("previous clicked");
+        var dt = new Date($('#weekStartDate').val());
+        dt.setDate(dt.getDate() - 7); // subtract 7 days
+        $('#weekStartDate').val($.date(dt));
+
+        var enddt = new Date($('#weekEndDate').val());
+        enddt.setDate(enddt.getDate() - 7); // subtract 7 days
+        $('#weekEndDate').val($.date(enddt));
+
+        highlightWeek();
+    }
+
+    function next() {
+        //alert("next clicked");
+        var dt = new Date($('#weekStartDate').val());
+        dt.setDate(dt.getDate() + 7); // add 7 days
+        $('#weekStartDate').val($.date(dt));
+
+        var enddt = new Date($('#weekEndDate').val());
+        enddt.setDate(enddt.getDate() + 7); // add 7 days
+        $('#weekEndDate').val($.date(enddt));
+
+        highlightWeek();
+    }
+
+    function highlightWeek() {
+        var clkDt = new Date($('#weekStartDate').val());
+        var clickDay = clkDt.getDate(); //this is the value we want to select in cal
+        $('.ui-datepicker-calendar > tbody > tr').each(function () {
+            $(this).children('td').each(function () {
+                var dy = $(this).first('a');
+                console.log('dy: ' + dy.text() + '--clickDay: ' + clickDay);
+                if (dy.text() == clickDay) {
+                    dy.click();
+                }
+            });
+        });
+    }
+
+
+    $.date = function (dateObject) {
+        var d = new Date(dateObject);
+        var day = d.getDate();
+        var month = d.getMonth() + 1;
+        var year = d.getFullYear();
+        if (day < 10) {
+            day = "0" + day;
+        }
+        if (month < 10) {
+            month = "0" + month;
+        }
+        var date = month + "/" + day + "/" + year;
+
+        return date;
+    };
+    $(function () {
+        $("#btnNext").click(function () {
+            next();
+        });
+        $("#btnPrev").click(function () {
+            prev();
+        })
+        $('input[type=radio][name=radio1]').change(function () {
+            if (this.value == 'Prev') {
+                prev();
+            } else if (this.value == 'Next') {
+                next()
+            } else {
+                current();
+            }
+        });
+
+        var today = new Date();
+        var dayOfWeekStartingSundayZeroIndexBased = today.getDay(); // 0 : Sunday ,1 : Monday,2,3,4,5,6 : Saturday
+        var mondayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 1);
+        var sundayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 7);
+
+        $("#weekStartDate").val($.date(mondayOfWeek));
+        $("#weekEndDate").val($.date(sundayOfWeek));
+
+        $("#date").datepicker();
+        var startDate;
+        var endDate;
+
+        var selectCurrentWeek = function () {
+            window.setTimeout(function () {
+                $('.week-picker').find('.ui-datepicker-current-day a').addClass('ui-state-active')
+            }, 1);
+        }
+        $('.week-picker').datepicker({
+            showWeek: true,
+            firstDay: 1,
+            changeMonth: true,
+            changeYear: true,
+            showOtherMonths: true,
+            selectOtherMonths: true,
+            onSelect: function (dateText, inst) {
+                var date = $(this).datepicker('getDate');
+                startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+                endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+                var dateFormat = inst.settings.dateFormat || $.datepicker._defaults.dateFormat;
+                $("#weekStartDate").val($.datepicker.formatDate(dateFormat, startDate, inst.settings));
+                $("#weekEndDate").val($.datepicker.formatDate(dateFormat, endDate, inst.settings));
+                selectCurrentWeek();
+                $('input[type=radio][name=radio1]').prop('checked', false);
+            },
+            beforeShowDay: function (date) {
+                var cssClass = '';
+                if (date >= startDate && date <= endDate)
+                    cssClass = 'ui-datepicker-current-day';
+                return [true, cssClass];
+            },
+            onChangeMonthYear: function (year, month, inst) {
+                selectCurrentWeek();
+            }
+        });
+    });
+
+    $(document).ready(function () {
+
+        $("#tbl").DataTable({
+
+            dom: 'lBfrtip',
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            buttons: [
+
+                {
+                    extend: 'print',
+                    title: 'ScheduleInterViewList',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6]
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    title: 'ScheduleInterViewList',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6]
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'ScheduleInterViewList',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6]
+                    }
+                },
+
+            ]
+        });
+
+    });
+
+
+</script>
+@using (Html.BeginForm("daconcession", "Performans", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+<div class="container wv-rad5-shadow" style="margin-bottom:40px;">
+    <br/>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+
+                <div class="col-md-1">
+                    <input type="button" value="<" id="btnPrev" />
+                </div>
+                <div class="col-md-4">
+                    <input type="text" readonly id="weekStartDate" name="start" />
+                </div>
+                <div class="col-md-4">
+                    <input type="text" readonly id="weekEndDate" name="end" />
+                </div>
+                <div class="col-md-1">
+                    <input type="button" value=">" id="btnNext" />
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-2">
+
+                </div>
+                <div class="week-picker"></div>
+                <div class="col-md-1">
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="row">
+                <label for="inputAddress">Upload DA Concession CSV</label>
+
+                <input type="file" name="table1" />
+
+            </div>
+            <br/>
+            <div class="row">
+                <div class="text-left">
+                    <button type="submit" name="Create" value="Create" class="btn btn-primary">Upload</button>
+                    <button type="submit" name="Create" value="Create" class="btn btn-primary">View Concession</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        @ViewBag.msg
+       
+
+    </div>
+        <br />
+
+    </div>
+
+        @*<div class="row" style="margin-bottom:20px;">
+            
+            <div class="col-md-6">
+                <label for="inputAddress">Upload  Da Concession CSV</label>
+                <input type="file" name="table1" />
+            </div>
+
+            <div class="col-md-6">
+                @ViewBag.msg
+                <div class="text-left">
+                    <button type="submit" name="Create" value="Create" class="btn btn-primary">Upload</button>
+                    <button type="submit" name="Create" value="Create" class="btn btn-primary">View Concession</button>
+                </div>
+            </div>
+        </div>*@
+        @*<div class="row" style="margin-bottom:20px;">
+            @ViewBag.msg
+            <div class="text-left">
+                <button type="submit" name="Create" value="Create" class="btn btn-primary">Upload</button>
+                <button type="submit" name="Create" value="Create" class="btn btn-primary">View Concession</button>
+            </div>
+
+        </div>*@
+
+    
+
+    if (ViewData["templist"] != null)
+    {
+        <div class="container-fluid wv-rad5-shadow">
+
+            <h4 class="tittle-w3-agileits mb-4"> DA Concesion Sheets</h4>
+            
+            <div class="row" style="margin-bottom:20px;">
+                <span> Total Concession : @ViewData["cnt"]</span>
+            </div>
+
+            <table class="table table-hover" style="width: 100%" id="tbl">
+
+                <thead>
+
+                    <tr>
+
+
+                        <th scope="col">Tracking ID</th>
+                        <th scope="col">Servies Area</th>
+                        <th scope="col">DSP</th>
+                        <th scope="col">Delivery Date</th>
+                        <th scope="col">Concession Date</th>
+                        <th scope="col">Delivery Associate</th>
+                        <th scope="col">Delivery Associate Name</th>
+                        <th scope="col">Week No</th>
+                        <th scope="col">Upload Image</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in ViewData["templist"] as List<deliverymangementsystem.EDM.tblconcession>)
+                {
+                <tr>
+
+                    <td> <span>@item.tracking_id</span>  </td>
+
+                    <td> <span>@item.sevvice_area</span> </td>
+
+                    <td> <span>@item.dsp</span> </td>
+
+                    <td> <span>@item.delivery_date</span> </td>
+
+                    <td> <span>@item.concession_date</span> </td>
+
+                    <td> <span>@item.deliver_associate</span> </td>
+
+                    <td> <span>@item.deliver_associate_name</span> </td>
+
+                    <td> <span>@item.week_no</span> </td>
+
+                    <td>
+                        @{
+                                if (item.image_one == null)
+                                {
+                            @*<input type="button" onclick="UploadImage(@item.cons_id)" class="btn btn-primary" value="Upload" />*@
+                            <button type="button" onclick="UploadImage(@item.cons_id)" class="btn btn-primary">
+                                <i class="fas fa-upload"></i>
+                            </button>
+                                }
+                                else { }
+                        }
+                    </td>
+
+                    <td>
+                        @{
+                                if (item.image_one != null)
+                                {
+                            @*<input type="button" onclick="EditImage(@item.cons_id)" class="btn btn-primary" value="Edit" />*@
+                            <button type="button" onclick="EditImage(@item.cons_id)" class="btn btn-primary">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                                }
+
+                        }
+                    </td>
+                    <td>
+                        @{
+                            <button type="button" onclick="DeleteRecord(@item.cons_id,'@item.tracking_id','@item.deliver_associate_name')" class="btn btn-primary">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        }
+
+
+                    </td>
+
+
+                </tr>
+
+
+                                }
+
+                </tbody>
+            </table>
+
+        </div>
+    }
+
+
+}

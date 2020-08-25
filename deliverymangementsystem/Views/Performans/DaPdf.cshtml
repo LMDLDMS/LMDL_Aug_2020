@@ -1,0 +1,2213 @@
+﻿
+@{
+    Layout = null;
+}
+@using deliverymangementsystem.EDM
+@{ 
+
+    var table2 = ViewData["tbl2list"] as deliverymangementsystem.EDM.tblperfromense1;
+
+    var table3 = ViewData["tbl3list"] as deliverymangementsystem.EDM.tblperformence2;
+
+    var dc = new  dsdatabaseEntities();
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <style>
+        <!-- table {
+            mso-displayed-decimal-separator: "\.";
+            mso-displayed-thousand-separator: "\,";
+        }
+
+        .font521106 {
+            color: black;
+            font-size: 9.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Tahoma, sans-serif;
+            mso-font-charset: 0;
+        }
+
+        .font621106 {
+            color: black;
+            font-size: 9.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Tahoma, sans-serif;
+            mso-font-charset: 0;
+        }
+
+        .font721106 {
+            color: black;
+            font-size: 9.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Tahoma;
+            mso-generic-font-family: auto;
+            mso-font-charset: 1;
+        }
+
+        .font821106 {
+            color: black;
+            font-size: 9.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Tahoma;
+            mso-generic-font-family: auto;
+            mso-font-charset: 1;
+        }
+
+        .xl6421106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: black;
+            font-size: 11.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl6521106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: black;
+            font-size: 11.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl6621106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 20.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: middle;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: 1.0pt solid windowtext;
+            background: #E2EFDA;
+            mso-pattern: black none;
+            white-space: normal;
+        }
+
+        .xl6721106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: middle;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl6821106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 20.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: middle;
+            border-top: 1.0pt solid windowtext;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl6921106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 11.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: middle;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl7021106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 20.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: middle;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl7121106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: #663300;
+            font-size: 18.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: left;
+            vertical-align: middle;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: 1.0pt solid windowtext;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl7221106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: #663300;
+            font-size: 18.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: left;
+            vertical-align: middle;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl7321106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: #663300;
+            font-size: 18.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: left;
+            vertical-align: middle;
+            border-top: 1.0pt solid windowtext;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl7421106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: 1.0pt solid windowtext;
+            background: yellow;
+            mso-pattern: black none;
+            white-space: nowrap;
+        }
+
+        .xl7521106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl7621106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 11.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl7721106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            background: #0070C0;
+            mso-pattern: black none;
+            white-space: nowrap;
+        }
+
+        .xl7821106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 11.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: left;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl7921106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            background: #FFC000;
+            mso-pattern: black none;
+            white-space: normal;
+        }
+
+        .xl8021106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl8121106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl8221106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: none;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: 1.0pt solid windowtext;
+            background: #7030A0;
+            mso-pattern: black none;
+            white-space: nowrap;
+        }
+
+        .xl8321106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl8421106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl8521106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: black;
+            font-size: 14.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl8621106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            background: #92D050;
+            mso-pattern: black none;
+            white-space: normal;
+        }
+
+        .xl8721106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: Percent;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl8821106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl8921106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            background: #FCE4D6;
+            mso-pattern: black none;
+            white-space: normal;
+        }
+
+        .xl9021106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: Percent;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl9121106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            background: #00B050;
+            mso-pattern: black none;
+            white-space: normal;
+        }
+
+        .xl9221106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl9321106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            background: #F8CBAD;
+            mso-pattern: black none;
+            white-space: normal;
+        }
+
+        .xl9421106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: none;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: 1.0pt solid windowtext;
+            background: #00B0F0;
+            mso-pattern: black none;
+            white-space: normal;
+        }
+
+        .xl9521106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl9621106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: 1.0pt solid windowtext;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl9721106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: none;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: 1.0pt solid windowtext;
+            background: #EDEDED;
+            mso-pattern: black none;
+            white-space: normal;
+        }
+
+        .xl9821106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: Percent;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl9921106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 11.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl10021106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl10121106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: #663300;
+            font-size: 18.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: left;
+            vertical-align: middle;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl10221106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: #663300;
+            font-size: 18.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: left;
+            vertical-align: middle;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl10321106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: #663300;
+            font-size: 18.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: left;
+            vertical-align: middle;
+            border-top: 1.0pt solid windowtext;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl10421106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: 1.0pt solid windowtext;
+            background: #70AD47;
+            mso-pattern: black none;
+            white-space: nowrap;
+        }
+
+        .xl10521106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl10621106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: 1.0pt solid windowtext;
+            background: #A6A6A6;
+            mso-pattern: black none;
+            white-space: nowrap;
+        }
+
+        .xl10721106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            background: #7030A0;
+            mso-pattern: black none;
+            white-space: nowrap;
+        }
+
+        .xl10821106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: Percent;
+            text-align: general;
+            vertical-align: bottom;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl10921106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            background: #FCE4D6;
+            mso-pattern: black none;
+            white-space: normal;
+        }
+
+        .xl11021106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl11121106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: black;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: bottom;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl11221106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: black;
+            font-size: 12.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl11321106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: black;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: bottom;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl11421106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: black;
+            font-size: 12.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: Percent;
+            text-align: general;
+            vertical-align: bottom;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl11521106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 18.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: left;
+            vertical-align: middle;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl11621106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 18.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: left;
+            vertical-align: middle;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl11721106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 18.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: left;
+            vertical-align: middle;
+            border-top: 1.0pt solid windowtext;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl11821106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            background: #FFC000;
+            mso-pattern: black none;
+            white-space: nowrap;
+        }
+
+        .xl11921106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 16.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl12021106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            background: #00B0F0;
+            mso-pattern: black none;
+            white-space: nowrap;
+        }
+
+        .xl12121106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 16.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl12221106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            background: yellow;
+            mso-pattern: black none;
+            white-space: normal;
+        }
+
+        .xl12321106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl12421106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl12521106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            background: #0070C0;
+            mso-pattern: black none;
+            white-space: normal;
+        }
+
+        .xl12621106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 14.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl12721106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl12821106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: Percent;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl12921106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: none;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: 1.0pt solid windowtext;
+            background: #00B050;
+            mso-pattern: black none;
+            white-space: normal;
+        }
+
+        .xl13021106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: 0;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: none;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl13121106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: none;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: 1.0pt solid windowtext;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl13221106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 11.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl13321106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: right;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: none;
+            border-bottom: none;
+            border-left: 1.0pt solid windowtext;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl13421106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: #0070C0;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: Percent;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: 1.0pt solid windowtext;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl13521106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: #0070C0;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl13621106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl13721106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: #0070C0;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: Percent;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: none;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl13821106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: #0070C0;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl13921106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: windowtext;
+            font-size: 12.0pt;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl14021106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: #0070C0;
+            font-size: 12.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: Percent;
+            text-align: general;
+            vertical-align: bottom;
+            border-top: none;
+            border-right: 1.0pt solid windowtext;
+            border-bottom: 1.0pt solid windowtext;
+            border-left: none;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: nowrap;
+        }
+
+        .xl14121106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: #0070C0;
+            font-size: 14.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl14221106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: green;
+            font-size: 14.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl14321106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: #FF9900;
+            font-size: 14.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+
+        .xl14421106 {
+            padding: 0px;
+            mso-ignore: padding;
+            color: red;
+            font-size: 14.0pt;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            font-family: Calibri, sans-serif;
+            mso-font-charset: 0;
+            mso-number-format: General;
+            text-align: general;
+            vertical-align: bottom;
+            mso-background-source: auto;
+            mso-pattern: auto;
+            white-space: normal;
+        }
+    </style>
+
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    <script src="https://printjs-4de6.kxcdn.com/print.min.css"></script>
+
+</head>
+<body>
+    <div id="tblcontent" align=center>
+
+        <table border=0 cellpadding=0 cellspacing=0 width=960 class=xl6521106
+               style='border-collapse:collapse;table-layout:fixed;width:477pt'>
+            <col class=xl6421106 width=234 style='mso-width-source:userset;mso-width-alt:
+ 8557;width:176pt'>
+            <col class=xl6521106 width=63 style='mso-width-source:userset;mso-width-alt:
+ 2304;width:47pt'>
+            <col class=xl6521106 width=9 style='mso-width-source:userset;mso-width-alt:
+ 329;width:7pt'>
+            <col class=xl6521106 width=159 style='mso-width-source:userset;mso-width-alt:
+ 5814;width:119pt'>
+            <col class=xl6521106 width=170 style='mso-width-source:userset;mso-width-alt:
+ 6217;width:128pt'>
+            <tr height=76 style='mso-height-source:userset;height:57.0pt'>
+                <td height=76 class=xl6621106 width=234 style='height:57.0pt;width:176pt'>
+                    Abraham
+                    Ogunleke
+                </td>
+                <td colspan=3 class=xl6721106 width=231 style='width:173pt'>
+                    LAST MILE
+                    DELIVERIES LLC<br>
+                    DA WEEKLY SCORECARD
+                </td>
+                <td width=170 style='width:128pt' align=left valign=top>
+                    <![if !vml]><span style='mso-ignore:vglayout;
+  position:absolute;z-index:21;margin-left:7px;margin-top:7px;width:61px;
+  height:61px'>
+                        <img width=61 height=61
+                             src="/Logimages/lmdl.png" v:shapes="Picture_x0020_1">
+                    </span><![endif]><span style='mso-ignore:vglayout2'>
+                        <table cellpadding=0 cellspacing=0>
+                            <tr>
+                                <td height=76 class=xl6821106 width=170 style='height:57.0pt;width:128pt'>&nbsp;</td>
+                            </tr>
+                        </table>
+                    </span>
+                </td>
+            </tr>
+            <tr height=20 style='mso-height-source:userset;height:15.4pt'>
+                <td height=20 class=xl6921106 width=234 style='height:15.4pt;width:176pt'>A2Y2GPLTHTLB6G</td>
+                <td class=xl7021106 width=63 style='width:47pt'></td>
+                <td class=xl7021106 width=9 style='width:7pt'></td>
+                <td class=xl7021106 width=159 style='width:119pt'></td>
+                <td class=xl7021106 width=170 style='width:128pt'></td>
+            </tr>
+            <tr height=28 style='mso-height-source:userset;height:21.0pt'>
+                <td colspan=5 height=28 class=xl7121106 width=635 style='border-right:1.0pt solid black;
+  height:21.0pt;width:477pt'>
+                    DA SCORE CARD - WEEK 1 - 12/29/2019 - 01/04/2020
+                </td>
+            </tr>
+            <tr height=32 style='mso-height-source:userset;height:24.4pt'>
+                <td height=32 class=xl7421106 style='height:24.4pt;border-top:none'>
+                    Total
+                    Packages Delivered<span style='mso-spacerun:yes'></span>
+                </td>
+                <td class=xl7521106 align=right style='border-top:none'>709</td>
+                <td class=xl7621106 style='border-top:none;border-left:none'>&nbsp;</td>
+                <td class=xl7721106 style='border-top:none;border-left:none'>KEY FOCUS</td>
+                <td class=xl7821106 style='border-top:none'>Delivered and Received</td>
+            </tr>
+            <tr class=xl8521106 height=34 style='mso-height-source:userset;height:25.5pt'>
+                <td height=34 class=xl7921106 width=234 style='height:25.5pt;width:176pt'>
+                    Rank<span style='mso-spacerun:yes'></span>
+                </td>
+                <td class=xl8021106 align=right>50</td>
+                <td class=xl8121106 style='border-left:none'>&nbsp;</td>
+                <td class=xl8221106 style='border-left:none'>Overall Tier</td>
+                <td class=xl8321106 style='font-size:14.0pt;color:#0070C0;font-weight:700;
+  text-decoration:none;text-underline-style:none;text-line-through:none;
+  font-family:Calibri, sans-serif;border-top:none;border-right:1.0pt solid windowtext;
+  border-bottom:1.0pt solid windowtext;border-left:none'>
+                    Fantastic
+                </td>
+            </tr>
+            <tr height=42 style='mso-height-source:userset;height:31.9pt'>
+                <td height=42 class=xl8621106 width=234 style='height:31.9pt;width:176pt'>
+                    Delivery
+                    Completion Rate: DCR
+                </td>
+                <td class=xl8721106 align=right style='font-size:12.0pt;color:#0070C0;
+  font-weight:700;text-decoration:none;text-underline-style:none;text-line-through:
+  none;font-family:Calibri, sans-serif;border-top:none;border-right:1.0pt solid windowtext;
+  border-bottom:none;border-left:none'>
+                    98.88%
+                </td>
+                <td class=xl8821106 style='border-left:none'>&nbsp;</td>
+                <td class=xl8921106 width=159 style='border-top:none;border-left:none;
+  width:119pt'>
+                    Photo-on-delivery:<span style='mso-spacerun:yes'></span>SWC POD
+                </td>
+                <td class=xl9021106 align=right style='border-top:none;font-size:12.0pt;
+  color:#0070C0;font-weight:700;text-decoration:none;text-underline-style:none;
+  text-line-through:none;font-family:Calibri, sans-serif;border-top:1.0pt solid windowtext;
+  border-right:1.0pt solid windowtext;border-bottom:none;border-left:none'>
+                    99.37%
+                </td>
+            </tr>
+            <tr height=42 style='mso-height-source:userset;height:31.9pt'>
+                <td height=42 class=xl9121106 width=234 style='height:31.9pt;width:176pt'>
+                    Delivered
+                    &amp; Received: DAR
+                </td>
+                <td class=xl9221106 align=right style='font-size:12.0pt;color:green;
+  font-weight:700;text-decoration:none;text-underline-style:none;text-line-through:
+  none;font-family:Calibri, sans-serif;border-top:none;border-right:1.0pt solid windowtext;
+  border-bottom:none;border-left:none'>
+                    56
+                </td>
+                <td class=xl8821106 style='border-left:none'>&nbsp;</td>
+                <td class=xl9321106 width=159 style='border-left:none;width:119pt'>
+                    Contact
+                    Compliance:<span style='mso-spacerun:yes'></span>SWC-CC
+                </td>
+                <td class=xl8721106 align=right style='font-size:12.0pt;color:#0070C0;
+  font-weight:700;text-decoration:none;text-underline-style:none;text-line-through:
+  none;font-family:Calibri, sans-serif;border-top:none;border-right:1.0pt solid windowtext;
+  border-bottom:none;border-left:none'>
+                    100.00%
+                </td>
+            </tr>
+            <tr height=42 style='mso-height-source:userset;height:31.9pt'>
+                <td height=42 class=xl9421106 width=234 style='height:31.9pt;width:176pt'>
+                    Attended
+                    Delivery Anomaly: AD
+                </td>
+                <td class=xl9521106 align=right style='font-size:12.0pt;color:#0070C0;
+  font-weight:700;text-decoration:none;text-underline-style:none;text-line-through:
+  none;font-family:Calibri, sans-serif;border-top:none;border-right:1.0pt solid windowtext;
+  border-bottom:1.0pt solid windowtext;border-left:none'>
+                    0
+                </td>
+                <td class=xl9621106 style='border-left:none'>&nbsp;</td>
+                <td class=xl9721106 width=159 style='border-left:none;width:119pt'>
+                    Scan
+                    Compliance:<span style='mso-spacerun:yes'>
+                        
+                    </span>SWC-SC
+                </td>
+                <td class=xl9821106 align=right style='font-size:12.0pt;color:red;font-weight:
+  700;text-decoration:none;text-underline-style:none;text-line-through:none;
+  font-family:Calibri, sans-serif;border-top:none;border-right:1.0pt solid windowtext;
+  border-bottom:1.0pt solid windowtext;border-left:none'>
+                    98.17%
+                </td>
+            </tr>
+            <tr height=24 style='mso-height-source:userset;height:18.0pt'>
+                <td height=24 class=xl9921106 width=234 style='height:18.0pt;width:176pt'></td>
+                <td class=xl10021106></td>
+                <td class=xl10021106></td>
+                <td class=xl10021106></td>
+                <td class=xl10021106></td>
+            </tr>
+            <tr height=33 style='mso-height-source:userset;height:24.75pt'>
+                <td colspan=5 height=33 class=xl10121106 width=635 style='border-right:1.0pt solid black;
+  height:24.75pt;width:477pt'>
+                    DA SCORE CARD - 6 WEEK AVERAGE
+                </td>
+            </tr>
+            <tr height=42 style='mso-height-source:userset;height:31.9pt'>
+                <td height=42 class=xl10421106 style='height:31.9pt'># OF TIMES FANTASTIC</td>
+                <td class=xl10521106 align=right>3</td>
+                <td class=xl7621106>&nbsp;</td>
+                <td class=xl10621106 style='border-left:none'># OF TIMES POOR</td>
+                <td class=xl7521106 align=right>0</td>
+            </tr>
+            <tr height=44 style='mso-height-source:userset;height:33.4pt'>
+                <td height=44 class=xl7921106 width=234 style='height:33.4pt;width:176pt'>
+                    Rank<span style='mso-spacerun:yes'></span>
+                </td>
+                <td class=xl8421106 align=right>63</td>
+                <td class=xl8121106>&nbsp;</td>
+                <td class=xl10721106 style='border-left:none'>AVERAGE Tier</td>
+                <td class=xl8021106 style='font-size:14.0pt;color:green;font-weight:700;
+  text-decoration:none;text-underline-style:none;text-line-through:none;
+  font-family:Calibri, sans-serif;border-top:none;border-right:1.0pt solid windowtext;
+  border-bottom:none;border-left:none'>
+                    Great
+                </td>
+            </tr>
+            <tr height=44 style='mso-height-source:userset;height:33.4pt'>
+                <td height=44 class=xl8621106 width=234 style='height:33.4pt;width:176pt'>
+                    Delivery
+                    Completion Rate: DCR
+                </td>
+                <td class=xl10821106 align=right style='font-size:12.0pt;color:#FF9900;
+  font-weight:700;text-decoration:none;text-underline-style:none;text-line-through:
+  none;font-family:Calibri, sans-serif;border:none'>
+                    98.38%
+                </td>
+                <td class=xl8821106>&nbsp;</td>
+                <td class=xl10921106 width=159 style='border-left:none;width:119pt'>
+                    Photo-on-delivery:<span style='mso-spacerun:yes'></span>SWC POD
+                </td>
+                <td class=xl8721106 align=right style='font-size:12.0pt;color:#0070C0;
+  font-weight:700;text-decoration:none;text-underline-style:none;text-line-through:
+  none;font-family:Calibri, sans-serif;border-top:none;border-right:1.0pt solid windowtext;
+  border-bottom:none;border-left:none'>
+                    99.07%
+                </td>
+            </tr>
+            <tr height=44 style='mso-height-source:userset;height:33.4pt'>
+                <td height=44 class=xl9121106 width=234 style='height:33.4pt;width:176pt'>
+                    Delivered
+                    &amp; Received: DAR
+                </td>
+                <td class=xl11021106 align=right style='font-size:12.0pt;color:red;
+  font-weight:700;text-decoration:none;text-underline-style:none;text-line-through:
+  none;font-family:Calibri, sans-serif;border:none'>
+                    0
+                </td>
+                <td class=xl8821106>&nbsp;</td>
+                <td class=xl9321106 width=159 style='border-left:none;width:119pt'>
+                    Contact
+                    Compliance:<span style='mso-spacerun:yes'></span>SWC-CC
+                </td>
+                <td class=xl8721106 align=right style='font-size:12.0pt;color:green;
+  font-weight:700;text-decoration:none;text-underline-style:none;text-line-through:
+  none;font-family:Calibri, sans-serif;border-top:none;border-right:1.0pt solid windowtext;
+  border-bottom:none;border-left:none'>
+                    94.20%
+                </td>
+            </tr>
+            <tr height=44 style='mso-height-source:userset;height:33.4pt'>
+                <td height=44 class=xl9421106 width=234 style='height:33.4pt;width:176pt'>
+                    Attended
+                    Delivery Anomaly: AD
+                </td>
+                <td class=xl9521106 align=right style='font-size:12.0pt;color:#0070C0;
+  font-weight:700;text-decoration:none;text-underline-style:none;text-line-through:
+  none;font-family:Calibri, sans-serif;border-top:none;border-right:1.0pt solid windowtext;
+  border-bottom:1.0pt solid windowtext;border-left:none'>
+                    0
+                </td>
+                <td class=xl9621106 style='border-left:none'>&nbsp;</td>
+                <td class=xl9721106 width=159 style='border-left:none;width:119pt'>
+                    Scan
+                    Compliance:<span style='mso-spacerun:yes'>
+                       
+                    </span>SWC-SC
+                </td>
+                <td class=xl9821106 align=right style='font-size:12.0pt;color:#FF9900;
+  font-weight:700;text-decoration:none;text-underline-style:none;text-line-through:
+  none;font-family:Calibri, sans-serif;border-top:none;border-right:1.0pt solid windowtext;
+  border-bottom:1.0pt solid windowtext;border-left:none'>
+                    99.19%
+                </td>
+            </tr>
+            <tr height=18 style='mso-height-source:userset;height:13.9pt'>
+                <td height=18 class=xl11121106 width=234 style='height:13.9pt;width:176pt'></td>
+                <td class=xl6521106></td>
+                <td class=xl11221106></td>
+                <td class=xl11321106></td>
+                <td class=xl11421106></td>
+            </tr>
+            <tr height=21 style='height:15.75pt'>
+                <td height=21 class=xl6421106 width=234 style='height:15.75pt;width:176pt'></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+            </tr>
+            <tr height=38 style='mso-height-source:userset;height:28.5pt'>
+                <td colspan=5 height=38 class=xl11521106 width=635 style='border-right:1.0pt solid black;
+  height:28.5pt;width:477pt'>
+                    DA Mentor Report - WEEK 1
+                </td>
+            </tr>
+            <tr height=42 style='mso-height-source:userset;height:31.9pt'>
+                <td height=42 class=xl11821106 style='height:31.9pt'>
+                    FICO SCORE (Higher
+                    Better)
+                </td>
+                <td class=xl11921106 align=right>621</td>
+                <td class=xl7621106>&nbsp;</td>
+                <td class=xl12021106 style='border-left:none'>RANK</td>
+                <td class=xl12121106 align=right>57</td>
+            </tr>
+            <tr height=44 style='mso-height-source:userset;height:33.4pt'>
+                <td height=44 class=xl12221106 width=234 style='height:33.4pt;width:176pt'>
+                    SEAT
+                    BELT (Needs to be 0)
+                </td>
+                <td class=xl12321106 align=right>4</td>
+                <td class=xl12421106>&nbsp;</td>
+                <td class=xl12521106 width=159 style='border-left:none;width:119pt'>
+                    Missed
+                    Post Inspection
+                </td>
+                <td class=xl12621106 align=right>0</td>
+            </tr>
+            <tr height=44 style='mso-height-source:userset;height:33.4pt'>
+                <td height=44 class=xl8621106 width=234 style='height:33.4pt;width:176pt'>
+                    Distraction
+                    (Lower Better)
+                </td>
+                <td class=xl8421106 align=right>38</td>
+                <td class=xl8821106>&nbsp;</td>
+                <td class=xl12721106 width=159 style='border-left:none;width:119pt'>&nbsp;</td>
+                <td class=xl12821106>&nbsp;</td>
+            </tr>
+            <tr height=44 style='mso-height-source:userset;height:33.4pt'>
+                <td height=44 class=xl12921106 width=234 style='height:33.4pt;width:176pt'>
+                    Back
+                    UP (Lower Better)
+                </td>
+                <td class=xl13021106 align=right>54</td>
+                <td class=xl9621106>&nbsp;</td>
+                <td class=xl13121106 width=159 style='border-left:none;width:119pt'>
+                    Engine
+                    Off<span style='mso-spacerun:yes'>� </span>(Lower Better)
+                </td>
+                <td class=xl13221106 align=right>432</td>
+            </tr>
+            <tr height=21 style='height:15.75pt'>
+                <td height=21 class=xl6421106 width=234 style='height:15.75pt;width:176pt'></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+            </tr>
+            <tr height=32 style='height:24.0pt'>
+                <td colspan=5 height=32 class=xl11521106 width=635 style='border-right:1.0pt solid black;
+  height:24.0pt;width:477pt'>
+                    DA TARGETS TO ACHIEVE FANTASTIC
+                </td>
+            </tr>
+            <tr height=42 style='height:31.5pt'>
+                <td height=42 class=xl13321106 width=234 style='height:31.5pt;width:176pt'>
+                    Delivery
+                    Completion Rate: DCR
+                </td>
+                <td class=xl13421106 align=right>98.50%</td>
+                <td class=xl13321106 width=9 style='border-left:none;width:7pt'>&nbsp;</td>
+                <td class=xl13321106 width=159 style='width:119pt'>
+                    Photo-on-delivery:<span style='mso-spacerun:yes'></span>SWC POD
+                </td>
+                <td class=xl13421106 align=right>97.00%</td>
+            </tr>
+            <tr height=42 style='height:31.5pt'>
+                <td height=42 class=xl12721106 width=234 style='height:31.5pt;width:176pt'>
+                    Delivered
+                    &amp; Received: DAR
+                </td>
+                <td class=xl13521106 align=right>70</td>
+                <td class=xl13621106>&nbsp;</td>
+                <td class=xl12721106 width=159 style='border-left:none;width:119pt'>
+                    Contact
+                    Compliance:<span style='mso-spacerun:yes'></span>SWC-CC
+                </td>
+                <td class=xl13721106 align=right>100.00%</td>
+            </tr>
+            <tr height=43 style='height:32.25pt'>
+                <td height=43 class=xl13121106 width=234 style='height:32.25pt;width:176pt'>
+                    Attended
+                    Delivery Anomaly: AD
+                </td>
+                <td class=xl13821106 align=right>0</td>
+                <td class=xl13921106>&nbsp;</td>
+                <td class=xl13121106 width=159 style='border-left:none;width:119pt'>
+                    Scan
+                    Compliance:<span style='mso-spacerun:yes'>
+                       
+                    </span>SWC-SC
+                </td>
+                <td class=xl14021106 align=right>99.90%</td>
+            </tr>
+            <tr height=20 style='height:15.0pt'>
+                <td height=20 class=xl6421106 width=234 style='height:15.0pt;width:176pt'></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+            </tr>
+            <tr height=25 style='height:18.75pt'>
+                <td height=25 class=xl14121106 width=234 style='height:18.75pt;width:176pt'>
+                    BLUE
+                    - FANTASTIC
+                </td>
+                <td class=xl14121106 width=63 style='width:47pt'></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+            </tr>
+            <tr height=25 style='height:18.75pt'>
+                <td height=25 class=xl14221106 width=234 style='height:18.75pt;width:176pt'>
+                    GREEN
+                    - GREAT
+                </td>
+                <td class=xl14221106 width=63 style='width:47pt'></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+            </tr>
+            <tr height=25 style='height:18.75pt'>
+                <td height=25 class=xl14321106 width=234 style='height:18.75pt;width:176pt'>
+                    ORANGE
+                    - FAIR
+                </td>
+                <td class=xl14321106 width=63 style='width:47pt'></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+            </tr>
+            <tr height=25 style='height:18.75pt'>
+                <td height=25 class=xl14421106 width=234 style='height:18.75pt;width:176pt'>
+                    RED
+                    - POOR
+                </td>
+                <td class=xl14421106 width=63 style='width:47pt'></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+                <td class=xl6521106></td>
+            </tr>
+            <![if supportMisalignedColumns]>
+            <tr height=0 style='display:none'>
+                <td width=234 style='width:176pt'></td>
+                <td width=63 style='width:47pt'></td>
+                <td width=9 style='width:7pt'></td>
+                <td width=159 style='width:119pt'></td>
+                <td width=170 style='width:128pt'></td>
+            </tr>
+            <![endif]>
+        </table>
+
+    </div>
+
+    <input type="button" class="btn btn-primary" onclick="printJS('tblcontent', 'html')" value="Print" />
+
+</body>
+</html>

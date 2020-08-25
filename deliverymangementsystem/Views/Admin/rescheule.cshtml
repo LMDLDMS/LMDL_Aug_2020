@@ -1,0 +1,100 @@
+﻿@model deliverymangementsystem.EDM.tblonbordingmaster
+@using deliverymangementsystem.Models;
+<script>
+
+    $(function () {
+        
+        $("#emp_interview_date").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+    });
+    $(document).ready(function () {
+
+        $('#timepicker12').timepicki();
+        $("#form1").bValidator();
+    });
+</script>
+@{ 
+
+    var objcomm = new common();
+    
+
+}
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Reschedule Interview</h4>
+    @using (Html.BeginForm("rescheule", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+
+        @*<div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email" required="">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Password</label>
+                    <input type="password" class="form-control" id="inputPassword4" placeholder="Password" required="">
+                </div>
+            </div>*@
+        <div class="form-group">
+            <label for="inputAddress">Full Name</label>
+            @Html.HiddenFor(c => c.emp_id)
+            @Html.TextBoxFor(c => c.emp_name, new { @class = "form-control", @placeholder = "Enter Full Name", @databvalidator = "required,alpha" })
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Phone No</label>
+            @Html.TextBoxFor(c => c.emp_phone, new { @class = "form-control", @placeholder = "Enter Phone No", @databvalidator = "required", @databvalidatormsg = "Enter Valid Mobile Number" })
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Email ID</label>
+            @Html.TextBoxFor(c => c.emp_personal_email, new { @class = "form-control", @placeholder = "Enter Enter Email", @databvalidator = "required,email" })
+
+        </div>
+        
+
+        <div class="form-group">
+            <label for="inputAddress">Interview Date</label>
+            @Html.TextBox("emp_interview_date", String.Format("{0:d}", Model.emp_interview_date.Value.ToString("MM-dd-yyyy")), new { @class = "form-control", @placeholder = "Enter Enter Email", @databvalidator = "required" })
+            @*@Html.TextBoxFor(c => c.emp_interview_date, new { @class = "form-control", @placeholder = "Enter Full Name" })*@
+            @Html.HiddenFor(c => c.emp_id)
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Interview Time</label>
+            @Html.TextBox("emp_interview_time", objcomm.show(TimeSpan.Parse( Model.emp_interview_time.ToString())), new { @class = "form-control", @id = "timepicker12", @placeholder = "Enter Enter Email"})
+
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Reason to reschedule</label>
+            @Html.TextBox("RescheduleReason", Model.RescheduleReason, new { @class = "form-control", @placeholder = "Enter reason to reschedule" })
+        </div>
+        @*<div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">City</label>
+                    <input type="text" class="form-control" id="inputCity" required="">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputState">State</label>
+                    <select id="inputState" class="form-control">
+                        <option selected="">Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">Zip</label>
+                    <input type="text" class="form-control" id="inputZip" required="">
+                </div>
+            </div>*@
+        @*<div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                        Check me out
+                    </label>
+                </div>
+            </div>*@
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <div>@ViewBag.msg</div>
+
+    }
+
+</div>

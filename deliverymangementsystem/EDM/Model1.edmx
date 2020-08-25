@@ -1,0 +1,2234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="lastmild_dsdb_local03042020Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbladmin">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="admin_username" Type="varchar(max)" />
+          <Property Name="admin_password" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tblassign">
+          <Key>
+            <PropertyRef Name="assign_id" />
+          </Key>
+          <Property Name="assign_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="module_id" Type="varchar(max)" />
+          <Property Name="sub_admin_id" Type="int" />
+          <Property Name="entry_date" Type="date" />
+          <Property Name="entry_user_id" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'lastmild_dsdb_local03042020.dbo.tblAssign_16052020' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblAssign_16052020">
+          <Key>
+            <PropertyRef Name="assign_id" />
+          </Key>
+          <Property Name="assign_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="module_id" Type="varchar(max)" />
+          <Property Name="sub_admin_id" Type="int" />
+          <Property Name="entry_date" Type="date" />
+          <Property Name="entry_user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="tblCompanyDetailsMaster">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyID" Type="int" Nullable="false" />
+          <Property Name="SiteTitle" Type="nvarchar" MaxLength="500" />
+          <Property Name="TagLine" Type="nvarchar" MaxLength="500" />
+          <Property Name="AdministrativeEmailID" Type="nvarchar" MaxLength="500" />
+          <Property Name="TimeZone" Type="varchar" MaxLength="300" />
+          <Property Name="DateFromat" Type="varchar" MaxLength="50" />
+          <Property Name="TimeFormat" Type="varchar" MaxLength="500" />
+          <Property Name="WeekStartOn" Type="varchar" MaxLength="50" />
+          <Property Name="CompLogo" Type="varchar" MaxLength="300" />
+          <Property Name="SiteIcon" Type="varchar" MaxLength="300" />
+          <Property Name="CompanyAddress" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="tblconcession">
+          <Key>
+            <PropertyRef Name="cons_id" />
+          </Key>
+          <Property Name="tracking_id" Type="varchar(max)" />
+          <Property Name="sevvice_area" Type="varchar(max)" />
+          <Property Name="cons_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dsp" Type="varchar(max)" />
+          <Property Name="delivery_date" Type="date" />
+          <Property Name="concession_date" Type="datetime" />
+          <Property Name="deliver_associate" Type="varchar(max)" />
+          <Property Name="deliver_associate_name" Type="varchar(max)" />
+          <Property Name="image_one" Type="varchar(max)" />
+          <Property Name="image_two" Type="varchar(max)" />
+          <Property Name="week_no" Type="varchar(max)" />
+          <Property Name="from_date" Type="date" />
+          <Property Name="to_date" Type="date" />
+          <Property Name="DriverReportFileName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblContactSettingMaster">
+          <Key>
+            <PropertyRef Name="CompID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompID" Type="int" Nullable="false" />
+          <Property Name="StreetAddress1" Type="varchar" MaxLength="500" />
+          <Property Name="StreetAddress2" Type="varchar" MaxLength="500" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="State" Type="varchar" MaxLength="50" />
+          <Property Name="Zip" Type="int" />
+          <Property Name="WorkPhone" Type="varchar" MaxLength="15" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="15" />
+          <Property Name="Location" Type="varchar" MaxLength="50" />
+          <Property Name="StreetAddress1_1" Type="varchar" MaxLength="500" />
+          <Property Name="StreetAddress2_1" Type="varchar" MaxLength="500" />
+          <Property Name="City_1" Type="varchar" MaxLength="50" />
+          <Property Name="State_1" Type="varchar" MaxLength="50" />
+          <Property Name="Zip_1" Type="int" />
+          <Property Name="WorkPhone_1" Type="varchar" MaxLength="15" />
+          <Property Name="MobileNo_1" Type="varchar" MaxLength="15" />
+          <Property Name="Location_1" Type="varchar" MaxLength="50" />
+          <Property Name="StreetAddress1_2" Type="varchar" MaxLength="500" />
+          <Property Name="StreetAddress2_2" Type="varchar" MaxLength="500" />
+          <Property Name="City_2" Type="varchar" MaxLength="50" />
+          <Property Name="State_2" Type="varchar" MaxLength="50" />
+          <Property Name="Zip_2" Type="int" />
+          <Property Name="WorkPhone_2" Type="varchar" MaxLength="15" />
+          <Property Name="MobileNo_2" Type="varchar" MaxLength="15" />
+          <Property Name="Location_2" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbldailyroutetrack">
+          <Key>
+            <PropertyRef Name="sr_no" />
+          </Key>
+          <Property Name="sr_no" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" />
+          <Property Name="route" Type="varchar(max)" />
+          <Property Name="driver_name" Type="varchar(max)" />
+          <Property Name="d_level" Type="varchar(max)" />
+          <Property Name="packages" Type="varchar(max)" />
+          <Property Name="stops" Type="varchar(max)" />
+          <Property Name="first_packages" Type="time" Precision="7" />
+          <Property Name="last_packages" Type="time" Precision="7" />
+          <Property Name="duration" Type="varchar(max)" />
+          <Property Name="sph" Type="varchar(max)" />
+          <Property Name="unknowsstops" Type="varchar(max)" />
+          <Property Name="totalunknowsstops" Type="varchar(max)" />
+          <Property Name="adp_puch_in" Type="time" Precision="7" />
+          <Property Name="adp_puch_out" Type="time" Precision="7" />
+          <Property Name="unpaidbreak" Type="varchar(max)" />
+          <Property Name="calculated_time" Type="varchar(max)" />
+          <Property Name="flex_login" Type="time" Precision="7" />
+          <Property Name="flex_out" Type="time" Precision="7" />
+          <Property Name="van_number" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tblDateTimeFormatMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Format" Type="nvarchar" MaxLength="500" />
+          <Property Name="FormatValue" Type="nvarchar" MaxLength="500" />
+          <Property Name="DateTimeFormat" Type="varchar" MaxLength="50" />
+          <Property Name="Code" Type="nvarchar" MaxLength="500" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbldispatch">
+          <Key>
+            <PropertyRef Name="dispatch_id" />
+          </Key>
+          <Property Name="dispatch_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dispatch_date" Type="date" />
+          <Property Name="routes" Type="varchar(max)" />
+          <Property Name="bag" Type="int" />
+          <Property Name="vantype" Type="varchar(max)" />
+          <Property Name="route" Type="varchar(max)" />
+          <Property Name="driver_name" Type="varchar(max)" />
+          <Property Name="cat" Type="varchar(max)" />
+          <Property Name="packages" Type="varchar(max)" />
+          <Property Name="stops" Type="varchar(max)" />
+          <Property Name="leval_details" Type="varchar(max)" />
+          <Property Name="ride_along" Type="varchar(max)" />
+          <Property Name="notes" Type="varchar(max)" />
+          <Property Name="van_number" Type="varchar(max)" />
+          <Property Name="re_backup" Type="varchar(max)" />
+          <Property Name="phone2" Type="varchar(max)" />
+          <Property Name="IsCheckedIn" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tbldriver">
+          <Key>
+            <PropertyRef Name="d_id" />
+          </Key>
+          <Property Name="d_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="d_email" Type="varchar(max)" />
+          <Property Name="d_name" Type="varchar(max)" />
+          <Property Name="d_phone" Type="varchar" MaxLength="20" />
+          <Property Name="d_dob" Type="date" />
+          <Property Name="d_license_number" Type="varchar(max)" />
+          <Property Name="emp_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="joboffer" Type="varchar(max)" />
+          <Property Name="Remakes" Type="varchar(max)" />
+          <Property Name="phone_no_verifiedy_status" Type="varchar" MaxLength="50" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="entry_date" Type="date" />
+          <Property Name="onbordingstatus" Type="varchar" MaxLength="50" />
+          <Property Name="d_document_status" Type="varchar" MaxLength="50" />
+          <Property Name="d_address" Type="varchar(max)" />
+          <Property Name="d_license_state" Type="varchar(max)" />
+          <Property Name="d_ssn" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tblDriverRemarks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpID" Type="int" Nullable="false" />
+          <Property Name="RemarkPageName" Type="varchar" MaxLength="50" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="3000" />
+          <Property Name="RemarkDate" Type="date" />
+          <Property Name="RemarkTime" Type="varchar" MaxLength="50" />
+          <Property Name="RemarkBy" Type="varchar" MaxLength="50" />
+          <Property Name="RemarkBy_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="tbldrivertest">
+          <Key>
+            <PropertyRef Name="test_id" />
+          </Key>
+          <Property Name="test_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="d_id" Type="int" />
+          <Property Name="isemailcreated" Type="varchar" MaxLength="50" />
+          <Property Name="company_email" Type="varchar" MaxLength="50" />
+          <Property Name="isonbordingLinkCreated" Type="varchar" MaxLength="50" />
+          <Property Name="isbackgrundcheckclear" Type="varchar" MaxLength="50" />
+          <Property Name="isdragtestclear" Type="varchar" MaxLength="50" />
+          <Property Name="teststatus" Type="varchar" MaxLength="50" />
+          <Property Name="entry_date" Type="date" />
+          <Property Name="user_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="isADPMVR" Type="varchar" MaxLength="10" />
+          <Property Name="ADPMVRstatus1" Type="varchar" MaxLength="50" />
+          <Property Name="ADPMVRstatus2" Type="varchar" MaxLength="50" />
+          <Property Name="isOnBordingVideo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'lastmild_dsdb_local03042020.dbo.tbldrivertest_bk24042020' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tbldrivertest_bk24042020">
+          <Key>
+            <PropertyRef Name="test_id" />
+          </Key>
+          <Property Name="test_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="d_id" Type="int" />
+          <Property Name="isemailcreated" Type="varchar" MaxLength="50" />
+          <Property Name="company_email" Type="varchar" MaxLength="50" />
+          <Property Name="isonbordingLinkCreated" Type="varchar" MaxLength="50" />
+          <Property Name="isbackgrundcheckclear" Type="varchar" MaxLength="50" />
+          <Property Name="isdragtestclear" Type="varchar" MaxLength="50" />
+          <Property Name="teststatus" Type="varchar" MaxLength="50" />
+          <Property Name="entry_date" Type="date" />
+          <Property Name="user_id" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="tbldrivertraning">
+          <Key>
+            <PropertyRef Name="traning_id" />
+          </Key>
+          <Property Name="traning_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="d_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="training_date" Type="date" />
+          <Property Name="training_time" Type="time" Precision="7" />
+          <Property Name="user_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="entry_date" Type="date" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="inclassdateone" Type="date" />
+          <Property Name="inclassdatetwo" Type="date" />
+          <Property Name="ridealongpersonname" Type="varchar(max)" />
+          <Property Name="ridealongdate" Type="date" />
+          <Property Name="inclasstime" Type="varchar(max)" />
+          <Property Name="amazonaddress" Type="varchar(max)" />
+          <Property Name="dispecher_name" Type="varchar(max)" />
+          <Property Name="ridealongaddress" Type="varchar(max)" />
+          <Property Name="training_type" Type="varchar" MaxLength="50" />
+          <Property Name="inClassTimeTwo" Type="varchar" MaxLength="50" />
+          <Property Name="VirtualDateOne" Type="date" />
+          <Property Name="VirtualTime" Type="varchar" MaxLength="50" />
+          <Property Name="RideAlongTrainee" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="tblfinaldrivermaster">
+          <Key>
+            <PropertyRef Name="final_driver_id" />
+          </Key>
+          <Property Name="final_driver_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="final_driver_name" Type="varchar(max)" />
+          <Property Name="final_driver_personal_email" Type="varchar(max)" />
+          <Property Name="final_driver_company_email" Type="varchar(max)" />
+          <Property Name="personal_mobile_no" Type="varchar" MaxLength="50" />
+          <Property Name="company_mobile_no" Type="varchar" MaxLength="50" />
+          <Property Name="dob" Type="date" />
+          <Property Name="driver_license_no" Type="varchar(max)" />
+          <Property Name="driver_license_state" Type="varchar(max)" />
+          <Property Name="driver_full_address" Type="varchar(max)" />
+          <Property Name="driver_ssn" Type="varchar(max)" />
+          <Property Name="job_offer_date" Type="date" />
+          <Property Name="join_date" Type="date" />
+          <Property Name="driver_adp_id" Type="varchar(max)" />
+          <Property Name="driver_prohibition_period" Type="varchar(max)" />
+          <Property Name="driver_license_photo" Type="varchar(max)" />
+          <Property Name="driver_profile_pic" Type="varchar" MaxLength="50" />
+          <Property Name="verified_by_previous_if_yes" Type="varchar" MaxLength="50" />
+          <Property Name="total_exp" Type="varchar" MaxLength="50" />
+          <Property Name="traning_date_one" Type="date" />
+          <Property Name="traning_date_two" Type="date" />
+          <Property Name="ride_along_date" Type="date" />
+          <Property Name="ride_along_driver_name" Type="varchar(max)" />
+          <Property Name="d_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="driver_status" Type="varchar(max)" />
+          <Property Name="transport_id" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tblLoginSettingMaster">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyID" Type="int" Nullable="false" />
+          <Property Name="LoginPageLogo" Type="nvarchar" MaxLength="200" />
+          <Property Name="LogoWidth" Type="varchar" MaxLength="50" />
+          <Property Name="LogoHeight" Type="varchar" MaxLength="50" />
+          <Property Name="LogoBottomMargin" Type="varchar" MaxLength="50" />
+          <Property Name="BackgroundImage" Type="nvarchar" MaxLength="200" />
+          <Property Name="Position" Type="varchar" MaxLength="50" />
+          <Property Name="ForgotPassLink" Type="varchar" MaxLength="50" />
+          <Property Name="BackToHomeLink" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblmodule">
+          <Key>
+            <PropertyRef Name="module_id" />
+          </Key>
+          <Property Name="module_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="module_name" Type="varchar(max)" />
+          <Property Name="module_status" Type="varchar" MaxLength="50" />
+          <Property Name="entry_date" Type="date" />
+          <Property Name="entry_user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="tblonbordingmaster">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="emp_name" Type="varchar" MaxLength="50" />
+          <Property Name="emp_phone" Type="varchar" MaxLength="50" />
+          <Property Name="emp_personal_email" Type="varchar" MaxLength="50" />
+          <Property Name="emp_inteview_status" Type="varchar" MaxLength="50" />
+          <Property Name="emp_interview_date" Type="date" />
+          <Property Name="emp_interview_time" Type="time" Precision="7" />
+          <Property Name="entry_date" Type="date" />
+          <Property Name="role_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="degination_name" Type="varchar(max)" />
+          <Property Name="Resion" Type="varchar(max)" />
+          <Property Name="Entry_status" Type="varchar(max)" />
+          <Property Name="rejection_resion" Type="varchar(max)" />
+          <Property Name="source_id" Type="int" />
+          <Property Name="emp_dob" Type="date" />
+          <Property Name="emp_add" Type="varchar(max)" />
+          <Property Name="city" Type="varchar(max)" />
+          <Property Name="state" Type="varchar(max)" />
+          <Property Name="zip" Type="varchar(max)" />
+          <Property Name="are_you_us_city" Type="varchar(max)" />
+          <Property Name="are_you_legal_us_city" Type="varchar(max)" />
+          <Property Name="drug_test" Type="varchar(max)" />
+          <Property Name="Convicted_felony" Type="varchar(max)" />
+          <Property Name="Convicted_felony_explain" Type="varchar(max)" />
+          <Property Name="work_sat" Type="varchar(max)" />
+          <Property Name="work_sat_explain" Type="varchar(max)" />
+          <Property Name="work_sun" Type="varchar(max)" />
+          <Property Name="work_sun_explain" Type="varchar(max)" />
+          <Property Name="ticket_point" Type="varchar(max)" />
+          <Property Name="count" Type="varchar(max)" />
+          <Property Name="driver_linc" Type="varchar(max)" />
+          <Property Name="applied_pos" Type="varchar(max)" />
+          <Property Name="available_startdate" Type="date" />
+          <Property Name="desired_Pay" Type="varchar(max)" />
+          <Property Name="employment_desired" Type="varchar(max)" />
+          <Property Name="school_name1" Type="varchar(max)" />
+          <Property Name="location1" Type="varchar(max)" />
+          <Property Name="year_attended1" Type="varchar(max)" />
+          <Property Name="degree_rec1" Type="varchar(max)" />
+          <Property Name="major1" Type="varchar(max)" />
+          <Property Name="school_name2" Type="varchar(max)" />
+          <Property Name="location2" Type="varchar(max)" />
+          <Property Name="year_attended2" Type="varchar(max)" />
+          <Property Name="degree_rec2" Type="varchar(max)" />
+          <Property Name="major2" Type="varchar(max)" />
+          <Property Name="employer1" Type="varchar(max)" />
+          <Property Name="jobtitle1" Type="varchar(max)" />
+          <Property Name="work_phone1" Type="varchar(max)" />
+          <Property Name="starting_pay_rate1" Type="varchar(max)" />
+          <Property Name="ending_pay_rate1" Type="varchar(max)" />
+          <Property Name="address1" Type="varchar(max)" />
+          <Property Name="city1" Type="varchar(max)" />
+          <Property Name="state1" Type="varchar(max)" />
+          <Property Name="zip1" Type="varchar(max)" />
+          <Property Name="remarks1" Type="varchar(max)" />
+          <Property Name="employer2" Type="varchar(max)" />
+          <Property Name="jobtitle2" Type="varchar(max)" />
+          <Property Name="work_phone2" Type="varchar(max)" />
+          <Property Name="starting_pay_rate2" Type="varchar(max)" />
+          <Property Name="ending_pay_rate2" Type="varchar(max)" />
+          <Property Name="address2" Type="varchar(max)" />
+          <Property Name="city2" Type="varchar(max)" />
+          <Property Name="state2" Type="varchar(max)" />
+          <Property Name="zip2" Type="varchar(max)" />
+          <Property Name="remark2" Type="varchar(max)" />
+          <Property Name="sig_name" Type="varchar(max)" />
+          <Property Name="sig_date" Type="date" />
+          <Property Name="signatures" Type="varchar(max)" />
+          <Property Name="upload_linces_photo" Type="varchar(max)" />
+          <Property Name="amazon_worked" Type="varchar(max)" />
+          <Property Name="amazon_description" Type="varchar(max)" />
+          <Property Name="IsLeagalyAuthorized" Type="varchar" MaxLength="10" />
+          <Property Name="IsSponShipRequired" Type="varchar" MaxLength="10" />
+          <Property Name="WorkPerformed1" Type="nvarchar" MaxLength="2000" />
+          <Property Name="WorkPerformed2" Type="nvarchar" MaxLength="2000" />
+          <Property Name="employer3" Type="nvarchar" MaxLength="200" />
+          <Property Name="jobtitle3" Type="nvarchar" MaxLength="100" />
+          <Property Name="work_phone3" Type="nvarchar" MaxLength="20" />
+          <Property Name="starting_pay_rate3" Type="nvarchar" MaxLength="20" />
+          <Property Name="ending_pay_rate3" Type="nvarchar" MaxLength="20" />
+          <Property Name="address3" Type="nvarchar" MaxLength="2000" />
+          <Property Name="city3" Type="nvarchar" MaxLength="200" />
+          <Property Name="state3" Type="nvarchar" MaxLength="200" />
+          <Property Name="zip3" Type="nvarchar" MaxLength="10" />
+          <Property Name="remarks3" Type="nvarchar" MaxLength="2000" />
+          <Property Name="WorkPerformed3" Type="nvarchar" MaxLength="2000" />
+          <Property Name="FinalChk1" Type="varchar" MaxLength="10" />
+          <Property Name="FinalChk2" Type="varchar" MaxLength="10" />
+          <Property Name="FinalChk3" Type="varchar" MaxLength="10" />
+          <Property Name="empstartdate1" Type="varchar" MaxLength="50" />
+          <Property Name="empenddate1" Type="varchar" MaxLength="50" />
+          <Property Name="empstartdate2" Type="varchar" MaxLength="50" />
+          <Property Name="empenddate2" Type="varchar" MaxLength="50" />
+          <Property Name="empstartdate3" Type="varchar" MaxLength="50" />
+          <Property Name="empenddate3" Type="varchar" MaxLength="50" />
+          <Property Name="Entry_Remark" Type="varchar" MaxLength="3000" />
+          <Property Name="RecomDriverID" Type="int" />
+          <Property Name="RecomDriver" Type="varchar" MaxLength="100" />
+          <Property Name="RescheduleReason" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ApplicationSubmittedDate" Type="date" />
+          <Property Name="FinalChk4" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tblPageGroupMaster">
+          <Key>
+            <PropertyRef Name="PageGroupID" />
+          </Key>
+          <Property Name="PageGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PageGroupName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblParametersMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParamKey" Type="varchar" MaxLength="200" />
+          <Property Name="ParamValue" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tblperformence2">
+          <Key>
+            <PropertyRef Name="sr_no" />
+          </Key>
+          <Property Name="sr_no" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="transport_id" Type="varchar(max)" />
+          <Property Name="rank" Type="varchar(max)" />
+          <Property Name="average_tier" Type="varchar(max)" />
+          <Property Name="dcr" Type="varchar(max)" />
+          <Property Name="dar" Type="varchar(max)" />
+          <Property Name="swc_pod" Type="varchar(max)" />
+          <Property Name="swc_cc" Type="varchar(max)" />
+          <Property Name="swc_sc" Type="varchar(max)" />
+          <Property Name="swc_ad" Type="varchar(max)" />
+          <Property Name="per_status" Type="varchar(max)" />
+          <Property Name="fant" Type="varchar(max)" />
+          <Property Name="great" Type="varchar(max)" />
+          <Property Name="fair" Type="varchar(max)" />
+          <Property Name="poor" Type="varchar(max)" />
+          <Property Name="fromdate" Type="date" />
+          <Property Name="todate" Type="date" />
+        </EntityType>
+        <EntityType Name="tblperfromense1">
+          <Key>
+            <PropertyRef Name="sr_id" />
+          </Key>
+          <Property Name="sr_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="transport_id" Type="varchar(max)" />
+          <Property Name="rank" Type="varchar(max)" />
+          <Property Name="overalltier" Type="varchar(max)" />
+          <Property Name="delivered" Type="varchar(max)" />
+          <Property Name="dcr" Type="varchar(max)" />
+          <Property Name="dar" Type="varchar(max)" />
+          <Property Name="swc_pod" Type="varchar(max)" />
+          <Property Name="swc_cc" Type="varchar(max)" />
+          <Property Name="swc_sc" Type="varchar(max)" />
+          <Property Name="swc_ad" Type="varchar(max)" />
+          <Property Name="dnrs" Type="varchar(max)" />
+          <Property Name="pod_oops" Type="varchar(max)" />
+          <Property Name="cc_oops" Type="varchar(max)" />
+          <Property Name="fromdate" Type="date" />
+          <Property Name="todate" Type="date" />
+          <Property Name="remaks" Type="varchar(max)" />
+          <Property Name="key_focus_area" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tblreschedule">
+          <Key>
+            <PropertyRef Name="reschedule_id" />
+          </Key>
+          <Property Name="reschedule_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="emp_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="reschedule_date" Type="date" />
+          <Property Name="reschedule_time" Type="time" Precision="7" />
+          <Property Name="user_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="entry_date" Type="date" />
+          <Property Name="reschedule_status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblridesetup">
+          <Key>
+            <PropertyRef Name="ride_id" />
+          </Key>
+          <Property Name="ride_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="d_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ride_date" Type="date" />
+          <Property Name="ride_driver_name" Type="varchar(max)" />
+          <Property Name="setup_adp" Type="varchar" MaxLength="50" />
+          <Property Name="setup_menter" Type="varchar" MaxLength="50" />
+          <Property Name="download_flex_on_phone" Type="varchar" MaxLength="50" />
+          <Property Name="entry_date" Type="date" />
+          <Property Name="user_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="gas_pin_menter_activation_code" Type="varchar(max)" />
+          <Property Name="place_zoho_email_group" Type="varchar" MaxLength="50" />
+          <Property Name="welcome_mail" Type="varchar(max)" />
+          <Property Name="i9_document_uploded" Type="varchar(max)" />
+          <Property Name="imp_company_contact" Type="varchar(max)" />
+          <Property Name="sent_ever_sign" Type="varchar(max)" />
+          <Property Name="download_i9_document" Type="varchar(max)" />
+          <Property Name="download_ever_sign_document" Type="varchar(max)" />
+          <Property Name="imp_document" Type="varchar(max)" />
+          <Property Name="w4" Type="varchar(max)" />
+          <Property Name="place_in_pto_policy" Type="varchar(max)" />
+          <Property Name="send_adp_time_off_ins" Type="varchar(max)" />
+          <Property Name="health_ins_email" Type="varchar(max)" />
+          <Property Name="missing_puch_email" Type="varchar(max)" />
+          <Property Name="I9_doc_one" Type="varchar" MaxLength="50" />
+          <Property Name="I9_one_PRC_front" Type="varchar" MaxLength="50" />
+          <Property Name="I9_one_PRC_back" Type="varchar" MaxLength="50" />
+          <Property Name="one_Expiry_date" Type="date" />
+          <Property Name="I9_doc_two" Type="varchar" MaxLength="50" />
+          <Property Name="I9_two_PRC_front" Type="varchar" MaxLength="50" />
+          <Property Name="I9_two_PRC_back" Type="varchar" MaxLength="50" />
+          <Property Name="two_Expiry_date" Type="date" />
+          <Property Name="I9_doc_three" Type="varchar" MaxLength="50" />
+          <Property Name="I9_three_PRC_front" Type="varchar" MaxLength="50" />
+          <Property Name="I9_three_PRC_back" Type="varchar" MaxLength="50" />
+          <Property Name="three_Expiry_date" Type="date" />
+          <Property Name="I9_other" Type="varchar" MaxLength="200" />
+          <Property Name="off_letter_evr_sent" Type="varchar" MaxLength="50" />
+          <Property Name="off_letter_evr_signed" Type="varchar" MaxLength="50" />
+          <Property Name="gas_pin" Type="int" />
+          <Property Name="health_Ins_Fdate" Type="date" />
+          <Property Name="health_Ins_Tdate" Type="date" />
+          <Property Name="onbording_doc_download" Type="varchar" MaxLength="50" />
+          <Property Name="quest_res_download" Type="varchar" MaxLength="50" />
+          <Property Name="bg_check_download" Type="varchar" MaxLength="50" />
+          <Property Name="offerletter_download" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblrole">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_name" Type="varchar(max)" />
+          <Property Name="entry_date" Type="date" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblRoleMaster">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblScreenMaster">
+          <Key>
+            <PropertyRef Name="ScreenID" />
+          </Key>
+          <Property Name="ScreenID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ScreenName" Type="varchar" MaxLength="200" />
+          <Property Name="ScreenPath" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="tblSocialMediaSettingMaster">
+          <Key>
+            <PropertyRef Name="CompID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompID" Type="int" Nullable="false" />
+          <Property Name="WhatsApp" Type="varchar" MaxLength="500" />
+          <Property Name="FaceBook" Type="varchar" MaxLength="500" />
+          <Property Name="InstaGram" Type="varchar" MaxLength="500" />
+          <Property Name="LinkedIn" Type="varchar" MaxLength="500" />
+          <Property Name="Twitter" Type="varchar" MaxLength="500" />
+          <Property Name="Youtube" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="tblsource">
+          <Key>
+            <PropertyRef Name="source_id" />
+          </Key>
+          <Property Name="source_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="source_name" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tblsubadmin">
+          <Key>
+            <PropertyRef Name="sub_admin_id" />
+          </Key>
+          <Property Name="sub_admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sub_admin_name" Type="varchar(max)" />
+          <Property Name="sub_admin_mob" Type="varchar" MaxLength="50" />
+          <Property Name="sub_admin_email_id" Type="varchar(max)" />
+          <Property Name="sub_admin_password" Type="varchar(max)" />
+          <Property Name="sub_admin_status" Type="varchar" MaxLength="50" />
+          <Property Name="entry_date" Type="date" />
+          <Property Name="entry_user_id" Type="int" />
+          <Property Name="user_type" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tblterminate">
+          <Key>
+            <PropertyRef Name="termination_id" />
+          </Key>
+          <Property Name="termination_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="final_driver_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="termination_date" Type="date" />
+          <Property Name="last_day_wrok" Type="date" />
+          <Property Name="last_day_terminate" Type="date" />
+          <Property Name="eligibal_for_hire" Type="varchar" MaxLength="50" />
+          <Property Name="isvalountry" Type="varchar(max)" />
+          <Property Name="resion" Type="varchar(max)" />
+          <Property Name="account_deactive" Type="varchar(max)" />
+          <Property Name="comment" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tblticket">
+          <Key>
+            <PropertyRef Name="ticket_id" />
+          </Key>
+          <Property Name="ticket_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ticket_type" Type="varchar(max)" />
+          <Property Name="van_number" Type="varchar(max)" />
+          <Property Name="van_type" Type="varchar(max)" />
+          <Property Name="issue" Type="varchar(max)" />
+          <Property Name="vendor_name" Type="varchar(max)" />
+          <Property Name="supply_needed" Type="varchar(max)" />
+          <Property Name="Quantity" Type="varchar(max)" />
+          <Property Name="ticket_open_by_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ticket_open_date" Type="date" />
+          <Property Name="ticket_open_time" Type="time" Precision="7" />
+          <Property Name="ticket_status" Type="varchar(max)" />
+          <Property Name="ticket_assigned_user_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ticket_closed_date" Type="date" />
+          <Property Name="ticket_closed_time" Type="time" Precision="7" />
+          <Property Name="ticket_picked_date" Type="date" />
+          <Property Name="ticket_picked_time" Type="time" Precision="7" />
+          <Property Name="cat_phone_number" Type="varchar(max)" />
+          <Property Name="gas_card_number" Type="varchar(max)" />
+          <Property Name="mac_address" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tblticketconveration">
+          <Key>
+            <PropertyRef Name="sr_no" />
+          </Key>
+          <Property Name="sr_no" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ticket_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ticket_conversation" Type="varchar(max)" />
+          <Property Name="from_user_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="to_user_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="date" Type="date" />
+          <Property Name="time" Type="time" Precision="7" />
+          <Property Name="ticket_status" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tblTimeZoneMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryCode" Type="varchar" MaxLength="50" />
+          <Property Name="CountryName" Type="varchar" MaxLength="100" />
+          <Property Name="TimeZone" Type="nvarchar" MaxLength="100" />
+          <Property Name="GMToffset" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbltraningreschedule">
+          <Key>
+            <PropertyRef Name="traning_reschdule_id" />
+          </Key>
+          <Property Name="traning_reschdule_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="traning_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="d_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="traning_reschdule_date" Type="date" />
+          <Property Name="traning_reschdule_time" Type="time" Precision="7" />
+          <Property Name="entry_date" Type="date" />
+          <Property Name="user_id" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="tblVanMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VanNumber" Type="varchar" MaxLength="50" />
+          <Property Name="VIN" Type="varchar" MaxLength="50" />
+          <Property Name="Plate" Type="varchar" MaxLength="50" />
+          <Property Name="VanType" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblWeekDaysMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Day" Type="varchar" MaxLength="50" />
+          <Property Name="Sequence" Type="int" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="lastmild_dsdb_local03042020ModelStoreContainer">
+          <EntitySet Name="tbladmin" EntityType="Self.tbladmin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblassign" EntityType="Self.tblassign" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCompanyDetailsMaster" EntityType="Self.tblCompanyDetailsMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblconcession" EntityType="Self.tblconcession" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblContactSettingMaster" EntityType="Self.tblContactSettingMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbldailyroutetrack" EntityType="Self.tbldailyroutetrack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDateTimeFormatMaster" EntityType="Self.tblDateTimeFormatMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbldispatch" EntityType="Self.tbldispatch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbldriver" EntityType="Self.tbldriver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDriverRemarks" EntityType="Self.tblDriverRemarks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbldrivertest" EntityType="Self.tbldrivertest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbldrivertraning" EntityType="Self.tbldrivertraning" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblfinaldrivermaster" EntityType="Self.tblfinaldrivermaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblLoginSettingMaster" EntityType="Self.tblLoginSettingMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblmodule" EntityType="Self.tblmodule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblonbordingmaster" EntityType="Self.tblonbordingmaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPageGroupMaster" EntityType="Self.tblPageGroupMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblParametersMaster" EntityType="Self.tblParametersMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblperformence2" EntityType="Self.tblperformence2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblperfromense1" EntityType="Self.tblperfromense1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblreschedule" EntityType="Self.tblreschedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblridesetup" EntityType="Self.tblridesetup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblrole" EntityType="Self.tblrole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRoleMaster" EntityType="Self.tblRoleMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblScreenMaster" EntityType="Self.tblScreenMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSocialMediaSettingMaster" EntityType="Self.tblSocialMediaSettingMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblsource" EntityType="Self.tblsource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblsubadmin" EntityType="Self.tblsubadmin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblterminate" EntityType="Self.tblterminate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblticket" EntityType="Self.tblticket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblticketconveration" EntityType="Self.tblticketconveration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTimeZoneMaster" EntityType="Self.tblTimeZoneMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbltraningreschedule" EntityType="Self.tbltraningreschedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVanMaster" EntityType="Self.tblVanMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblWeekDaysMaster" EntityType="Self.tblWeekDaysMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAssign_16052020" EntityType="Self.tblAssign_16052020" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblAssign_16052020].[assign_id] AS [assign_id], 
+    [tblAssign_16052020].[module_id] AS [module_id], 
+    [tblAssign_16052020].[sub_admin_id] AS [sub_admin_id], 
+    [tblAssign_16052020].[entry_date] AS [entry_date], 
+    [tblAssign_16052020].[entry_user_id] AS [entry_user_id]
+    FROM [dbo].[tblAssign_16052020] AS [tblAssign_16052020]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tbldrivertest_bk24042020" EntityType="Self.tbldrivertest_bk24042020" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tbldrivertest_bk24042020].[test_id] AS [test_id], 
+    [tbldrivertest_bk24042020].[d_id] AS [d_id], 
+    [tbldrivertest_bk24042020].[isemailcreated] AS [isemailcreated], 
+    [tbldrivertest_bk24042020].[company_email] AS [company_email], 
+    [tbldrivertest_bk24042020].[isonbordingLinkCreated] AS [isonbordingLinkCreated], 
+    [tbldrivertest_bk24042020].[isbackgrundcheckclear] AS [isbackgrundcheckclear], 
+    [tbldrivertest_bk24042020].[isdragtestclear] AS [isdragtestclear], 
+    [tbldrivertest_bk24042020].[teststatus] AS [teststatus], 
+    [tbldrivertest_bk24042020].[entry_date] AS [entry_date], 
+    [tbldrivertest_bk24042020].[user_id] AS [user_id]
+    FROM [dbo].[tbldrivertest_bk24042020] AS [tbldrivertest_bk24042020]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="lastmild_dsdb_local03042020Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbladmin">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="admin_username" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="admin_password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblassign">
+          <Key>
+            <PropertyRef Name="assign_id" />
+          </Key>
+          <Property Name="assign_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="module_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sub_admin_id" Type="Int32" />
+          <Property Name="entry_date" Type="DateTime" Precision="0" />
+          <Property Name="entry_user_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblCompanyDetailsMaster">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
+          <Property Name="SiteTitle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TagLine" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AdministrativeEmailID" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TimeZone" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="DateFromat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimeFormat" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="WeekStartOn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CompLogo" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="SiteIcon" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblconcession">
+          <Key>
+            <PropertyRef Name="cons_id" />
+          </Key>
+          <Property Name="tracking_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sevvice_area" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cons_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dsp" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="delivery_date" Type="DateTime" Precision="0" />
+          <Property Name="concession_date" Type="DateTime" Precision="3" />
+          <Property Name="deliver_associate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="deliver_associate_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="image_one" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="image_two" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="week_no" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="from_date" Type="DateTime" Precision="0" />
+          <Property Name="to_date" Type="DateTime" Precision="0" />
+          <Property Name="DriverReportFileName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblContactSettingMaster">
+          <Key>
+            <PropertyRef Name="CompID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompID" Type="Int32" Nullable="false" />
+          <Property Name="StreetAddress1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="StreetAddress2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Zip" Type="Int32" />
+          <Property Name="WorkPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StreetAddress1_1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="StreetAddress2_1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="City_1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="State_1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Zip_1" Type="Int32" />
+          <Property Name="WorkPhone_1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo_1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Location_1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StreetAddress1_2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="StreetAddress2_2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="City_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="State_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Zip_2" Type="Int32" />
+          <Property Name="WorkPhone_2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo_2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Location_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbldailyroutetrack">
+          <Key>
+            <PropertyRef Name="sr_no" />
+          </Key>
+          <Property Name="sr_no" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="route" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="driver_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="d_level" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="packages" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="stops" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="first_packages" Type="Time" Precision="7" />
+          <Property Name="last_packages" Type="Time" Precision="7" />
+          <Property Name="duration" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sph" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="unknowsstops" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="totalunknowsstops" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="adp_puch_in" Type="Time" Precision="7" />
+          <Property Name="adp_puch_out" Type="Time" Precision="7" />
+          <Property Name="unpaidbreak" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="calculated_time" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="flex_login" Type="Time" Precision="7" />
+          <Property Name="flex_out" Type="Time" Precision="7" />
+          <Property Name="van_number" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblDateTimeFormatMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Format" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FormatValue" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DateTimeFormat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Code" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbldispatch">
+          <Key>
+            <PropertyRef Name="dispatch_id" />
+          </Key>
+          <Property Name="dispatch_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dispatch_date" Type="DateTime" Precision="0" />
+          <Property Name="routes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="bag" Type="Int32" />
+          <Property Name="vantype" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="route" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="driver_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cat" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="packages" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="stops" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="leval_details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ride_along" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="van_number" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="re_backup" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="phone2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsCheckedIn" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbldriver">
+          <Key>
+            <PropertyRef Name="d_id" />
+          </Key>
+          <Property Name="d_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="d_email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="d_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="d_phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="d_dob" Type="DateTime" Precision="0" />
+          <Property Name="d_license_number" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="emp_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="joboffer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Remakes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="phone_no_verifiedy_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="entry_date" Type="DateTime" Precision="0" />
+          <Property Name="onbordingstatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="d_document_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="d_address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="d_license_state" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="d_ssn" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblDriverRemark">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpID" Type="Int32" Nullable="false" />
+          <Property Name="RemarkPageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
+          <Property Name="RemarkDate" Type="DateTime" Precision="0" />
+          <Property Name="RemarkTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RemarkBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RemarkBy_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbldrivertest">
+          <Key>
+            <PropertyRef Name="test_id" />
+          </Key>
+          <Property Name="test_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="d_id" Type="Int32" />
+          <Property Name="isemailcreated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="company_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isonbordingLinkCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isbackgrundcheckclear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isdragtestclear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="teststatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="entry_date" Type="DateTime" Precision="0" />
+          <Property Name="user_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="isADPMVR" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ADPMVRstatus1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADPMVRstatus2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isOnBordingVideo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbldrivertraning">
+          <Key>
+            <PropertyRef Name="traning_id" />
+          </Key>
+          <Property Name="traning_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="d_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="training_date" Type="DateTime" Precision="0" />
+          <Property Name="training_time" Type="Time" Precision="7" />
+          <Property Name="user_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="entry_date" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="inclassdateone" Type="DateTime" Precision="0" />
+          <Property Name="inclassdatetwo" Type="DateTime" Precision="0" />
+          <Property Name="ridealongpersonname" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ridealongdate" Type="DateTime" Precision="0" />
+          <Property Name="inclasstime" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="amazonaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="dispecher_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ridealongaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="training_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="inClassTimeTwo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VirtualDateOne" Type="DateTime" Precision="0" />
+          <Property Name="VirtualTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RideAlongTrainee" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblfinaldrivermaster">
+          <Key>
+            <PropertyRef Name="final_driver_id" />
+          </Key>
+          <Property Name="final_driver_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="final_driver_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="final_driver_personal_email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="final_driver_company_email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="personal_mobile_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="company_mobile_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dob" Type="DateTime" Precision="0" />
+          <Property Name="driver_license_no" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="driver_license_state" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="driver_full_address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="driver_ssn" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="job_offer_date" Type="DateTime" Precision="0" />
+          <Property Name="join_date" Type="DateTime" Precision="0" />
+          <Property Name="driver_adp_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="driver_prohibition_period" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="driver_license_photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="driver_profile_pic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="verified_by_previous_if_yes" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="total_exp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="traning_date_one" Type="DateTime" Precision="0" />
+          <Property Name="traning_date_two" Type="DateTime" Precision="0" />
+          <Property Name="ride_along_date" Type="DateTime" Precision="0" />
+          <Property Name="ride_along_driver_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="d_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="driver_status" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="transport_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblLoginSettingMaster">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
+          <Property Name="LoginPageLogo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LogoWidth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LogoHeight" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LogoBottomMargin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BackgroundImage" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ForgotPassLink" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BackToHomeLink" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblmodule">
+          <Key>
+            <PropertyRef Name="module_id" />
+          </Key>
+          <Property Name="module_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="module_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="module_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="entry_date" Type="DateTime" Precision="0" />
+          <Property Name="entry_user_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblonbordingmaster">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="emp_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_personal_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_inteview_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_interview_date" Type="DateTime" Precision="0" />
+          <Property Name="emp_interview_time" Type="Time" Precision="7" />
+          <Property Name="entry_date" Type="DateTime" Precision="0" />
+          <Property Name="role_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="degination_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Resion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Entry_status" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="rejection_resion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="source_id" Type="Int32" />
+          <Property Name="emp_dob" Type="DateTime" Precision="0" />
+          <Property Name="emp_add" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="zip" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="are_you_us_city" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="are_you_legal_us_city" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="drug_test" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Convicted_felony" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Convicted_felony_explain" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="work_sat" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="work_sat_explain" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="work_sun" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="work_sun_explain" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_point" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="count" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="driver_linc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="applied_pos" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="available_startdate" Type="DateTime" Precision="0" />
+          <Property Name="desired_Pay" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="employment_desired" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="school_name1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="location1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="year_attended1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="degree_rec1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="major1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="school_name2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="location2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="year_attended2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="degree_rec2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="major2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="employer1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="jobtitle1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="work_phone1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="starting_pay_rate1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ending_pay_rate1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="city1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="state1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="zip1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="remarks1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="employer2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="jobtitle2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="work_phone2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="starting_pay_rate2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ending_pay_rate2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="city2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="state2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="zip2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="remark2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sig_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sig_date" Type="DateTime" Precision="0" />
+          <Property Name="signatures" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="upload_linces_photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="amazon_worked" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="amazon_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsLeagalyAuthorized" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="IsSponShipRequired" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="WorkPerformed1" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="WorkPerformed2" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="employer3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="jobtitle3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="work_phone3" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="starting_pay_rate3" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ending_pay_rate3" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="address3" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="city3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="state3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="zip3" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="remarks3" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="WorkPerformed3" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="FinalChk1" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FinalChk2" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FinalChk3" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="empstartdate1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="empenddate1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="empstartdate2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="empenddate2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="empstartdate3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="empenddate3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Entry_Remark" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <Property Name="RecomDriverID" Type="Int32" />
+          <Property Name="RecomDriver" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RescheduleReason" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationSubmittedDate" Type="DateTime" Precision="0" />
+          <Property Name="FinalChk4" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblPageGroupMaster">
+          <Key>
+            <PropertyRef Name="PageGroupID" />
+          </Key>
+          <Property Name="PageGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PageGroupName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblParametersMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParamKey" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ParamValue" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblperformence2">
+          <Key>
+            <PropertyRef Name="sr_no" />
+          </Key>
+          <Property Name="sr_no" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="transport_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="rank" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="average_tier" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="dcr" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="dar" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="swc_pod" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="swc_cc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="swc_sc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="swc_ad" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="per_status" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fant" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="great" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fair" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="poor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fromdate" Type="DateTime" Precision="0" />
+          <Property Name="todate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="tblperfromense1">
+          <Key>
+            <PropertyRef Name="sr_id" />
+          </Key>
+          <Property Name="sr_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="transport_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="rank" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="overalltier" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="delivered" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="dcr" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="dar" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="swc_pod" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="swc_cc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="swc_sc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="swc_ad" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="dnrs" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="pod_oops" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cc_oops" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fromdate" Type="DateTime" Precision="0" />
+          <Property Name="todate" Type="DateTime" Precision="0" />
+          <Property Name="remaks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="key_focus_area" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblreschedule">
+          <Key>
+            <PropertyRef Name="reschedule_id" />
+          </Key>
+          <Property Name="reschedule_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="emp_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="reschedule_date" Type="DateTime" Precision="0" />
+          <Property Name="reschedule_time" Type="Time" Precision="7" />
+          <Property Name="user_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="entry_date" Type="DateTime" Precision="0" />
+          <Property Name="reschedule_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblridesetup">
+          <Key>
+            <PropertyRef Name="ride_id" />
+          </Key>
+          <Property Name="ride_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="d_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ride_date" Type="DateTime" Precision="0" />
+          <Property Name="ride_driver_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="setup_adp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="setup_menter" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="download_flex_on_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="entry_date" Type="DateTime" Precision="0" />
+          <Property Name="user_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="gas_pin_menter_activation_code" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="place_zoho_email_group" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="welcome_mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="i9_document_uploded" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="imp_company_contact" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sent_ever_sign" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="download_i9_document" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="download_ever_sign_document" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="imp_document" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="w4" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="place_in_pto_policy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="send_adp_time_off_ins" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="health_ins_email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="missing_puch_email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="I9_doc_one" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="I9_one_PRC_front" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="I9_one_PRC_back" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="one_Expiry_date" Type="DateTime" Precision="0" />
+          <Property Name="I9_doc_two" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="I9_two_PRC_front" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="I9_two_PRC_back" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="two_Expiry_date" Type="DateTime" Precision="0" />
+          <Property Name="I9_doc_three" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="I9_three_PRC_front" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="I9_three_PRC_back" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="three_Expiry_date" Type="DateTime" Precision="0" />
+          <Property Name="I9_other" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="off_letter_evr_sent" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="off_letter_evr_signed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="gas_pin" Type="Int32" />
+          <Property Name="health_Ins_Fdate" Type="DateTime" Precision="0" />
+          <Property Name="health_Ins_Tdate" Type="DateTime" Precision="0" />
+          <Property Name="onbording_doc_download" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="quest_res_download" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="bg_check_download" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="offerletter_download" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblrole">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="entry_date" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblRoleMaster">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblScreenMaster">
+          <Key>
+            <PropertyRef Name="ScreenID" />
+          </Key>
+          <Property Name="ScreenID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ScreenName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ScreenPath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblSocialMediaSettingMaster">
+          <Key>
+            <PropertyRef Name="CompID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompID" Type="Int32" Nullable="false" />
+          <Property Name="WhatsApp" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="FaceBook" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="InstaGram" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="LinkedIn" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Twitter" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Youtube" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblsource">
+          <Key>
+            <PropertyRef Name="source_id" />
+          </Key>
+          <Property Name="source_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="source_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblsubadmin">
+          <Key>
+            <PropertyRef Name="sub_admin_id" />
+          </Key>
+          <Property Name="sub_admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sub_admin_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sub_admin_mob" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sub_admin_email_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sub_admin_password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sub_admin_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="entry_date" Type="DateTime" Precision="0" />
+          <Property Name="entry_user_id" Type="Int32" />
+          <Property Name="user_type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblterminate">
+          <Key>
+            <PropertyRef Name="termination_id" />
+          </Key>
+          <Property Name="termination_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="final_driver_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="termination_date" Type="DateTime" Precision="0" />
+          <Property Name="last_day_wrok" Type="DateTime" Precision="0" />
+          <Property Name="last_day_terminate" Type="DateTime" Precision="0" />
+          <Property Name="eligibal_for_hire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isvalountry" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="resion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="account_deactive" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblticket">
+          <Key>
+            <PropertyRef Name="ticket_id" />
+          </Key>
+          <Property Name="ticket_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ticket_type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="van_number" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="van_type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="issue" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="vendor_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="supply_needed" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_open_by_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ticket_open_date" Type="DateTime" Precision="0" />
+          <Property Name="ticket_open_time" Type="Time" Precision="7" />
+          <Property Name="ticket_status" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ticket_assigned_user_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ticket_closed_date" Type="DateTime" Precision="0" />
+          <Property Name="ticket_closed_time" Type="Time" Precision="7" />
+          <Property Name="ticket_picked_date" Type="DateTime" Precision="0" />
+          <Property Name="ticket_picked_time" Type="Time" Precision="7" />
+          <Property Name="cat_phone_number" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="gas_card_number" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="mac_address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblticketconveration">
+          <Key>
+            <PropertyRef Name="sr_no" />
+          </Key>
+          <Property Name="sr_no" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ticket_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ticket_conversation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="from_user_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="to_user_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="time" Type="Time" Precision="7" />
+          <Property Name="ticket_status" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblTimeZoneMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TimeZone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GMToffset" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbltraningreschedule">
+          <Key>
+            <PropertyRef Name="traning_reschdule_id" />
+          </Key>
+          <Property Name="traning_reschdule_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="traning_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="d_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="traning_reschdule_date" Type="DateTime" Precision="0" />
+          <Property Name="traning_reschdule_time" Type="Time" Precision="7" />
+          <Property Name="entry_date" Type="DateTime" Precision="0" />
+          <Property Name="user_id" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="tblVanMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VanNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VIN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Plate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VanType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblWeekDaysMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sequence" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblAssign_16052020">
+          <Key>
+            <PropertyRef Name="assign_id" />
+          </Key>
+          <Property Name="assign_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="module_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sub_admin_id" Type="Int32" />
+          <Property Name="entry_date" Type="DateTime" Precision="0" />
+          <Property Name="entry_user_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbldrivertest_bk24042020">
+          <Key>
+            <PropertyRef Name="test_id" />
+          </Key>
+          <Property Name="test_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="d_id" Type="Int32" />
+          <Property Name="isemailcreated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="company_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isonbordingLinkCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isbackgrundcheckclear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isdragtestclear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="teststatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="entry_date" Type="DateTime" Precision="0" />
+          <Property Name="user_id" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityContainer Name="lastmild_dsdb_local03042020Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbladmins" EntityType="Self.tbladmin" />
+          <EntitySet Name="tblassigns" EntityType="Self.tblassign" />
+          <EntitySet Name="tblCompanyDetailsMasters" EntityType="Self.tblCompanyDetailsMaster" />
+          <EntitySet Name="tblconcessions" EntityType="Self.tblconcession" />
+          <EntitySet Name="tblContactSettingMasters" EntityType="Self.tblContactSettingMaster" />
+          <EntitySet Name="tbldailyroutetracks" EntityType="Self.tbldailyroutetrack" />
+          <EntitySet Name="tblDateTimeFormatMasters" EntityType="Self.tblDateTimeFormatMaster" />
+          <EntitySet Name="tbldispatches" EntityType="Self.tbldispatch" />
+          <EntitySet Name="tbldrivers" EntityType="Self.tbldriver" />
+          <EntitySet Name="tblDriverRemarks" EntityType="Self.tblDriverRemark" />
+          <EntitySet Name="tbldrivertests" EntityType="Self.tbldrivertest" />
+          <EntitySet Name="tbldrivertranings" EntityType="Self.tbldrivertraning" />
+          <EntitySet Name="tblfinaldrivermasters" EntityType="Self.tblfinaldrivermaster" />
+          <EntitySet Name="tblLoginSettingMasters" EntityType="Self.tblLoginSettingMaster" />
+          <EntitySet Name="tblmodules" EntityType="Self.tblmodule" />
+          <EntitySet Name="tblonbordingmasters" EntityType="Self.tblonbordingmaster" />
+          <EntitySet Name="tblPageGroupMasters" EntityType="Self.tblPageGroupMaster" />
+          <EntitySet Name="tblParametersMasters" EntityType="Self.tblParametersMaster" />
+          <EntitySet Name="tblperformence2" EntityType="Self.tblperformence2" />
+          <EntitySet Name="tblperfromense1" EntityType="Self.tblperfromense1" />
+          <EntitySet Name="tblreschedules" EntityType="Self.tblreschedule" />
+          <EntitySet Name="tblridesetups" EntityType="Self.tblridesetup" />
+          <EntitySet Name="tblroles" EntityType="Self.tblrole" />
+          <EntitySet Name="tblRoleMasters" EntityType="Self.tblRoleMaster" />
+          <EntitySet Name="tblScreenMasters" EntityType="Self.tblScreenMaster" />
+          <EntitySet Name="tblSocialMediaSettingMasters" EntityType="Self.tblSocialMediaSettingMaster" />
+          <EntitySet Name="tblsources" EntityType="Self.tblsource" />
+          <EntitySet Name="tblsubadmins" EntityType="Self.tblsubadmin" />
+          <EntitySet Name="tblterminates" EntityType="Self.tblterminate" />
+          <EntitySet Name="tbltickets" EntityType="Self.tblticket" />
+          <EntitySet Name="tblticketconverations" EntityType="Self.tblticketconveration" />
+          <EntitySet Name="tblTimeZoneMasters" EntityType="Self.tblTimeZoneMaster" />
+          <EntitySet Name="tbltraningreschedules" EntityType="Self.tbltraningreschedule" />
+          <EntitySet Name="tblVanMasters" EntityType="Self.tblVanMaster" />
+          <EntitySet Name="tblWeekDaysMasters" EntityType="Self.tblWeekDaysMaster" />
+          <EntitySet Name="tblAssign_16052020" EntityType="Self.tblAssign_16052020" />
+          <EntitySet Name="tbldrivertest_bk24042020" EntityType="Self.tbldrivertest_bk24042020" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="lastmild_dsdb_local03042020ModelStoreContainer" CdmEntityContainer="lastmild_dsdb_local03042020Entities">
+          <EntitySetMapping Name="tbladmins">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tbladmin">
+              <MappingFragment StoreEntitySet="tbladmin">
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="admin_username" ColumnName="admin_username" />
+                <ScalarProperty Name="admin_password" ColumnName="admin_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblassigns">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblassign">
+              <MappingFragment StoreEntitySet="tblassign">
+                <ScalarProperty Name="assign_id" ColumnName="assign_id" />
+                <ScalarProperty Name="module_id" ColumnName="module_id" />
+                <ScalarProperty Name="sub_admin_id" ColumnName="sub_admin_id" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="entry_user_id" ColumnName="entry_user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCompanyDetailsMasters">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblCompanyDetailsMaster">
+              <MappingFragment StoreEntitySet="tblCompanyDetailsMaster">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="SiteTitle" ColumnName="SiteTitle" />
+                <ScalarProperty Name="TagLine" ColumnName="TagLine" />
+                <ScalarProperty Name="AdministrativeEmailID" ColumnName="AdministrativeEmailID" />
+                <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
+                <ScalarProperty Name="DateFromat" ColumnName="DateFromat" />
+                <ScalarProperty Name="TimeFormat" ColumnName="TimeFormat" />
+                <ScalarProperty Name="WeekStartOn" ColumnName="WeekStartOn" />
+                <ScalarProperty Name="CompLogo" ColumnName="CompLogo" />
+                <ScalarProperty Name="SiteIcon" ColumnName="SiteIcon" />
+                <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblconcessions">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblconcession">
+              <MappingFragment StoreEntitySet="tblconcession">
+                <ScalarProperty Name="tracking_id" ColumnName="tracking_id" />
+                <ScalarProperty Name="sevvice_area" ColumnName="sevvice_area" />
+                <ScalarProperty Name="cons_id" ColumnName="cons_id" />
+                <ScalarProperty Name="dsp" ColumnName="dsp" />
+                <ScalarProperty Name="delivery_date" ColumnName="delivery_date" />
+                <ScalarProperty Name="concession_date" ColumnName="concession_date" />
+                <ScalarProperty Name="deliver_associate" ColumnName="deliver_associate" />
+                <ScalarProperty Name="deliver_associate_name" ColumnName="deliver_associate_name" />
+                <ScalarProperty Name="image_one" ColumnName="image_one" />
+                <ScalarProperty Name="image_two" ColumnName="image_two" />
+                <ScalarProperty Name="week_no" ColumnName="week_no" />
+                <ScalarProperty Name="from_date" ColumnName="from_date" />
+                <ScalarProperty Name="to_date" ColumnName="to_date" />
+                <ScalarProperty Name="DriverReportFileName" ColumnName="DriverReportFileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblContactSettingMasters">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblContactSettingMaster">
+              <MappingFragment StoreEntitySet="tblContactSettingMaster">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CompID" ColumnName="CompID" />
+                <ScalarProperty Name="StreetAddress1" ColumnName="StreetAddress1" />
+                <ScalarProperty Name="StreetAddress2" ColumnName="StreetAddress2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="StreetAddress1_1" ColumnName="StreetAddress1_1" />
+                <ScalarProperty Name="StreetAddress2_1" ColumnName="StreetAddress2_1" />
+                <ScalarProperty Name="City_1" ColumnName="City_1" />
+                <ScalarProperty Name="State_1" ColumnName="State_1" />
+                <ScalarProperty Name="Zip_1" ColumnName="Zip_1" />
+                <ScalarProperty Name="WorkPhone_1" ColumnName="WorkPhone_1" />
+                <ScalarProperty Name="MobileNo_1" ColumnName="MobileNo_1" />
+                <ScalarProperty Name="Location_1" ColumnName="Location_1" />
+                <ScalarProperty Name="StreetAddress1_2" ColumnName="StreetAddress1_2" />
+                <ScalarProperty Name="StreetAddress2_2" ColumnName="StreetAddress2_2" />
+                <ScalarProperty Name="City_2" ColumnName="City_2" />
+                <ScalarProperty Name="State_2" ColumnName="State_2" />
+                <ScalarProperty Name="Zip_2" ColumnName="Zip_2" />
+                <ScalarProperty Name="WorkPhone_2" ColumnName="WorkPhone_2" />
+                <ScalarProperty Name="MobileNo_2" ColumnName="MobileNo_2" />
+                <ScalarProperty Name="Location_2" ColumnName="Location_2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbldailyroutetracks">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tbldailyroutetrack">
+              <MappingFragment StoreEntitySet="tbldailyroutetrack">
+                <ScalarProperty Name="sr_no" ColumnName="sr_no" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="route" ColumnName="route" />
+                <ScalarProperty Name="driver_name" ColumnName="driver_name" />
+                <ScalarProperty Name="d_level" ColumnName="d_level" />
+                <ScalarProperty Name="packages" ColumnName="packages" />
+                <ScalarProperty Name="stops" ColumnName="stops" />
+                <ScalarProperty Name="first_packages" ColumnName="first_packages" />
+                <ScalarProperty Name="last_packages" ColumnName="last_packages" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="sph" ColumnName="sph" />
+                <ScalarProperty Name="unknowsstops" ColumnName="unknowsstops" />
+                <ScalarProperty Name="totalunknowsstops" ColumnName="totalunknowsstops" />
+                <ScalarProperty Name="adp_puch_in" ColumnName="adp_puch_in" />
+                <ScalarProperty Name="adp_puch_out" ColumnName="adp_puch_out" />
+                <ScalarProperty Name="unpaidbreak" ColumnName="unpaidbreak" />
+                <ScalarProperty Name="calculated_time" ColumnName="calculated_time" />
+                <ScalarProperty Name="flex_login" ColumnName="flex_login" />
+                <ScalarProperty Name="flex_out" ColumnName="flex_out" />
+                <ScalarProperty Name="van_number" ColumnName="van_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDateTimeFormatMasters">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblDateTimeFormatMaster">
+              <MappingFragment StoreEntitySet="tblDateTimeFormatMaster">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Format" ColumnName="Format" />
+                <ScalarProperty Name="FormatValue" ColumnName="FormatValue" />
+                <ScalarProperty Name="DateTimeFormat" ColumnName="DateTimeFormat" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbldispatches">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tbldispatch">
+              <MappingFragment StoreEntitySet="tbldispatch">
+                <ScalarProperty Name="dispatch_id" ColumnName="dispatch_id" />
+                <ScalarProperty Name="dispatch_date" ColumnName="dispatch_date" />
+                <ScalarProperty Name="routes" ColumnName="routes" />
+                <ScalarProperty Name="bag" ColumnName="bag" />
+                <ScalarProperty Name="vantype" ColumnName="vantype" />
+                <ScalarProperty Name="route" ColumnName="route" />
+                <ScalarProperty Name="driver_name" ColumnName="driver_name" />
+                <ScalarProperty Name="cat" ColumnName="cat" />
+                <ScalarProperty Name="packages" ColumnName="packages" />
+                <ScalarProperty Name="stops" ColumnName="stops" />
+                <ScalarProperty Name="leval_details" ColumnName="leval_details" />
+                <ScalarProperty Name="ride_along" ColumnName="ride_along" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="van_number" ColumnName="van_number" />
+                <ScalarProperty Name="re_backup" ColumnName="re_backup" />
+                <ScalarProperty Name="phone2" ColumnName="phone2" />
+                <ScalarProperty Name="IsCheckedIn" ColumnName="IsCheckedIn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbldrivers">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tbldriver">
+              <MappingFragment StoreEntitySet="tbldriver">
+                <ScalarProperty Name="d_id" ColumnName="d_id" />
+                <ScalarProperty Name="d_email" ColumnName="d_email" />
+                <ScalarProperty Name="d_name" ColumnName="d_name" />
+                <ScalarProperty Name="d_phone" ColumnName="d_phone" />
+                <ScalarProperty Name="d_dob" ColumnName="d_dob" />
+                <ScalarProperty Name="d_license_number" ColumnName="d_license_number" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="joboffer" ColumnName="joboffer" />
+                <ScalarProperty Name="Remakes" ColumnName="Remakes" />
+                <ScalarProperty Name="phone_no_verifiedy_status" ColumnName="phone_no_verifiedy_status" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="onbordingstatus" ColumnName="onbordingstatus" />
+                <ScalarProperty Name="d_document_status" ColumnName="d_document_status" />
+                <ScalarProperty Name="d_address" ColumnName="d_address" />
+                <ScalarProperty Name="d_license_state" ColumnName="d_license_state" />
+                <ScalarProperty Name="d_ssn" ColumnName="d_ssn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDriverRemarks">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblDriverRemark">
+              <MappingFragment StoreEntitySet="tblDriverRemarks">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="RemarkPageName" ColumnName="RemarkPageName" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="RemarkDate" ColumnName="RemarkDate" />
+                <ScalarProperty Name="RemarkTime" ColumnName="RemarkTime" />
+                <ScalarProperty Name="RemarkBy" ColumnName="RemarkBy" />
+                <ScalarProperty Name="RemarkBy_ID" ColumnName="RemarkBy_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbldrivertests">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tbldrivertest">
+              <MappingFragment StoreEntitySet="tbldrivertest">
+                <ScalarProperty Name="test_id" ColumnName="test_id" />
+                <ScalarProperty Name="d_id" ColumnName="d_id" />
+                <ScalarProperty Name="isemailcreated" ColumnName="isemailcreated" />
+                <ScalarProperty Name="company_email" ColumnName="company_email" />
+                <ScalarProperty Name="isonbordingLinkCreated" ColumnName="isonbordingLinkCreated" />
+                <ScalarProperty Name="isbackgrundcheckclear" ColumnName="isbackgrundcheckclear" />
+                <ScalarProperty Name="isdragtestclear" ColumnName="isdragtestclear" />
+                <ScalarProperty Name="teststatus" ColumnName="teststatus" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="isADPMVR" ColumnName="isADPMVR" />
+                <ScalarProperty Name="ADPMVRstatus1" ColumnName="ADPMVRstatus1" />
+                <ScalarProperty Name="ADPMVRstatus2" ColumnName="ADPMVRstatus2" />
+                <ScalarProperty Name="isOnBordingVideo" ColumnName="isOnBordingVideo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbldrivertranings">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tbldrivertraning">
+              <MappingFragment StoreEntitySet="tbldrivertraning">
+                <ScalarProperty Name="traning_id" ColumnName="traning_id" />
+                <ScalarProperty Name="d_id" ColumnName="d_id" />
+                <ScalarProperty Name="training_date" ColumnName="training_date" />
+                <ScalarProperty Name="training_time" ColumnName="training_time" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="inclassdateone" ColumnName="inclassdateone" />
+                <ScalarProperty Name="inclassdatetwo" ColumnName="inclassdatetwo" />
+                <ScalarProperty Name="ridealongpersonname" ColumnName="ridealongpersonname" />
+                <ScalarProperty Name="ridealongdate" ColumnName="ridealongdate" />
+                <ScalarProperty Name="inclasstime" ColumnName="inclasstime" />
+                <ScalarProperty Name="amazonaddress" ColumnName="amazonaddress" />
+                <ScalarProperty Name="dispecher_name" ColumnName="dispecher_name" />
+                <ScalarProperty Name="ridealongaddress" ColumnName="ridealongaddress" />
+                <ScalarProperty Name="training_type" ColumnName="training_type" />
+                <ScalarProperty Name="inClassTimeTwo" ColumnName="inClassTimeTwo" />
+                <ScalarProperty Name="VirtualDateOne" ColumnName="VirtualDateOne" />
+                <ScalarProperty Name="VirtualTime" ColumnName="VirtualTime" />
+                <ScalarProperty Name="RideAlongTrainee" ColumnName="RideAlongTrainee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblfinaldrivermasters">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblfinaldrivermaster">
+              <MappingFragment StoreEntitySet="tblfinaldrivermaster">
+                <ScalarProperty Name="final_driver_id" ColumnName="final_driver_id" />
+                <ScalarProperty Name="final_driver_name" ColumnName="final_driver_name" />
+                <ScalarProperty Name="final_driver_personal_email" ColumnName="final_driver_personal_email" />
+                <ScalarProperty Name="final_driver_company_email" ColumnName="final_driver_company_email" />
+                <ScalarProperty Name="personal_mobile_no" ColumnName="personal_mobile_no" />
+                <ScalarProperty Name="company_mobile_no" ColumnName="company_mobile_no" />
+                <ScalarProperty Name="dob" ColumnName="dob" />
+                <ScalarProperty Name="driver_license_no" ColumnName="driver_license_no" />
+                <ScalarProperty Name="driver_license_state" ColumnName="driver_license_state" />
+                <ScalarProperty Name="driver_full_address" ColumnName="driver_full_address" />
+                <ScalarProperty Name="driver_ssn" ColumnName="driver_ssn" />
+                <ScalarProperty Name="job_offer_date" ColumnName="job_offer_date" />
+                <ScalarProperty Name="join_date" ColumnName="join_date" />
+                <ScalarProperty Name="driver_adp_id" ColumnName="driver_adp_id" />
+                <ScalarProperty Name="driver_prohibition_period" ColumnName="driver_prohibition_period" />
+                <ScalarProperty Name="driver_license_photo" ColumnName="driver_license_photo" />
+                <ScalarProperty Name="driver_profile_pic" ColumnName="driver_profile_pic" />
+                <ScalarProperty Name="verified_by_previous_if_yes" ColumnName="verified_by_previous_if_yes" />
+                <ScalarProperty Name="total_exp" ColumnName="total_exp" />
+                <ScalarProperty Name="traning_date_one" ColumnName="traning_date_one" />
+                <ScalarProperty Name="traning_date_two" ColumnName="traning_date_two" />
+                <ScalarProperty Name="ride_along_date" ColumnName="ride_along_date" />
+                <ScalarProperty Name="ride_along_driver_name" ColumnName="ride_along_driver_name" />
+                <ScalarProperty Name="d_id" ColumnName="d_id" />
+                <ScalarProperty Name="driver_status" ColumnName="driver_status" />
+                <ScalarProperty Name="transport_id" ColumnName="transport_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblLoginSettingMasters">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblLoginSettingMaster">
+              <MappingFragment StoreEntitySet="tblLoginSettingMaster">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="LoginPageLogo" ColumnName="LoginPageLogo" />
+                <ScalarProperty Name="LogoWidth" ColumnName="LogoWidth" />
+                <ScalarProperty Name="LogoHeight" ColumnName="LogoHeight" />
+                <ScalarProperty Name="LogoBottomMargin" ColumnName="LogoBottomMargin" />
+                <ScalarProperty Name="BackgroundImage" ColumnName="BackgroundImage" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="ForgotPassLink" ColumnName="ForgotPassLink" />
+                <ScalarProperty Name="BackToHomeLink" ColumnName="BackToHomeLink" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblmodules">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblmodule">
+              <MappingFragment StoreEntitySet="tblmodule">
+                <ScalarProperty Name="module_id" ColumnName="module_id" />
+                <ScalarProperty Name="module_name" ColumnName="module_name" />
+                <ScalarProperty Name="module_status" ColumnName="module_status" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="entry_user_id" ColumnName="entry_user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblonbordingmasters">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblonbordingmaster">
+              <MappingFragment StoreEntitySet="tblonbordingmaster">
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="emp_name" ColumnName="emp_name" />
+                <ScalarProperty Name="emp_phone" ColumnName="emp_phone" />
+                <ScalarProperty Name="emp_personal_email" ColumnName="emp_personal_email" />
+                <ScalarProperty Name="emp_inteview_status" ColumnName="emp_inteview_status" />
+                <ScalarProperty Name="emp_interview_date" ColumnName="emp_interview_date" />
+                <ScalarProperty Name="emp_interview_time" ColumnName="emp_interview_time" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="degination_name" ColumnName="degination_name" />
+                <ScalarProperty Name="Resion" ColumnName="Resion" />
+                <ScalarProperty Name="Entry_status" ColumnName="Entry_status" />
+                <ScalarProperty Name="rejection_resion" ColumnName="rejection_resion" />
+                <ScalarProperty Name="source_id" ColumnName="source_id" />
+                <ScalarProperty Name="emp_dob" ColumnName="emp_dob" />
+                <ScalarProperty Name="emp_add" ColumnName="emp_add" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="are_you_us_city" ColumnName="are_you_us_city" />
+                <ScalarProperty Name="are_you_legal_us_city" ColumnName="are_you_legal_us_city" />
+                <ScalarProperty Name="drug_test" ColumnName="drug_test" />
+                <ScalarProperty Name="Convicted_felony" ColumnName="Convicted_felony" />
+                <ScalarProperty Name="Convicted_felony_explain" ColumnName="Convicted_felony_explain" />
+                <ScalarProperty Name="work_sat" ColumnName="work_sat" />
+                <ScalarProperty Name="work_sat_explain" ColumnName="work_sat_explain" />
+                <ScalarProperty Name="work_sun" ColumnName="work_sun" />
+                <ScalarProperty Name="work_sun_explain" ColumnName="work_sun_explain" />
+                <ScalarProperty Name="ticket_point" ColumnName="ticket_point" />
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="driver_linc" ColumnName="driver_linc" />
+                <ScalarProperty Name="applied_pos" ColumnName="applied_pos" />
+                <ScalarProperty Name="available_startdate" ColumnName="available_startdate" />
+                <ScalarProperty Name="desired_Pay" ColumnName="desired_Pay" />
+                <ScalarProperty Name="employment_desired" ColumnName="employment_desired" />
+                <ScalarProperty Name="school_name1" ColumnName="school_name1" />
+                <ScalarProperty Name="location1" ColumnName="location1" />
+                <ScalarProperty Name="year_attended1" ColumnName="year_attended1" />
+                <ScalarProperty Name="degree_rec1" ColumnName="degree_rec1" />
+                <ScalarProperty Name="major1" ColumnName="major1" />
+                <ScalarProperty Name="school_name2" ColumnName="school_name2" />
+                <ScalarProperty Name="location2" ColumnName="location2" />
+                <ScalarProperty Name="year_attended2" ColumnName="year_attended2" />
+                <ScalarProperty Name="degree_rec2" ColumnName="degree_rec2" />
+                <ScalarProperty Name="major2" ColumnName="major2" />
+                <ScalarProperty Name="employer1" ColumnName="employer1" />
+                <ScalarProperty Name="jobtitle1" ColumnName="jobtitle1" />
+                <ScalarProperty Name="work_phone1" ColumnName="work_phone1" />
+                <ScalarProperty Name="starting_pay_rate1" ColumnName="starting_pay_rate1" />
+                <ScalarProperty Name="ending_pay_rate1" ColumnName="ending_pay_rate1" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="city1" ColumnName="city1" />
+                <ScalarProperty Name="state1" ColumnName="state1" />
+                <ScalarProperty Name="zip1" ColumnName="zip1" />
+                <ScalarProperty Name="remarks1" ColumnName="remarks1" />
+                <ScalarProperty Name="employer2" ColumnName="employer2" />
+                <ScalarProperty Name="jobtitle2" ColumnName="jobtitle2" />
+                <ScalarProperty Name="work_phone2" ColumnName="work_phone2" />
+                <ScalarProperty Name="starting_pay_rate2" ColumnName="starting_pay_rate2" />
+                <ScalarProperty Name="ending_pay_rate2" ColumnName="ending_pay_rate2" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city2" ColumnName="city2" />
+                <ScalarProperty Name="state2" ColumnName="state2" />
+                <ScalarProperty Name="zip2" ColumnName="zip2" />
+                <ScalarProperty Name="remark2" ColumnName="remark2" />
+                <ScalarProperty Name="sig_name" ColumnName="sig_name" />
+                <ScalarProperty Name="sig_date" ColumnName="sig_date" />
+                <ScalarProperty Name="signatures" ColumnName="signatures" />
+                <ScalarProperty Name="upload_linces_photo" ColumnName="upload_linces_photo" />
+                <ScalarProperty Name="amazon_worked" ColumnName="amazon_worked" />
+                <ScalarProperty Name="amazon_description" ColumnName="amazon_description" />
+                <ScalarProperty Name="IsLeagalyAuthorized" ColumnName="IsLeagalyAuthorized" />
+                <ScalarProperty Name="IsSponShipRequired" ColumnName="IsSponShipRequired" />
+                <ScalarProperty Name="WorkPerformed1" ColumnName="WorkPerformed1" />
+                <ScalarProperty Name="WorkPerformed2" ColumnName="WorkPerformed2" />
+                <ScalarProperty Name="employer3" ColumnName="employer3" />
+                <ScalarProperty Name="jobtitle3" ColumnName="jobtitle3" />
+                <ScalarProperty Name="work_phone3" ColumnName="work_phone3" />
+                <ScalarProperty Name="starting_pay_rate3" ColumnName="starting_pay_rate3" />
+                <ScalarProperty Name="ending_pay_rate3" ColumnName="ending_pay_rate3" />
+                <ScalarProperty Name="address3" ColumnName="address3" />
+                <ScalarProperty Name="city3" ColumnName="city3" />
+                <ScalarProperty Name="state3" ColumnName="state3" />
+                <ScalarProperty Name="zip3" ColumnName="zip3" />
+                <ScalarProperty Name="remarks3" ColumnName="remarks3" />
+                <ScalarProperty Name="WorkPerformed3" ColumnName="WorkPerformed3" />
+                <ScalarProperty Name="FinalChk1" ColumnName="FinalChk1" />
+                <ScalarProperty Name="FinalChk2" ColumnName="FinalChk2" />
+                <ScalarProperty Name="FinalChk3" ColumnName="FinalChk3" />
+                <ScalarProperty Name="empstartdate1" ColumnName="empstartdate1" />
+                <ScalarProperty Name="empenddate1" ColumnName="empenddate1" />
+                <ScalarProperty Name="empstartdate2" ColumnName="empstartdate2" />
+                <ScalarProperty Name="empenddate2" ColumnName="empenddate2" />
+                <ScalarProperty Name="empstartdate3" ColumnName="empstartdate3" />
+                <ScalarProperty Name="empenddate3" ColumnName="empenddate3" />
+                <ScalarProperty Name="Entry_Remark" ColumnName="Entry_Remark" />
+                <ScalarProperty Name="RecomDriverID" ColumnName="RecomDriverID" />
+                <ScalarProperty Name="RecomDriver" ColumnName="RecomDriver" />
+                <ScalarProperty Name="RescheduleReason" ColumnName="RescheduleReason" />
+                <ScalarProperty Name="ApplicationSubmittedDate" ColumnName="ApplicationSubmittedDate" />
+                <ScalarProperty Name="FinalChk4" ColumnName="FinalChk4" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPageGroupMasters">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblPageGroupMaster">
+              <MappingFragment StoreEntitySet="tblPageGroupMaster">
+                <ScalarProperty Name="PageGroupID" ColumnName="PageGroupID" />
+                <ScalarProperty Name="PageGroupName" ColumnName="PageGroupName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblParametersMasters">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblParametersMaster">
+              <MappingFragment StoreEntitySet="tblParametersMaster">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ParamKey" ColumnName="ParamKey" />
+                <ScalarProperty Name="ParamValue" ColumnName="ParamValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblperformence2">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblperformence2">
+              <MappingFragment StoreEntitySet="tblperformence2">
+                <ScalarProperty Name="sr_no" ColumnName="sr_no" />
+                <ScalarProperty Name="transport_id" ColumnName="transport_id" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="average_tier" ColumnName="average_tier" />
+                <ScalarProperty Name="dcr" ColumnName="dcr" />
+                <ScalarProperty Name="dar" ColumnName="dar" />
+                <ScalarProperty Name="swc_pod" ColumnName="swc_pod" />
+                <ScalarProperty Name="swc_cc" ColumnName="swc_cc" />
+                <ScalarProperty Name="swc_sc" ColumnName="swc_sc" />
+                <ScalarProperty Name="swc_ad" ColumnName="swc_ad" />
+                <ScalarProperty Name="per_status" ColumnName="per_status" />
+                <ScalarProperty Name="fant" ColumnName="fant" />
+                <ScalarProperty Name="great" ColumnName="great" />
+                <ScalarProperty Name="fair" ColumnName="fair" />
+                <ScalarProperty Name="poor" ColumnName="poor" />
+                <ScalarProperty Name="fromdate" ColumnName="fromdate" />
+                <ScalarProperty Name="todate" ColumnName="todate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblperfromense1">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblperfromense1">
+              <MappingFragment StoreEntitySet="tblperfromense1">
+                <ScalarProperty Name="sr_id" ColumnName="sr_id" />
+                <ScalarProperty Name="transport_id" ColumnName="transport_id" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="overalltier" ColumnName="overalltier" />
+                <ScalarProperty Name="delivered" ColumnName="delivered" />
+                <ScalarProperty Name="dcr" ColumnName="dcr" />
+                <ScalarProperty Name="dar" ColumnName="dar" />
+                <ScalarProperty Name="swc_pod" ColumnName="swc_pod" />
+                <ScalarProperty Name="swc_cc" ColumnName="swc_cc" />
+                <ScalarProperty Name="swc_sc" ColumnName="swc_sc" />
+                <ScalarProperty Name="swc_ad" ColumnName="swc_ad" />
+                <ScalarProperty Name="dnrs" ColumnName="dnrs" />
+                <ScalarProperty Name="pod_oops" ColumnName="pod_oops" />
+                <ScalarProperty Name="cc_oops" ColumnName="cc_oops" />
+                <ScalarProperty Name="fromdate" ColumnName="fromdate" />
+                <ScalarProperty Name="todate" ColumnName="todate" />
+                <ScalarProperty Name="remaks" ColumnName="remaks" />
+                <ScalarProperty Name="key_focus_area" ColumnName="key_focus_area" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblreschedules">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblreschedule">
+              <MappingFragment StoreEntitySet="tblreschedule">
+                <ScalarProperty Name="reschedule_id" ColumnName="reschedule_id" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="reschedule_date" ColumnName="reschedule_date" />
+                <ScalarProperty Name="reschedule_time" ColumnName="reschedule_time" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="reschedule_status" ColumnName="reschedule_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblridesetups">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblridesetup">
+              <MappingFragment StoreEntitySet="tblridesetup">
+                <ScalarProperty Name="ride_id" ColumnName="ride_id" />
+                <ScalarProperty Name="d_id" ColumnName="d_id" />
+                <ScalarProperty Name="ride_date" ColumnName="ride_date" />
+                <ScalarProperty Name="ride_driver_name" ColumnName="ride_driver_name" />
+                <ScalarProperty Name="setup_adp" ColumnName="setup_adp" />
+                <ScalarProperty Name="setup_menter" ColumnName="setup_menter" />
+                <ScalarProperty Name="download_flex_on_phone" ColumnName="download_flex_on_phone" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="gas_pin_menter_activation_code" ColumnName="gas_pin_menter_activation_code" />
+                <ScalarProperty Name="place_zoho_email_group" ColumnName="place_zoho_email_group" />
+                <ScalarProperty Name="welcome_mail" ColumnName="welcome_mail" />
+                <ScalarProperty Name="i9_document_uploded" ColumnName="i9_document_uploded" />
+                <ScalarProperty Name="imp_company_contact" ColumnName="imp_company_contact" />
+                <ScalarProperty Name="sent_ever_sign" ColumnName="sent_ever_sign" />
+                <ScalarProperty Name="download_i9_document" ColumnName="download_i9_document" />
+                <ScalarProperty Name="download_ever_sign_document" ColumnName="download_ever_sign_document" />
+                <ScalarProperty Name="imp_document" ColumnName="imp_document" />
+                <ScalarProperty Name="w4" ColumnName="w4" />
+                <ScalarProperty Name="place_in_pto_policy" ColumnName="place_in_pto_policy" />
+                <ScalarProperty Name="send_adp_time_off_ins" ColumnName="send_adp_time_off_ins" />
+                <ScalarProperty Name="health_ins_email" ColumnName="health_ins_email" />
+                <ScalarProperty Name="missing_puch_email" ColumnName="missing_puch_email" />
+                <ScalarProperty Name="I9_doc_one" ColumnName="I9_doc_one" />
+                <ScalarProperty Name="I9_one_PRC_front" ColumnName="I9_one_PRC_front" />
+                <ScalarProperty Name="I9_one_PRC_back" ColumnName="I9_one_PRC_back" />
+                <ScalarProperty Name="one_Expiry_date" ColumnName="one_Expiry_date" />
+                <ScalarProperty Name="I9_doc_two" ColumnName="I9_doc_two" />
+                <ScalarProperty Name="I9_two_PRC_front" ColumnName="I9_two_PRC_front" />
+                <ScalarProperty Name="I9_two_PRC_back" ColumnName="I9_two_PRC_back" />
+                <ScalarProperty Name="two_Expiry_date" ColumnName="two_Expiry_date" />
+                <ScalarProperty Name="I9_doc_three" ColumnName="I9_doc_three" />
+                <ScalarProperty Name="I9_three_PRC_front" ColumnName="I9_three_PRC_front" />
+                <ScalarProperty Name="I9_three_PRC_back" ColumnName="I9_three_PRC_back" />
+                <ScalarProperty Name="three_Expiry_date" ColumnName="three_Expiry_date" />
+                <ScalarProperty Name="I9_other" ColumnName="I9_other" />
+                <ScalarProperty Name="off_letter_evr_sent" ColumnName="off_letter_evr_sent" />
+                <ScalarProperty Name="off_letter_evr_signed" ColumnName="off_letter_evr_signed" />
+                <ScalarProperty Name="gas_pin" ColumnName="gas_pin" />
+                <ScalarProperty Name="health_Ins_Fdate" ColumnName="health_Ins_Fdate" />
+                <ScalarProperty Name="health_Ins_Tdate" ColumnName="health_Ins_Tdate" />
+                <ScalarProperty Name="onbording_doc_download" ColumnName="onbording_doc_download" />
+                <ScalarProperty Name="quest_res_download" ColumnName="quest_res_download" />
+                <ScalarProperty Name="bg_check_download" ColumnName="bg_check_download" />
+                <ScalarProperty Name="offerletter_download" ColumnName="offerletter_download" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblroles">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblrole">
+              <MappingFragment StoreEntitySet="tblrole">
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRoleMasters">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblRoleMaster">
+              <MappingFragment StoreEntitySet="tblRoleMaster">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblScreenMasters">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblScreenMaster">
+              <MappingFragment StoreEntitySet="tblScreenMaster">
+                <ScalarProperty Name="ScreenID" ColumnName="ScreenID" />
+                <ScalarProperty Name="ScreenName" ColumnName="ScreenName" />
+                <ScalarProperty Name="ScreenPath" ColumnName="ScreenPath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSocialMediaSettingMasters">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblSocialMediaSettingMaster">
+              <MappingFragment StoreEntitySet="tblSocialMediaSettingMaster">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CompID" ColumnName="CompID" />
+                <ScalarProperty Name="WhatsApp" ColumnName="WhatsApp" />
+                <ScalarProperty Name="FaceBook" ColumnName="FaceBook" />
+                <ScalarProperty Name="InstaGram" ColumnName="InstaGram" />
+                <ScalarProperty Name="LinkedIn" ColumnName="LinkedIn" />
+                <ScalarProperty Name="Twitter" ColumnName="Twitter" />
+                <ScalarProperty Name="Youtube" ColumnName="Youtube" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblsources">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblsource">
+              <MappingFragment StoreEntitySet="tblsource">
+                <ScalarProperty Name="source_id" ColumnName="source_id" />
+                <ScalarProperty Name="source_name" ColumnName="source_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblsubadmins">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblsubadmin">
+              <MappingFragment StoreEntitySet="tblsubadmin">
+                <ScalarProperty Name="sub_admin_id" ColumnName="sub_admin_id" />
+                <ScalarProperty Name="sub_admin_name" ColumnName="sub_admin_name" />
+                <ScalarProperty Name="sub_admin_mob" ColumnName="sub_admin_mob" />
+                <ScalarProperty Name="sub_admin_email_id" ColumnName="sub_admin_email_id" />
+                <ScalarProperty Name="sub_admin_password" ColumnName="sub_admin_password" />
+                <ScalarProperty Name="sub_admin_status" ColumnName="sub_admin_status" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="entry_user_id" ColumnName="entry_user_id" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblterminates">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblterminate">
+              <MappingFragment StoreEntitySet="tblterminate">
+                <ScalarProperty Name="termination_id" ColumnName="termination_id" />
+                <ScalarProperty Name="final_driver_id" ColumnName="final_driver_id" />
+                <ScalarProperty Name="termination_date" ColumnName="termination_date" />
+                <ScalarProperty Name="last_day_wrok" ColumnName="last_day_wrok" />
+                <ScalarProperty Name="last_day_terminate" ColumnName="last_day_terminate" />
+                <ScalarProperty Name="eligibal_for_hire" ColumnName="eligibal_for_hire" />
+                <ScalarProperty Name="isvalountry" ColumnName="isvalountry" />
+                <ScalarProperty Name="resion" ColumnName="resion" />
+                <ScalarProperty Name="account_deactive" ColumnName="account_deactive" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbltickets">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblticket">
+              <MappingFragment StoreEntitySet="tblticket">
+                <ScalarProperty Name="ticket_id" ColumnName="ticket_id" />
+                <ScalarProperty Name="ticket_type" ColumnName="ticket_type" />
+                <ScalarProperty Name="van_number" ColumnName="van_number" />
+                <ScalarProperty Name="van_type" ColumnName="van_type" />
+                <ScalarProperty Name="issue" ColumnName="issue" />
+                <ScalarProperty Name="vendor_name" ColumnName="vendor_name" />
+                <ScalarProperty Name="supply_needed" ColumnName="supply_needed" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ticket_open_by_id" ColumnName="ticket_open_by_id" />
+                <ScalarProperty Name="ticket_open_date" ColumnName="ticket_open_date" />
+                <ScalarProperty Name="ticket_open_time" ColumnName="ticket_open_time" />
+                <ScalarProperty Name="ticket_status" ColumnName="ticket_status" />
+                <ScalarProperty Name="ticket_assigned_user_id" ColumnName="ticket_assigned_user_id" />
+                <ScalarProperty Name="ticket_closed_date" ColumnName="ticket_closed_date" />
+                <ScalarProperty Name="ticket_closed_time" ColumnName="ticket_closed_time" />
+                <ScalarProperty Name="ticket_picked_date" ColumnName="ticket_picked_date" />
+                <ScalarProperty Name="ticket_picked_time" ColumnName="ticket_picked_time" />
+                <ScalarProperty Name="cat_phone_number" ColumnName="cat_phone_number" />
+                <ScalarProperty Name="gas_card_number" ColumnName="gas_card_number" />
+                <ScalarProperty Name="mac_address" ColumnName="mac_address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblticketconverations">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblticketconveration">
+              <MappingFragment StoreEntitySet="tblticketconveration">
+                <ScalarProperty Name="sr_no" ColumnName="sr_no" />
+                <ScalarProperty Name="ticket_id" ColumnName="ticket_id" />
+                <ScalarProperty Name="ticket_conversation" ColumnName="ticket_conversation" />
+                <ScalarProperty Name="from_user_id" ColumnName="from_user_id" />
+                <ScalarProperty Name="to_user_id" ColumnName="to_user_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="ticket_status" ColumnName="ticket_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTimeZoneMasters">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblTimeZoneMaster">
+              <MappingFragment StoreEntitySet="tblTimeZoneMaster">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
+                <ScalarProperty Name="GMToffset" ColumnName="GMToffset" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbltraningreschedules">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tbltraningreschedule">
+              <MappingFragment StoreEntitySet="tbltraningreschedule">
+                <ScalarProperty Name="traning_reschdule_id" ColumnName="traning_reschdule_id" />
+                <ScalarProperty Name="traning_id" ColumnName="traning_id" />
+                <ScalarProperty Name="d_id" ColumnName="d_id" />
+                <ScalarProperty Name="traning_reschdule_date" ColumnName="traning_reschdule_date" />
+                <ScalarProperty Name="traning_reschdule_time" ColumnName="traning_reschdule_time" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblVanMasters">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblVanMaster">
+              <MappingFragment StoreEntitySet="tblVanMaster">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="VanNumber" ColumnName="VanNumber" />
+                <ScalarProperty Name="VIN" ColumnName="VIN" />
+                <ScalarProperty Name="Plate" ColumnName="Plate" />
+                <ScalarProperty Name="VanType" ColumnName="VanType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblWeekDaysMasters">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblWeekDaysMaster">
+              <MappingFragment StoreEntitySet="tblWeekDaysMaster">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAssign_16052020">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tblAssign_16052020">
+              <MappingFragment StoreEntitySet="tblAssign_16052020">
+                <ScalarProperty Name="assign_id" ColumnName="assign_id" />
+                <ScalarProperty Name="module_id" ColumnName="module_id" />
+                <ScalarProperty Name="sub_admin_id" ColumnName="sub_admin_id" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="entry_user_id" ColumnName="entry_user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbldrivertest_bk24042020">
+            <EntityTypeMapping TypeName="lastmild_dsdb_local03042020Model.tbldrivertest_bk24042020">
+              <MappingFragment StoreEntitySet="tbldrivertest_bk24042020">
+                <ScalarProperty Name="test_id" ColumnName="test_id" />
+                <ScalarProperty Name="d_id" ColumnName="d_id" />
+                <ScalarProperty Name="isemailcreated" ColumnName="isemailcreated" />
+                <ScalarProperty Name="company_email" ColumnName="company_email" />
+                <ScalarProperty Name="isonbordingLinkCreated" ColumnName="isonbordingLinkCreated" />
+                <ScalarProperty Name="isbackgrundcheckclear" ColumnName="isbackgrundcheckclear" />
+                <ScalarProperty Name="isdragtestclear" ColumnName="isdragtestclear" />
+                <ScalarProperty Name="teststatus" ColumnName="teststatus" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

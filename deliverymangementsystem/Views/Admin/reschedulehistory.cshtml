@@ -1,0 +1,42 @@
+﻿@model List<deliverymangementsystem.EDM.tblreschedule>
+
+
+@using deliverymangementsystem.Models;
+@{ 
+
+    var comm = new common();
+}
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Reschedule History</h4>
+    <table class="table table-hover" id="tbl">
+        <thead>
+            <tr>
+
+                <th scope="col">Name</th>
+                <th scope="col"> Interview Date</th>
+                <th scope="col"> Interview Time</th>
+                <th scope="col">Schedule Date</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                @using deliverymangementsystem.EDM;
+                @{
+                    var dc = new dsdatabaseEntities();
+                }
+                <td>@dc.tblonbordingmasters.Find(item.emp_id).emp_name</td>
+                <td>@item.reschedule_date.Value.ToShortDateString()</td>
+                <td>@comm.show(TimeSpan.Parse( item.reschedule_time.ToString()))</td>
+                <td>
+                    @item.entry_date.Value.ToShortDateString()
+                </td>
+
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

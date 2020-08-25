@@ -1,0 +1,369 @@
+﻿
+@{
+    ViewBag.Title = "CreateDispatchSheet";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+
+    int cnt = 1;
+
+}
+
+@using deliverymangementsystem.Models;
+@{
+    var comm = new common();
+    
+}
+
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/datatable/jquery.dataTables.js"></script>
+<script src="~/datatable/dataTables.buttons.min.js"></script>
+<script src="~/datatable/buttons.flash.min.js"></script>
+<script src="~/datatable/jszip.min.js"></script>
+<script src="~/datatable/pdfmake.min.js"></script>
+<script src="~/datatable/vfs_fonts.js"></script>
+<script src="~/datatable/buttons.html5.min.js"></script>
+<script src="~/datatable/buttons.print.min.js"></script>
+<script src="~/datatable/buttons.colVis.min.js"></script>
+<style>
+</style>
+<script>
+    function deleterow(id) {
+
+        if (confirm("are you sure you want to remove")) {
+
+            $.ajax({
+
+                type: 'Get',
+                url: '/Dispatch/removerow/' + id,
+                success: function (data) {
+
+                    window.location.href = "/Dispatch/CreateDispatchsheet/1";
+                },
+                error: function (err) {
+
+
+                }
+
+            });
+
+
+        }
+        else {
+
+
+        }
+
+
+
+
+    }
+    function addmorerow() {
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/Dispatch/addmorerow/1',
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+            },
+            error: function (err) {
+
+
+            }
+
+        });
+
+    }
+    $(function () {
+
+        $("#dpicker").datepicker({ minDate: "-5M -10D", maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+
+    });
+    $(document).ready(function () {
+
+
+        $("#btnSubmit").click(function () {
+            var n = 1;
+            var resultReturn = true;
+            debugger;
+            $('#tbl tbody tr').each(function () {
+
+                //alert($(this).find('#vantype' + n).val().trim());
+                var vantype = $(this).find('#vantype' + n).val().trim();
+                var res_backup = $(this).find('#res_backup' + n).val().trim();
+                if (vantype == "" && res_backup != "Backup" && res_backup != "callout") {
+                    alert("Please ensure that you have selected van type for drivers.");
+                    resultReturn = false;
+                    return resultReturn;
+                }
+                //alert(n);
+                n = n + 1;
+            });
+            //return false;
+            return resultReturn;
+        });
+
+        var ss = parseInt($("#drvlist").val());
+
+        for (var i = 1; i < ss; i++) {
+
+            var val1 = $("#hid" + i).val();
+
+            var vantype1 = $("#hidvan" + i).val();
+
+            var backres = $("#hidbacres" + i).val();
+
+            $("#res_backup" + i).val(backres);
+
+            $("#vantype" + i).val(vantype1);
+
+            $("#driverid" + i).val(val1);
+
+        }
+
+
+        $("#tbl").DataTable(
+            {
+                "pageLength": 100
+            }
+        );
+
+
+    });
+
+    var vanNumber = '';
+    function RemovePouchNumber(res_backup,PouchNo) {
+        //alert(VanType+PouchNo);
+        var rb = $(res_backup).val();
+        //alert(rb);
+        if (rb == "Backup")
+        {
+            vanNumber = $(PouchNo).val();
+            $(PouchNo).val('0');
+        }
+        else
+        {
+            if (vanNumber != '')
+            {
+                $(PouchNo).val(vanNumber);
+            }
+        }
+        
+    }
+</script>
+
+@using (Html.BeginForm("CreateDispatchSheet", "Dispatch", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+
+    <div class="container-fluid wv-rad5-shadow">
+        @{
+
+            var validdate = "";
+
+            if (Session["currentdt"] != null)
+            {
+
+
+                validdate = Session["currentdt"].ToString();
+
+            }
+
+        }
+        <div class="row">
+            <div class="col-md-3 mb-3" id="cat_gas">
+                <label for="inputAddress2"> Select Date</label>
+                <input type="text" placeholder="Select Date" id="dpicker" name="selectdt" class="form-control" required="" value="@validdate" />
+
+            </div>
+            <div class="col-md-3 mb-3" id="cat_gas12">
+                <label for="inputAddress2"> Total routes</label>
+                <input type="number" placeholder="Enter total routes" id="sd" name="totalroute" class="form-control" value="0" required="" />
+
+            </div>
+            <div class="col-md-3 mb-3" id="cat_gas13">
+                <label for="inputAddress2"> Rescue</label>
+                <input type="number" placeholder="Enter total routes" id="sd" name="recscue" class="form-control" value="0" required="" />
+
+            </div>
+            <div class="col-md-3 mb-3" id="cat_gas13">
+                <label for="inputAddress2">Backup</label>
+                <input type="number" placeholder="Enter total routes" id="sd" name="backup" class="form-control" value="0" required="" />
+
+            </div>
+
+
+        </div>
+
+        <div class="outer-w3-agile mt-3">
+
+            <label for="inputAddress2">Upload Csv File</label>
+
+            <input type="file" class="form-control" name="postedFile" />
+            <span>
+                @ViewBag.msg
+            </span>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label> <button type="submit" class="btn btn-primary">Submit</button></label>
+        </div>
+
+        @if (ViewData["objlist"] != null)
+        {
+            <input type="hidden" value="@ViewBag.countdt" id="drvlist" />
+            <h4 class="tittle-w3-agileits mb-4"> Create Dispatch Sheets</h4>
+            <table class="table table-bordered" style="width: 100%" id="tbl">
+
+                <thead>
+
+                    <tr>
+                        <th scope="col">Backup/Rescue</th>
+                        <th scope="col">Van type</th>
+                        <th scope="col">Routes#</th>
+                        <th scope="col">Driver Name</th>
+                        <th scope="col">Van Number</th>
+                        <th scope="col">pouch#</th>
+                        <th scope="col">phone#</th>
+                        <th scope="col">phone2#</th>
+                        <th scope="col">Packages</th>
+                        <th scope="col">Stops</th>
+                        <th scope="col">Level</th>
+                        <th scope="col">Ride Along</th>
+                        <th scope="col">Notes</th>
+                        <th>action</th>
+                        @*<th scope="col">IsCHeckedIn</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in ViewData["objlist"] as List<deliverymangementsystem.Models.dispatchmodel>)
+                    {
+                        <tr>
+
+                            <td width="10%">
+                                <input type="hidden" id="@("hidbacres"+cnt)" value="@item.back_res" />
+                                @Html.DropDownList("res_backup" + cnt, new List<SelectListItem> { new SelectListItem { Text = "Backup", Value = "Backup" }, new SelectListItem { Text = "Rescue", Value = "Rescue" }, new SelectListItem { Text = "Callout", Value = "callout" } }, " ", new { @class = "form-control", @onchange = "RemovePouchNumber('#res_backup" + cnt + "','#bag" + cnt + "');" })
+                            </td>
+                            <td width="10%">
+                                <input type="hidden" id="@("hidvan"+cnt)" value="@item.vantype" />
+                                @Html.DropDownList("vantype" + cnt, new List<SelectListItem> { new SelectListItem { Text = "Prime", Value = "Prime" }, new SelectListItem { Text = "Extended Prime", Value = "Extended Prime" }, new SelectListItem { Text = "Rental", Value = "Rental" } }, "Van Type", new { @class = "form-control" })
+                            </td>
+
+                            <td>
+                                <input type="text" class="form-control" name="@("route"+cnt)" id="@("route"+cnt)" placeholder="Routes#" value="@item.route">
+                            </td>
+                            <td width="15%">
+                                @{
+// @ViewData["driverlist"] = comm.getselected(item.driverName);
+                                }
+                                <input type="hidden" id="@("hid"+cnt)" value="@item.driverName" />
+                                @Html.DropDownList("driverid" + cnt, ViewData["driverlist"] as List<SelectListItem>, "Select Driver", new { @class = "form-control" })
+                            </td>
+                            <td>
+
+                                <input type="text" class="form-control" name="@("vannumber"+cnt)" id="@("vannumber"+cnt)" value="@item.van_number" placeholder="Van Nuumber" />
+
+                            </td>
+                            <td>
+
+                                <input type="text" class="form-control" name="@("bag"+cnt)" id="@("bag"+cnt)" value="@item.bages" placeholder="pouch#" />
+
+                            </td>
+
+                            <td>
+                                <input type="text" class="form-control" name="@("cat"+cnt)" id="@("cat"+cnt)" value="@item.cat" placeholder="Phone#">
+                            </td>
+
+                            <td>
+                                <input type="text" class="form-control" name="@("phone2"+cnt)" id="@("phone2"+cnt)" value="@item.phone2" placeholder="Phone2#">
+                            </td>
+
+                            <td>
+                                <input type="text" class="form-control" name="@("package"+cnt)" id="@("package"+cnt)" value="@item.package" placeholder="Packages">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="@("stops"+cnt)" id="@("stops"+cnt)" value="@item.Stop" placeholder="Stops">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="@("level"+cnt)" id="@("level"+cnt)" value="@item.level" placeholder="level">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="@("ridealong"+cnt)" id="@("ridealong"+cnt)" value=" @item.rideralong" placeholder="Ride-Along">
+                            </td>
+
+                            <td width="10%">
+                                <input type="text" class="form-control" name="@("notes"+cnt)" id="@("notes"+cnt)" value="@item.notes" placeholder="Notes">
+                            </td>
+                            <td>
+                                @if (ViewBag.data != null)
+                                {
+                                    var ss = ViewBag.data;
+                                    if (ss == 1)
+                                    {
+                                        <button type="button" class="btn btn-primary" onclick="deleterow(@item.sr_no)"><i class="fas fa-trash"></i></button>
+                                    }
+                                }
+
+                                <input type="hidden" name="@("IsCheckedIN"+cnt)" value="@item.IsCheckedIN" />
+                            </td>
+
+
+                            @*<td>
+                                    <input type="hidden" id="@("IsCheckedIN"+cnt)" value="@item.IsCheckedIN" />
+                                    @item.IsCheckedIN
+                                </td>*@
+
+
+
+
+                            @*<td>
+                                    <button type="button" class="btn btn-primary" onclick="EditRole(@item.assign_id)">Edit</button>||
+                                    <button type="button" class="btn btn-primary" onclick="DeleteRole(@item.assign_id)">Delete</button>
+                                </td>*@
+
+                        </tr>
+                                        cnt++;
+
+                                    }
+
+                </tbody>
+            </table>
+                                    if (ViewBag.data != null)
+                                    {
+                                        var ss = ViewBag.data;
+                                        if (ss == 1)
+                                        {
+                                            <div class="col-md-3 mb-3">
+                                                <label>Click to Plus Add More row </label>
+
+                                                <label> <button type="button" onclick="addmorerow()" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></button></label>
+                                            </div>
+                                        }
+
+
+
+
+
+                                    }
+
+                                    <div class="col-md-3 mb-3">
+                                        <label> <button type="submit" id="btnSubmit" formaction="InsertData" class="btn btn-primary">Submit</button></label>
+                                        <label> <button type="submit" formaction="ResetData" class="btn btn-primary">Reset</button></label>
+
+                                    </div>
+
+                                    }
+
+
+
+    </div>
+
+
+
+                                    }

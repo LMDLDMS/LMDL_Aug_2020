@@ -1,0 +1,538 @@
+﻿@model deliverymangementsystem.EDM.tblonbordingmaster
+
+@{
+    /**/
+
+    ViewBag.Title = "AddNewEntry";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+<script src="~/maskjs/jquery.inputmask.bundle.js"></script>
+
+<script>
+
+    //$(window).load(function () {
+    //    var phones = [{ "mask": "(###) ###-####" }, { "mask": "(###) ###-##############" }];
+    //    $('#emp_phone').inputmask({
+    //        mask: phones,
+    //        greedy: false,
+    //        definitions: { '#': { validator: "[0-9]", cardinality: 1 } }
+    //    });
+    //});
+
+    function CheckDuplicateDriver() {
+        var DAname = $('#emp_name').val();
+        var DAnumber = $('#emp_phone').val();
+        var IsDuplicate = false;
+
+        var Entry_Remark = $('#Entry_Remark').val();
+
+        if (Entry_Remark.trim() == "" && $('#amzyes').is(':checked')) {
+            alert('Please provide details for previous Amazon/Amazon DSP work experience');
+            return false;
+        }
+        if (Entry_Remark.trim() == "" && $('#debit').is(':checked')) {
+            alert('Please enter reason for not scheduling interview');
+            return false;
+        }
+
+        if (DAname.trim() == '' || DAnumber.trim() == '') {
+            alert('Please enter valid data.');
+            return false;
+        }
+        else {
+            $.ajax({
+                type: 'Get',
+                url: '/Admin/CheckDuplicateDrivers/',
+                data: { "DAname": DAname, "DAnumber": DAnumber },
+                async: false,
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    debugger;
+                    var count = data.length;
+                    console.log(data);
+
+                    if (count > 0) {
+                        $.each(data, function (key, dept) {
+                            //alert('We already have driver with \nName - ' + dept.emp_name + ' and\nStatus - ' + dept.Entry_status);
+                            //var msg = 'We already have driver with <br />Name - ' + dept.emp_name + ' and\nStatus - ' + dept.Entry_status;
+                            var emp_id = dept.emp_id;
+                            var DAname = dept.emp_name;
+                            var DAstatus = dept.Entry_status;
+                            var DAnumber = dept.emp_phone
+                            $.ajax({
+
+                                type: 'Get',
+                                url: '/Admin/GetDuplicateDA/',
+                                data: { "DAname": DAname, "DAstatus": DAstatus, "emp_id": emp_id, "emp_number": DAnumber },
+                                success: function (data1) {
+
+                                    $(".modal-body").empty();
+                                    $(".modal-body").append(data1);
+                                    $("#modelDuplicateDA").modal('show');
+
+                                },
+                                error: function () {
+                                }
+
+                            });
+
+                            IsDuplicate = true;
+                            return false;
+                            //break;
+                        });
+                    }
+                    else {
+                        IsDuplicate = false;
+                    }
+                    //$.each(data, function (key, dept) {
+                    //    alert(dept.emp_name + dept.emp_phone + dept.Entry_status);
+                    //    return false;
+                    //});
+                    ////return false;
+                }
+            });
+
+            if (IsDuplicate) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        //return result;
+    }
+
+    $(function () {
+
+        $("#schdate1").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+
+    });
+
+    $(document).ready(function () {
+
+        $("#desc").hide();
+        //$("#amzdesc12").hide();
+
+        $('#timepicker12').timepicki();
+
+        $("#btnsourceadd").click(function () {
+
+            $.ajax({
+
+                type: 'Get',
+                url: '/Admin/addnewsource/',
+                success: function (data) {
+
+                    $(".modal-body").empty();
+
+                    $(".modal-body").append(data);
+
+                    $("#model").modal('show');
+
+                },
+
+                error: function (err) {
+
+
+
+                }
+
+            });
+
+
+        });
+
+        $("#btnsourceedit").click(function () {
+
+            $.ajax({
+
+                type: 'Get',
+                url: '/Admin/displaysource/',
+                success: function (data) {
+
+                    $(".modal-body").empty();
+
+                    $(".modal-body").append(data);
+
+                    $("#model").modal('show');
+
+                },
+
+                error: function (err) {
+
+
+
+                }
+
+            });
+
+
+        });
+
+
+
+        //$("#amzyes").click(function () {
+
+        //    $("#amzdesc12").show();
+        //});
+        //$("#amzno").click(function () {
+
+        //    $("#amzdesc12").hide();
+        //});
+
+
+
+
+        $("#credit").click(function () {
+
+            $(".row").show();
+            $("#desc").hide();
+        });
+        $("#debit").click(function () {
+
+            $("#idScheduledData1").hide();
+            $("#idScheduledData2").hide();
+            $("#desc").hide();
+        });
+
+
+        $('#drvRecom').css('display', 'none');
+        
+        $('#idSOI').change(function () {
+            var SOI = $('#idSOI').val();
+
+            //alert(SOI);
+
+            if (SOI == 3) {
+                $('#drvRecom').css('display', 'block');
+                //$('#RecomDrivers').show();
+            }
+            else {
+                $('#drvRecom').css('display', 'none');
+                //$('#RecomDrivers').hide();
+            }
+        });
+
+
+        $('#drvOther').css('display', 'none');
+        
+        $('#idSOI').change(function () {
+            var SOI = $('#idSOI').val();
+
+            //alert(SOI);
+
+            if (SOI == 5) {
+                $('#drvOther').css('display', 'block');
+                //$('#RecomDrivers').show();
+            }
+            else {
+                $('#drvOther').css('display', 'none');
+                //$('#RecomDrivers').hide();
+            }
+        });
+
+        
+
+
+        //$('#RecomDrivers').css('display', 'none');
+        //$('#idSOI').change(function () {
+        //    var SOI = $('#idSOI').val();
+        //    if (SOI == 3)
+        //    {
+        //        $('#RecomDrivers').css('display', 'block');
+        //        //$('#RecomDrivers').show();
+        //    }
+        //    else
+        //    {
+        //        $('#RecomDrivers').css('display', 'none');
+        //        //$('#RecomDrivers').hide();
+        //    }
+        //});
+
+        var msg = $('#hidmsg').val();
+        if (msg.trim() != '') {
+            alert(msg);
+        }
+
+    })
+
+</script>
+
+<div class="">
+
+
+    @using (Html.BeginForm("AddNewEntry", "Admin", FormMethod.Post, new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+        @*<div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email" required="">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Password</label>
+                    <input type="password" class="form-control" id="inputPassword4" placeholder="Password" required="">
+                </div>
+            </div>*@
+
+        <div class="container wv-rad5-shadow">
+            <br />
+            <div class="row text-center">
+
+                <h4 class="tittle-w3-agileits" style="width:100%; margin-bottom:20px;">New OnBording Form</h4>
+            </div>
+
+            <div class="row">
+
+                <div class="form-group col-md-6">
+
+                    <label>Applicant Name</label>
+                    @Html.TextBoxFor(c => c.emp_name, new { @class = "form-control", @placeholder = "Enter Full Name", @databvalidator = "required,alpha" })
+                    @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Applicant Designation</label>
+                    @Html.DropDownListFor(c => c.degination_name, ViewBag.data as List<SelectListItem>, "Select Designation", new { @class = "form-control", @type = "text", @placeholder = "Enter Designation", @databvalidator = "required" })
+
+                </div>
+
+
+                <div class="form-group col-md-6">
+                    <label>Mobile Number</label>
+                    @Html.TextBoxFor(c => c.emp_phone, new { @class = "form-control", @placeholder = "Enter Phone No", @maxlength = "10" })
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Email Id</label>
+                    @Html.TextBoxFor(c => c.emp_personal_email, new { @class = "form-control", @placeholder = "Enter Enter Email" })
+
+                </div>
+
+                <div class="form-group col-md-6">
+                    <div style="display:inline-block;">
+                        <label for="inputAddress2">Schedule Interview ?</label>
+                        &nbsp;&nbsp;
+
+                        <div style="display:inline-block;">
+                            @Html.RadioButtonFor(c => c.emp_inteview_status, "Yes", new { @id = "credit", @checked = "checked", @databvalidator = "required" })
+                            @*<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">*@
+                            <label class="custom-control-label" for="credit">Yes</label>
+                        </div>
+
+                        <div style="display:inline-block;">
+                            @Html.RadioButtonFor(c => c.emp_inteview_status, "No", new { @id = "debit", })
+
+                            <label class="custom-control-label" for="debit">No</label>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group col-md-6">
+                    <div style="display:inline-block;">
+                        <label for="inputAddress2">Have you worked for Amazon or an Amazon DSP before?</label>
+                    </div>
+                    &nbsp;&nbsp;
+                    <div style="display:inline-block;">
+                        <div style="display:inline-block;">
+                            @Html.RadioButtonFor(c => c.amazon_worked, "Yes", new { @id = "amzyes" })
+                            @*<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">*@
+                            <label class="custom-control-label" for="credit">Yes</label>
+                        </div>
+                        <div style="display:inline-block;">
+                            @Html.RadioButtonFor(c => c.amazon_worked, "No", new { @id = "amzno", @checked = "checked" })
+                            <label class="custom-control-label" for="debit">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="form-group col-md-12" id="amzdesc12">
+                        @Html.TextAreaFor(c => c.amazon_description, new { @class = "form-control", @placeholder = "Enter Notes", @databvalidator = "required" })
+
+                    </div>*@
+
+                @*<div class="form-group col-md-12" id="desc">
+                    <label>Enter Reason(not Schedule)</label>
+                    @Html.TextAreaFor(c => c.Resion, new { @class = "form-control", @placeholder = "Enter Reason(not Schedule)", @databvalidator = "required" })
+                </div>*@
+
+            </div>
+
+
+
+            @*<div class="form-group">
+                    <label for="inputAddress2" id="schdate">Schedule Date</label>
+                    @Html.TextBoxFor(c => c.emp_interview_date, new { @class = "form-control", @id = "schdate1", @placeholder = "Enter Enter Email", @type = "date" })
+
+                </div>
+                <div class="form-group">
+                    <label id="schtime" for="inputAddress2">Schedule Time</label>
+                    @Html.TextBoxFor(c => c.emp_interview_time, new { @class = "form-control", @id = "schdate1", @placeholder = "Enter Enter Email", @type = "time" })
+
+                </div>*@
+
+            <div class="row" id="idScheduledData1">
+
+                <div class="form-group col-md-6">
+                    <label>Scheduled Interview Date</label>
+                    @Html.TextBox("emp_interview_date", null, new { @class = "form-control", @id = "schdate1", @placeholder = "Scheduled Interview Date", @databvalidator = "required" })
+
+                    @*<div class="invalid-feedback">
+                            Expiration date required
+                        </div>*@
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Scheduled Interview Time</label>
+                    @Html.TextBoxFor(c => c.emp_interview_time, new
+               {
+                   @class = "form-control",
+                   @id = "timepicker12",
+                   @placeholder = "Scheduled Interview Time ",
+                   @databvalidator = "required"
+               })
+                </div>
+
+
+
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Source of Inquiry</label>
+                    @Html.DropDownListFor(c => c.source_id, ViewData["source"] as List<SelectListItem>, "Select Source Of Inquiry", new { @class = "form-control", @type = "text", @placeholder = "select sources ", @databvalidator = "required", @id = "idSOI" })
+
+
+                </div>
+
+                <div class="form-group col-md-6" id="drvRecom">
+
+                    <label>Recommended By</label>
+                    @*@Html.DropDownListFor(c => c.source_id, ViewData["source"] as List<SelectListItem>, "Select Source Of Inquiry", new { @class = "form-control", @placeholder = "select sources ", @databvalidator = "required" })*@
+                    @Html.TextBoxFor(c => c.RecomDriver, new
+               {
+                   @class = "form-control",
+                   @placeholder = "Recommended By",
+                   @databvalidator = "required"
+               })
+
+                    @*@Html.DropDownListFor("RecomDrivers", ViewData["RecomDrivers"] as List<SelectListItem>, "Select Driver", new { @class = "form-control", @placeholder = "select driver ", @databvalidator = "required" })*@
+                    @*@Html.DropDownList("RecomDrivers", ViewData["RecomDrivers"] as List<SelectListItem>, "Select Driver", new { @class = "form-control", @databvalidator = "required" })*@
+                </div>
+
+
+                <div class="form-group col-md-6" id="drvOther">
+
+                    <label>Specify Source of Inquiry</label>
+                    @*@Html.DropDownListFor(c => c.source_id, ViewData["source"] as List<SelectListItem>, "Select Source Of Inquiry", new { @class = "form-control", @placeholder = "select sources ", @databvalidator = "required" })*@
+                    <input type="text" name="SourceOfInquiry" class="form-control" id="SourceOfInquiry" databvalidator="required" />
+
+                    @*@Html.DropDownListFor("RecomDrivers", ViewData["RecomDrivers"] as List<SelectListItem>, "Select Driver", new { @class = "form-control", @placeholder = "select driver ", @databvalidator = "required" })*@
+                    @*@Html.DropDownList("RecomDrivers", ViewData["RecomDrivers"] as List<SelectListItem>, "Select Driver", new { @class = "form-control", @databvalidator = "required" })*@
+                </div>
+
+
+                @*<div class="form-group col-md-6">
+            <br />
+            <label for="inputAddress2">Click PLUS Or Edit to Add OR Edit Source Of Inquiry</label>&nbsp;&nbsp;&nbsp;
+            <label><button type="button" id="btnsourceadd"><i class="fas fa-plus"></i></button></label>
+            <label><button type="button" id="btnsourceedit"><i class="fas fa-edit"></i></button></label>
+        </div>*@
+            </div>
+
+            <div class="form-group col-md-12">
+                <div class="row">
+                    <label>Notes</label>
+
+                    @Html.TextAreaFor(t => t.Entry_Remark, new
+               {
+                   @class = "form-control",
+                   @placeholder = "Enter Notes",
+                   @type = "text"
+               })
+
+                    @*<textarea id="Entry_Remark" name="Entry_Remark" class="form-control" placeholder="Enter remarks"></textarea>*@
+                </div>
+            </div>
+
+            <input type="hidden" id="hidmsg" value="@ViewBag.msg" />
+
+            <button type="submit" onclick="return CheckDuplicateDriver();" class="btn btn-primary">Submit</button><br /><br />
+            <div></div>
+        </div>
+
+    }
+
+
+    @*@using (Html.BeginForm("AddNewEntryBulk", "Admin", FormMethod.Post, new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form", enctype = "multipart/form-data" }))
+    {
+
+
+        <div class="container wv-rad5-shadow" style="margin-top:20px;margin-bottom:20px; padding-top:20px; padding-bottom:20px;">
+
+            <div>@ViewBag.msgbulk</div>
+
+            <div class="row text-center">
+                <h4 class="tittle-w3-agileits" style="width:100%; margin-bottom:20px;">Bulk Uploads</h4>
+            </div>
+
+            <div class="row">
+
+                <div class="form-group col-md-4">
+                    <input type="file" name="fileBulk" class="form-control" />
+                </div>
+
+                <div class="form-group col-md-4">
+                    <button type="submit" class="btn btn-primary">Bulk Upload</button>
+                </div>
+
+            </div>
+            @{
+                if (Session["DuplicateApplicants"] != null)
+                {
+
+                    <div class="row">
+                        <label>Error occured while adding following applicants.</label>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12" style="max-height:500px;overflow-y:scroll;">
+
+                            <br />
+                            <table class="table table-hover" id="tblDuplicateApplicants">
+                                <thead>
+                                    <tr>
+                                        <th>Applicant Name</th>
+                                        <th>Applicant Number</th>
+                                        <th>Applicant Status/Remarks</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var app in Session["DuplicateApplicants"] as List<deliverymangementsystem.Models.modelDuplucateDrivers>)
+                                    {
+                                        <tr>
+                                            <td>@app.ApplicantName</td>
+                                            <td>@app.ApplicantNumber</td>
+                                            <td>@app.ApplicantStatus</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    Session["DuplicateApplicants"] = null;
+                }
+            }
+
+
+        </div>
+
+    }*@
+
+
+</div>

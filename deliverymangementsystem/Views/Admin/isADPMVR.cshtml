@@ -1,0 +1,27 @@
+﻿<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Driver Documentaion </h4>
+    @using (Html.BeginForm("isADPMVR", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+
+        <div class="form-group">
+            <label for="inputAddress">Is ADP MVR cleared?</label>
+
+            <div>
+                <input type="hidden" value="@ViewBag.id" name="did" />
+                @Html.RadioButton("isADPMVR", "Yes", new { @checked = "checked" })
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButton("isADPMVR", "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    }
+
+</div>

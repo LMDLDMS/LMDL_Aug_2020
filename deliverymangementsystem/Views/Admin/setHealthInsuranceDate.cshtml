@@ -1,0 +1,68 @@
+﻿
+<script>
+
+    $(document).ready(function () {
+
+        $("#enrollStartDate").datepicker({ dateFormat: 'mm-dd-yy' });
+        $("#enrollEndDate").datepicker({ dateFormat: 'mm-dd-yy' });
+
+    });
+
+    function sendInsuranceEmail() {
+        var d_id = $('#hidDid').val();
+        var sDate = $('#enrollStartDate').text;
+        var eDate = $('#enrollEndDate').text;
+
+        alert('s = ' + sDate + ' e = ' + eDate);
+
+        if (sDate.trim() == '' || eDate.trim() == '') {
+            alert('Please select valid date.');
+            return false;
+        }
+
+        //alert('s = ' + sDate + ' e = ' + eDate);
+        //if (sDate.trim() != '' && eDate.trim() != '') {
+        //    $.ajax({
+        //        type: 'Get',
+        //        url: '/Admin/updateHRcheck/' + d_id,
+        //        data: { "d_id": d_id, "ActionType": "health_ins_email", "sDate": sDate, "eDate": eDate },
+        //        success: function (data) {
+        //            //alert(data);
+        //            if (data == "success") {
+        //                alert('Status updated successfully.');
+        //            }
+        //            else {
+        //                alert('Error occured while sending insurance benefits email.');
+        //            }
+        //            window.location.href = "/Admin/AddHRcheckList/" + d_id
+        //        },
+        //        error: function (err) {
+        //        }
+        //    });
+        //}
+        //else {
+        //    alert('Please select valid date.');
+        //}
+    }
+
+</script>
+
+<h4 class="tittle-w3-agileits mb-4">Insurance Duration</h4>
+@using (Html.BeginForm("setHealthInsuranceDate", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+{
+    <div class="form-group">
+        <input type="hidden" name="hidDid" id="hidDid" value="@ViewBag.d_id" />
+        <div class="col-sm-12" style="display:inline-block;">
+            <label>Benefit Enrollment Period Start Date</label>
+            <input type="date" name="enrollStartDate" id="enrollStartDate" class="form-control" placeholder="select start date" required />
+        </div>
+
+        <div class="col-sm-12" style="display:inline-block;">
+            <label>Benefit Enrollment Period End Date</label>
+            <input type="date" name="enrollEndDate" id="enrollEndDate" class="form-control" placeholder="select end date" required />
+        </div>
+        <div class="col-sm-2" style="display:inline-block; margin-top:10px; margin-bottom:10px;">
+            <button onclick="return sendInsuranceEmail();" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+}

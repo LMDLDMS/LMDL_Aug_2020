@@ -1,0 +1,141 @@
+﻿@model List< deliverymangementsystem.EDM.tblsubadmin>
+
+@{
+    ViewBag.Title = "ViewSubadmin";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/datatable/jquery.dataTables.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#tbl").DataTable();
+
+    })
+
+    function CreateSubAdmin() {
+
+        $.ajax({
+
+            type: "Get",
+            url: "/Admin/CreateSubAdmin/0",
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+                $("myLargeModalLabel").html("Create Sub Admin");
+                $("#model").modal('show');
+
+            }
+
+        })
+
+    }
+
+    function EditSubAdmin(id) {
+
+       
+        $.ajax({
+
+            type: "Get",
+            url: "/Admin/CreateSubAdmin/"+id,
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+
+                $(".modal-body").append(data);
+                $("#model").modal('show');
+
+            }
+
+        })
+
+    }
+    function DeleteSubAdmin(id) {
+
+        if (confirm("Are you Sure you want to delete")) {
+
+            $.ajax({
+
+                type: 'Get',
+                url: "/Admin/DeleteSubAdmin/" + id,
+                success: function (data) {
+
+
+                    window.location.href = "/Admin/ViewSubadmin/";
+
+
+
+                }
+
+            })
+
+        }
+        else {
+
+
+
+        }
+
+
+
+    }
+
+</script>
+
+
+<div class="form-group">
+    e
+    <button type="submit" class="btn btn-primary" onclick="CreateSubAdmin()">Create Sub Admin</button>
+
+</div>
+@using (Html.BeginForm())
+{
+
+
+    <div class="outer-w3-agile mt-3">
+        <h4 class="tittle-w3-agileits mb-4">Sub Admin Management</h4>
+        <table class="table table-hover" id="tbl">
+            <thead>
+                <tr>
+                    <th scope="col">Sub Admin ID</th>
+                    <th scope="col">Sub Admin Name</th>
+                    <th scope="col">Sub Admin Mob</th>
+                    <th scope="col">Sub Admin Email ID</th>
+                    <th scope="col">Is dispatcher </th>
+                    <th scope="col">Sub Admin Status</th>
+                    <th scope="col">Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+
+                    <td>@item.sub_admin_id</td>
+                    <td>@item.sub_admin_name</td>
+                    <td>@item.sub_admin_mob</td>
+                    <td>@item.sub_admin_email_id</td>
+                    <td>@item.user_type</td>
+                    <td>@item.sub_admin_status</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" onclick="EditSubAdmin(@item.sub_admin_id)"><i class="fas fa-edit"></i></button>||
+                        <button type="button" class="btn btn-primary" onclick="DeleteSubAdmin(@item.sub_admin_id)"><i class="fas fa-trash"></i></button>
+                    </td>
+
+                </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+}
+
+
+

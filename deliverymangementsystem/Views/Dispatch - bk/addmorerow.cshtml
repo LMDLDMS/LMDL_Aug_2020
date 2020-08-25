@@ -1,0 +1,26 @@
+﻿
+
+
+@using (Html.BeginForm())
+{
+    
+
+<div class="form-horizontal">
+
+    <h4 class="tittle-w3-agileits mb-4">Add New Rows</h4>
+    <div class="form-group">
+        <label>Enter number of Row</label>
+        <div class="col-md-10">
+            @Html.Editor("noofrow", " ", new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+
+

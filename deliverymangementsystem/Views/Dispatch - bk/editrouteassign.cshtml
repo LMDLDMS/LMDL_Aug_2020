@@ -1,0 +1,168 @@
+﻿
+<script>
+
+    $(document).ready(function () {
+
+        $("#opt1").show();
+        $("#opt2").hide();
+
+        $("#op1").click(function () {
+
+            $("#opt1").show();
+            $("#opt2").hide();
+
+
+        });
+        $("#op2").click(function () {
+
+            $("#opt1").hide();
+            $("#opt2").show();
+
+        });
+
+        $("#btnswitch").click(function () {
+
+            var driver1 = $("#driver_name1").val();
+            var driver2 = $("#driver_name2").val();
+            var notes = $("#notes1").val();
+            $.ajax({
+                type: 'Post',
+                url: '/Dispatch/switchroute/',
+                data: { "driver1": driver1, "driver2": driver2, "notes": notes },
+                success: function (data) {
+
+                    window.location.href = "/Dispatch/dailyroutetrack/";
+                    
+                },
+                error: function (err) {
+
+                    alert(err);
+
+                }
+                
+
+
+            });
+
+
+        });
+
+        $("#callout").click(function () {
+
+            var driver1 = $("#callout1").val();
+            var driver2 = $("#callout2").val();
+            var notes = $("#notes2").val();
+
+            $.ajax({
+                type: 'Post',
+                url: '/Dispatch/callout/',
+                data: { "callout1": driver1, "callout2": driver2, "notes": notes },
+                success: function (data) {
+
+                    window.location.href = "/Dispatch/dailyroutetrack/";
+
+
+                },
+                error: function (err) {
+
+                    alert(err);
+
+                }
+
+
+
+            });
+
+
+        });
+        
+    });
+    
+</script>
+
+
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4"> Edit Info</h4>
+    @using (Html.BeginForm("editrouteassign", "Dispatch", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+        <div class="form-group">
+            <label for="inputAddress2">Choose Any One</label>
+            <div class="d-block my-3">
+
+                <div>
+                    @Html.RadioButton("choose", "SwitchRoute", new { @checked = "checked",@id ="op1" })
+                    @*<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">*@
+                    <label class="custom-control-label" for="credit">Switch Route</label>
+                </div>
+                <div>
+                    @Html.RadioButton("choose", "CallOut",new { @id = "op2" })
+
+                    <label class="custom-control-label" for="debit">Call Out</label>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container" id="opt1">
+
+            <div class="row">
+
+                <div class="col-md-3 ">
+                    <label for="inputAddress"> Driver 1 </label>
+                    @Html.DropDownList("driver_name1", ViewBag.data1 as List<SelectListItem>, "Select Driver Name", new { @class = "form-control", @databvalidator = "required" })
+                </div>
+                <div class="col-md-3">
+                    <label for="inputAddress"> Driver 2 </label>
+                    @Html.DropDownList("driver_name2", ViewBag.data1 as List<SelectListItem>, "Select Driver Name", new { @class = "form-control", @databvalidator = "required" })
+                </div>
+
+                <div class="col-md-3 ">
+                    <label for="inputAddress">NoteBox </label>
+                    @Html.TextBox("notes1","",new {@class ="form-control" })
+                </div>
+
+
+            </div>
+            <div>
+                <button type="button" id="btnswitch" class="btn btn-primary">SWitch</button>
+
+            </div>
+            
+
+        </div>
+
+        <div class="container" id="opt2">
+
+            <div class="row">
+
+                <div class="col-md-3 ">
+                    <label for="inputAddress"> CALLED OUT DRIVER </label>
+                    @Html.DropDownList("callout1", ViewBag.data1 as List<SelectListItem>, "Select Driver Name", new { @class = "form-control", @databvalidator = "required" })
+                </div>
+                <div class="col-md-3">
+                    <label for="inputAddress"> AVAILABLE BACKUP </label>
+                    @Html.DropDownList("callout2", ViewBag.data3 as List<SelectListItem>, "Select Driver Name", new { @class = "form-control", @databvalidator = "required" })
+                </div>
+                <div class="col-md-3 ">
+                    <label for="inputAddress">NoteBox </label>
+                    @Html.TextBox("notes2", "", new { @class = "form-control" })
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="callout" class="btn btn-primary">Call Out</button>
+
+            </div>
+           
+
+        </div>
+
+
+
+        <div>@ViewBag.msg</div>
+
+
+    }
+
+</div>

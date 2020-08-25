@@ -1,0 +1,254 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+<script src="~/jspdf/jspdf.debug.js"></script>
+
+<script>
+
+    function current() {
+        var today = new Date();
+        var dayOfWeekStartingSundayZeroIndexBased = today.getDay(); // 0 : Sunday ,1 : Monday,2,3,4,5,6 : Saturday
+        var mondayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 1);
+        var sundayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 7);
+
+        $("#weekStartDate").val($.date(mondayOfWeek));
+        $("#weekEndDate").val($.date(sundayOfWeek));
+    }
+
+    function prev() {
+        // alert("previous clicked");
+        var dt = new Date($('#weekStartDate').val());
+        dt.setDate(dt.getDate() - 7); // subtract 7 days
+        $('#weekStartDate').val($.date(dt));
+
+        var enddt = new Date($('#weekEndDate').val());
+        enddt.setDate(enddt.getDate() - 7); // subtract 7 days
+        $('#weekEndDate').val($.date(enddt));
+
+        highlightWeek();
+    }
+
+    function next() {
+        //alert("next clicked");
+        var dt = new Date($('#weekStartDate').val());
+        dt.setDate(dt.getDate() + 7); // add 7 days
+        $('#weekStartDate').val($.date(dt));
+
+        var enddt = new Date($('#weekEndDate').val());
+        enddt.setDate(enddt.getDate() + 7); // add 7 days
+        $('#weekEndDate').val($.date(enddt));
+
+        highlightWeek();
+    }
+
+    function highlightWeek() {
+        var clkDt = new Date($('#weekStartDate').val());
+        var clickDay = clkDt.getDate(); //this is the value we want to select in cal
+        $('.ui-datepicker-calendar > tbody > tr').each(function () {
+            $(this).children('td').each(function () {
+                var dy = $(this).first('a');
+                console.log('dy: ' + dy.text() + '--clickDay: ' + clickDay);
+                if (dy.text() == clickDay) {
+                    dy.click();
+                }
+            });
+        });
+    }
+
+    $.date = function (dateObject) {
+        var d = new Date(dateObject);
+        var day = d.getDate();
+        var month = d.getMonth() + 1;
+        var year = d.getFullYear();
+        if (day < 10) {
+            day = "0" + day;
+        }
+        if (month < 10) {
+            month = "0" + month;
+        }
+        var date = month + "/" + day + "/" + year;
+
+        return date;
+    };
+    $(function () {
+        $("#btnNext").click(function () {
+            next();
+        });
+        $("#btnPrev").click(function () {
+            prev();
+        })
+        $('input[type=radio][name=radio1]').change(function () {
+            if (this.value == 'Prev') {
+                prev();
+            } else if (this.value == 'Next') {
+                next()
+            } else {
+                current();
+            }
+        });
+
+        var today = new Date();
+        var dayOfWeekStartingSundayZeroIndexBased = today.getDay(); // 0 : Sunday ,1 : Monday,2,3,4,5,6 : Saturday
+        var mondayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 1);
+        var sundayOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 7);
+
+        $("#weekStartDate").val($.date(mondayOfWeek));
+        $("#weekEndDate").val($.date(sundayOfWeek));
+
+        $("#date").datepicker();
+        var startDate;
+        var endDate;
+
+        var selectCurrentWeek = function () {
+            window.setTimeout(function () {
+                $('.week-picker').find('.ui-datepicker-current-day a').addClass('ui-state-active')
+            }, 1);
+        }
+        $('.week-picker').datepicker({
+            showWeek: true,
+            firstDay: 1,
+            changeMonth: true,
+            changeYear: true,
+            showOtherMonths: true,
+            selectOtherMonths: true,
+            onSelect: function (dateText, inst) {
+                var date = $(this).datepicker('getDate');
+                startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+                endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+                var dateFormat = inst.settings.dateFormat || $.datepicker._defaults.dateFormat;
+                $("#weekStartDate").val($.datepicker.formatDate(dateFormat, startDate, inst.settings));
+                $("#weekEndDate").val($.datepicker.formatDate(dateFormat, endDate, inst.settings));
+                selectCurrentWeek();
+                $('input[type=radio][name=radio1]').prop('checked', false);
+            },
+            beforeShowDay: function (date) {
+                var cssClass = '';
+                if (date >= startDate && date <= endDate)
+                    cssClass = 'ui-datepicker-current-day';
+                return [true, cssClass];
+            },
+            onChangeMonthYear: function (year, month, inst) {
+                selectCurrentWeek();
+            }
+        });
+    });
+
+    function weeks_between(date1, date2) {
+        // The number of milliseconds in one week
+        var ONE_WEEK = 1000 * 60 * 60 * 24 * 7;
+        // Convert both dates to milliseconds
+        var date1_ms = date1.getTime();
+        var date2_ms = date2.getTime();
+        // Calculate the difference in milliseconds
+        var difference_ms = Math.abs(date1_ms - date2_ms);
+        // Convert back to weeks and return hole weeks
+        return Math.floor(difference_ms / ONE_WEEK);
+    }
+
+    $(document).ready(function () {
+
+        $("#btnfinal").click(function () {
+            
+            var startdate = $("#weekStartDate").val();
+            var enddate = $("#weekEndDate").val();
+            var t_id = $("#track_id").val();
+            var val12 = $.datepicker.iso8601Week(new Date(enddate));
+
+            $.ajax({
+
+                type: 'Get',
+                url: '/Performans/getfiledata/',
+                data: { "t_id": t_id, "weekno": val12 },
+                success: function (data) {
+                    var doc = new jsPDF();
+
+                    $.each(data, function (key,dept) {
+
+                        
+                        //var myImage = new Image();
+
+                        //myImage.src = 'https://pngimage.net/wp-content/uploads/2018/06/online-png-6.png';
+                        //myImage.onload = function () {
+                        //    doc.addImage(myImage, 'png', 100, 100, 40, 10);
+                        //    doc.addPage();
+                        //    doc.save("abc.pdf");
+                        //};
+
+
+
+                        //console.log(dept.image_one);
+
+                        //if (dept.image_one != null) {
+
+                        //    var imgData = "'data:image/png;base64," + dept.image_one + "'";
+
+                        //    console.log(imgData);
+
+                            
+                        //    doc.addImage(imgData, 'png', 87, 100, 200, 200);
+                        //    doc.setFont("helvetica");
+                        //    doc.setFontType("bold");
+
+                        //}
+                        
+                     //   doc.addPage();
+                       // console.log(dept.image_one);
+                        
+                    });
+                  
+                
+                },
+                error: function (err) {
+
+
+                }
+
+
+            });
+           
+
+           
+            
+        });
+
+    });
+
+</script>
+
+@using (Html.BeginForm("Getfinalprint", "Performans", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <div class="radio-group-1">
+
+        <div class="row">
+            <input type="button" value="<" id="btnPrev" />
+            <input type="text" readonly id="weekStartDate" name="start" />
+            <input type="text" readonly id="weekEndDate" name="end" />
+            <input type="button" value=">" id="btnNext" />
+        </div>
+        <div class="week-picker"></div>
+
+    </div>
+
+    <div class="form-group">
+
+       <label> Select Driver Name </label>
+        @Html.DropDownList("track_id", ViewData["drivelist"] as List<SelectListItem>,new {@class = "form-control" })
+
+
+    </div>
+    
+    <button type="submit" id="btnfinal" name="Create" value="Generate Pdf" formtarget="_blank" class="btn btn-primary">Generate Pdf</button>
+
+    @ViewBag.msg
+    @*<button type="submit"  name ="Reset" value="Reset" class="btn btn-primary">Reset</button>*@
+
+
+
+}
+
+
+

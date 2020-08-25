@@ -1,0 +1,313 @@
+﻿
+@{
+    ViewBag.Title = "CreateRouteTrack";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+    int cnt = 1;
+}
+
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+<link href="~/datatable/fixedColumns.dataTables.min.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/Scripts/moment.js"></script>
+<script src="~/datatable/jquery.dataTables.js"></script>
+<script src="~/datatable/dataTables.fixedColumns.min.js"></script>
+<style>
+
+    th, td {
+        white-space: nowrap;
+    }
+
+    div.dataTables_wrapper {
+        margin: 0 auto;
+    }
+
+    div.container {
+        width: 80%;
+    }
+
+</style>
+<script>
+    function EditSubAdmin(driver_name) {
+
+       
+        // alert(driver_name)
+        var stp = driver_name
+        $.ajax({
+            type: 'Get',
+            url: '/RouteTracking/RescueDetails/',
+            data: { "driver_name": stp },
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+            },
+            error: function (err) {
+
+
+            }
+
+        });
+
+
+    }
+
+    $(function () {
+
+        $("#dpicker").datepicker({ minDate: "-5M -10D", maxDate: "+0M +1D", dateFormat: 'mm-dd-yy' });
+
+    });
+    $(document).ready(function () {
+        
+        $('input').keyup(function () {
+
+            var ids = $(this).attr('id');
+            if (ids.indexOf("package") != -1) {
+
+                var opp = ids.split('-');
+                var id23 = opp[1];
+                var first = "firstpackage-" + id23;
+                var last = "lastpackage-" + id23;
+                var dure = "duration-" + id23;
+                var stop = "stops-" + id23;
+                var fpackage = $("#" + first).val();
+                var lpackage = $("#" + last).val();
+                var finalstops = $("#" + stop).val();
+
+               // var duration = $("#" + dure).val();
+
+                var startTime = moment(fpackage, "HH:mm:ss a");
+                var endTime = moment(lpackage, "HH:mm:ss a");
+                var duration = moment.duration(endTime.diff(startTime));
+                var hours = parseInt(duration.asHours());
+                var minutes = parseInt(duration.asMinutes()) - hours * 60;
+                console.log(hours);
+                var ss = hours + ":" + minutes;
+                var calval = hours + "."+minutes;
+                $("#" + dure).val(ss)
+                var fullstops = parseInt(finalstops);
+                var duratio = parseFloat(calval);
+                var finalans = (fullstops / duratio) / 24;
+                $("#sph-" + id23).val(finalans);
+
+
+               // alert(hours + ' hour and ' + minutes + ' minutes.')
+
+               // var result = endTime.diff(startTime, 'hours') + " Hrs and " +
+                    endTime.diff(startTime, 'minutes') + " Mns";
+               // alert(result)
+
+               
+            /*
+                var sss = ids.substring(first.length, ids.length);
+                first = first + sss;
+                var last = "lastpackage";
+                var sss1 = ids.substring(last.length, ids.length);
+
+                 last = last + sss1;
+                
+                var firstpackage = $("#" + first).val();
+                var lastpackage = $("#" + last).val();
+                
+                console.log(firstpackage);
+                console.log(lastpackage);
+
+               // var val1 = ids.split('.');
+                //var no = val1[1];
+                var sps = $("#firstpackage1").val();
+
+                console.log(sps);
+
+               //var firstpackege = "#firstpackage." + no;
+
+
+              //  console.log($(firstpackege).val());
+              */ 
+            }
+
+            if (ids.indexOf("adp") != -1) {
+ 
+                var opp = ids.split('-');
+                var id23 = opp[1];
+                var adpin = "adppuchin-" + id23;
+                var adpout = "adppuchout-" + id23;
+                var calculate = "calculate-" + id23;
+              
+                var fadpin = $("#" + adpin).val();
+                var ladpin = $("#" + adpout).val();
+                var cal = $("#" + calculate).val();
+                
+                var startTime = moment(fadpin, "HH:mm:ss a");
+                var endTime = moment(ladpin, "HH:mm:ss a");
+                var duration = moment.duration(endTime.diff(startTime));
+                var hours = parseInt(duration.asHours());
+                var minutes = parseInt(duration.asMinutes()) - hours * 60;
+                console.log(hours);
+                var ss = hours + ":" + minutes;
+                var calval = hours + "." + minutes;
+                $("#" + calculate).val(ss)
+                
+            }
+            $(this).val($(this).val().toUpperCase());
+
+
+
+        });
+
+
+        $("#tbl").DataTable({
+           
+            scrollX: true,
+            scrollCollapse: true,
+           
+            "order": [],
+            fixedColumns: {
+                leftColumns: 1,
+                leftColumns: 2,
+                leftColumns: 3
+               
+            }
+            
+            
+        });
+        $('.dataTables_length').addClass('bs-select');
+        
+       
+    });
+
+</script>
+
+@using (Html.BeginForm("CreateRouteTrack", "RouteTracking", FormMethod.Post))
+{
+
+    <div class="outer-w3-agile mt-3">
+        <div class="col-md-3 mb-3" id="cat_gas">
+            <label for="inputAddress2"> Select Date</label>
+            <input type="text" placeholder="Select Date" id="dpicker" name="selectdt" class="form-control" required="" />
+
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label> <button type="submit" class="btn btn-primary">Submit</button></label>
+        </div>
+
+        @if (ViewData["objlist"] != null)
+        {
+            <input type="hidden" value="@ViewBag.countdt" id="drvlist" />
+            <h4 class="tittle-w3-agileits mb-4">Daily Route Tracking</h4>
+            <table class="table table-bordered" style="width: 100%" id="tbl">
+
+                <thead>
+
+                    <tr>
+                        <th>Rescue Package</th>
+                        <th scope="col">Route#</th>
+                        <th scope="col" width="40%">Driver Full  Name  </th>
+                        <th scope="col">Level</th>
+                        <th scope="col">Package</th>
+
+                        <th scope="col">Stops</th>
+
+                        <th scope="col">1st Package</th>
+                        <th scope="col">Last Package</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Calculate SPH</th>
+                        <th scope="col">Unknow Stops</th>
+                        <th scope="col">Total Unknow Stops</th>
+                        <th scope="col">ADP Puch In</th>
+                        <th scope="col">ADP Puch Out</th>
+                        <th scope="col">30 minute Unpaid Break</th>
+
+                        <th scope="col">Calculated Time</th>
+                        <th scope="col">Flex login</th>
+                        <th scope="col">Flex logout</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in ViewData["objlist"] as List<deliverymangementsystem.Models.RouteTrackModel>)
+                    {
+                        <tr>
+                            <td>    
+                                <button type="button" class="btn btn-primary" onclick="EditSubAdmin('@item.driver_name')"><i class="fas fa-plus"></i></button>
+                            
+                            </td>
+                            <td ><input type="text" class="form-control" id="@("route"+cnt)" name="@("route"+cnt)" value="@item.route" readonly="readonly" /> </td>
+                            <td > <input type="text" class="form-control" id="@("driver_name"+cnt)" name="@("driver_name"+cnt)" value="@item.driver_name" readonly="readonly" /></td>
+                            <td > <input type="text" class="form-control" id="@("level"+cnt)" name="@("level"+cnt)" value="@item.level" readonly="readonly" /></td>
+                           
+                            <td > <input type="text" class="form-control" id="@("package"+cnt)" name="@("package"+cnt)" value="@item.package" readonly="readonly" /></td>
+
+                            <td >
+                                <input type="text" class="form-control" id="@("stops-"+cnt)" name="@("stops"+cnt)" value=" @item.stops" readonly="readonly" />
+                            </td>
+
+                            <td >
+
+                                <input type="text" class="form-control" name="@("firstpackage"+cnt)" id="@("firstpackage-"+cnt)" value="@item.packege1st" placeholder="First Package" required="">
+                            </td>
+                            <td >
+                                <input type="text" class="form-control" name="@("lastpackage"+cnt)" id="@("lastpackage-"+cnt)" value="@item.lastpackage" placeholder=" Last Packages" required="">
+                            </td>
+                            <td >
+                                <input type="text" class="form-control" name="@("duration"+cnt)" id="@("duration-"+cnt)" value="@item.duration" placeholder="duration" required="" readonly="readonly">
+                            </td>
+                            <td  >
+                                <input type="text" class="form-control" name="@("sph"+cnt)" id="@("sph-"+cnt)" value="@item.SPH" placeholder="calculate SPH">
+                            </td>
+                            <td  >
+                                <input type="text" class="form-control" name="@("unknows"+cnt)" id="@("unknows"+cnt)" value=" @item.unknowstops" placeholder="Unknows Stops">
+                            </td>
+
+                            <td  >
+                                <input type="text" class="form-control" name="@("totalunknows"+cnt)" id="@("totalunknows"+cnt)" value="@item.totalunknowstop" placeholder="Total Unknows">
+                            </td>
+                            <td  >
+                                <input type="text" class="form-control" name="@("adppuchin"+cnt)" id="@("adppuchin-"+cnt)" value="@item.adp_in" placeholder="adp puch in">
+                            </td>
+                            <td >
+                                <input type="text" class="form-control" name="@("adppuchout"+cnt)" id="@("adppuchout-"+cnt)" value="@item.adp_out" placeholder="adp puch Out">
+                            </td>
+                            <td >
+                                <input type="text" class="form-control" name="@("break"+cnt)" id="@("break-"+cnt)" value="@item.unpaidbrak" placeholder="Unpaid Break">
+                            </td>
+
+                            <td >
+                                <input type="text" class="form-control" name="@("calculate"+cnt)" id="@("calculate-"+cnt)" value="@item.calculatetime" placeholder="Calculate Time">
+                            </td>
+                            <td  >
+                                <input type="text" class="form-control" name="@("flexlogin"+cnt)" id="@("flexlogin"+cnt)" value="@item.flexlogin" placeholder="Flex Login">
+                            </td>
+                            <td >
+                                <input type="text" class="form-control" name="@("flexout"+cnt)" id="@("flexout"+cnt)" value="@item.flexout" placeholder="Flex Logout">
+                            </td>
+
+                            @*<td>
+                                    <button type="button" class="btn btn-primary" onclick="EditRole(@item.assign_id)">Edit</button>||
+                                    <button type="button" class="btn btn-primary" onclick="DeleteRole(@item.assign_id)">Delete</button>
+                                </td>*@
+
+                        </tr>
+                        cnt++;
+
+                    }
+
+                </tbody>
+            </table>
+            <div class="col-md-3 mb-3">
+                <label> <button type="submit" formaction="InsertData" class="btn btn-primary">Submit</button></label>
+            </div>
+        }
+
+
+
+    </div>
+
+
+
+}
+
+

@@ -1,0 +1,97 @@
+﻿@model deliverymangementsystem.EDM.tblsubadmin
+@{
+    
+    Layout = null;
+}
+
+<script>
+
+
+    $(document).ready(function () {
+        $("#form1").bValidator();
+    });
+
+</script>
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Create Sub Admin</h4>
+    @using (Html.BeginForm("CreateSubAdmin", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+        <div class="form-group">
+            <label for="inputAddress">Sub Admin Name</label>
+
+            @Html.TextBoxFor(c => c.sub_admin_name, new { @class = "form-control", @placeholder = "Enter Sub Admin Name", @databvalidator = "required,alpha" })
+            @Html.HiddenFor(c => c.sub_admin_id)
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Phone No</label>
+            @Html.TextBoxFor(c => c.sub_admin_mob, new { @class = "form-control", @placeholder = "Enter Phone No", @databvalidator = "number,maxlen[10],minlen[10],required", @databvalidatormsg = "Enter Valid Mobile Number" })
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Email ID(User Name)</label>
+            @Html.TextBoxFor(c => c.sub_admin_email_id, new { @class = "form-control", @placeholder = " Please Enter Email ID", @databvalidator = "required,email" })
+
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Password</label>
+            @Html.PasswordFor(c => c.sub_admin_password, new { @class = "form-control", @placeholder = "Please Enter password", @databvalidator = "required" })
+
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Dispatcher</label>
+            <div class="d-block my-3">
+
+                <div>
+                    @Html.RadioButtonFor(c => c.user_type, "Yes", new { @id = "credit", @databvalidator = "required" })
+                    @*<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">*@
+                    <label class="custom-control-label" for="credit">Yes</label>
+                </div>
+                <div>
+                    @Html.RadioButtonFor(c => c.user_type, "No", new { @id = "debit", @checked = "checked" })
+
+                    <label class="custom-control-label" for="debit">No</label>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="inputAddress2" id="schdate">Status</label>
+            @Html.DropDownListFor(c => c.sub_admin_status, new List<SelectListItem> { new SelectListItem { Text = "Active", Value = "active" }, new SelectListItem { Text = "Dactive", Value = "dactive" } }, "select status", new { @class = "form-control", @placeholder = "Enter Full Name", @databvalidator = "required" })
+
+        </div>
+
+        @*<div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">City</label>
+                    <input type="text" class="form-control" id="inputCity" required="">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputState">State</label>
+                    <select id="inputState" class="form-control">
+                        <option selected="">Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">Zip</label>
+                    <input type="text" class="form-control" id="inputZip" required="">
+                </div>
+            </div>*@
+        @*<div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                        Check me out
+                    </label>
+                </div>
+            </div>*@
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    }
+
+</div>
+

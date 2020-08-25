@@ -1,0 +1,93 @@
+﻿<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Onboarding Invitation Status</h4>
+    @using (Html.BeginForm("isonbordinglink", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+        <div class="form-group">
+            @*<label for="inputAddress">Onbording Link Send</label>*@
+
+            @*<div>
+                @Html.RadioButton("isonbordingLinkCreated", "Yes", new { @checked = "checked" })
+               <input type="hidden" name="did" value="@ViewBag.id"/>
+                <label class="custom-control-label" for="credit">Yes</label>
+            </div>
+            <div>
+                @Html.RadioButton("isonbordingLinkCreated", "No")
+                <label class="custom-control-label" for="credit">No</label>
+            </div>*@
+            <input type="hidden" name="did" value="@ViewBag.id" />
+
+            @{
+                if (ViewBag.status != null)
+                {
+                    if (ViewBag.status == "Sent")
+                    {
+                        <div>
+                            @Html.RadioButton("isonbordingLinkCreated", "Sent", new { @checked = "checked" })
+                            <label class="custom-control-label" for="credit">Sent</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isonbordingLinkCreated", "Accepted")
+                            <label class="custom-control-label" for="credit">Accepted</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isonbordingLinkCreated", "NoShow")
+                            <label class="custom-control-label" for="credit">No Show</label>
+                        </div>
+                    }
+                    else if (ViewBag.status == "Accepted")
+                    {
+                        <div>
+                            @Html.RadioButton("isonbordingLinkCreated", "Sent")
+                            <label class="custom-control-label" for="credit">Sent</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isonbordingLinkCreated", "Accepted", new { @checked = "checked" })
+                            <label class="custom-control-label" for="credit">Accepted</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isonbordingLinkCreated", "NoShow")
+                            <label class="custom-control-label" for="credit">No Show</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            @Html.RadioButton("isonbordingLinkCreated", "Sent")
+                            <label class="custom-control-label" for="credit">Sent</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isonbordingLinkCreated", "Accepted")
+                            <label class="custom-control-label" for="credit">Accepted</label>
+                        </div>
+                        <div>
+                            @Html.RadioButton("isonbordingLinkCreated", "NoShow")
+                            <label class="custom-control-label" for="credit">No Show</label>
+                        </div>
+                    }
+
+                }
+                else
+                {
+                    <div>
+                        @Html.RadioButton("isonbordingLinkCreated", "Sent")
+                        <label class="custom-control-label" for="credit">Sent</label>
+                    </div>
+                    <div>
+                        @Html.RadioButton("isonbordingLinkCreated", "Accepted")
+                        <label class="custom-control-label" for="credit">Accepted</label>
+                    </div>
+                    <div>
+                        @Html.RadioButton("isonbordingLinkCreated", "NoShow")
+                        <label class="custom-control-label" for="credit">No Show</label>
+                    </div>
+                }
+            }
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+
+    }
+
+</div>

@@ -1,0 +1,248 @@
+﻿@model deliverymangementsystem.EDM.tblticketconveration
+ 
+@using deliverymangementsystem.Models;
+@{ 
+    var comm = new  common();
+}
+
+<script>
+
+    function convertdt(dt) {
+
+        var dateString = dt.substr(6);
+
+        var currentTime = new Date(parseInt(dateString));
+        var month = currentTime.getMonth() + 1;
+        var day = currentTime.getDate();
+        var year = currentTime.getFullYear();
+        var date = month + "/" + day + "/" + year;
+        return date;
+    }
+    function formatAMPM(time1) {
+        var hours = time1.Hours;
+       
+        var minutes = time1.Minutes;
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return strTime;
+    }
+    function getdata() {
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/Ticket/getdataUserInfo/',
+            datatype: 'Json',
+            success: function (data) {
+
+                /// alert("hi");
+                $("#tbl1").empty();
+
+                var ss = "<thead>< tr >" +
+                    "<th scope='col'>Sender</th>" +
+                    "<th scope='col'>Reciver</th>" +
+                    "<th scope='col'>Notes</th>" +
+                    "<th scope='col'>Date(time)</th>" +
+                    "<th scope='col'>Ticket Status</th>" +
+                    "</tr >" +
+                    "</thead ><tbody>";
+                $("#tbl1").append(ss);
+                $.each(data, function (key, dept) {
+
+                   // console.log(dept.time);
+                    console.log(formatAMPM(dept.time));
+
+
+                    $("#tbl1").append("<tr><td>" + dept.fromusername + "</td><td>" + dept.tousername + "</td><td>" + dept.ticket_conversation + "</td><td>" + convertdt(dept.date) + "(" + formatAMPM(dept.time) +")</td><td>" + dept.ticket_status + "</td></tr>");
+
+                });
+                $("#tbl1").append("</tbody>");
+              
+            }
+            
+        });
+
+    }
+
+    $(document).ready(function () {
+
+        getdata();
+
+        $("#btnclose").click(function () {
+
+            if (confirm("Are you sure you want to Close this ticket")) {
+
+
+                var ticket_id = $("#tickid").val();
+
+                $.ajax({
+                    type: 'Post',
+                    url: '/Ticket/ticketclose/',
+                    data: { "ticket_id": ticket_id },
+                    dataType: 'Json',
+                    success: function (data) {
+
+                        window.location.href = "/Ticket/ViewOpenTicket/";
+                        //alert(data);
+                       // getdata();
+                    },
+                    error: function (err) {
+
+                        window.location.href = "/Ticket/ViewOpenTicket/";
+
+                        // alert(err);
+                        //getdata();
+                    }
+
+                });
+
+
+
+
+            }
+            else {
+
+
+            }
+
+           
+
+
+        });
+
+
+        $("#btnclick").click(function () {
+         
+            var ticket_id = $("#tickid").val();
+            var descr = $("#ticket_conversation").val();
+            var vender_name = $("#vendor_name").val();
+            var taskdone = "No";
+
+            var checkBox = document.getElementById("isdone");
+           
+            if (checkBox.checked == true) {
+
+                taskdone = "Yes";
+               // text.style.display = "block";
+
+            } else {
+
+                taskdone = "No";
+                //text.style.display = "none";
+            }
+           
+
+            $.ajax({
+                type: 'Post',
+                url: '/Ticket/postconv/',
+                data: { "ticket_id": ticket_id, "desc": descr, "vname": vender_name, "task": taskdone },
+                dataType: 'Json',
+                success: function (data) {
+
+                    //alert(data);
+                    getdata();
+                },
+                error: function (err) {
+
+                   // alert(err);
+                    getdata();
+                }
+
+            });
+
+
+        });
+
+    });
+
+
+</script>
+<style>
+
+    table {
+        table-layout: fixed;
+        width: 310px;
+    }
+
+        table td {
+            width: 100px;
+            word-wrap: break-word;
+        }
+</style>
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4"> Ticket Notes</h4>
+    @using (Html.BeginForm("scheduleInterview", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+        <div class="form-group">
+            <label for="inputAddress"> Write Ticket Notes</label>
+
+            @Html.TextAreaFor(c => c.ticket_conversation, new { @class = "form-control", @placeholder = "Enter Description", @databvalidator = "required" })
+            @*@Html.TextBoxFor(c => c.emp_interview_date, new { @class = "form-control", @placeholder = "Enter Full Name", @databvalidator = "required" })*@
+            <input type="hidden" id="tickid" value="@ViewBag.ticket_id" />
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+
+
+        <div class="form-group">
+            <label for="inputAddress"> vendor name </label>
+
+            @Html.TextBox("vendor_name", null, new { @class = "form-control", @placeholder = "Enter vendor Name", @databvalidator = "required" })
+            @*@Html.TextBoxFor(c => c.emp_interview_date, new { @class = "form-control", @placeholder = "Enter Full Name", @databvalidator = "required" })*@
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+
+        <div class="form-group">
+            <label for="inputAddress"> Is Task Done(Checked if Task Done) </label>
+
+            <input type="checkbox" id="isdone" />
+            @*@Html.TextBoxFor(c => c.emp_interview_date, new { @class = "form-control", @placeholder = "Enter Full Name", @databvalidator = "required" })*@
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        
+
+        <div class="container">
+            <div class="text-left">
+
+                <button type="button" id="btnclick" class="btn btn-primary">Submit</button>
+            </div>
+
+
+            <div class="text-right">
+
+                @{
+
+                    var userid = int.Parse(Session["admin"].ToString());
+
+                    if (userid == 10001)
+                    {
+                        <button type="button" id="btnclose" class="btn btn-danger">CLOSE</button>
+
+                    }
+                    else
+                    {
+
+
+                    }
+
+                }
+            </div>
+
+            
+        </div>
+
+
+        <h4 class="tittle-w3-agileits mb-4"> Ticket Conversation</h4>
+        <table class="table table-hover" id="tbl1"></table>
+
+
+
+    }
+
+</div>
+

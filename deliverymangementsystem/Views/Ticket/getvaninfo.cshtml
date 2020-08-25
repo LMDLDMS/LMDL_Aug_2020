@@ -1,0 +1,147 @@
+﻿@model  deliverymangementsystem.EDM.tblticket 
+
+@using deliverymangementsystem.EDM;
+@using deliverymangementsystem.Models;
+
+@{
+    var comm = new common();
+    var dc = new dsdatabaseEntities();
+}
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Ticket Info</h4>
+    @using (Html.BeginForm("AddNewEntry", "Admin", FormMethod.Post, new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+        @*<div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email" required="">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Password</label>
+                    <input type="password" class="form-control" id="inputPassword4" placeholder="Password" required="">
+                </div>
+            </div>*@
+
+    <table class="table table-hover">
+
+        <tr>
+
+            <td>
+                Ticket Type
+            </td>
+            <td>
+                @Html.DisplayTextFor(c => Model.ticket_type)
+            </td>
+
+        </tr>
+        <tr>
+
+            <td>
+                Van Number
+            </td>
+            <td>
+                @Html.DisplayTextFor(c => Model.van_number)
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                Van Type
+            </td>
+            <td>
+                @Html.DisplayTextFor(c => c.van_type)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Issue
+            </td>
+            <td>
+                @Html.DisplayTextFor(c => Model.issue)
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                Vendor Name
+
+            </td>
+            <td>
+                @Html.DisplayTextFor(c => Model.vendor_name)
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                Open Ticket Date(Time)
+            </td>
+            <td>
+                @Model.ticket_open_date.Value.ToShortDateString() (@comm.show(TimeSpan.Parse(Model.ticket_open_time.ToString())))
+            </td>
+
+        </tr>
+        <tr>
+
+            <td>
+                Picked Ticket Date(Time)
+            </td>
+            <td>
+                @{
+                    var pickeddate = "";
+
+                    var ss1 = Model.ticket_picked_date;
+                    if (ss1 != null)
+                    {
+                        pickeddate = Model.ticket_picked_date.Value.ToShortDateString() + "(";
+                        pickeddate += (comm.show(TimeSpan.Parse(Model.ticket_picked_time.ToString()))) + ")";
+
+                    }
+                    else
+                    {
+                        pickeddate = "";
+                    }
+
+                }
+
+                @pickeddate
+
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                Closed Ticket Date(Time)
+            </td>
+            <td>
+                @{
+                    var commdate = "";
+
+                    var ss = Model.ticket_closed_date;
+                    if (ss != null)
+                    {
+                        commdate = Model.ticket_closed_date.Value.ToShortDateString() + "(";
+                        commdate += (comm.show(TimeSpan.Parse(Model.ticket_closed_time.ToString()))) + ")";
+
+
+                    }
+                    else
+                    {
+                        commdate = "";
+                    }
+                }
+
+                @commdate
+
+            </td>
+        </tr>
+
+
+    </table>
+        
+        
+       
+
+    }
+
+</div>

@@ -1,0 +1,25 @@
+﻿@model deliverymangementsystem.EDM.tblsource
+<script>
+
+     $(document).ready(function () {
+        $("#form1").bValidator();
+    });
+
+</script>
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Add New Source</h4>
+    @using (Html.BeginForm("addnewsource", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+        <div class="form-group">
+            <label for="inputAddress">Source Name</label>
+
+            @Html.TextBoxFor(c => c.source_name, new { @class = "form-control", @placeholder = "Enter New Source", @databvalidator = "required" })
+
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    }
+
+</div>

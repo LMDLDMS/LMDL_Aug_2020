@@ -1,0 +1,46 @@
+﻿@model deliverymangementsystem.EDM.tblonbordingmaster
+
+<script>
+
+    $(function () {
+
+
+        $("#emp_interview_date").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+    });
+
+    $(document).ready(function () {
+
+
+        $('#timepicker12').timepicki();
+        $("#form1").bValidator();
+    });
+
+    
+</script>
+
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4"> Schedule Interview</h4>
+    @using (Html.BeginForm("scheduleInterview", "Admin", FormMethod.Post,new {@id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+        
+    <div class="form-group">
+        <label for="inputAddress">Select Date</label>
+
+        @Html.TextBoxFor(c=>c.emp_interview_date, new { @class = "form-control", @placeholder = "Enter Date", @databvalidator = "required" })
+        @*@Html.TextBoxFor(c => c.emp_interview_date, new { @class = "form-control", @placeholder = "Enter Full Name", @databvalidator = "required" })*@
+        @Html.HiddenFor(c => c.emp_id)
+        @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+    </div>
+    <div class="form-group">
+        <label for="inputAddress2">Select Time</label>
+        @Html.TextBoxFor(c => c.emp_interview_time, new { @class = "form-control", @id = "timepicker12", @placeholder = "Select time ", @databvalidator = "required" })
+        @*@Html.TextBoxFor(c => c.emp_interview_time, new { @class = "form-control", @placeholder = "Enter Phone No", @type = "Time", @databvalidator = "required" })*@
+
+    </div>
+        
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    }
+
+</div>

@@ -1,0 +1,143 @@
+﻿@model deliverymangementsystem.EDM.tblticket
+
+@{
+    ViewBag.Title = "OpenTicket";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#ticket_type").change(function () {
+
+            var textdata = $("#ticket_type").val();
+            if (textdata == "Van") {
+
+                $("#vanNumber").show();
+                $("#vantype").show();
+                $("#vandorname").show()
+                $("#supplyneeded").hide();
+                $("#Quantityid").hide();
+                $("#cat_phone").hide()
+                $("#cat_gas").hide();
+                
+            }
+
+            if (textdata == "CAT Phone") {
+                $("#vanNumber").hide();
+                $("#vantype").hide();
+                $("#vandorname").hide()
+                $("#supplyneeded").hide();
+                $("#Quantityid").hide();
+                $("#cat_phone").show()
+                $("#cat_gas").hide();
+
+
+            }
+
+            if (textdata == "Gas Card") {
+                $("#vanNumber").hide();
+                $("#vantype").hide();
+                $("#vandorname").hide()
+                $("#supplyneeded").hide();
+                $("#Quantityid").hide();
+                $("#cat_phone").hide()
+                $("#cat_gas").show();
+
+            }
+            if (textdata == "Business Supplies") {
+                $("#vanNumber").hide();
+                $("#vantype").hide();
+                $("#vandorname").hide()
+                $("#supplyneeded").show()
+                $("#Quantityid").show();
+                $("#cat_phone").hide()
+                $("#cat_gas").hide();
+
+            }
+
+        });
+    });
+
+</script>
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">New Ticket Form</h4>
+    @using (Html.BeginForm("OpenTicket", "Ticket", FormMethod.Post, new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+        @*<div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email" required="">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Password</label>
+                    <input type="password" class="form-control" id="inputPassword4" placeholder="Password" required="">
+                </div>
+            </div>*@
+        <div class="form-group">
+            <label for="inputAddress">Ticket Type</label>
+            @Html.DropDownListFor(c => c.ticket_type, new List<SelectListItem> { new SelectListItem { Text = "Van", Value = "Van" }, new SelectListItem { Text = "CAT Phone", Value = "CAT Phone" }, new SelectListItem { Text = "Gas Card", Value = "Gas Card" }, new SelectListItem { Text = "Business Supplies", Value = "Business Supplies" } }, "Select Ticket Type ", new { @class = "form-control", @databvalidator = "required" })
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        <div class="form-group" id="vanNumber">
+            <label for="inputAddress2">Van Number</label>
+            @Html.TextBoxFor(c => c.van_number, new { @class = "form-control", @placeholder = "Enter Van Number", @databvalidator = "required" })
+        </div>
+        <div class="form-group" id="vantype">
+            <label for="inputAddress2">Van Type</label>
+            @Html.DropDownListFor(c => c.van_type, new List<SelectListItem> { new SelectListItem { Text = "Prime", Value = "Prime" }, new SelectListItem { Text = "Extended Prime", Value = "Extended Prime" }, new SelectListItem { Text = "Rental", Value = "Rental" } }, "Please Select Van Type", new { @class = "form-control", @databvalidator = "required" })
+
+
+        </div>
+
+        <div class="form-group" id="cat_phone">
+            <label for="inputAddress2"> CAT Phone #</label>
+            @Html.TextBoxFor(c => c.cat_phone_number, new { @class = "form-control", @placeholder = "Enter CAT Phone #", @databvalidator = "required" })
+
+        </div>
+        <div class="form-group" id="cat_gas">
+            <label for="inputAddress2"> GAS Card #</label>
+            @Html.TextBoxFor(c => c.gas_card_number, new { @class = "form-control", @placeholder = "Enter GAS Card #", @databvalidator = "required" })
+
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="inputAddress2">Issue</label>
+            @Html.TextAreaFor(c => c.issue, new { @class = "form-control", @placeholder = "Enter Issue", @databvalidator = "required" })
+
+        </div>
+        <div class="form-group" id="vandorname">
+            <label for="inputAddress2">Vendor Name</label>
+            @Html.TextBoxFor(c => c.vendor_name, new { @class = "form-control", @placeholder = "Vendor Name", @databvalidator = "required" })
+
+        </div>
+        <div class="form-group" id="supplyneeded">
+            <label for="inputAddress2">Supply needed</label>
+            @Html.TextBoxFor(c => c.supply_needed, new { @class = "form-control", @placeholder = " Enter Supply needed", @databvalidator = "required" })
+
+        </div>
+        <div class="form-group" id="Quantityid">
+            <label for="inputAddress2"> Quantity</label>
+            @Html.TextBoxFor(c => c.Quantity, new { @class = "form-control", @placeholder = " Enter  Quantity ", @databvalidator = "required" })
+
+        </div>
+        
+        <div class="form-group">
+            <label for="inputAddress2"> Select To Assigned</label>
+            @Html.DropDownListFor(c => c.ticket_assigned_user_id, ViewData["users"] as List<SelectListItem>, "Select User To Assigned", new { @class = "form-control", @placeholder = "select User Name ", @databvalidator = "required" })
+
+
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <div>@ViewBag.msg</div>
+
+
+    }
+
+</div>
+

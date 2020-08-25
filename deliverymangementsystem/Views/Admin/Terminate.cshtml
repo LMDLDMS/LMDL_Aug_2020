@@ -1,0 +1,190 @@
+﻿
+<script>
+
+    $("#currentdt").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: 'mm/dd/yy'
+        
+    });
+    //lastdd
+    $("#lastdd").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: 'mm/dd/yy'
+
+    });
+
+    $("#terminatedd").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: 'mm/dd/yy'
+
+    });
+
+</script>
+
+
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Driver Termination Form</h4>
+    @using (Html.BeginForm("Terminate", "Admin", FormMethod.Post, new { @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+        @*<div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email" required="">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Password</label>
+                    <input type="password" class="form-control" id="inputPassword4" placeholder="Password" required="">
+                </div>
+            </div>*@
+        <div class="form-group">
+            <label for="inputAddress">Date</label>
+
+            <input type="text" class="form-control" id="currentdt" placeholder="Select Date" name="tcdb" databvalidator="required">
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Employee Name</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="Enter Name" value="@ViewBag.driver_name" databvalidator="required">
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Last day Worked</label>
+            <input type="text" class="form-control" id="lastdd" name="lastdd" placeholder="Last day worked" databvalidator="required">
+
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Last date Terminate</label>
+            <input type="text" class="form-control" id="terminatedd" name="terminatedd" placeholder="Last Day Terminate" databvalidator="required">
+
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Eligible for Rehired</label>
+            <div class="d-block my-3">
+
+                <div>
+
+                    <input id="credit" name="paymentMethod" type="radio" value="Yes">
+                    <label class="custom-control-label" for="credit">Yes</label>
+                </div>
+                <div>
+                    <input id="credit" name="paymentMethod" type="radio" value="No" >
+
+                    <label class="custom-control-label" for="debit">No</label>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="inputAddress2">Is termination voluntary or Involuntary </label>
+            <div class="d-block my-3">
+
+                <div>
+
+                    <input id="credit" name="paymentMethod1" type="radio" value="Yes">
+                    <label class="custom-control-label" for="credit">Yes</label>
+                </div>
+                <div>
+                    <input id="credit" name="paymentMethod1" type="radio" value="No">
+
+                    <label class="custom-control-label" for="debit">No</label>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+            <label for="inputAddress2">reasion for seperation from company(please check one from the options below and explain below the comment section) </label>
+            <div class="d-block my-3">
+
+                <div>
+
+                    <input id="credit" name="paymentMethod2" type="radio" value="Voluntary Resignation" >
+                    <label class="custom-control-label" for="credit">Voluntary Resignation</label>
+                </div>
+                <div>
+                    <input id="credit" name="paymentMethod2" type="radio" value="No Show" >
+
+                    <label class="custom-control-label" for="debit">No Show/No Call</label>
+                </div>
+                <div>
+                    <input id="credit" name="paymentMethod2" type="radio" value="Personal" >
+
+                    <label class="custom-control-label" for="debit">Personal</label>
+                </div>
+                <div>
+                    <input id="credit" name="paymentMethod2" type="radio" value="Mutual Agreement" >
+
+                    <label class="custom-control-label" for="debit">Mutual Agreement</label>
+                </div>
+                <div>
+                    <input id="credit" name="paymentMethod2" type="radio" value="Performance">
+
+                    <label class="custom-control-label" for="debit">Performance</label>
+                </div>
+                <div>
+                    <input id="credit" name="paymentMethod2" type="radio" value="other" >
+
+                    <label class="custom-control-label" for="debit">Other(explain in comments)</label>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="form-group" id="desc">
+            <label for="inputAddress2">Accounts to be Deactivated</label>
+            <div class="d-block my-3">
+
+                <div>
+
+                    @Html.CheckBox("ADP")
+                   
+                    <label class="custom-control-label" for="credit">ADP</label>
+                </div>
+                <div>
+                    @Html.CheckBox("Mentor")
+                   
+
+                    <label class="custom-control-label" for="debit">Mentor</label>
+                </div>
+                <div>
+                    @Html.CheckBox("Zoho")
+                   
+
+                    <label class="custom-control-label" for="debit">Zoho</label>
+                </div>
+                <div>
+                    @Html.CheckBox("gaspin")
+                   
+
+                    <label class="custom-control-label" for="debit">Gas Pin</label>
+                </div>
+                
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="inputAddress2">Comments</label>
+            @Html.TextArea("comment","",new {@class="form-control" })
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <div>@ViewBag.msg</div>
+
+
+    }
+
+</div>

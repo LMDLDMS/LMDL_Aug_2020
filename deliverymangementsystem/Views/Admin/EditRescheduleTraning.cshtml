@@ -1,0 +1,141 @@
+﻿@model deliverymangementsystem.Models.ScheduleTraningModel
+
+<script>
+
+    $(function () {
+        
+        $("#training_date").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+        $("#inclassdateone").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+        $("#inclassdatetwo").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+        $("#inclassridedate").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+        $("#VirtualDateOne").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+    });
+    $(document).ready(function () {
+        $("#form1").bValidator();
+
+
+        if ($('#idInClas').is(':checked')) {
+            $('#trainingDateTwo').hide();
+        }
+        else
+        {
+            $('#trainingDateOne').hide();
+        }
+
+        $('#idInClas').change(function () {
+            $('#trainingDateOne').show();
+            $('#trainingDateTwo').hide();
+        });
+
+        $('#idVirtual').change(function () {
+            $('#trainingDateOne').hide();
+            $('#trainingDateTwo').show();
+        });
+
+
+    });
+</script>
+
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4"> Reschedule Driver Traning</h4>
+    @using (Html.BeginForm("EditRescheduleTraning", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form", enctype = "multipart/form-data" }))
+    {
+
+        <div class="form-group">
+            <label for="inputAddress">Select Driver</label>
+            @Html.DropDownList("d_id", ViewData["dlist"] as List<SelectListItem>, "select Driver", new { @class = "form-control", @placeholder = "select", @databvalidator = "required" })
+
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label>Training Type</label>
+            </div>
+            
+            @{
+                if (Model.training_type == "InClass")
+                {
+                    <div style="display:inline-block;">
+                        @Html.RadioButtonFor(c => c.training_type, "InClass", new { @checked = "checked", @id = "idInClas" })
+                        <label class="custom-control-label">In Class</label>
+                    </div>
+                    <div style="display:inline-block;">
+                        @Html.RadioButtonFor(c => c.training_type, "Virtual", new { @id = "idVirtual" })
+                        <label class="custom-control-label">Virtual</label>
+                    </div>
+                }
+                else if (Model.training_type == "Virtual")
+                {
+                    <div style="display:inline-block;">
+                        @Html.RadioButtonFor(c => c.training_type, "InClass", new { @id = "idInClas" })
+                        <label class="custom-control-label">In Class</label>
+                    </div>
+                    <div style="display:inline-block;">
+                        @Html.RadioButtonFor(c => c.training_type, "Virtual", new { @checked = "checked", @id = "idVirtual" })
+                        <label class="custom-control-label">Virtual</label>
+                    </div>
+                }
+                else
+                {
+                    <div style="display:inline-block;">
+                        @Html.RadioButtonFor(c => c.training_type, "InClass", new { @checked = "checked", @id = "idInClas" })
+                        <label class="custom-control-label">In Class</label>
+                    </div>
+                    <div style="display:inline-block;">
+                        @Html.RadioButtonFor(c => c.training_type, "Virtual", new { @id = "idVirtual" })
+                        <label class="custom-control-label">Virtual</label>
+                    </div>
+                }
+            }
+
+        </div>
+
+        <div class="form-group" id="trainingDateOne">
+            <label for="inputAddress2">In Class Traning Date One </label>
+            @Html.TextBox("inclassdateone", String.Format("{0:d}", Model.inclassdateone != null? Model.inclassdateone.Value.ToString("MM-dd-yyyy"):""), new { @class = "form-control", @placeholder = "select Date", @databvalidator = "required" })
+            @Html.HiddenFor(c => c.traning_id)
+        
+            <label for="inputAddress2">In Class Traning Date Two </label>
+            @Html.TextBox("inclassdatetwo", String.Format("{0:d}", Model.inclassdatetwo != null? Model.inclassdatetwo.Value.ToString("MM-dd-yyyy"):""), new { @class = "form-control", @placeholder = "select Date", @databvalidator = "required" })
+
+        </div>
+
+
+        <div class="form-group" id="trainingDateTwo">
+
+            <label>Virtual Traning Date Two </label>
+            @Html.TextBox("VirtualDateOne", String.Format("{0:d}", Model.VirtualDateOne != null ? Model.VirtualDateOne.Value.ToString("MM-dd-yyyy") : ""), new { @class = "form-control", @placeholder = "select Date", @databvalidator = "required" })
+
+        </div>
+
+
+        <div class="form-group">
+            <label>Ride Along Date </label>
+            @Html.TextBox("inclassridedate", String.Format("{0:d}", Model.inclassridedate.Value.ToString("MM-dd-yyyy")), new { @class = "form-control", @placeholder = "select Date", @databvalidator = "required" })
+        </div>
+
+        <div class="form-group">
+            <label>Ride Along Trainee </label>
+            @Html.TextBox("RideAlongTrainee", Model.RideAlongTrainee, new { @class = "form-control", @placeholder = "ride along trainee", @databvalidator = "required" })
+        </div>
+
+        @*<div class="form-group">
+            <label for="inputAddress2">Ride Along Name </label>
+            @Html.TextBoxFor(c => c.ridealongname, new { @class = "form-control", @placeholder = "Enter Ride Along persion Name", @databvalidator = "required" })
+        </div>*@
+
+
+        <div class="form-group">
+            <label>Training Confirmation</label>
+            <input type="file" name="Image1" id="Image1" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <div>
+            @ViewBag.msg
+        </div>
+
+    }
+
+</div>

@@ -1,0 +1,333 @@
+﻿
+@{
+                /**/
+
+                ViewBag.Title = "dailyroutetrack";
+                Layout = "~/Views/Shared/AdminMaster.cshtml";
+                int cnt = 0;
+}
+
+<script>
+
+    function editclick() {
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/Dispatch/editrouteassign/',
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+
+            }
+
+
+
+        })
+
+
+    }
+
+    $(document).ready(function () {
+
+
+        $("#opta1").hide();
+        $("#opta2").show();
+
+        $("#opa1").click(function () {
+
+            $("#opta1").show();
+            $("#opta2").hide();
+
+
+        });
+        $("#opa2").click(function () {
+
+            $("#opta1").hide();
+            $("#opta2").show();
+
+        });
+
+        $("input").keydown(function (e) {
+            var textInput = this;
+            var val = textInput.value;
+            var isAtStart = false, isAtEnd = false;
+            var cellindex = $(this).parents('td').index();
+            if (typeof textInput.selectionStart == "number") {
+                // Non-IE browsers
+
+
+                isAtStart = (textInput.selectionStart == 0);
+                isAtEnd = (textInput.selectionEnd == val.length);
+            } else if (document.selection && document.selection.createRange) {
+                // IE <= 8 branch
+                textInput.focus();
+                var selRange = document.selection.createRange();
+                var inputRange = textInput.createTextRange();
+                var inputSelRange = inputRange.duplicate();
+                inputSelRange.moveToBookmark(selRange.getBookmark());
+                isAtStart = inputSelRange.compareEndPoints("StartToStart", inputRange) == 0;
+                isAtEnd = inputSelRange.compareEndPoints("EndToEnd", inputRange) == 0;
+            }
+
+            // workaround for text inputs of 'number' not working in Chrome... selectionStart/End is null.  Can no longer move cursor left or right inside this field.
+            if (textInput.selectionStart == null) {
+                if (e.which == 37 || e.which == 39) {
+
+                    isAtStart = true;
+                    isAtEnd = true;
+                }
+            }
+
+            if (e.which == 37) {
+                if (isAtStart) {
+                    $(this).closest('td').prevAll('td').find("input").focus();
+                }
+            }
+            if (e.which == 39) {
+
+                if (isAtEnd) {
+                    $(this).closest('td').nextAll('td').find("input").not(":hidden").first().focus();
+                }
+            }
+            if (e.which == 40) {
+                $(e.target).closest('tr').nextAll('tr').find('td').eq(cellindex).find(':text').focus();
+            }
+            if (e.which == 38) {
+                $(e.target).closest('tr').prevAll('tr').first().find('td').eq(cellindex).find(':text').focus();
+            }
+
+        });
+
+
+        //jQuery('#routedetails').keyup(function () {
+        //    $(this).val($(this).val().toUpperCase());
+
+        //    var finalval = $(this).val();
+        //    var finaldate = $("#currdate").val();
+        //    $.ajax({
+
+        //        type: 'Get',
+        //        url: '/Dispatch/getdatabyroute/',
+        //        data: { "route": finalval, "dateval": finaldate },
+
+        //        success: function (data) {
+
+        //            $.each(data, function (key, dept) {
+
+        //                $("#stops").val(dept.stops);
+        //                $("#package").val(dept.packages);
+
+
+        //                $("#driver_name").val(dept.driver_name);
+
+        //            });
+
+
+        //        }
+
+
+
+
+
+        //    });
+
+
+        //});
+
+        $("#driver_name").change(function () {
+
+            var driver_name = $("#driver_name").val();
+
+            $.ajax({
+
+                type: 'Get',
+                url: '/Dispatch/getinfo/',
+                data: { "d_name": driver_name },
+                success: function (data) {
+
+                    $.each(data, function (key, dept) {
+
+                        $("#routenumber").val(dept.route);
+                        $("#pouchnumber").val(dept.bag);
+
+                    });
+
+
+                },
+                error: function () {
+
+
+                }
+
+
+
+
+
+            });
+
+
+
+        });
+
+
+
+
+    });
+
+</script>
+<div class="outer-w3-agile mt-3">
+
+    <div class="form-group">
+        <label for="inputAddress2">Choose Any One</label>
+        <div class="d-block my-3">
+
+            <div>
+                @Html.RadioButton("choose", "SwitchRoute", new { @id = "opa1" })
+                @*<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">*@
+                <label class="custom-control-label" for="credit"> PHONE ASSIGNMENT</label>
+            </div>
+            <div>
+                @Html.RadioButton("choose", "CallOut", new { @id = "opa2", @checked = "true" })
+
+                <label class="custom-control-label" for="debit">ROUTE ASSIGNMENT</label>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="outer-w3-agile mt-3" id="opta1">
+    <h4 class="tittle-w3-agileits mb-4">PHONE ASSIGNMENT</h4>
+    @using (Html.BeginForm("updatePhone", "Dispatch", FormMethod.Post))
+    {
+
+        if (ViewData["objlist"] != null)
+        {
+            <table class="table table-bordered" style="width: 100%" id="tbl">
+
+                <thead>
+
+                    <tr>
+
+                        <th width="10%">Pouch#</th>
+                        <th width="10%">Route#</th>
+                        <th width="30%">Driver</th>
+                        <th width="10%">Phone1#</th>
+                        <th width="10%">Phone2#</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in ViewData["objlist"] as List<deliverymangementsystem.EDM.tbldispatch>)
+                    {
+
+
+                        int number1 = 0;
+
+                        bool canConvert = int.TryParse(item.bag.ToString(), out number1);
+                        if (canConvert)
+                        {
+
+                            <tr>
+
+                                <td>
+                                    <input type="text" class="form-control" name="@("bag" + cnt)" id="@("bag" + cnt)" value="@item.bag" readonly="readonly" placeholder="Pouch#" />
+                                </td>
+                                
+                                <td>
+                                    <input type="text" class="form-control" name="@("route" + cnt)" id="@("route" + cnt)" value="@item.route" readonly="readonly" placeholder="Route#" required="" />
+                                </td>
+
+                                <td>
+                                    <input type="text" class="form-control" name="@("driver_name" + cnt)" id="@("driver_name" + cnt)" value="@item.driver_name" readonly="readonly" placeholder="Driver Name#" required="" />
+                                </td>
+                                
+                                <td>
+                                    <input type="text" class="form-control" name="@("phone1" + cnt)" id="@("phone1" + cnt)" value="@item.cat" placeholder="Phone1#" required="" />
+                                </td>
+
+                                <td>
+                                    <input type="text" class="form-control" name="@("phone2" + cnt)" id="@("phone1" + cnt)" value="@item.phone2" placeholder="Phone2#">
+                                </td>
+
+                            </tr>
+                            cnt++;
+
+                        }
+                        else
+                        {
+
+                        }
+
+
+
+
+
+                    }
+
+                </tbody>
+            </table>
+
+        }
+        <div class="col-md-3 mb-3">
+            <label> <button type="submit" class="btn btn-primary">Submit</button></label>
+        </div>
+    }
+
+
+</div>
+
+
+<div class="outer-w3-agile mt-3" id="opta2">
+    <h4 class="tittle-w3-agileits mb-4">ROUTE ASSIGNMENT</h4>
+    @using (Html.BeginForm("dailyroutetrack", "Dispatch", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+<div class="row">
+    <div class="form-group col-md-3">
+        <label for="inputAddress">Today Date</label>
+        <input type="text" id="currdate" name="currdate" class="form-control" readonly="readonly" placeholder="Select Date" value="@DateTime.Now.ToShortDateString()" databvalidator="required">
+    </div>
+    <div class="form-group col-md-9">
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="inputAddress">Route</label>
+            <input type="text" class="form-control" id="routedetails" name="route" placeholder="Enter Route " databvalidator="required">
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="inputAddress">Driver Name</label>
+            @Html.DropDownList("driver_name", ViewBag.data as List<SelectListItem>, "Select Driver Name", new { @class = "form-control", @type = "text", @placeholder = "Enter Designation", @databvalidator = "required" })
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="inputAddress2">Stops</label>
+            <input type="text" class="form-control" id="stops" name="stops" placeholder=" Enter stops" databvalidator="required">
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="inputAddress2">Packages</label>
+            <input type="text" class="form-control" id="package" name="package" placeholder=" Enter package" databvalidator="required">
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Sheets</button>
+    <button type="button" class="btn btn-primary" onclick="editclick()"><i class="fas fa-edit"></i></button>
+    <div>@ViewBag.msg</div>
+
+
+    }
+
+</div>
+
+

@@ -1,0 +1,1535 @@
+﻿﻿@model deliverymangementsystem.EDM.tblonbordingmaster
+@{
+    Layout = null;
+}
+
+@using deliverymangementsystem.EDM;
+@{
+    var dc = new dsdatabaseEntities();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Applicatin Form</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="~/bvalidator/jquery.bvalidator.js"></script>
+    <script src="~/bvalidator/themes/bs3/bs3form/bs3form.js"></script>
+    <script src="~/bvalidator/themes/presenters/bs3form.min.js"></script>
+    <link href="~/jqueryui/jquery-ui.css" rel="stylesheet" />
+    <script src="~/jqueryui/jquery-ui.js"></script>
+    <script src="~/maskjs/jquery.inputmask.bundle.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js">
+
+
+    </script>
+
+    <style>
+        .form-horizontal .control-label {
+            text-align: left;
+        }
+
+        /*#idDISCLAIMER {
+            overflow-y: scroll;
+        }*/
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+            width: 95%;
+            padding: 3px;
+            margin: 2px 0 5px 0;
+        }
+
+
+        input[type=text], input[type=password], input[type=file], input[type=date], input[type=email], select[type=text], textarea[type=text] {
+            width: 95%;
+            padding: 3px;
+            margin: 2px 0 5px 0;
+        }
+    </style>
+
+    <script>
+
+      
+
+
+
+
+        $(function () {
+
+            $('#hideblock2').on('click', function () {
+            $('#block3').hide();
+        });
+        $('#showblock2').on('click', function () {
+            $('#block3').show();
+        });
+
+
+            $("#ddob").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'mm-dd-yy',
+                yearRange: '1950:2013'
+            });
+
+            //$("#sig_date").datepicker({
+            //    changeMonth: true,
+            //    changeYear: true,
+            //    dateFormat: 'mm-dd-yy'
+            //});
+
+            var d = new Date();
+            var mm = d.getMonth() + 1;
+            var dd = d.getDate();
+            var yy = d.getFullYear();
+            var myDateString = mm + '-' + dd + '-' + yy;
+
+            $("#sig_date").val(myDateString);
+
+            $("#startdate").datepicker({ minDate: "-5M -10D", maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+
+            $("#empstartdate1").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'MM yy'
+            });
+            $("#empenddate1").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'MM yy'
+            });
+
+            $("#empstartdate2").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'MM yy'
+            });
+            $("#empenddate2").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'MM yy'
+            });
+
+            $("#empstartdate3").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'MM yy'
+            });
+            $("#empenddate3").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'MM yy'
+            });
+
+        });
+
+        $(document).ready(function () {
+
+            $("#s3").hide();
+            $("#s33").hide();
+            $("#s2").hide();
+            $("#s22").hide();
+
+            $('#FinalChk1').click(function () {
+                if ($('#FinalChk1').prop("checked") == true && $('#FinalChk2').prop("checked") == true && $('#FinalChk3').prop("checked") == true && $('#FinalChk4').prop("checked") == true) {
+                    $('input[name=btnFSubmit]').removeAttr('disabled');
+                }
+                else {
+                    $('input[name=btnFSubmit]').prop('disabled', true);
+                }
+            });
+
+            $('#FinalChk2').click(function () {
+                if ($('#FinalChk1').prop("checked") == true && $('#FinalChk2').prop("checked") == true && $('#FinalChk3').prop("checked") == true && $('#FinalChk4').prop("checked") == true) {
+                    $('input[name=btnFSubmit]').removeAttr('disabled');
+                }
+                else {
+                    $('input[name=btnFSubmit]').prop('disabled', true);
+                }
+            });
+
+            $('#FinalChk3').click(function () {
+                if ($('#FinalChk1').prop("checked") == true && $('#FinalChk2').prop("checked") == true && $('#FinalChk3').prop("checked") == true && $('#FinalChk4').prop("checked") == true) {
+                    $('input[name=btnFSubmit]').removeAttr('disabled');
+                }
+                else {
+                    $('input[name=btnFSubmit]').prop('disabled', true);
+                }
+            });
+
+            $('#FinalChk4').click(function () {
+                if ($('#FinalChk1').prop("checked") == true && $('#FinalChk2').prop("checked") == true && $('#FinalChk3').prop("checked") == true && $('#FinalChk4').prop("checked") == true) {
+                    $('input[name=btnFSubmit]').removeAttr('disabled');
+                }
+                else {
+                    $('input[name=btnFSubmit]').prop('disabled', true);
+                }
+            });
+
+
+            //var canvas = document.getElementById("signature");
+            //var signaturePad = new SignaturePad(canvas);
+
+            $('#clear-signature').on('click', function () {
+                signaturePad.clear();
+            });
+
+            //var phones = [{ "mask": "(###) ###-####" }, { "mask": "(###) ###-##############" }];
+            //$('#fmobile').inputmask({
+            //    mask: phones,
+            //    greedy: false,
+            //    definitions: { '#': { validator: "[0-9]", cardinality: 1 } }
+            //});
+            //
+            //$('#workphone1').inputmask({
+            //    mask: phones,
+            //    greedy: false,
+            //    definitions: { '#': { validator: "[0-9]", cardinality: 1 } }
+            //});
+            //
+            //$('#workphone2').inputmask({
+            //    mask: phones,
+            //    greedy: false,
+            //    definitions: { '#': { validator: "[0-9]", cardinality: 1 } }
+            //});
+
+
+            $("#isconvictedyes").click(function () {
+                $("#s1").show();
+                $("#s11").show();
+
+            })
+
+            $("#isconvictedno").click(function () {
+
+                $("#s1").hide();
+                $("#s11").hide();
+
+
+            })
+            $("#availablesaturdayyes").click(function () {
+
+                $("#s2").hide();
+                $("#s22").hide();
+
+                $('#saturdaydetails').val('');
+
+            })
+
+            $("#availablesaturdayno").click(function () {
+
+                $("#s2").show();
+                $("#s22").show();
+            })
+
+            $("#availablesundayyes").click(function () {
+
+                $("#s3").hide();
+                $("#s33").hide();
+
+                $('#sundaydetails').val('');
+
+            })
+
+            $("#availablesundayno").click(function () {
+
+
+                $("#s3").show();
+                $("#s33").show();
+
+
+
+            })
+
+            //$("#workphone1").keydown(function (event) {
+            //    // Allow only backspace and delete
+            //    if (event.keyCode == 46 || event.keyCode == 8) {
+            //        // let it happen, don't do anything
+            //    }
+            //    else {
+            //        // Ensure that it is a number and stop the keypress
+            //        if (event.keyCode < 48 || event.keyCode > 57) {
+            //            event.preventDefault();
+            //        }
+            //    }
+            //});
+
+            //$("#workphone1").keypress(function (e) {
+            //    if (String.fromCharCode(e.keyCode).match(/[^0-9]/g))
+            //    {
+            //        alert('non numeric');
+            //        $("#workphone1").val('');
+            //        return false;
+            //    }
+            //});
+
+            $('#IsLeagalyAuthorizedNo').click(function () {
+                if ($('#IsLeagalyAuthorizedNo').is(':checked')) {
+                    alert('You should be legally authorized to work for this Company in the United States.\nIf not then you will not be able to fill the form.');
+                    $('#IsLeagallyAuthorized :input').prop('disabled', true);
+                    $('#IsLeagallyAuthorized :select').prop('disabled', true);
+                    $('#IsLeagallyAuthorized :submit').prop('disabled', true);
+                }
+            });
+
+            $('#IsLeagalyAuthorizedYes').click(function () {
+                if ($('#IsLeagalyAuthorizedYes').is(':checked')) {
+                    $('#IsLeagallyAuthorized :input').prop('disabled', false);
+                    $('#IsLeagallyAuthorized :select').prop('disabled', false);
+                    $('#IsLeagallyAuthorized :submit').prop('disabled', false);
+                }
+            });
+
+            $('#wp_id1').hide();
+            $('#wp_id2').hide();
+
+            //binds to onchange event of your input field
+            $('#linc_file').bind('change', function () {
+                var fileSize = this.files[0].size;
+                // 1048576
+                fileSize = fileSize / 1048576;
+                if (fileSize > 5) {
+                    alert("Maximum image size is 5 MB. \nPlease upload image below or equal to 5 MB.\nYour image size is - " + parseInt(fileSize) + " MB.");
+                    $('#linc_file').val('');
+                }
+
+            });
+
+
+            $("#workphone1").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if (this.value.length == 10) return false;
+            });
+
+            $("#workphone2").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if (this.value.length == 10) return false;
+            });
+
+            $("#workphone3").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if (this.value.length == 10) return false;
+            });
+
+            $("#fmobile").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if (this.value.length == 10) return false;
+            });
+
+            $("#zip").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if (this.value.length == 5) return false;
+            });
+
+            $("#zip1").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if (this.value.length == 5) return false;
+            });
+
+            $("#zip2").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if (this.value.length == 5) return false;
+            });
+
+            $("#zip3").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if (this.value.length == 5) return false;
+            });
+
+            $("#desiredpay").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if (this.value.length == 6) return false;
+            });
+
+
+            $("#yearsattended").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if (this.value.length == 4) return false;
+            });
+
+            $("#degreereceived").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if (this.value.length == 4) return false;
+            });
+
+            $("#yearsattended1").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if (this.value.length == 4) return false;
+            });
+
+            $("#degreereceived1").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if (this.value.length == 4) return false;
+            });
+
+            $("#endpayrate1").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if (this.value.length == 6) return false;
+            });
+
+            $("#endpayrate2").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if (this.value.length == 6) return false;
+            });
+
+            $("#endpayrate3").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if (this.value.length == 6) return false;
+            });
+
+
+        });
+
+        function sendImageToServer() {
+            //debugger;
+            var image = document.getElementById("signature").toDataURL("image/png");
+            image = image.replace('data:image/png;base64,', '');
+            $.ajax({
+                type: 'GET',
+                url: '/Admin/UploadImage/',
+                data: '{ "imageData" : "' + image + '" }',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (msg) {
+                    //alert('Image saved successfully !');
+                }
+            });
+
+        }
+
+        function Validation() {
+            var wp1 = $('#WorkPerformed1').val();
+            if (wp1.trim() == '') {
+                $('#wp_id1').show();
+            }
+
+            var wp2 = $('#WorkPerformed2').val();
+            if (wp2.trim() == '') {
+                $('#wp_id2').show();
+            }
+        }
+
+
+
+        /**/</script>
+
+</head>
+<body>
+
+    <div class="container">
+
+        @if (ViewBag.applicationSubmittedDate != null)
+        {
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <center><h2>You have already submitted the Application Form...</h2>
+                    <h2>Thank You...</h2>
+                      
+            </center>
+        }
+
+        else
+        {
+
+            using (Html.BeginForm("ApplicatinForm", "Admin", FormMethod.Post, new { @class = "form-horizontal", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form", @enctype = "multipart/form-data" }))
+            {
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <!-- PERSONAL INFO SECTION -->
+                        <h3 style="padding: 2px 5px; background:#232e42; color: #fff;">PERSONAL INFORMATION</h3>
+
+                        <label> Note : Mandatory Fields <span style="color:red;font-size:20px;">*</span></label>
+
+                        <input type="hidden" value="@ViewBag.emp_id" name="emp_id" />
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="name"> Full Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name" name="fname" placeholder="Enter Name" databvalidator="required,alpha" value="@Model.emp_name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @*<label class="control-label col-sm-2" for="dob">DOB<span style="color:red;font-size:20px;">*</span>:</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="ddob" name="dob" databvalidator="required">
+                            </div>*@
+
+                            <label class="control-label col-sm-2" for="mobile">Mobile<span style="color:red;font-size:20px;">*</span>:</label>
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" value="@Model.emp_phone" id="fmobile" name="mobile" maxlength="10" databvalidator="required">
+                            </div>
+
+                            <label class="control-label col-sm-2" for="email">Email<span style="color:red;font-size:20px;">*</span>:</label>
+                            <div class="col-sm-4">
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" databvalidator="required" value="@Model.emp_personal_email">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="addr">Address<span style="color:red;font-size:20px;">*</span>:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="addr" placeholder="Enter Street" name="addr" databvalidator="required">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="city">City<span style="color:red;font-size:20px;">*</span>:</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="city" name="city" databvalidator="required">
+                            </div>
+
+                            <label class="control-label col-sm-2" for="state">State<span style="color:red;font-size:20px;">*</span>:</label>
+                            <div class="col-sm-2">
+                                <select databvalidator="required" type="text" name="state" class="form-control">
+                                    <option value="">  </option>
+                                    <option value="Alabama"> Alabama </option>
+                                    <option value="Alaska"> Alaska </option>
+                                    <option value="Arizona"> Arizona </option>
+                                    <option value="Arkansas"> Arkansas </option>
+                                    <option value="California"> California </option>
+                                    <option value="Colorado"> Colorado </option>
+                                    <option value="Connecticut"> Connecticut </option>
+                                    <option value="Delaware"> Delaware </option>
+                                    <option value="District Of Columbia"> District Of Columbia </option>
+                                    <option value="Florida"> Florida </option>
+                                    <option value="Georgia"> Georgia </option>
+                                    <option value="Hawaii"> Hawaii </option>
+                                    <option value="Idaho"> Idaho </option>
+                                    <option value="Illinois"> Illinois </option>
+                                    <option value="Indiana"> Indiana </option>
+                                    <option value="Iowa"> Iowa </option>
+                                    <option value="Kansas"> Kansas </option>
+                                    <option value="Kentucky"> Kentucky </option>
+                                    <option value="Louisiana"> Louisiana </option>
+                                    <option value="Maine"> Maine </option>
+                                    <option value="Maryland"> Maryland </option>
+                                    <option value="Massachusetts"> Massachusetts </option>
+                                    <option value="Michigan"> Michigan </option>
+                                    <option value="Minnesota"> Minnesota </option>
+                                    <option value="Mississippi"> Mississippi </option>
+                                    <option value="Missouri"> Missouri </option>
+                                    <option value="Montana"> Montana </option>
+                                    <option value="Nebraska"> Nebraska </option>
+                                    <option value="Nevada"> Nevada </option>
+                                    <option value="New Hampshire"> New Hampshire </option>
+                                    <option value="New Jersey" selected> New Jersey </option>
+                                    <option value="New Mexico"> New Mexico </option>
+                                    <option value="New York"> New York </option>
+                                    <option value="North Carolina"> North Carolina </option>
+                                    <option value="North Dakota"> North Dakota </option>
+                                    <option value="Ohio"> Ohio </option>
+                                    <option value="Oklahoma"> Oklahoma </option>
+                                    <option value="Oregon"> Oregon </option>
+                                    <option value="Pennsylvania"> Pennsylvania </option>
+                                    <option value="Rhode Island"> Rhode Island </option>
+                                    <option value="South Carolina"> South Carolina </option>
+                                    <option value="South Dakota"> South Dakota </option>
+                                    <option value="Tennessee"> Tennessee </option>
+                                    <option value="Texas"> Texas </option>
+                                    <option value="Utah"> Utah </option>
+                                    <option value="Vermont"> Vermont </option>
+                                    <option value="Virginia"> Virginia </option>
+                                    <option value="Washington"> Washington </option>
+                                    <option value="West Virginia"> West Virginia </option>
+                                    <option value="Wisconsin"> Wisconsin </option>
+                                    <option value="Wyoming"> Wyoming </option>
+                                </select>
+                            </div>
+
+                            <label class="control-label col-sm-2" for="zip">Zip<span style="color:red;font-size:20px;">*</span>:</label>
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" maxlength="5" id="zip" placeholder="Enter Zip" name="zip" databvalidator="number,required">
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                            <label class="control-label col-sm-2">Are you a US Citizen?</label>
+                            <div class="col-sm-2">
+                                <input type="radio" name="iscitizenus" value="yes"> Yes
+                                <input type="radio" name="iscitizenus" value="no"> No
+                            </div>
+
+                            <label class="control-label col-sm-2">If no, are you Legally allowed to work in the USA?:</label>
+                            <div class="col-sm-2">
+                                <input type="radio" name="islegallyallowed" value="yes"> Yes
+                                <input type="radio" name="islegallyallowed" value="no"> No
+                            </div>
+
+                            <label class="control-label col-sm-2">Are You Willing to Submit to a 5-point Pre-Employment Drug Screening Test?:</label>
+                            <div class="col-sm-2">
+                                <input type="radio" name="submitdrugtest" value="yes"> Yes
+                                <input type="radio" name="submitdrugtest" value="no"> No
+                            </div>
+                        </div>*@
+
+
+                        @*<div class="form-group">
+                            <label class="control-label col-sm-3">Have You Ever Been Convicted of a Felony?:</label>
+                            <div class="col-sm-2">
+                                <input type="radio" name="isconvicted" id="isconvictedyes" value="yes"> Yes
+                                <input type="radio" name="isconvicted" id="isconvictedno" value="no"> No
+                            </div>
+
+                            <label id="s1" class="control-label col-sm-2" for="convictiondetails">Explain:</label>
+                            <div class="col-sm-5" id="s11">
+                                <input type="text" class="form-control" id="convictiondetails" name="convictiondetails">
+                            </div>
+                        </div>*@
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Are you Available to work Saturday?<span style="color:red;font-size:20px;">*</span>:</label>
+                            <div class="col-sm-2">
+                                <input type="radio" name="availablesaturday" id="availablesaturdayyes" value="yes" databvalidator="required"> Yes
+                                <input type="radio" name="availablesaturday" id="availablesaturdayno" value="no"> No
+                            </div>
+
+                            <label id="s2" class="control-label col-sm-2" for="saturdaydetails">Please Explain<span style="color:red;font-size:20px;">*</span>:</label>
+                            <div class="col-sm-5" id="s22">
+                                <input type="text" class="form-control" id="saturdaydetails" name="saturdaydetails" databvalidator="required">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Are you Available to work Sunday?<span style="color:red;font-size:20px;">*</span>:</label>
+                            <div class="col-sm-2">
+                                <input type="radio" name="availablesunday" id="availablesundayyes" value="yes" databvalidator="required"> Yes
+                                <input type="radio" name="availablesunday" id="availablesundayno" value="no"> No
+                            </div>
+
+                            <label id="s3" class="control-label col-sm-2" for="sundaydetails">Please Explain<span style="color:red;font-size:20px;">*</span>:</label>
+                            <div class="col-sm-5" id="s33">
+                                <input type="text" class="form-control" id="sundaydetails" name="sundaydetails" databvalidator="required">
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                            <label class="control-label col-sm-7">Have you received tickets and or points on your Driving record in the past 7 years?</label>
+                            <div class="col-sm-2">
+                                <input type="radio" name="isdrivingticket" value="yes"> Yes
+                                <input type="radio" name="isdrivingticket" value="no"> No
+                            </div>
+
+                            <label class="control-label col-sm-1" for="ticketcount">No of Points:</label>
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" id="ticketcount" data-bvalidator="number" name="ticketcount">
+                            </div>
+                        </div>*@
+
+                        @*<div class="form-group">
+                            <label class="control-label col-sm-2" for="dl">Drv. Lic.#<span style="color:red;font-size:20px;">*</span>:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="dl" name="dl" databvalidator="required">
+                            </div>
+                        </div>*@
+
+
+                        <!-- POSITION INFO SECTION -->
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">How did you hear about us? :</label>
+                            <div class="col-sm-2">
+                                <input type="hidden" id="SOIid" name="SOIid" value="@Model.source_id" />
+                                @{
+                                    if (Model.source_id != null)
+                                    {
+                                        var SOI = dc.tblsources.Find(Model.source_id);
+                                        <input type="text" name="SourceOfInquiry" class="form-control" value="@SOI.source_name" id="SourceOfInquiry" databvalidator="required" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" name="SourceOfInquiry" class="form-control" id="SourceOfInquiry" databvalidator="required" />
+                                    }
+                                }
+
+                            </div>
+
+                            <label class="control-label col-sm-6">Are you legally authorized to work for this Company in the United States?<span style="color:red;font-size:20px;">*</span>:</label>
+
+                            <div class="col-sm-2">
+                                <input type="radio" id="IsLeagalyAuthorizedYes" name="IsLeagalyAuthorized" value="yes" databvalidator="required"> Yes
+                                <input type="radio" id="IsLeagalyAuthorizedNo" name="IsLeagalyAuthorized" value="no"> No
+                            </div>
+
+                        </div>
+                        <div id="IsLeagallyAuthorized">
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-10">Will you now or in the future require sponsorship by this Company to attain or maintain your  employment status?<span style="color:red;font-size:20px;">*</span>:</label>
+                                <div class="col-sm-2">
+                                    <input type="radio" name="IsSponShipRequired" value="yes" databvalidator="required"> Yes
+                                    <input type="radio" name="IsSponShipRequired" value="no"> No
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <p>
+                                        <b>Note:</b>  If hired, you must complete Section 1 on Form I-9 required by the U.S. Immigration and Naturalization Service no later than first day of work and provide the documentation required by Section 2 no later than three (3) business days after you start work.  A copy of the back of Form I-9, listing acceptable documentation, is available.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <p>
+                                        Thank you for your interest in employment with this Company.  The Company is committed to a policy of Equal Employment Opportunity and will not discriminate against an applicant on the basis of age, sex, sexual orientation, gender, gender identity or expression, race, color, creed, religion, ethnicity, national origin, alienage or citizenship, disability, marital status, familial status, genetic information, uniform service or veteran status or any other legally protected basis under applicable federal, state or local laws, regulations or ordinances.  The Company will provide reasonable accommodations to allow an applicant to participate in the application and hiring process if requested.   Please inform us if you need assistance completing any forms or to otherwise participate in the application process.
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <h3 style="padding: 2px 5px; background:#232e42; color: #fff;">POSITION</h3>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="position">Position Applied for:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="position" value="Delivery Associate" disabled name="position">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="startdate">Available Start Date<span style="color:red;font-size:20px;">*</span>:</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" id="startdate" name="startdate" databvalidator="required">
+                                </div>
+
+                                <label class="control-label col-sm-2" for="desiredpay">Desired Pay<span style="color:red;font-size:20px;">*</span>:</label>
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" id="desiredpay" name="desiredpay" databvalidator="required">
+                                </div>
+
+                                <label class="control-label col-sm-2">Employment Desired?<span style="color:red;font-size:20px;">*</span></label>
+                                <div class="col-sm-2">
+                                    <input type="radio" name="employmentdesired" value="fulltime" datavalidator="required"> Full Time
+                                    <input type="radio" name="employmentdesired" value="parttime"> Part Time
+                                    <input type="radio" name="employmentdesired" value="seasonal"> Seasonal/Temp
+                                </div>
+                            </div>
+
+                            <!-- EDUCATION SECTION -->
+                            <h3 style="padding: 2px 5px; background:#232e42; color: #fff;">EDUCATION</h3>
+
+                            @*<div class="table-responsive">
+                                <table class="table w-auto">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">School Name</th>
+                                            <th scope="col">Location</th>
+                                            <th scope="col">Years Attended</th>
+                                            <th scope="col">Degree Received</th>
+                                            <th scope="col">Major</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" class="form-control" id="schoolname" name="schoolname1"></td>
+                                            <td><input type="text" class="form-control" id="location" name="location1"></td>
+                                            <td><input type="text" class="form-control" id="yearsattended" name="yearsattended1"></td>
+                                            <td><input type="text" class="form-control" id="degreereceived" name="degreereceived1"></td>
+                                            <td><input type="text" class="form-control" id="major" name="major1"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="form-control" id="schoolname" name="schoolname2"></td>
+                                            <td><input type="text" class="form-control" id="location" name="location2"></td>
+                                            <td><input type="text" class="form-control" id="yearsattended" name="yearsattended2"></td>
+                                            <td><input type="text" class="form-control" id="degreereceived" name="degreereceived2"></td>
+                                            <td><input type="text" class="form-control" id="major" name="major2"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>*@
+                            <div class="col-lg-12">
+                                <div class="row" style="background:#d1d1d1; padding:5px;">
+
+                                    <div class="col-lg-4 col-md-4 col-sm-12">
+
+                                        <label>School Name</label>
+                                        <input type="text" class="form-control" id="schoolname" name="schoolname1">
+
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+
+                                        <label>Location</label>
+                                        <input type="text" class="form-control" id="location" name="location1">
+
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <label>Year Graduated</label>
+
+                                        <input type="number" class="form-control" id="yearsattended" name="yearsattended1">
+
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+
+                                        <label>Degree Received</label>
+                                        <input type="number" class="form-control" id="degreereceived" name="degreereceived1">
+
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+
+                                        <label>Major</label>
+                                        <input type="text" class="form-control" id="major" name="major1">
+
+                                    </div>
+                                    <br />
+
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="col-lg-12">
+                                <div class="row" style="background:#d1d1d1; padding:5px;">
+                                    <div class="col-lg-4 col-md-4 col-sm-12">
+                                        <label>School Name</label>
+                                        <input type="text" class="form-control" id="schoolname" name="schoolname2">
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <label>Location</label>
+                                        <input type="text" class="form-control" id="location" name="location2">
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <label>Years Graduated</label>
+                                        <input type="number" class="form-control" id="yearsattended1" name="yearsattended2">
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <label>Degree Received</label>
+                                        <input type="number" class="form-control" id="degreereceived1" name="degreereceived2">
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <label>Major</label>
+                                        <input type="text" class="form-control" id="major" name="major2">
+                                    </div>
+
+                                    <br />
+                                </div>
+                            </div>
+
+                            <div class="row"></div>
+                            <!-- EMPLOYEEMETN HISTORY -->
+                            <div><h3 style="padding: 2px 5px; background:#232e42; color: #fff;">EMPLOYMENT HISTORY</h3></div>
+                            <div class="col-lg-12">
+
+                                <div class="row" style="background:#d1d1d1; padding:5px;">
+                                    <div class="col-lg-4 col-md-4 col-sm-12">
+                                        <div class="form-group">
+
+                                            <label>EMPLOYER NAME<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="text" class="form-control" id="schoolname" name="employer1" databvalidator="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+
+                                            <label>JOB TITLE<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="text" class="form-control" id="jobtitle1" name="jobtitle1" databvalidator="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+
+                                            <label>WORK PHONE<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="number" class="form-control" id="workphone1" name="workphone1" maxlength="10" databvalidator="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+
+                                            <label>START DATE<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="text" class="form-control" id="empstartdate1" name="empstartdate1" databvalidator="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+
+                                            <label>END DATE<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="text" class="form-control" id="empenddate1" name="empenddate1" databvalidator="required">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="background:#d1d1d1; padding:5px;">
+                                    <div class="col-lg-4 col-md-4 col-sm-12">
+                                        <div class="form-group">
+                                            <label>ADDRESS<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="text" class="form-control" id="address1" name="address1" databvalidator="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+
+                                            <label>CITY<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="text" class="form-control" id="city1" name="city1" databvalidator="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+
+                                            <label>STATE<span style="color:red;font-size:20px;">*</span></label>
+                                            <select type="text" name="state1" class="form-control" databvalidator="required">
+                                                <option value="">  </option>
+                                                <option value="Alabama"> Alabama </option>
+                                                <option value="Alaska"> Alaska </option>
+                                                <option value="Arizona"> Arizona </option>
+                                                <option value="Arkansas"> Arkansas </option>
+                                                <option value="California"> California </option>
+                                                <option value="Colorado"> Colorado </option>
+                                                <option value="Connecticut"> Connecticut </option>
+                                                <option value="Delaware"> Delaware </option>
+                                                <option value="District Of Columbia"> District Of Columbia </option>
+                                                <option value="Florida"> Florida </option>
+                                                <option value="Georgia"> Georgia </option>
+                                                <option value="Hawaii"> Hawaii </option>
+                                                <option value="Idaho"> Idaho </option>
+                                                <option value="Illinois"> Illinois </option>
+                                                <option value="Indiana"> Indiana </option>
+                                                <option value="Iowa"> Iowa </option>
+                                                <option value="Kansas"> Kansas </option>
+                                                <option value="Kentucky"> Kentucky </option>
+                                                <option value="Louisiana"> Louisiana </option>
+                                                <option value="Maine"> Maine </option>
+                                                <option value="Maryland"> Maryland </option>
+                                                <option value="Massachusetts"> Massachusetts </option>
+                                                <option value="Michigan"> Michigan </option>
+                                                <option value="Minnesota"> Minnesota </option>
+                                                <option value="Mississippi"> Mississippi </option>
+                                                <option value="Missouri"> Missouri </option>
+                                                <option value="Montana"> Montana </option>
+                                                <option value="Nebraska"> Nebraska </option>
+                                                <option value="Nevada"> Nevada </option>
+                                                <option value="New Hampshire"> New Hampshire </option>
+                                                <option value="New Jersey"> New Jersey </option>
+                                                <option value="New Mexico"> New Mexico </option>
+                                                <option value="New York"> New York </option>
+                                                <option value="North Carolina"> North Carolina </option>
+                                                <option value="North Dakota"> North Dakota </option>
+                                                <option value="Ohio"> Ohio </option>
+                                                <option value="Oklahoma"> Oklahoma </option>
+                                                <option value="Oregon"> Oregon </option>
+                                                <option value="Pennsylvania"> Pennsylvania </option>
+                                                <option value="Rhode Island"> Rhode Island </option>
+                                                <option value="South Carolina"> South Carolina </option>
+                                                <option value="South Dakota"> South Dakota </option>
+                                                <option value="Tennessee"> Tennessee </option>
+                                                <option value="Texas"> Texas </option>
+                                                <option value="Utah"> Utah </option>
+                                                <option value="Vermont"> Vermont </option>
+                                                <option value="Virginia"> Virginia </option>
+                                                <option value="Washington"> Washington </option>
+                                                <option value="West Virginia"> West Virginia </option>
+                                                <option value="Wisconsin"> Wisconsin </option>
+                                                <option value="Wyoming"> Wyoming </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+
+                                            <label>ZIP<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="number" maxlength="5" class="form-control" id="zip1" name="zip1" databvalidator="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+
+                                            <label>ENDING PAY RATE<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="number" class="form-control" databvalidator="required" id="endpayrate1" name="endpayrate1">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="form-group">
+
+                                            <label>Work Performed and Reason for Leaving<span style="color:red;font-size:20px;">*</span></label>
+                                            <span style="color:red" id="wp_id1">Please enter work performed</span>
+                                            <textarea id="WorkPerformed1" datavalidator="required" style="width:100% !important" name="WorkPerformed1" rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            @*</div>*@
+
+                            <br />
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-12">
+                                        <div class="form-group">
+                                            <label>EMPLOYER NAME<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="text" class="form-control" id="employer2" name="employer2" databvalidator="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+                                            <label>JOB TITLE<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="text" class="form-control" id="jobtitle2" name="jobtitle2" databvalidator="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+                                            <label>WORK PHONE<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="number" class="form-control" id="workphone2" name="workphone2" maxlength="10" databvalidator="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+                                            <label>START DATE<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="text" class="form-control" id="empstartdate2" name="empstartdate2" databvalidator="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+                                            <label>END DATE<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="text" class="form-control" id="empenddate2" name="empenddate2" databvalidator="required">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-lg-4 col-md-4 col-sm-12">
+                                        <div class="form-group">
+                                            <label>ADDRESS<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="text" class="form-control" id="address2" name="address2" databvalidator="required">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+                                            <label>CITY<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="text" class="form-control" id="city2" name="city2" databvalidator="required">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+                                            <label>STATE<span style="color:red;font-size:20px;">*</span></label>
+                                            <select type="text" name="state2" class="form-control" databvalidator="required">
+                                                <option value="">  </option>
+                                                <option value="Alabama"> Alabama </option>
+                                                <option value="Alaska"> Alaska </option>
+                                                <option value="Arizona"> Arizona </option>
+                                                <option value="Arkansas"> Arkansas </option>
+                                                <option value="California"> California </option>
+                                                <option value="Colorado"> Colorado </option>
+                                                <option value="Connecticut"> Connecticut </option>
+                                                <option value="Delaware"> Delaware </option>
+                                                <option value="District Of Columbia"> District Of Columbia </option>
+                                                <option value="Florida"> Florida </option>
+                                                <option value="Georgia"> Georgia </option>
+                                                <option value="Hawaii"> Hawaii </option>
+                                                <option value="Idaho"> Idaho </option>
+                                                <option value="Illinois"> Illinois </option>
+                                                <option value="Indiana"> Indiana </option>
+                                                <option value="Iowa"> Iowa </option>
+                                                <option value="Kansas"> Kansas </option>
+                                                <option value="Kentucky"> Kentucky </option>
+                                                <option value="Louisiana"> Louisiana </option>
+                                                <option value="Maine"> Maine </option>
+                                                <option value="Maryland"> Maryland </option>
+                                                <option value="Massachusetts"> Massachusetts </option>
+                                                <option value="Michigan"> Michigan </option>
+                                                <option value="Minnesota"> Minnesota </option>
+                                                <option value="Mississippi"> Mississippi </option>
+                                                <option value="Missouri"> Missouri </option>
+                                                <option value="Montana"> Montana </option>
+                                                <option value="Nebraska"> Nebraska </option>
+                                                <option value="Nevada"> Nevada </option>
+                                                <option value="New Hampshire"> New Hampshire </option>
+                                                <option value="New Jersey"> New Jersey </option>
+                                                <option value="New Mexico"> New Mexico </option>
+                                                <option value="New York"> New York </option>
+                                                <option value="North Carolina"> North Carolina </option>
+                                                <option value="North Dakota"> North Dakota </option>
+                                                <option value="Ohio"> Ohio </option>
+                                                <option value="Oklahoma"> Oklahoma </option>
+                                                <option value="Oregon"> Oregon </option>
+                                                <option value="Pennsylvania"> Pennsylvania </option>
+                                                <option value="Rhode Island"> Rhode Island </option>
+                                                <option value="South Carolina"> South Carolina </option>
+                                                <option value="South Dakota"> South Dakota </option>
+                                                <option value="Tennessee"> Tennessee </option>
+                                                <option value="Texas"> Texas </option>
+                                                <option value="Utah"> Utah </option>
+                                                <option value="Vermont"> Vermont </option>
+                                                <option value="Virginia"> Virginia </option>
+                                                <option value="Washington"> Washington </option>
+                                                <option value="West Virginia"> West Virginia </option>
+                                                <option value="Wisconsin"> Wisconsin </option>
+                                                <option value="Wyoming"> Wyoming </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+                                            <label>ZIP<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="number" databvalidator="required" maxlength="5" class="form-control" id="zip2" name="zip2">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+                                            <label>ENDING PAY RATE<span style="color:red;font-size:20px;">*</span></label>
+                                            <input type="number" class="form-control" databvalidator="required" id="endpayrate2" name="endpayrate2">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="form-group">
+                                            <label>Work Performed and Reason for Leaving<span style="color:red;font-size:20px;">*</span></label>
+                                            <span style="color:red" id="wp_id2">Please enter work performed</span>
+                                            <textarea style="width:100% !important" id="WorkPerformed2" datavalidator="required" name="WorkPerformed2" rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <br />
+                                </div>
+                                <div class="row">
+                                    
+                                    <button type="button" class="btn btn-primary" style="float:right;" id="showblock2" onclick="showblock2()">Add More</button>
+                                    <br/><br/>
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="col-lg-12" id="block3" style="display:none;">
+                                <div class="row">
+                                    <button type="button" class="btn btn-primary" style="background:red !important; float:right;" id="hideblock2" onclick="hideblock2()">X</button>
+                                    <br /><br />
+                                </div>
+                                <div class="row" style="background:#d1d1d1; padding:5px;">
+
+                                    <div class="col-lg-4 col-md-4 col-sm-12">
+                                        <div class="form-group">
+                                            <label>EMPLOYER NAME</label>
+                                            <input type="text" class="form-control" id="employer3" name="employer3">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+                                            <label>JOB TITLE</label>
+                                            <input type="text" class="form-control" id="jobtitle3" name="jobtitle3">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+                                            <label>WORK PHONE</label>
+                                            <input type="number" class="form-control" id="workphone3" name="workphone3" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+                                            <label>START DATE</label>
+                                            <input type="text" class="form-control" id="empstartdate3" name="empstartdate3">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+                                            <label>END DATE</label>
+                                            <input type="text" class="form-control" id="empenddate3" name="empenddate3">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="background:#d1d1d1; padding:5px;">
+
+                                    <div class="col-lg-4 col-md-4 col-sm-12">
+                                        <div class="form-group">
+                                            <label>ADDRESS</label>
+                                            <input type="text" class="form-control" id="address3" name="address3">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+                                            <label>CITY</label>
+                                            <input type="text" class="form-control" id="city3" name="city3">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+                                            <label>STATE</label>
+                                            <select type="text" name="state3" class="form-control">
+                                                <option value="">  </option>
+                                                <option value="Alabama"> Alabama </option>
+                                                <option value="Alaska"> Alaska </option>
+                                                <option value="Arizona"> Arizona </option>
+                                                <option value="Arkansas"> Arkansas </option>
+                                                <option value="California"> California </option>
+                                                <option value="Colorado"> Colorado </option>
+                                                <option value="Connecticut"> Connecticut </option>
+                                                <option value="Delaware"> Delaware </option>
+                                                <option value="District Of Columbia"> District Of Columbia </option>
+                                                <option value="Florida"> Florida </option>
+                                                <option value="Georgia"> Georgia </option>
+                                                <option value="Hawaii"> Hawaii </option>
+                                                <option value="Idaho"> Idaho </option>
+                                                <option value="Illinois"> Illinois </option>
+                                                <option value="Indiana"> Indiana </option>
+                                                <option value="Iowa"> Iowa </option>
+                                                <option value="Kansas"> Kansas </option>
+                                                <option value="Kentucky"> Kentucky </option>
+                                                <option value="Louisiana"> Louisiana </option>
+                                                <option value="Maine"> Maine </option>
+                                                <option value="Maryland"> Maryland </option>
+                                                <option value="Massachusetts"> Massachusetts </option>
+                                                <option value="Michigan"> Michigan </option>
+                                                <option value="Minnesota"> Minnesota </option>
+                                                <option value="Mississippi"> Mississippi </option>
+                                                <option value="Missouri"> Missouri </option>
+                                                <option value="Montana"> Montana </option>
+                                                <option value="Nebraska"> Nebraska </option>
+                                                <option value="Nevada"> Nevada </option>
+                                                <option value="New Hampshire"> New Hampshire </option>
+                                                <option value="New Jersey"> New Jersey </option>
+                                                <option value="New Mexico"> New Mexico </option>
+                                                <option value="New York"> New York </option>
+                                                <option value="North Carolina"> North Carolina </option>
+                                                <option value="North Dakota"> North Dakota </option>
+                                                <option value="Ohio"> Ohio </option>
+                                                <option value="Oklahoma"> Oklahoma </option>
+                                                <option value="Oregon"> Oregon </option>
+                                                <option value="Pennsylvania"> Pennsylvania </option>
+                                                <option value="Rhode Island"> Rhode Island </option>
+                                                <option value="South Carolina"> South Carolina </option>
+                                                <option value="South Dakota"> South Dakota </option>
+                                                <option value="Tennessee"> Tennessee </option>
+                                                <option value="Texas"> Texas </option>
+                                                <option value="Utah"> Utah </option>
+                                                <option value="Vermont"> Vermont </option>
+                                                <option value="Virginia"> Virginia </option>
+                                                <option value="Washington"> Washington </option>
+                                                <option value="West Virginia"> West Virginia </option>
+                                                <option value="Wisconsin"> Wisconsin </option>
+                                                <option value="Wyoming"> Wyoming </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+                                            <label>ZIP</label>
+                                            <input type="number" databvalidator="number" maxlength="5" class="form-control" id="zip3" name="zip3">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        <div class="form-group">
+                                            <label>ENDING PAY RATE</label>
+                                            <input type="number" class="form-control" databvalidator="number" id="endpayrate3" name="endpayrate3">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="form-group">
+                                            <label>Work Performed and Reason for Leaving</label>
+                                            <textarea style="width:100% !important" name="WorkPerformed3" rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <br />
+                                </div>
+                            </div>
+
+
+                            @*<div style="background-color:RGBA(0,0,0,0.025); padding:10px;">
+                                <h4><b>Last Employer</b></h4>
+                                <table class="table w-auto">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">EMPLOYER NAME</th>
+                                            <th scope="col">JOB TITLE</th>
+                                            <th scope="col">WORK PHONE</th>
+                                            <th scope="col">STARTING PAY RATE</th>
+                                            <th scope="col">ENDING PAY RATE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" class="form-control" id="schoolname" name="employer2"></td>
+                                            <td><input type="text" class="form-control" id="jobtitle2" name="jobtitle2"></td>
+                                            <td><input type="text" class="form-control" id="workphone2" maxlength="10" name="workphone2"></td>
+                                            <td><input type="number" class="form-control" databvalidator="number" id="startpayingrate2" name="startpayingrate2"></td>
+                                            <td><input type="number" class="form-control" id="endpayrate2" databvalidator="number" name="endpayrate2"></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                                <table class="table w-auto">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ADDRESS</th>
+                                            <th scope="col">CITY</th>
+                                            <th scope="col">STATE</th>
+                                            <th scope="col">ZIP</th>
+                                            <th scope="col">REMARKS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" class="form-control" id="address2" name="address2"></td>
+                                            <td><input type="text" class="form-control" id="city2" name="city2"></td>
+                                            <td>
+                                                <select name="state2" class="form-control">
+                                                    <option value="">  </option>
+                                                    <option value="Alabama"> Alabama </option>
+                                                    <option value="Alaska"> Alaska </option>
+                                                    <option value="Arizona"> Arizona </option>
+                                                    <option value="Arkansas"> Arkansas </option>
+                                                    <option value="California"> California </option>
+                                                    <option value="Colorado"> Colorado </option>
+                                                    <option value="Connecticut"> Connecticut </option>
+                                                    <option value="Delaware"> Delaware </option>
+                                                    <option value="District Of Columbia"> District Of Columbia </option>
+                                                    <option value="Florida"> Florida </option>
+                                                    <option value="Georgia"> Georgia </option>
+                                                    <option value="Hawaii"> Hawaii </option>
+                                                    <option value="Idaho"> Idaho </option>
+                                                    <option value="Illinois"> Illinois </option>
+                                                    <option value="Indiana"> Indiana </option>
+                                                    <option value="Iowa"> Iowa </option>
+                                                    <option value="Kansas"> Kansas </option>
+                                                    <option value="Kentucky"> Kentucky </option>
+                                                    <option value="Louisiana"> Louisiana </option>
+                                                    <option value="Maine"> Maine </option>
+                                                    <option value="Maryland"> Maryland </option>
+                                                    <option value="Massachusetts"> Massachusetts </option>
+                                                    <option value="Michigan"> Michigan </option>
+                                                    <option value="Minnesota"> Minnesota </option>
+                                                    <option value="Mississippi"> Mississippi </option>
+                                                    <option value="Missouri"> Missouri </option>
+                                                    <option value="Montana"> Montana </option>
+                                                    <option value="Nebraska"> Nebraska </option>
+                                                    <option value="Nevada"> Nevada </option>
+                                                    <option value="New Hampshire"> New Hampshire </option>
+                                                    <option value="New Jersey"> New Jersey </option>
+                                                    <option value="New Mexico"> New Mexico </option>
+                                                    <option value="New York"> New York </option>
+                                                    <option value="North Carolina"> North Carolina </option>
+                                                    <option value="North Dakota"> North Dakota </option>
+                                                    <option value="Ohio"> Ohio </option>
+                                                    <option value="Oklahoma"> Oklahoma </option>
+                                                    <option value="Oregon"> Oregon </option>
+                                                    <option value="Pennsylvania"> Pennsylvania </option>
+                                                    <option value="Rhode Island"> Rhode Island </option>
+                                                    <option value="South Carolina"> South Carolina </option>
+                                                    <option value="South Dakota"> South Dakota </option>
+                                                    <option value="Tennessee"> Tennessee </option>
+                                                    <option value="Texas"> Texas </option>
+                                                    <option value="Utah"> Utah </option>
+                                                    <option value="Vermont"> Vermont </option>
+                                                    <option value="Virginia"> Virginia </option>
+                                                    <option value="Washington"> Washington </option>
+                                                    <option value="West Virginia"> West Virginia </option>
+                                                    <option value="Wisconsin"> Wisconsin </option>
+                                                    <option value="Wyoming"> Wyoming </option>
+                                                </select>
+                                            </td>
+                                            <td><input type="number" databvalidator="number" class="form-control" id="zip2" name="zip2"></td>
+                                            <td><input type="text" class="form-control" id="remak2" name="remak2"></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>*@
+
+                            <div class="row"></div>
+                            <h3 style="padding: 2px 5px; background:#232e42; color: #fff;">SIGNATURE DISCLAIMER</h3>
+
+                            <br />
+                            <center><b>CERTIFICATION - PLEASE READ CAREFULLY BEFORE SIGNING</b></center>
+
+                            <div class="scrollingDiv" id="idDISCLAIMER">
+
+                                <br />
+                                <p>
+                                    I consent to and authorize the Company to contact my former employers, and any and all other persons and
+                                    organizations for information bearing upon my qualifications for employment. Unless I noted otherwise, I
+                                    further authorize the listed employers, schools, and personal references to give the Company (without further
+                                    notice to me) any and all information about my previous employment and education, along with other pertinent
+                                    information they may have and hereby waive any actions which I may have against either party/parties for
+                                    providing a reference as part of this application process. I understand that any employment or offer of
+                                    employment arising from this Application for Employment will be subject to satisfactory verification of all job
+                                    qualifications and information contained in this Application for Employment, which may include academic
+                                    credentials, licenses, professional designations, references, credit and employment history, motor vehicles and
+                                    other background checks, to the extent permitted by and in accordance with applicable law.
+                                    <br />
+                                    <input type="checkbox" id="FinalChk1" name="FinalChk1" value="RnU1" /> I have read and understand the above paragraph.
+
+                                </p>
+
+                                <br />
+
+                                <p>
+                                    <b>
+                                        I expressly agree and understand that completion of this application is a preliminary step to employment. It
+                                        does not obligate the Company to offer me employment or for me to accept employment. I further agree
+                                        and understand that in the event I am employed by the Company, my employment with the Company will be
+                                        “at will.”
+                                    </b>
+                                    This means that my employment is not for a specified term and that it may be terminated by the
+                                    Company or me at any time, for any reason, with or without cause or notice.
+                                    <b>
+                                        I understand that no document or
+                                        any statement of any employee of the Company constitutes a contract of employment between me and the
+                                        Company that in any way alters or changes my employment at will status.
+                                    </b>
+                                    I further understand that the at-will
+                                    nature of my employment cannot be changed, on an individual or collective basis, except by a formal written
+                                    contract, stating it is a contract of employment, signed by the President/CEO of the Company. I understand that
+                                    this Application for Employment does not constitute an agreement or contract for employment between me and
+                                    the Company.
+                                    <br />
+                                    <input type="checkbox" id="FinalChk2" name="FinalChk2" value="RnU2" /> I have read and understand the above paragraph.
+                                    <br />
+                                    <br />
+                                </p>
+
+
+                                <p>
+                                    In the event I am employed by the Company, I understand that I will be expected to comply with all rules and
+                                    regulations as set forth in the Company’s policies and in any communications made to me. I understand that
+                                    while the company makes every effort to accommodate individual preferences, business needs may make the
+                                    following necessary: overtime; shift work; a rotating work schedule; a work schedule that includes weekend
+                                    work.
+                                    <br />
+                                    <input type="checkbox" id="FinalChk3" name="FinalChk3" value="RnU3" /> I have read and understand the above paragraph.
+                                    <br />
+                                    <br />
+                                </p>
+
+
+                                <p>
+                                    <b>
+                                        <input type="checkbox" id="FinalChk4" name="FinalChk4" value="RnU4" />
+                                        By checking this box, I certify under penalty of perjury that all of the foregoing information is true and
+                                        complete, and I understand that any falsification or omission of information may result in denial of
+                                        employment; or, if I am employed by the Company, may result in termination regardless of the time lapse
+                                        before discovery.
+                                    </b>
+                                </p>
+                                <br />
+
+                            </div>
+
+                            <br />
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-1" for="dob">Name<span style="color:red;font-size:20px;">*</span>:</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" id="dob" name="sig_name" databvalidator="required" value="@Model.emp_name" readonly>
+                                </div>
+
+                                <label class="control-label col-sm-1" for="mobile">Date<span style="color:red;font-size:20px;">*</span>:</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" id="sig_date" name="sig_date" readonly>
+                                </div>
+
+                                <label class="control-label col-sm-3">Upload Driver Licence Photo<span style="color:red;font-size:20px;">*</span>:<br /><span style="font-size:12px; color: #54595f"><i>.jpg, .png, .jpeg  files only.(max size 5MB)</i></span></label>
+                                <div class="col-sm-3">
+                                    <input type="file" class="form-control" name="linc_file" id="linc_file" databvalidator="required" accept=".jpg, .png, .jpeg" />
+                                    @*<canvas id="signature" name="singdata" width="245" height="150" style="border: 1px solid #ddd;"></canvas>
+                                    <br>
+                                    <button type="button" id="clear-signature">Clear</button>*@
+
+                                </div>
+                            </div>
+
+                            @*<div class="form-group">
+                                <div class="col-sm-12">
+                                    <b>Note :</b> Accept .jpg, .png, .jpeg  files only.
+                                </div>
+                                <label class="control-label col-sm-3" for="name">Upload Driver Licence Photo <span style="color:red;font-size:20px;">*</span></label>
+                                <div class="col-sm-8">
+                                    <input type="file" class="form-control" name="linc_file" databvalidator="required" accept=".jpg, .png, .jpeg" />
+                                </div>
+
+                            </div>*@
+
+                        </div>
+                        <input type="submit" style="background-color:#232e42;color: #fff;font-weight: 800;" id="btnFSubmit" name="btnFSubmit" disabled class="btn btn-primary" value="Submit" onclick="Validation();" />
+                        @ViewBag.msg
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+
+
+                    </div>
+                </div>
+                                    }
+
+        }
+        </div>
+
+</body>
+</html>
+

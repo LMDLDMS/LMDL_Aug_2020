@@ -1,0 +1,80 @@
+﻿@model deliverymangementsystem.EDM.tbldrivertraning
+@using deliverymangementsystem.Models
+@{
+    var objcomm = new common();
+
+
+}
+<script>
+
+    $(function () {
+
+        $("#schdate1").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+        $("#inclassdateone").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+        $("#inclassdatetwo").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+        $("#ridealongdate").datepicker({ minDate: 0, maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+
+    });
+
+    $(document).ready(function () {
+        $("#form1").bValidator();
+    });
+
+</script>
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">Edit Info</h4>
+    @using (Html.BeginForm("rescheduleDriverTraning", "Admin", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+        <input type="hidden" name="d_id" value="@ViewBag.d_id" />
+
+        @*<div class="form-group">
+            <label for="inputAddress">Candidate Name</label>
+            <label for="inputAddress">@ViewBag.d_name</label>
+        </div>*@
+
+        <div class="form-group">
+            <label>Name :</label>
+            <input type="text" name="drivername" class="form-control" value="@ViewBag.d_name"/>
+        </div>
+
+        <div class="form-group">
+            <label>Phone Number :</label>
+            <input type="text" name="phone" class="form-control" value="@ViewBag.phone"/>
+        </div>
+
+        <div class="form-group">
+            <label>Personal Email :</label>
+            <input type="email" name="personalemail" class="form-control" value="@ViewBag.personalemail"/>
+        </div>
+
+        <div class="form-group">
+            <label>Work Email :</label>
+            <input type="email" name="workemail" class="form-control" value="@ViewBag.workemail"/>
+        </div>
+
+            @*<div class="form-group">
+                    <label for="inputAddress2">In Class Traning Date One </label>
+                    @Html.TextBox("inclassdateone", String.Format("{0:d}", Model.inclassdateone.Value.ToString("MM-dd-yyyy")), new { @class = "form-control", @placeholder = "select Date", @databvalidator = "required" })
+
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress2">In Class Traning Date Two </label>
+                    @Html.TextBox("inclassdatetwo", String.Format("{0:d}", Model.inclassdatetwo.Value.ToString("MM-dd-yyyy")), new { @class = "form-control", @placeholder = "select Date", @databvalidator = "required" })
+
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress2">Ride Along Date </label>
+                    @Html.TextBox("ridealongdate", String.Format("{0:d}", Model.ridealongdate.Value.ToString("MM-dd-yyyy")), new { @class = "form-control", @placeholder = "select Date", @databvalidator = "required" })
+
+                </div>*@
+
+
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <div>
+                @ViewBag.msg
+            </div>
+
+    }
+
+</div>

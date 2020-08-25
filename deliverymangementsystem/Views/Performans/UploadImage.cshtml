@@ -1,0 +1,114 @@
+﻿
+@using deliverymangementsystem.EDM
+
+@{
+    var dc = new dsdatabaseEntities();
+
+    var con_id = int.Parse(Session["con_id"].ToString());
+
+}
+<script>
+    debugger;
+    function DeleteSecondImage(con_id) {
+        if (confirm('Do you want to delete second Image ?')) {
+            
+            //alert(document.getElementById('hdnImg2').value);
+
+            document.getElementById('hdnImg2').value = '';
+
+            $('#img2').attr("src", "");
+            $('#file2').val('');
+
+            //alert(document.getElementById('hdnImg2').value);
+
+            //$.ajax({
+            //    url: '/Performans/DeleteSecondImage/' + id,
+            //    type: 'Post',
+            //    success: function (data) {
+
+            //        $(".modal-body").empty();
+
+            //        $(".modal-body").append(data);
+
+            //        $("#model").modal('show');
+            //    }
+            //});
+        }
+    }
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#img1').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURL1(input) {
+
+
+
+        if (input.files && input.files[0]) {
+
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#img2').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $(document).ready(function () {
+
+
+
+        $("#file1").change(function () {
+
+            readURL(this);
+        });
+        $("#file2").change(function () {
+
+            readURL1(this);
+
+        });
+
+    });
+
+</script>
+
+
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4">UploadImage</h4>
+    @using (Html.BeginForm("UploadImage", "Performans", FormMethod.Post, new { @id = "form1", @enctype = "multipart/form-data", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+        <input type="hidden" value="@TempData["con_id"]" id="con_id" />
+
+        <input type="hidden" value="@dc.tblconcessions.Find(con_id).image_two" id="hdnImg2" name="hdnImg2" />
+
+        <div class="form-group">
+            <label for="inputAddress">Upload Image 1</label>
+            <img src="/Uploads/@dc.tblconcessions.Find(con_id).image_one" id="img1" width="100" height="100" />
+            <input type="file" id="file1" name="file1" />
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+        </div>
+        <div class="form-group">
+            <label for="inputAddress">Upload Image 2</label>
+            <img src="/Uploads/@dc.tblconcessions.Find(con_id).image_two" id="img2" width="100" height="100" />
+            <input type="file" id="file2" name="file2"  />
+            @*<input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name" required="">*@
+            <button type="button" onclick="DeleteSecondImage(@con_id);" class="btn btn-primary">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+        <div>@ViewBag.msg</div>
+
+    }
+
+</div>

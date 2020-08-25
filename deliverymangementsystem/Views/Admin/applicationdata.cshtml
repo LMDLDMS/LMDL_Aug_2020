@@ -1,0 +1,1883 @@
+﻿@model deliverymangementsystem.EDM.tblonbordingmaster
+<script src="~/maskjs/jquery.inputmask.bundle.js"></script>
+<script src="~/jspdf/jspdf.js"></script>
+
+<style type="text/css">
+    @@font-face {
+        font-family: 'Montserrat-Bold';
+        src: url('../../fonts/Montserrat-Bold.otf') format('opentype');
+    }
+
+    @@font-face {
+        font-family: 'Montserrat-Regular';
+        src: url('../../fonts/Montserrat-Regular.otf') format('opentype');
+    }
+
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+
+    h3 {
+        font-family: Montserrat-Bold;
+        font-size: 24px;
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        width: 100%;
+        padding: 5px;
+        margin: 3px 0 7px 0;
+        display: inline-block;
+        border: none;
+        background: #f1f1f1;
+        font-size: 16px;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    .row {
+        margin-top: 20px;
+    }
+
+    input[type=text], input[type=password], select[type=text], textarea[type=text] {
+        width: 100%;
+        padding: 10px;
+        margin: 3px 0 10px 0;
+        display: inline-block;
+        border: none;
+        background: #f1f1f1;
+    }
+
+        input[type=text]:focus, input[type=password]:focus, select[type=text]:focus, textarea[type=text]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+    label {
+        font-weight: 600;
+    }
+input[type='radio'] {
+    -webkit-appearance:none;
+    width:18px;
+    height:18px;
+    border:1px solid darkgray;
+    border-radius:50% !important;
+    outline:none;
+    box-shadow:0 0 5px 0px gray inset;
+}
+input[type='radio']:hover {
+    box-shadow:0 0 5px 0px orange inset;
+}
+input[type='radio']:before {
+    content:'';
+    display:block;
+    width:50%;
+    height:50%;
+    margin: 25% auto;    
+    border-radius:50%;    
+}
+input[type='radio']:checked:before {
+    background:black;
+}
+
+</style>
+
+<script>
+
+    function GeneratePDF() {
+        debugger;
+        var doc = new jsPDF;
+
+        doc.setDrawColor(0, 0, 0);
+
+        doc.setLineWidth(0.5);
+        doc.line(0, 294, 210, 294);
+
+        doc.setLineWidth(0.5);
+        doc.line(0, 3, 210, 3);
+
+        doc.setLineWidth(620);
+        doc.line(3, 3, 3, 3);
+
+        doc.setLineWidth(620);
+        doc.line(3, 3, 3, 3);
+
+        doc.setLineWidth(620);
+        doc.line(207, 207, 207, 207);
+
+        doc.setLineWidth(620);
+        doc.line(207, 207, 207, 207);
+
+        var imgData = 'data:image/png;base64,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';
+        doc.addImage(imgData, 'png', 93, 10, 20, 20);
+        debugger;
+        //doc.setFillColor(0, 0, 0, 0.5);
+        doc.setFont("helvetica");
+        doc.setFontType("bold");
+        doc.setFontSize(18);
+        doc.setTextColor(0, 0, 0);
+        doc.text("Application Form", 79, 40);
+
+        doc.setDrawColor(35, 46, 66);
+        doc.setLineWidth(10);
+        doc.line(10, 55, 199, 55);
+
+
+        //doc.roundedRect(50, 150, 10, 10, 3, 3, 'FD');
+
+
+        // new row 1
+        // new column 1
+        doc.setFont("helvetica");
+        doc.setFontType("bold");
+        doc.setFontSize(15);
+        doc.setTextColor(255, 255, 255);
+        doc.text("Personal Information", 79, 56);
+
+        //doc.setLineWidth(0.5);
+        //doc.line(0, 55, 500, 55);
+        doc.setTextColor(0, 0, 0);
+        doc.setFontType("normal");
+        // new row 1
+        // new column 1
+        doc.setFont("helvetica");
+        doc.setFontSize(12);
+
+        doc.setFontType("bold");
+        doc.text("Name : ", 10, 80);
+
+        doc.setFontType("normal");
+        doc.text($('#name').val(), 27, 80);
+
+
+
+        //doc.setFontType("bold");
+        //doc.text("DOB : ", 5, 80);
+
+        //doc.setFontType("normal");
+        //doc.text($('#ddob').val(), 20, 80);
+        //if ($('#ddob').val().length == 10) {
+        //    doc.text($('#ddob').val().substring(10, 0), 20, 80);
+        //}
+        //else
+        //{
+        //    doc.text($('#ddob').val().substring(9, 0), 20, 80);
+        //}
+        doc.setFontType("bold");
+        doc.text("Mobile : ", 10, 90);
+
+        doc.setFontType("normal");
+        doc.text($('#fmobile').val(), 27, 90);
+
+        doc.setFontType("bold");
+        doc.text("Email : ", 10, 100);
+
+        doc.setFontType("normal");
+        doc.text($('#email').val(), 25, 100);
+
+        doc.setFontType("bold");
+        doc.text("Address : ", 10, 110);
+        doc.setFontType("normal");
+        doc.text($('#addr').val(), 30, 110);
+
+        doc.setFontType("bold");
+        doc.text("City : ", 10, 120);
+        doc.setFontType("normal");
+        doc.text($('#city').val(), 25, 120);
+
+        doc.setFontType("bold");
+        doc.text("State : ", 10, 130);
+        doc.setFontType("normal");
+        doc.text($('#State').val(), 25, 130);
+
+        doc.setFontType("bold");
+        doc.text("Zip : ", 10, 140);
+        doc.setFontType("normal");
+        doc.text($('#zip').val(), 25, 140);
+
+        //doc.setFontType("bold");
+        //doc.text("Driving Lic. No : ", 5, 150);
+        //doc.setFontType("normal");
+        //doc.text($('#dl').val(), 40, 150);
+
+        // new column 2
+
+        //doc.setFontType("bold");
+        //doc.text("Are you a US Citizen? :      ", 100, 70);
+        //doc.setFontType("normal");
+        //doc.text($('#are_you_us_city').val(), 150, 70);
+
+        //doc.setFontType("bold");
+        //doc.text("If no, are you Legally allowed to \nwork in the USA?:        ", 100, 80);
+        //doc.setFontType("normal");
+        //doc.text($('#are_you_legal_us_city').val(), 140, 85);
+
+        //doc.setFontType("bold");
+        //doc.text("Are You Willing to Submit to a 5-point\nPre-Employment Drug Screening Test?:  ", 100, 95);
+        //doc.setFontType("normal");
+        //doc.text($('#drug_test').val(), 185, 100);
+
+        doc.setFontType("bold");
+        doc.text("Are you legally authorized to work \nfor this Company in the \nUnited States?:", 100, 80);
+        doc.setFontType("normal");
+
+        if ($('input[name=IsLeagalyAuthorized]').val().trim() != "") {
+            var v1 = $('input[name=IsLeagalyAuthorized]').val().split(',');
+            doc.text(v1[0], 140, 90);
+        }
+        else {
+            doc.text("", 140, 90);
+        }
+        doc.setFontType("bold");
+        doc.text("Will you now or in the future require \nsponsorship by this Company \nto attain or maintain your employment status?", 100, 100);
+        doc.setFontType("normal");
+
+        if ($('input[name=IsSponShipRequired]').val().trim() != "") {
+            var v = $('input[name=IsSponShipRequired]').val().split(',');
+            doc.text(v[0], 100, 115);
+        }
+        else {
+            doc.text("", 100, 115);
+        }
+        doc.setFontType("bold");
+        doc.text("Are you Available to work Saturday? : ", 100, 125);
+
+        doc.setFontType("normal");
+        var saturdaydetails = $('input[name=saturdaydetails]').val();
+        doc.text($('#work_sat').val() + " , " + saturdaydetails, 100, 130);
+
+        doc.setFontType("bold");
+        doc.text("Are you Available to work Sunday? : ", 100, 140);
+
+        doc.setFontType("normal");
+        var sundaydetails = $('input[name=sundaydetails]').val();
+        doc.text($('#work_sun').val() + " , " + sundaydetails, 100, 145);
+
+        //doc.setFontType("bold");
+        //doc.text("Have you received tickets and or points on \nyour Driving record in the past 7 years? : ", 100, 135);
+
+        //doc.setFontType("normal");
+        //var ticketcount = $('input[name=ticketcount]').val();
+        //doc.text($('#ticket_point').val() + " ," + ticketcount, 185, 140);
+
+        // new row 2
+        //doc.setLineWidth(0.5);
+        //doc.line(0, 160, 500, 160);
+        doc.setDrawColor(35, 46, 66);
+        doc.setLineWidth(10);
+        doc.line(10, 165, 199, 165);
+
+        doc.setFont("helvetica");
+        doc.setFontType("bold");
+        doc.setFontSize(15);
+        doc.setTextColor(255, 255, 255);
+        doc.text("Position Information", 79, 167);
+
+        //doc.setLineWidth(0.5);
+        //doc.line(0, 170, 500, 170);
+
+        doc.setTextColor(0, 0, 0);
+        doc.setFontType("bold");
+        // new row 3
+        // new col 1
+
+        doc.setFontSize(12);
+        doc.text("Position Applied for: ", 10, 180);
+        doc.setFontType("normal");
+        doc.text($('#position').val(), 55, 180);
+
+        doc.setFontType("bold");
+        doc.text("Available Start Date: ", 10, 190);
+        doc.setFontType("normal");
+        doc.text($('#startdate').val(), 55, 190);
+
+        // new col 2
+        doc.setFontType("bold");
+        doc.text("Desired Pay: ", 105, 180);
+        doc.setFontType("normal");
+        doc.text($('#desiredpay').val(), 135, 180);
+
+        doc.setFontType("bold");
+        doc.text("Employment Desired? ", 105, 190);
+        doc.setFontType("normal");
+        var empD = $('#employment_desired').val();
+        doc.text(empD, 155, 190);
+
+        // new row 3
+        //doc.setLineWidth(0.5);
+        //doc.line(0, 200, 500, 200);
+        doc.setDrawColor(35, 46, 66);
+        doc.setLineWidth(10);
+        doc.line(10, 205, 199, 205);
+
+        doc.setFont("helvetica");
+        doc.setFontType("bold");
+        doc.setFontSize(15);
+        doc.setTextColor(255, 255, 255);
+        doc.text("Education Information", 79, 207);
+
+        //doc.setLineWidth(0.5);
+        //doc.line(0, 210, 500, 210);
+
+        doc.setTextColor(0, 0, 0);
+        doc.setFontType("bold");
+        // new row 4
+        // new col 1
+
+        doc.setDrawColor(0, 0, 0);
+        doc.setLineWidth(9);
+        doc.line(10, 219, 199, 219);
+
+
+        doc.setDrawColor(119, 136, 153);
+        doc.setLineWidth(7);
+        doc.line(11, 219, 198, 219);
+        doc.setFontSize(9);
+        doc.setTextColor(255, 255, 255);
+
+        doc.setFontSize(12);
+        doc.text("Title", 12, 220);
+        doc.text("Education 1 Details", 55, 220);
+        doc.text("Education 2 Details", 132, 220);
+
+        doc.setDrawColor(220, 220, 220);
+        doc.setLineWidth(9);
+        doc.line(10, 228, 199, 228);
+        doc.setFontSize(9);
+        doc.setTextColor(0, 0, 0);
+
+        doc.setFontType("bold");
+        doc.text("School Name ", 12, 229);
+        doc.setFontType("normal");
+        doc.text($('input[name=schoolname1]').val(), 55, 229);
+        doc.text($('input[name=schoolname2]').val(), 132, 229);
+
+        doc.setDrawColor(255, 255, 255);
+        doc.setLineWidth(9);
+        doc.line(10, 237, 199, 237);
+
+        doc.setFontType("bold");
+        doc.text("Location ", 12, 238);
+        doc.setFontType("normal");
+        doc.text($('input[name=location1]').val(), 55, 238);
+        doc.text($('input[name=location2]').val(), 132, 238);
+
+        doc.setDrawColor(220, 220, 220);
+        doc.setLineWidth(9);
+        doc.line(10, 246, 199, 246);
+
+        doc.setFontType("bold");
+        doc.text("Year Graduated ", 12, 247);
+        doc.setFontType("normal");
+        doc.text($('input[name=yearsattended1]').val(), 55, 247);
+        doc.text($('input[name=yearsattended2]').val(), 132, 247);
+
+        doc.setDrawColor(255, 255, 255);
+        doc.setLineWidth(9);
+        doc.line(10, 255, 199, 255);
+
+        doc.setFontType("bold");
+        doc.text("Degree Received ", 12, 256);
+        doc.setFontType("normal");
+        doc.text($('input[name=degreereceived1]').val(), 55, 256);
+        doc.text($('input[name=degreereceived2]').val(), 132, 256);
+
+        doc.setDrawColor(220, 220, 220);
+        doc.setLineWidth(9);
+        doc.line(10, 264, 199, 264);
+
+        doc.setFontType("bold");
+        doc.text("Major ", 12, 265);
+        doc.setFontType("normal");
+        doc.text($('input[name=major1]').val(), 55, 265);
+        doc.text($('input[name=major2]').val(), 132, 265);
+
+        // new col 2
+        // doc.setFontType("bold");
+        // doc.text("Education 2 Details", 125, 220);
+
+        //doc.text("School Name : ", 110, 230);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=schoolname2]').val(), 140, 230);
+
+        //doc.setFontType("bold");
+        //doc.text("Location : ", 110, 240);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=location2]').val(), 140, 240);
+
+        //doc.setFontType("bold");
+        //doc.text("Years Attended : ", 110, 250);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=yearsattended2]').val(), 145, 250);
+
+        //doc.setFontType("bold");
+        //doc.text("Degree Received : ", 110, 260);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=degreereceived2]').val(), 145, 260);
+
+        //doc.setFontType("bold");
+        //doc.text("Major : ", 110, 270);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=major2]').val(), 130, 270);
+
+        doc.addPage();
+
+        // new row 4
+        //doc.setLineWidth(0.5);
+        //doc.line(0, 10, 500, 10);
+
+        doc.setDrawColor(0, 0, 0);
+
+        doc.setLineWidth(0.5);
+        doc.line(0, 294, 210, 294);
+
+        doc.setLineWidth(0.5);
+        doc.line(0, 3, 210, 3);
+
+        doc.setLineWidth(620);
+        doc.line(3, 3, 3, 3);
+
+        doc.setLineWidth(620);
+        doc.line(3, 3, 3, 3);
+
+        doc.setLineWidth(620);
+        doc.line(207, 207, 207, 207);
+
+        doc.setLineWidth(620);
+        doc.line(207, 207, 207, 207);
+
+
+        doc.setDrawColor(35, 46, 66);
+        doc.setLineWidth(10);
+        doc.line(10, 15, 199, 15);
+
+        doc.setFont("helvetica");
+        doc.setFontType("bold");
+        doc.setFontSize(15);
+        doc.setTextColor(255, 255, 255);
+        doc.text("Employment Information", 79, 17);
+
+        //doc.setLineWidth(0.5);
+        //doc.line(0, 20, 500, 20);
+
+        /////// EMployer 1
+
+        doc.setDrawColor(0, 0, 0);
+        doc.setLineWidth(9);
+        doc.line(10, 29, 199, 29);
+
+
+        doc.setDrawColor(119, 136, 153);
+        doc.setLineWidth(7);
+        doc.line(11, 29, 198, 29);
+        doc.setFontSize(9);
+        doc.setTextColor(255, 255, 255);
+
+        // new row 5
+        // new col 1
+        doc.setFontSize(11);
+        doc.text("Title", 12, 30);
+        doc.text("Employment 1 Details", 52, 30);
+        doc.text("Employment 2 Details", 105, 30);
+        doc.text("Employment 3 Details", 157, 30);
+
+        doc.setDrawColor(255, 255, 255);
+        doc.setLineWidth(9);
+        doc.line(10, 38, 199, 38);
+        doc.setFontSize(9);
+        doc.setTextColor(0, 0, 0);
+
+        doc.setFontSize(9);
+        doc.text("Employer Name", 11, 39);
+        doc.setFontType("normal");
+        doc.text($('input[name=employer1]').val(), 52, 39);
+        doc.text($('input[name=employer2]').val(), 105, 39);
+        doc.text($('input[name=employer3]').val(), 157, 39);
+
+        doc.setDrawColor(220, 220, 220);
+        doc.setLineWidth(9);
+        doc.line(10, 47, 199, 47);
+
+        doc.setFontType("bold");
+        doc.text("Job Title", 11, 48);
+        doc.setFontType("normal");
+        doc.text($('input[name=jobtitle1]').val(), 52, 48);
+        doc.text($('input[name=jobtitle2]').val(), 105, 48);
+        doc.text($('input[name=jobtitle3]').val(), 157, 48);
+
+
+        doc.setDrawColor(255, 255, 255);
+        doc.setLineWidth(9);
+        doc.line(10, 56, 199, 56);
+
+        doc.setFontType("bold");
+        doc.text("Work Phone", 11, 57);
+        doc.setFontType("normal");
+        doc.text($('input[name=workphone1]').val(), 52, 57);
+        doc.text($('input[name=workphone2]').val(), 105, 57);
+        doc.text($('input[name=workphone3]').val(), 157, 57);
+
+
+
+
+        //doc.setFontType("bold");
+        //doc.text("Starting pay : ", 5, 70);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=startpayingrate1]').val(), 35, 70);
+
+        //doc.setFontType("bold");
+        //doc.text("Ending pay : ", 5, 80);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=endpayrate1]').val(), 35, 80);
+
+        doc.setDrawColor(220, 220, 220);
+        doc.setLineWidth(9);
+        doc.line(10, 65, 199, 65);
+
+        doc.setFontType("bold");
+        doc.text("Start Date", 11, 66);
+        doc.setFontType("normal");
+        doc.text($('input[name=empstartdate1]').val(), 52, 66);
+        doc.text($('input[name=empstartdate2]').val(), 105, 66);
+        doc.text($('input[name=empstartdate3]').val(), 157, 66);
+
+        doc.setDrawColor(255, 255, 255);
+        doc.setLineWidth(9);
+        doc.line(10, 74, 199, 74);
+
+        doc.setFontType("bold");
+        doc.text("End Date", 11, 75);
+        doc.setFontType("normal");
+        doc.text($('input[name=empenddate1]').val(), 52, 75);
+        doc.text($('input[name=empenddate2]').val(), 105, 75);
+        doc.text($('input[name=empenddate3]').val(), 157, 75);
+
+        doc.setDrawColor(220, 220, 220);
+        doc.setLineWidth(9);
+        doc.line(10, 83, 199, 83);
+
+        doc.setFontType("bold");
+        doc.text("Address", 11, 84);
+        doc.setFontType("normal");
+        doc.text($('input[name=address1]').val(), 52, 84);
+        doc.text($('input[name=address2]').val(), 105, 84);
+        doc.text($('input[name=address3]').val(), 157, 84);
+
+        doc.setDrawColor(255, 255, 255);
+        doc.setLineWidth(9);
+        doc.line(10, 92, 199, 92);
+
+        doc.setFontType("bold");
+        doc.text("City", 11, 93);
+        doc.setFontType("normal");
+        doc.text($('input[name=city1]').val(), 52, 93);
+        doc.text($('input[name=city2]').val(), 105, 93);
+        doc.text($('input[name=city3]').val(), 157, 93);
+
+        doc.setDrawColor(220, 220, 220);
+        doc.setLineWidth(9);
+        doc.line(10, 101, 199, 101);
+
+
+        doc.setFontType("bold");
+        doc.text("State", 11, 102);
+        doc.setFontType("normal");
+        doc.text($('input[name=state1]').val(), 52, 102);
+        doc.text($('input[name=state2]').val(), 105, 102);
+        doc.text($('input[name=state3]').val(), 157, 102);
+
+        doc.setDrawColor(255, 255, 255);
+        doc.setLineWidth(9);
+        doc.line(10, 110, 199, 110);
+
+
+        doc.setFontType("bold");
+        doc.text("Zip", 11, 111);
+        doc.setFontType("normal");
+        doc.text($('input[name=zip1]').val(), 52, 111);
+        doc.text($('input[name=zip2]').val(), 105, 111);
+        doc.text($('input[name=zip3]').val(), 157, 111);
+
+        doc.setDrawColor(220, 220, 220);
+        doc.setLineWidth(9);
+        doc.line(10, 119, 199, 119);
+
+
+
+        doc.setFontType("bold");
+        doc.text("Ending Pay Rate", 11, 120);
+        doc.setFontType("normal");
+        doc.text($('input[name=endpayrate1]').val(), 52, 120);
+        doc.text($('input[name=endpayrate2]').val(), 105, 120);
+        doc.text($('input[name=endpayrate3]').val(), 157, 120);
+
+        //doc.setFontType("bold");
+        //doc.text("Remarks : ", 5, 130);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=remak1]').val(), 35, 130);
+
+
+        /////// EMployer 2
+
+
+        // new col 2
+        //doc.setFontType("bold");
+        //doc.text("Employment 2 Details", 125, 30);
+
+        //doc.text("Employer Name : ", 110, 40);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=employer2]').val(), 145, 40);
+
+        //doc.setFontType("bold");
+        //doc.text("Job Title : ", 110, 50);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=jobtitle2]').val(), 135, 50);
+
+        //doc.setFontType("bold");
+        //doc.text("Work Phone : ", 110, 60);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=workphone2]').val(), 140, 60);
+
+        //doc.setFontType("bold");
+        //doc.text("Starting pay : ", 110, 70);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=startpayingrate2]').val(), 140, 70);
+
+        //doc.setFontType("bold");
+        //doc.text("Ending pay : ", 110, 80);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=endpayrate2]').val(), 140, 80);
+
+        //doc.setFontType("bold");
+        //doc.text("Start Date : ", 110, 70);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=empstartdate1]').val(), 140, 70);
+
+        //doc.setFontType("bold");
+        //doc.text("End Date : ", 110, 80);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=empenddate1]').val(), 140, 80);
+
+        //doc.setFontType("bold");
+        //doc.text("Address : ", 110, 90);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=address2]').val(), 135, 90);
+
+        //doc.setFontType("bold");
+        //doc.text("City : ", 110, 100);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=city2]').val(), 125, 100);
+
+        //doc.setFontType("bold");
+        //doc.text("State : ", 110, 110);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=state2]').val(), 130, 110);
+
+        //doc.setFontType("bold");
+        //doc.text("Zip : ", 110, 120);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=zip2]').val(), 125, 120);
+
+        //doc.setFontType("bold");
+        //doc.text("Ending Pay Rate : ", 110, 130);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=endpayrate2]').val(), 150, 130);
+
+
+        /////// EMployer 3
+
+
+        //doc.setFontType("bold");
+        //doc.setFontSize(12);
+        //doc.text("Employment 3 Details", 30, 150);
+
+        //doc.text("Employer Name : ", 5, 160);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=employer3]').val(), 40, 160);
+
+        //doc.setFontType("bold");
+        //doc.text("Job Title : ", 5, 170);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=jobtitle3]').val(), 30, 170);
+
+        //doc.setFontType("bold");
+        //doc.text("Work Phone : ", 5, 180);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=workphone3]').val(), 35, 180);
+
+        //doc.setFontType("bold");
+        //doc.text("Starting pay : ", 5, 70);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=startpayingrate1]').val(), 35, 70);
+
+        //doc.setFontType("bold");
+        //doc.text("Ending pay : ", 5, 80);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=endpayrate1]').val(), 35, 80);
+
+        //doc.setFontType("bold");
+        //doc.text("Start Date : ", 5, 190);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=empstartdate3]').val(), 35, 190);
+
+        //doc.setFontType("bold");
+        //doc.text("End Date : ", 5, 200);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=empenddate3]').val(), 35, 200);
+
+        //doc.setFontType("bold");
+        //doc.text("Address : ", 5, 210);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=address3]').val(), 30, 210);
+
+        //doc.setFontType("bold");
+        //doc.text("City : ", 5, 220);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=city3]').val(), 20, 220);
+
+        //doc.setFontType("bold");
+        //doc.text("State : ", 5, 230);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=state3]').val(), 25, 230);
+
+        //doc.setFontType("bold");
+        //doc.text("Zip : ", 5, 240);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=zip3]').val(), 20, 240);
+
+        //doc.setFontType("bold");
+        //doc.text("Ending Pay Rate : ", 5, 250);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=endpayrate3]').val(), 50, 250);
+
+
+        //doc.setFontType("bold");
+        //doc.text("Remarks : ", 110, 130);
+        //doc.setFontType("normal");
+        //doc.text($('input[name=remak2]').val(), 140, 130);
+
+
+
+        // new row 6
+        //doc.setLineWidth(0.5);
+        //doc.line(0, 140, 500, 140);
+        doc.setFontType("bold");
+        doc.setDrawColor(35, 46, 66);
+        doc.setLineWidth(10);
+        doc.line(10, 145, 199, 145);
+
+        doc.setFont("helvetica");
+        doc.setFontType("bold");
+        doc.setFontSize(15);
+        doc.setTextColor(255, 255, 255);
+        doc.text("SIGNATURE DISCLAIMER", 75, 147);
+
+        //doc.setLineWidth(0.5);
+        //doc.line(0, 150, 500, 150);
+
+        doc.setTextColor(0, 0, 0);
+        //doc.setFontType("normal");
+        // new row 7
+        //doc.text("I certify that my answers are true and complete to the best of my knowledge. \nIf this application leads to employment, I understand that false or misleading \ninformation in my application or interview may result in my release.", 5, 25);
+        doc.setFontType("normal");
+
+        var disclaimer = "I consent to and authorize the Company to contact my former employers, and any and all other persons and organizations for \n" +
+            "information bearing upon my qualifications for employment. Unless I noted otherwise, I further authorize the listed employers, \n" +
+            "schools, and personal references to give the Company  (without further notice to me) any and all information about my previous  \n" +
+            "employment and education, along with other pertinent information they may have and hereby waive any actions which I may have  \n" +
+            "against either party/ parties for providing a reference as part of this application process. I understand that any employment \n" +
+            "or offer of employment arising from this Application for Employment will be subject to satisfactory verification of all job \n" +
+            "qualifications and information contained in this Application for Employment, which may include academic credentials, licenses, \n" +
+            "professional designations, references,credit and employment history, motor vehicles and other background checks, to the extent \n" +
+            "permitted by and in accordance with applicable law.\n\n" +
+
+
+            "I expressly agree and understand that completion of this application is a preliminary step to employment. It does not obligate the \n" +
+            "Company to offer me employment or for me to accept employment. I further agree and understand that in the event I am employed \n" +
+            "by the Company, my employment with the Company will be “at will.” This means that my employment is not for a specified term and \n" +
+            "that it may be terminated by the Company or me at any time, for any reason, with or without cause or notice. I understand that no \n" +
+            "document or any statement of any employee of the Company constitutes a contract of employment between me and the Company \n" +
+            "that in any way alters or changes my employment at will status. I further understand that the at-will nature of my employment \n" +
+            "cannot be changed, on an individual or collective basis, except by a formal written contract, stating it is a contract of employment, \n" +
+            "signed by the President/CEO of the Company. I understand that this Application for Employment does not constitute an agreement \n" +
+            "or contract for employment between me and the Company. \n\n" +
+
+
+            "In the event I am employed by the Company, I understand that I will be expected to comply with all rules and regulations as set \n" +
+            "forth in the Company’s policies and in any communications made to me. I understand that while the company makes every effort to \n" +
+            "accommodate individual preferences, business needs may make the following necessary: overtime; shift work; a rotating work \n" +
+            "schedule; a work schedule that includes weekend work.\n\n" +
+
+            "By checking this box, I certify under penalty of perjury that all of the foregoing information is true and complete, and I understand \n" +
+            "that any falsification or omission of information may result in denial of  employment; or, if I am employed by the Company, may \n" +
+            "result in termination regardless of the time lapse before discovery. ";
+        doc.setFontSize(9);
+        doc.text(disclaimer, 10, 157);
+
+        doc.setFontSize(12);
+        doc.setFontType("bold");
+        // new row 8
+        // new col 1
+        doc.text("Sign Name : ", 10, 270);
+        doc.setFontType("normal");
+        doc.text($('input[name=sig_name]').val(), 43, 270);
+
+        doc.setFontType("bold");
+        doc.text("Sign Date : ", 10, 277);
+        doc.setFontType("normal");
+        doc.text($('input[name=sig_date]').val(), 43, 277);
+
+
+        //// new col 2
+        //var img = new Image();
+
+        ////doc.addImage(img, 'png', 110, 190, 30, 30);
+        //img.src = "Uploads/" + $('#upload_linces_photo').val();
+
+        //alert(img.src);
+        //img.src = path.resolve($('#upload_linces_photo').val());
+        //alert(img.src);
+
+        var Sname = $('#name').val().replace(" ", "_");
+        doc.save('ApplicationForm_' + Sname + '.pdf');
+    }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#profile').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $(function () {
+
+        $("#ddob").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'mm-dd-yy',
+            yearRange: '1950:2013'
+        });
+
+        $("#sig_date").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'mm-dd-yy'
+
+        });
+
+        $("#startdate").datepicker({ minDate: "-5M -10D", maxDate: "+5M +10D", dateFormat: 'mm-dd-yy' });
+    });
+
+    $(document).ready(function () {
+
+        //$("#file").change(function () {
+        //    readURL(this);
+        //});
+
+        var stateval = $("#State").val();
+        $("#statetemp").val(stateval);
+
+
+
+        //var phones = [{ "mask": "(###) ###-####" }, { "mask": "(###) ###-##############" }];
+        //$('#fmobile').inputmask({
+        //    mask: phones,
+        //    greedy: false,
+        //    definitions: { '#': { validator: "[0-9]", cardinality: 1 } }
+        //});
+        //
+        //$('#workphone1').inputmask({
+        //    mask: phones,
+        //    greedy: false,
+        //    definitions: { '#': { validator: "[0-9]", cardinality: 1 } }
+        //});
+        //
+        //$('#workphone2').inputmask({
+        //    mask: phones,
+        //    greedy: false,
+        //    definitions: { '#': { validator: "[0-9]", cardinality: 1 } }
+        //});
+
+
+        $("#isconvictedyes").click(function () {
+            $("#s1").show();
+            $("#s11").show();
+
+        })
+
+        $("#isconvictedno").click(function () {
+
+            $("#s1").hide();
+            $("#s11").hide();
+
+
+        })
+        $("#availablesaturdayyes").click(function () {
+            $("#s2").show();
+            $("#s22").show();
+
+        })
+
+        $("#availablesaturdayno").click(function () {
+
+            $("#s2").hide();
+            $("#s22").hide();
+        })
+
+        $("#availablesundayyes").click(function () {
+
+            $("#s3").show();
+            $("#s33").show();
+
+        })
+
+        $("#availablesundayno").click(function () {
+
+            $("#s3").hide();
+            $("#s33").hide();
+
+        })
+        $("#btnclick").click(function () {
+
+            var data = new FormData();
+            var files = $("#file").get(0).files;
+            if (files.length > 0) {
+
+                data.append("MyImages", files[0]);
+                data.append("empid", $("#empid").val())
+
+
+            }
+
+            $.ajax({
+                url: "/Admin/UploadLincApp",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (response) {
+
+                    alert(" Update Successfully ..");
+
+                },
+                error: function (er) {
+                    alert(er);
+                }
+
+            });
+
+
+        });
+
+        //$('#applicantData').children().attr('disabled', 'disabled');
+        $("#applicantData").find("*").prop("disabled", true);
+
+
+        //binds to onchange event of your input field
+        $('#file').bind('change', function () {
+            var fileSize = this.files[0].size;
+            // 1048576
+            fileSize = fileSize / 1048576;
+            if (fileSize > 5) {
+                alert("Maximum image size is 5 MB. \nPlease upload image below or equal to 5 MB.\nYour image size is - " + parseInt(fileSize) + " MB.");
+                $('#file').val('');
+                $('#profile').attr('src', '');
+            }
+            else {
+                readURL(this);
+            }
+
+        });
+
+
+    });
+
+</script>
+
+@using deliverymangementsystem.EDM;
+@{
+    var dc = new dsdatabaseEntities();
+}
+@using (Html.BeginForm("applicationdata", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <div class="container" id="print">
+
+        <input type="hidden" name="emp_id1" id="empid" value="@Model.emp_id" />
+
+
+        <button style="text-align:left" id="generatePDF" name="generatePDF" value="generatePDF" onclick="GeneratePDF()" class="btn btn-primary">
+            <i class="fa fa-file-pdf"></i>
+        </button>
+
+
+        <div class="row">
+
+            <div id="applicantData">
+
+                <!-- PERSONAL INFO SECTION -->
+                <div class="container-fluid wv-rad5-shadow" style="margin-bottom:20px;">
+
+                    <h3 class="popup-header">PERSONAL INFORMATION</h3>
+
+                    <input type="hidden" name="emp_id" />
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="control-label" for="name"> Full Name:</label>
+                            <div>
+                                <input type="text" class="form-control" id="name" name="fname" placeholder="Enter Name" value="@Model.emp_name">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+
+                            <label class="control-label" for="mobile">Mobile:</label>
+                            <div>
+                                <input type="text" class="form-control" id="fmobile" maxlength="10" name="mobile" value="@Model.emp_phone">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+
+                            <label class="control-label" for="email">Email:</label>
+                            <div>
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value="@Model.emp_personal_email">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-4">
+                            <label class="control-label" for="addr">Address:</label>
+                            <div>
+                                <input type="text" class="form-control" id="addr" placeholder="Enter Street" name="addr" value="@Model.emp_add">
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-4">
+                            <label class="control-label" for="city">City:</label>
+                            <div>
+                                <input type="text" class="form-control" id="city" name="city" value="@Model.city">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <label class="control-label" for="state">State:</label>
+                            <div>
+                                <input type="hidden" class="form-control" id="State" name="State" value="@Model.state">
+                                <select name="statetemp" id="statetemp" class="form-control">
+                                    <option value="">  </option>
+                                    <option value="Alabama"> Alabama </option>
+                                    <option value="Alaska"> Alaska </option>
+                                    <option value="Arizona"> Arizona </option>
+                                    <option value="Arkansas"> Arkansas </option>
+                                    <option value="California"> California </option>
+                                    <option value="Colorado"> Colorado </option>
+                                    <option value="Connecticut"> Connecticut </option>
+                                    <option value="Delaware"> Delaware </option>
+                                    <option value="District Of Columbia"> District Of Columbia </option>
+                                    <option value="Florida"> Florida </option>
+                                    <option value="Georgia"> Georgia </option>
+                                    <option value="Hawaii"> Hawaii </option>
+                                    <option value="Idaho"> Idaho </option>
+                                    <option value="Illinois"> Illinois </option>
+                                    <option value="Indiana"> Indiana </option>
+                                    <option value="Iowa"> Iowa </option>
+                                    <option value="Kansas"> Kansas </option>
+                                    <option value="Kentucky"> Kentucky </option>
+                                    <option value="Louisiana"> Louisiana </option>
+                                    <option value="Maine"> Maine </option>
+                                    <option value="Maryland"> Maryland </option>
+                                    <option value="Massachusetts"> Massachusetts </option>
+                                    <option value="Michigan"> Michigan </option>
+                                    <option value="Minnesota"> Minnesota </option>
+                                    <option value="Mississippi"> Mississippi </option>
+                                    <option value="Missouri"> Missouri </option>
+                                    <option value="Montana"> Montana </option>
+                                    <option value="Nebraska"> Nebraska </option>
+                                    <option value="Nevada"> Nevada </option>
+                                    <option value="New Hampshire"> New Hampshire </option>
+                                    <option value="New Jersey"> New Jersey </option>
+                                    <option value="New Mexico"> New Mexico </option>
+                                    <option value="New York"> New York </option>
+                                    <option value="North Carolina"> North Carolina </option>
+                                    <option value="North Dakota"> North Dakota </option>
+                                    <option value="Ohio"> Ohio </option>
+                                    <option value="Oklahoma"> Oklahoma </option>
+                                    <option value="Oregon"> Oregon </option>
+                                    <option value="Pennsylvania"> Pennsylvania </option>
+                                    <option value="Rhode Island"> Rhode Island </option>
+                                    <option value="South Carolina"> South Carolina </option>
+                                    <option value="South Dakota"> South Dakota </option>
+                                    <option value="Tennessee"> Tennessee </option>
+                                    <option value="Texas"> Texas </option>
+                                    <option value="Utah"> Utah </option>
+                                    <option value="Vermont"> Vermont </option>
+                                    <option value="Virginia"> Virginia </option>
+                                    <option value="Washington"> Washington </option>
+                                    <option value="West Virginia"> West Virginia </option>
+                                    <option value="Wisconsin"> Wisconsin </option>
+                                    <option value="Wyoming"> Wyoming </option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-4">
+                            <label class="control-label" for="zip">Zip:</label>
+                            <div>
+                                <input type="text" class="form-control" id="zip" placeholder="Enter Zip" name="zip" value="@Model.zip">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-8">
+                            <label class="control-label">How did you hear about us? :</label>
+                            <input type="hidden" id="SOIid" name="SOIid" value="@Model.source_id" />
+                            @{
+                                if (Model.source_id != null)
+                                {
+                                    var SOI = dc.tblsources.Find(Model.source_id);
+                                    <input type="text" name="SourceOfInquiry" class="form-control" value="@SOI.source_name" id="SourceOfInquiry" databvalidator="required" />
+                                }
+                                else
+                                {
+                                    <input type="text" name="SourceOfInquiry" class="form-control" id="SourceOfInquiry" databvalidator="required" />
+                                }
+                            }
+                        </div>
+
+                        @*<div class="col-sm-4">
+                                    <div>
+                                <label class="control-label">Are you a US Citizen?</label><br />
+                                @{
+                                    <input type="hidden" name="are_you_us_city" id="are_you_us_city" value="@Model.are_you_us_city" />
+                                    if (Model.are_you_us_city == "yes")
+                                    {
+                                <input type="radio" id="iscitizenusyes" name="iscitizenus" value="yes" checked="checked"> <label for="iscitizenusyes">Yes</label>
+                                <input type="radio" id="iscitizenusno" name="iscitizenus" value="no"> <label for="iscitizenusno">No</label>
+
+                                    }
+                                    else
+                                    {
+                                <input type="radio" id="iscitizenusyes" name="iscitizenus" value="yes"> <label for="iscitizenusyes">Yes</label>
+                                <input type="radio" id="iscitizenusno" name="iscitizenus" checked="checked" value="no"> <label for="iscitizenusno">No</label>
+
+                                    }
+                                }
+                            </div>
+                                </div>*@
+
+                    </div>
+
+                    <div class="row">
+
+                        <label class="control-label col-sm-7">Are you legally authorized to work for this Company in the United States?:</label>
+                        
+                            <div class="col-sm-3">
+                                @{
+
+                                    <input type="hidden" name="IsLeagalyAuthorized" id="IsLeagalyAuthorized" value="@Model.IsLeagalyAuthorized" />
+                                    if (Model.IsLeagalyAuthorized == "yes")
+                                    {
+                                        <input type="radio" name="IsLeagalyAuthorized" value="yes" required checked> <label>Yes</label>
+                                        <input type="radio" name="IsLeagalyAuthorized" value="no"> <label>No</label>
+                                    }
+                                    else if (Model.IsLeagalyAuthorized == "no")
+                                    {
+                                        <input type="radio" name="IsLeagalyAuthorized" value="yes" required> <label>Yes</label>
+                                        <input type="radio" name="IsLeagalyAuthorized" value="no" checked> <label>No</label>
+                                    }
+                                    else
+                                    {
+                                        <input type="radio" name="IsLeagalyAuthorized" value="yes"> <label>Yes</label>
+                                        <input type="radio" name="IsLeagalyAuthorized" value="no"> <label>No</label>
+                                    }
+                               
+                                }
+                            </div>
+                            </div>
+                        
+
+                    <div class="row">
+
+                        <label class="control-label col-sm-7">Will you now or in the future require sponsorship by this Company to attain or maintain your employment status?:</label>
+                        <div class="col-sm-3">
+                            @{
+                                <input type="hidden" name="IsSponShipRequired" id="IsSponShipRequired" value="@Model.IsSponShipRequired" />
+                                if (Model.IsSponShipRequired == "yes")
+                                {
+                                    <input type="radio" name="IsSponShipRequired" value="yes" checked required> <label>Yes</label>
+                                    <input type="radio" name="IsSponShipRequired" value="no"> <label>No</label>
+                                }
+                                else if (Model.IsSponShipRequired == "no")
+                                {
+                                    <input type="radio" name="IsSponShipRequired" value="yes" required> <label>Yes</label>
+                                    <input type="radio" name="IsSponShipRequired" value="no" checked> <label>No</label>
+                                }
+                                else
+                                {
+                                    <input type="radio" name="IsSponShipRequired" value="yes"> <label>Yes</label>
+                                    <input type="radio" name="IsSponShipRequired" value="no"> <label>No</label>
+                                }
+
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class="control-label col-sm-3">Are you Available to work Saturday?:</label>
+                        <div class="col-sm-3">
+                            @{
+                                <input type="hidden" name="work_sat" id="work_sat" value="@Model.work_sat" />
+                                if (Model.work_sat == "yes")
+                                {
+                                    <input type="radio" name="availablesaturday" id="availablesaturdayyes" checked="checked" value="yes"> <label for="availablesaturdayyes">Yes</label>
+                                    <input type="radio" name="availablesaturday" id="availablesaturdayno" value="no"> <label for="availablesaturdayno">No</label>
+
+                                }
+                                else
+                                {
+                                    <input type="radio" name="availablesaturday" id="availablesaturdayyes" value="yes"> <label for="availablesaturdayyes">Yes</label>
+                                    <input type="radio" name="availablesaturday" id="availablesaturdayno" checked="checked" value="no"> <label for="availablesaturdayno">No</label>
+
+
+                                }
+
+                            }
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="convictiondetails" name="saturdaydetails" value="@Model.work_sat_explain">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <label class="control-label col-sm-3">Are you Available to work Sunday?:</label>
+                        <div class="col-sm-3">
+                            @{
+                                <input type="hidden" name="work_sun" id="work_sun" value="@Model.work_sun" />
+                                if (Model.work_sun == "yes")
+                                {
+                                    <input type="radio" name="availablesunday" id="availablesundayyes" checked="checked" value="yes"> <label for="availablesundayyes">Yes</label>
+                                    <input type="radio" name="availablesunday" id="availablesundayno" value="no"> <label for="availablesundayno">No</label>
+                                }
+                                else
+                                {
+                                    <input type="radio" name="availablesunday" id="availablesundayyes" value="yes"> <label for="availablesundayyes">Yes</label>
+                                    <input type="radio" name="availablesunday" id="availablesundayno" checked="checked" value="no"> <label for="availablesundayno">No</label>
+
+                                }
+
+                            }
+                        </div>
+
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="convictiondetails" name="sundaydetails" value="@Model.work_sun_explain">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- POSITION INFO SECTION -->
+                <div class="container-fluid wv-rad5-shadow" style="margin-bottom:20px;">
+                    <h3 class="popup-header">POSITION</h3>
+
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <label class="control-label" for="position">Position Applied for:</label>
+                            <div>
+                                <input type="text" class="form-control" id="position" value="Delivery Associate" disabled name="position">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-7">
+                            <label class="control-label" for="startdate">Available Start Date:</label>
+                            <div>
+                                <input type="text" class="form-control" id="startdate" name="startdate" databvalidator="required" value="@Model.available_startdate.ToString().Split(' ')[0]">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <label class="control-label" for="desiredpay">Desired Pay:</label>
+                            <div>
+                                <input type="text" class="form-control" id="desiredpay" name="desiredpay" value="@Model.desired_Pay">
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <label class="control-label">Employment Desired?</label>
+                            <div>
+                                <input type="hidden" id="employment_desired" value="@Model.employment_desired" />
+                                @if (Model.employment_desired == "fulltime")
+                                {
+                                    <input type="radio" name="employmentdesired" value="fulltime" checked> <label>Full Time</label>
+                                    <input type="radio" name="employmentdesired" value="parttime"> <label>Part Time</label>
+                                    <input type="radio" name="employmentdesired" value="seasonal"> <label>Seasonal / Temp</label>
+                                }
+                                else if (Model.employment_desired == "parttime")
+                                {
+                                    <input type="radio" name="employmentdesired" value="fulltime"> <label>Full Time</label>
+                                    <input type="radio" name="employmentdesired" value="parttime" checked> <label>Part Time</label>
+                                    <input type="radio" name="employmentdesired" value="seasonal"> <label>Seasonal / Temp</label>
+                                }
+                                else if (Model.employment_desired == "seasonal")
+                                {
+                                    <input type="radio" name="employmentdesired" value="fulltime"> <label>Full Time</label>
+                                    <input type="radio" name="employmentdesired" value="parttime"> <label>Part Time</label>
+                                    <input type="radio" name="employmentdesired" value="seasonal" checked> <label>Seasonal / Temp</label>
+                                }
+                                else
+                                {
+                                    <input type="radio" name="employmentdesired" value="fulltime"> <label>Full Time</label>
+                                    <input type="radio" name="employmentdesired" value="parttime"> <label>Part Time</label>
+                                    <input type="radio" name="employmentdesired" value="seasonal"> <label>Seasonal / Temp</label>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- EDUCATION SECTION -->
+                <div class="container-fluid wv-rad5-shadow" style="margin-bottom:20px;">
+                    <h3 class="popup-header">EDUCATION</h3>
+
+                    @*<div class="table-responsive">
+                        <table class="table w-auto">
+                            <thead>
+                                <tr>
+                                    <th scope="col">School Name</th>
+                                    <th scope="col">Location</th>
+                                    <th scope="col">Years Attended</th>
+                                    <th scope="col">Degree Received</th>
+                                    <th scope="col">Major</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" class="form-control" id="schoolname" name="schoolname1" value="@Model.school_name1"></td>
+                                    <td><input type="text" class="form-control" id="location" name="location1" value="@Model.location1"></td>
+                                    <td><input type="text" class="form-control" id="yearsattended" name="yearsattended1" value="@Model.year_attended1"></td>
+                                    <td><input type="text" class="form-control" id="degreereceived" name="degreereceived1" value="@Model.degree_rec1"></td>
+                                    <td><input type="text" class="form-control" id="major" name="major1" value="@Model.major1"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="form-control" id="schoolname" name="schoolname2" value="@Model.school_name2"></td>
+                                    <td><input type="text" class="form-control" id="location" name="location2" value="@Model.location2"></td>
+                                    <td><input type="text" class="form-control" id="yearsattended" name="yearsattended2" value="@Model.year_attended2"></td>
+                                    <td><input type="text" class="form-control" id="degreereceived" name="degreereceived2" value="@Model.degree_rec2"></td>
+                                    <td><input type="text" class="form-control" id="major" name="major2" value="@Model.major2"></td>
+                                </tr>
+                            </tbody>
+                        </table>*@
+
+                    <div class="row" style="padding:1px 0px;">
+
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+
+                            <label>School Name</label>
+                            <input type="text" class="form-control" id="schoolname" name="schoolname1" value="@Model.school_name1">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>Location</label>
+                            <input type="text" class="form-control" id="location" name="location1" value="@Model.location1">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>Year Graduated</label>
+                            <input type="text" class="form-control" id="yearsattended" name="yearsattended1" value="@Model.year_attended1">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>Degree Received</label>
+                            <input type="text" class="form-control" id="degreereceived" name="degreereceived1" value="@Model.degree_rec1">
+
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-12">
+                            <label>Major</label>
+                            <input type="text" class="form-control" id="major" name="major1" value="@Model.major1">
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="row" style="padding:1px 0px;">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+
+                            <label>School Name</label>
+                            <input type="text" class="form-control" id="schoolname" name="schoolname2" value="@Model.school_name2">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>Location</label>
+                            <input type="text" class="form-control" id="location" name="location2" value="@Model.location2">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>Year Graduated</label>
+                            <input type="text" class="form-control" id="yearsattended" name="yearsattended2" value="@Model.year_attended2">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>Degree Received</label>
+                            <input type="text" class="form-control" id="degreereceived" name="degreereceived2" value="@Model.degree_rec2">
+
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-12">
+                            <label>Major</label>
+                            <input type="text" class="form-control" id="major" name="major2" value="@Model.major2">
+                        </div>
+
+                        <br />
+                    </div>
+                </div>
+
+                <!-- Emploment HISTORY -->
+                <div class="container-fluid wv-rad5-shadow" style="margin-bottom:20px;">
+                    <h3 class="popup-header">EMPLOYMENT HISTORY</h3>
+
+                    @*<div class="row">
+                                <div style="background-color:RGBA(0,0,0,0.05); padding:10px; margin-bottom:15px">
+
+
+                                    <table class="table w-auto">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">EMPLOYER NAME</th>
+                                                <th scope="col">JOB TITLE</th>
+                                                <th scope="col">WORK PHONE</th>
+                                                <th scope="col">START DATE</th>
+                                                <th scope="col">END DATE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" id="schoolname" name="employer1" value="@Model.employer1"></td>
+                                                <td><input type="text" class="form-control" id="jobtitle1" name="jobtitle1" value="@Model.jobtitle1"></td>
+                                                <td><input type="text" class="form-control" id="workphone1" name="workphone1" maxlength="10" value="@Model.work_phone1"></td>
+                                                <td><input type="text" class="form-control" id="empstartdate1" name="empstartdate1" value="@Model.empstartdate1"></td>
+                                                <td><input type="text" class="form-control" id="empenddate1" name="empenddate1" value="@Model.empenddate1"></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table w-auto">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ADDRESS</th>
+                                                <th scope="col">CITY</th>
+                                                <th scope="col">STATE</th>
+                                                <th scope="col">ZIP</th>
+                                                <th scope="col">ENDING PAY RATE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" id="address1" name="address1" value="@Model.address1"></td>
+                                                <td><input type="text" class="form-control" id="city1" name="city1" value="@Model.city1"></td>
+                                                <td><input type="text" class="form-control" id="city1" name="state1" value="@Model.state1"></td>
+                                                <td><input type="text" class="form-control" id="zip1" name="zip1" value="@Model.zip1"></td>
+                                                <td><input type="number" class="form-control" databvalidator="number" id="endpayrate1" name="endpayrate1" value="@Model.ending_pay_rate1"></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table w-auto" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Work Performed and Reason for Leaving</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><textarea name="WorkPerformed1" style="width:100%" rows="3">@Model.WorkPerformed1</textarea></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div style="background-color:RGBA(0,0,0,0.02); padding:10px; margin-bottom:15px">
+
+                                    <table class="table w-auto">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">EMPLOYER NAME</th>
+                                                <th scope="col">JOB TITLE</th>
+                                                <th scope="col">WORK PHONE</th>
+                                                <th scope="col">START DATE</th>
+                                                <th scope="col">END DATE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" id="schoolname" name="employer2" value="@Model.employer2"></td>
+                                                <td><input type="text" class="form-control" id="jobtitle2" name="jobtitle2" value="@Model.jobtitle2"></td>
+                                                <td><input type="text" class="form-control" id="workphone2" name="workphone2" maxlength="10" value="@Model.work_phone2"></td>
+                                                <td><input type="text" class="form-control" id="empstartdate2" name="empstartdate2" value="@Model.empstartdate2"></td>
+                                                <td><input type="text" class="form-control" id="empenddate2" name="empenddate2" value="@Model.empenddate2"></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table w-auto">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ADDRESS</th>
+                                                <th scope="col">CITY</th>
+                                                <th scope="col">STATE</th>
+                                                <th scope="col">ZIP</th>
+                                                <th scope="col">ENDING PAY RATE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" id="address2" name="address2" value="@Model.address2"></td>
+                                                <td><input type="text" class="form-control" id="city2" name="city2" value="@Model.city2"></td>
+                                                <td>
+                                                    <input type="text" class="form-control" id="city2" name="state2" value="@Model.state2">
+                                                </td>
+                                                <td><input type="text" class="form-control" id="zip2" name="zip2" value="@Model.zip2"></td>
+                                                <td><input type="number" class="form-control" databvalidator="number" id="endpayrate2" name="endpayrate2" value="@Model.ending_pay_rate2"></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table w-auto" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Work Performed and Reason for Leaving</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><textarea name="WorkPerformed2" style="width:100%" rows="3">@Model.WorkPerformed2</textarea></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div style="background-color:RGBA(0,0,0,0.05); padding:10px; margin-bottom:15px">
+
+                                    <table class="table w-auto">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">EMPLOYER NAME</th>
+                                                <th scope="col">JOB TITLE</th>
+                                                <th scope="col">WORK PHONE</th>
+                                                <th scope="col">START DATE</th>
+                                                <th scope="col">END DATE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" id="employer3" name="employer3" value="@Model.employer3"></td>
+                                                <td><input type="text" class="form-control" id="jobtitle3" name="jobtitle3" value="@Model.jobtitle3"></td>
+                                                <td><input type="text" class="form-control" id="workphone3" name="workphone3" maxlength="10" value="@Model.work_phone3"></td>
+                                                <td><input type="text" class="form-control" id="empstartdate3" name="empstartdate3" value="@Model.empstartdate3"></td>
+                                                <td><input type="text" class="form-control" id="empenddate3" name="empenddate3" value="@Model.empenddate3"></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table w-auto">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ADDRESS</th>
+                                                <th scope="col">CITY</th>
+                                                <th scope="col">STATE</th>
+                                                <th scope="col">ZIP</th>
+                                                <th scope="col">ENDING PAY RATE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" id="address3" name="address3" value="@Model.address3"></td>
+                                                <td><input type="text" class="form-control" id="city3" name="city3" value="@Model.city3"></td>
+                                                <td><input type="text" class="form-control" id="state3" name="state3" value="@Model.state3"></td>
+                                                <td><input type="text" class="form-control" id="zip3zip3" name="zip3" value="@Model.zip3"></td>
+                                                <td><input type="number" class="form-control" databvalidator="number" id="endpayrate3" name="endpayrate3" value="@Model.ending_pay_rate3"></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table w-auto" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Work Performed and Reason for Leaving</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><textarea name="WorkPerformed3" style="width:100%" rows="3">@Model.WorkPerformed3</textarea></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+
+                        </div>*@
+
+                    <div class="row" style="padding:1px 0px;">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>EMPLOYER NAME</label>
+                            <input type="text" class="form-control" id="schoolname" name="employer1" value="@Model.employer1">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>JOB TITLE</label>
+                            <input type="text" class="form-control" id="jobtitle1" name="jobtitle1" value="@Model.jobtitle1">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>WORK PHONE</label>
+                            <input type="text" class="form-control" id="workphone1" name="workphone1" maxlength="10" value="@Model.work_phone1">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>START DATE</label>
+                            <input type="text" class="form-control" id="empstartdate1" name="empstartdate1" value="@Model.empstartdate1">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>END DATE</label>
+                            <input type="text" class="form-control" id="empenddate1" name="empenddate1" value="@Model.empenddate1">
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>ENDING PAY RATE</label>
+                            <input type="number" class="form-control" databvalidator="number" id="endpayrate1" name="endpayrate1" value="@Model.ending_pay_rate1">
+                        </div>
+
+
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>ADDRESS</label>
+                            <input type="text" class="form-control" id="address1" name="address1" value="@Model.address1">
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <label>CITY</label>
+                            <input type="text" class="form-control" id="city1" name="city1" value="@Model.city1">
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <label>STATE</label>
+                            <input type="text" class="form-control" id="city1" name="state1" value="@Model.state1">
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <label>ZIP</label>
+                            <input type="text" class="form-control" id="zip1" name="zip1" value="@Model.zip1">
+                        </div>
+
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <label>Work Performed and Reason for Leaving</label>
+
+                            <textarea type="text" name="WorkPerformed1" rows="3">@Model.WorkPerformed1</textarea>
+                        </div>
+
+                        <br />
+                    </div>
+
+
+
+                    <div class="row" style="padding:1px 0px;">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>EMPLOYER NAME</label>
+                            <input type="text" class="form-control" id="employer2" name="employer2" value="@Model.employer2">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>JOB TITLE</label>
+                            <input type="text" class="form-control" id="jobtitle2" name="jobtitle2" value="@Model.jobtitle2">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>WORK PHONE</label>
+                            <input type="text" class="form-control" id="workphone2" name="workphone2" maxlength="10" value="@Model.work_phone2">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>START DATE</label>
+                            <input type="text" class="form-control" id="empstartdate2" name="empstartdate2" value="@Model.empstartdate2">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>END DATE</label>
+                            <input type="text" class="form-control" id="empenddate2" name="empenddate2" value="@Model.empenddate2">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>ENDING PAY RATE</label>
+                            <input type="number" class="form-control" databvalidator="number" id="endpayrate2" name="endpayrate2" value="@Model.ending_pay_rate2">
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>ADDRESS</label>
+                            <input type="text" class="form-control" id="address2" name="address2" value="@Model.address2">
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <label>CITY</label>
+                            <input type="text" class="form-control" id="city2" name="city2" value="@Model.city2">
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <label>STATE</label>
+                            <input type="text" class="form-control" id="city2" name="state2" value="@Model.state2">
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-3">
+                            <label>ZIP</label>
+                            <input type="text" class="form-control" id="zip2" name="zip2" value="@Model.zip2">
+                        </div>
+
+
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <label>Work Performed and Reason for Leaving</label>
+
+                            <textarea type="text" name="WorkPerformed2" rows="3">@Model.WorkPerformed2</textarea>
+                        </div>
+
+                        <br />
+                    </div>
+
+
+                    <div class="row" style="padding:1px 0px;">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>EMPLOYER NAME</label>
+                            <input type="text" class="form-control" id="employer3" name="employer3" value="@Model.employer3">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>JOB TITLE</label>
+                            <input type="text" class="form-control" id="jobtitle3" name="jobtitle3" value="@Model.jobtitle3">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>WORK PHONE</label>
+                            <input type="text" class="form-control" id="workphone3" name="workphone3" maxlength="10" value="@Model.work_phone3">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>START DATE</label>
+                            <input type="text" class="form-control" id="empstartdate3" name="empstartdate3" value="@Model.empstartdate3">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>END DATE</label>
+                            <input type="text" class="form-control" id="empenddate3" name="empenddate3" value="@Model.empenddate3">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <label>ENDING PAY RATE</label>
+                            <input type="number" class="form-control" databvalidator="number" id="endpayrate3" name="endpayrate3" value="@Model.ending_pay_rate3">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-3">
+                            <label>ADDRESS</label>
+                            <input type="text" class="form-control" id="address3" name="address3" value="@Model.address3">
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <label>CITY</label>
+                            <input type="text" class="form-control" id="city3" name="city3" value="@Model.city3">
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <label>STATE</label>
+                            <input type="text" class="form-control" id="city3" name="state3" value="@Model.state3">
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <label>ZIP</label>
+                            <input type="text" class="form-control" id="zip3" name="zip3" value="@Model.zip3">
+                        </div>
+
+
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <label>Work Performed and Reason for Leaving</label>
+
+                            <textarea type="text" name="WorkPerformed3" rows="3">@Model.WorkPerformed3</textarea>
+                        </div>
+
+                        <br />
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+            <!-- SIGNATURE DISCLAIMER -->
+            <div class="container-fluid wv-rad5-shadow">
+                <h3 class="popup-header">SIGNATURE DISCLAIMER</h3>
+
+                <p>
+                    I certify that my answers are true and complete to the best of my knowledge.
+                    If this application leads to employment, I understand that false or misleading information in my application or interview
+                    may result in my release.
+                </p>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label class="control-label" for="dob">Name:</label>
+                        <div>
+                            <input type="text" class="form-control" id="dob" value="@Model.sig_name" name="sig_name" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="control-label" for="mobile">Date:</label>
+                        <div>
+                            <input type="text" class="form-control" id="sig_date" value="@Model.sig_date.ToString().Split(' ')[0]" name="sig_date" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-4">
+                        <label>Drv. Lic</label>
+                        <img id="profile" alt="No Lic image Found" src="~/Uploads/@Model.upload_linces_photo" width="100" height="100" />
+                    </div>
+
+                    <div class="col-sm-8" style="margin-top:20px;">
+                        @*<input type="hidden" name="upload_linces_photo" id="upload_linces_photo" value="@Model.upload_linces_photo" />*@
+                        <input type="file" id="file" name="linc_file" />
+                        @*<input type="button" id="btnclick" value="Upload Photo" class="btn btn-primary" />*@
+                        @*<button id="btnclick" class="btn btn-primary">Upload Photo</button>*@
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    Notes :
+                    <textarea name="ApplicantRemarks" id="ApplicantRemarks" class="form-control"></textarea>
+                </div>
+                <br />
+
+                @*<input type="submit" style="background-color:#5F3E17;color: #fff;font-weight: 800;" class="btn btn-primary" value="Update" />*@
+                <button style="color: #fff;font-weight: 800;" class="btn btn-primary">
+                    Update
+                </button>
+
+                @ViewBag.msg
+            </div>
+        </div>
+    </div>
+
+
+
+
+}

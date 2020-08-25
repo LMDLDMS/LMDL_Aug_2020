@@ -1,0 +1,264 @@
+﻿@model  List<deliverymangementsystem.EDM.tblfinaldrivermaster>
+@{
+    ViewBag.Title = "finalDriverList";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+<link href="~/datatable/jquery.dataTables.css" rel="stylesheet" />
+@*<script src="~/datatable/jquery-3.4.1.min.js"></script>*@
+<script src="~/datatable/jquery.dataTables.js"></script>
+<script src="~/datatable/dataTables.buttons.min.js"></script>
+<script src="~/datatable/buttons.flash.min.js"></script>
+<script src="~/datatable/jszip.min.js"></script>
+<script src="~/datatable/pdfmake.min.js"></script>
+<script src="~/datatable/vfs_fonts.js"></script>
+<script src="~/datatable/buttons.html5.min.js"></script>
+<script src="~/datatable/buttons.print.min.js"></script>
+<script src="~/datatable/buttons.colVis.min.js"></script>
+
+<script>
+
+    function AddNotes(emp_id) {
+        $.ajax({
+            type: "GET",
+            url: '/Admin/AddNotesPopup/',
+            data: { "emp_id": emp_id, "formName": "FinalDriverList" },
+            success: function (data) {
+                $(".modal-body").empty();
+                $(".modal-body").append(data);
+                $("#model").modal('show');
+            }
+        });
+    }
+
+    // Added by ViBeS on 13/04/2020
+    function appform(id) {
+        $.ajax({
+            type: 'Get',
+            url: '/Admin/ApplicationSubmittedDataPopup/',
+            data: { "id": id, "form": "FinalDriverList" },
+            success: function (data) {
+                var result = data;
+                if (result.includes("Application submitted data not found")) {
+                    $(".modal-body").empty();
+                    $(".modal-body").append(data);
+                    $("#msgmodel").modal('show');
+                }
+                else {
+                    $(".modal-body").empty();
+                    $(".modal-body").append(data);
+                    $("#model").modal('show');
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+
+    function viewmore(id) {
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/Admin/ViewMoreEmployee/' + id,
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+
+            }
+
+
+        });
+
+
+    }
+
+    function terminateform(id) {
+
+        $.ajax({
+
+            type: 'Get',
+            url: '/Admin/Terminate/' + id,
+            success: function (data) {
+
+                $(".modal-body").empty();
+
+                $(".modal-body").append(data);
+
+                $("#model").modal('show');
+
+
+            }
+
+
+        });
+
+
+    }
+
+    function AddHRcheckList(id) {
+        $.ajax({
+
+            type: 'Get',
+            url: "/Admin/AddHRcheckListPopUp/" + id,
+            success: function (data) {
+                $(".modal-body").empty();
+                $(".modal-body").append(data);
+                $("#model").modal('show');
+            }
+
+
+        });
+        //window.location.href = "/Admin/AddHRcheckList/" + id
+    }
+
+    $(document).ready(function () {
+        
+        $("#status").change(function () {
+
+            var stp = $("#status").val();
+
+            window.location.href = "/Admin/finalDriverList/" + stp
+
+
+
+        });
+        $("#tbl").DataTable({
+            dom: 'lBfrtip',
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "pageLength": 25,
+            buttons: [
+                {
+                    extend: 'print',
+                    title: 'Final Driver List',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    title: 'Final Driver List',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'Final Driver List',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    }
+                },
+
+            ]
+        });
+
+
+
+    })
+
+</script>
+@using deliverymangementsystem.EDM;
+@using (Html.BeginForm())
+{
+
+<div class="container-fluid wv-rad5-shadow">
+    <h4 class="tittle-w3-agileits mb-4">Active DA List</h4>
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            @Html.DropDownList("status", new List<SelectListItem> { new SelectListItem { Text = "Active", Value = "active" }, new SelectListItem { Text = "Dactive", Value = "dactive" } }, "Please Select Status", new { @class = "form-control" })
+        </div>
+    </div>
+    
+    <div class="table-responsive" style="overflow-x:scroll; overflow-y:hidden">
+
+        <table class="table table-hover" id="tbl">
+            <thead>
+                <tr>
+
+                    <th scope="col">Driver Name</th>
+                    <th scope="col">Driver Number</th>
+                    <th scope="col">Driver Personal Email</th>
+
+                    @*<th scope="col">Driver Dob </th>*@
+                    <th scope="col"> Driver license number   </th>
+                    <th scope="col">Driver lincense State</th>
+                    <th>Edit</th>
+                    <th>Terminate</th>
+                    <th>HR-Checklist</th>
+                    <th>Notes</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+
+                        @*<td>@item.final_driver_name</td>*@
+
+                        <td>
+                            <button style="width:100%; font-size:11.5px" type="button" class="btn-no-styling" onclick="appform(@item.final_driver_id)">@item.final_driver_name</button>
+                        </td>
+
+                        <td>@item.personal_mobile_no</td>
+                        <td>@item.final_driver_company_email</td>
+                        @*<td>
+                            @{
+
+                                var dc = new dsdatabaseEntities();
+
+                                var driveremail = dc.tbldrivertests.Find(item.d_id).company_email;
+
+
+                            }
+
+                            @driveremail
+
+                        </td>*@
+                        @*<td>@item.dob.Value.ToShortDateString()</td>*@
+                        <td>@item.driver_license_no</td>
+                        <td>@item.driver_license_state</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" onclick="viewmore(@item.final_driver_id)"><i class="fas fa-edit"></i></button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" onclick="terminateform(@item.final_driver_id)"><i class="fas fa-trash"></i></button>
+                        </td>
+                        <td>
+                            @{
+                                if (item.d_id != null)
+                                {
+                                    <button type="button" style="width:90%" class="btn btn-primary" onclick="AddHRcheckList(@item.d_id)">HR-CheckList</button>
+                                }
+                                else
+                                {
+
+                                }
+                            }
+
+                        </td>
+
+                        <td>
+                            <button type="button" class="btn btn-primary" onclick="AddNotes(@item.d_id)"><i class="fas fa-sticky-note"></i></button>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+
+
+
+}

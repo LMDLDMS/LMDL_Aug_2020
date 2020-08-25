@@ -1,0 +1,104 @@
+﻿
+
+
+
+
+<script type="text/javascript">
+
+    function SetData(dname) {
+
+        //alert('changed');
+        //var driver_name = $("#driver_name1").val();
+
+        $.ajax({
+            type: 'Get',
+            url: '/Dispatch/getinfo/',
+            data: { "d_name": dname },
+            success: function (data) {
+                $.each(data, function (key, dept) {
+                    $("#routenumber1").val(dept.route);
+                    $("#pouchnumber1").val(dept.bag);
+                    $("#van_type1").val(dept.vantype);
+                    $("#van_number1").val(dept.van_number);
+                });
+            },
+            error: function () {
+            }
+        });
+
+    }
+
+    $(document).ready(function () { 
+        debugger;
+        //alert('kvbv');
+
+        $("#form1").bValidator();
+
+        //$("#driver_name1").change(function () {
+
+        //    alert('lvdyaa');
+
+        //    debugger;
+        //    alert('changed');
+        //    var driver_name = $("#driver_name1").val();
+
+        //    $.ajax({
+        //        type: 'Get',
+        //        url: '/Dispatch/getinfo/',
+        //        data: { "d_name": driver_name },
+        //        success: function (data) {
+        //            $.each(data, function (key, dept) {
+        //                $("#routenumber1").val(dept.route);
+        //                $("#pouchnumber1").val(dept.bag);
+        //                $("#van_type1").val(dept.vantype);
+        //                $("#van_number1").val(dept.van_number);
+        //            });
+        //        },
+        //        error: function () {
+        //        }
+        //    });
+        //});
+
+    });
+    
+</script>
+
+<div class="outer-w3-agile mt-3">
+    <h4 class="tittle-w3-agileits mb-4"> Edit Van Assign</h4>
+    @using (Html.BeginForm("editvaninfo", "Dispatch", FormMethod.Post, new { @id = "form1", @databvalidatorvalidate = "", @databvalidatortheme = "bs3form" }))
+    {
+
+        <div class="form-group">
+            <label for="inputAddress">Today Date</label>
+            <input type="text" class="form-control"  readonly="readonly" placeholder="Select Date" value="@DateTime.Now.ToShortDateString()" databvalidator="required">
+        </div>
+
+        <div class="form-group">
+            <label for="inputAddress">Driver Name</label>
+            @Html.DropDownList("driver_name1", ViewBag.data1 as List<SelectListItem>, "Select Driver Name", new { @class = "form-control", @placeholder = "Enter Designation", @databvalidator = "required", @onchange = "SetData(this.value)" })
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Route Number</label>
+            <input type="text" class="form-control" id="routenumber1" name="routenumber1" placeholder="Route Number" databvalidator="required">
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Pouch Number</label>
+            <input type="text" class="form-control" id="pouchnumber1" name="pouchnumber1" placeholder="Pouch Number" databvalidator="required">
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Van type</label>
+            @Html.DropDownList("van_type1", new List<SelectListItem> { new SelectListItem { Text = "Prime", Value = "Prime" }, new SelectListItem { Text = "Extended Prime", Value = "Extended Prime" }, new SelectListItem { Text = "Rental", Value = "Rental" } }, "Please Select Van Type", new { @class = "form-control", @databvalidator = "required" })
+
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Van Number</label>
+            <input type="text" id="van_number1" name="van_number1" class="form-control"  placeholder="Van Number" databvalidator="required">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+       
+        <div>@ViewBag.msg</div>
+
+
+    }
+
+</div>
